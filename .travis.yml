@@ -9,3 +9,7 @@ install:
 - ./Scripts/install.sh
 script:
 - ./Scripts/build.sh
+general:
+  branches:
+    only:
+      - staging
