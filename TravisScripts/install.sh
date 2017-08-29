@@ -2,7 +2,7 @@
 
 BASE_URL=http://netstorage.unity3d.com/unity
 HASH=88d00a7498cd
-VERSION=2017.1.0f3
+VERSION=5.5.1f1 #2017.1.0f3 # Should use newer version... but returns error (file not found)
 
 download() {
   file=$1
@@ -26,4 +26,5 @@ install() {
 install "MacEditorInstaller/Unity-$VERSION.pkg"
 install "MacEditorTargetInstaller/UnitySetup-Windows-Support-for-Editor-$VERSION.pkg"
 install "MacEditorTargetInstaller/UnitySetup-Mac-Support-for-Editor-$VERSION.pkg"
-#install "MacEditorTargetInstaller/UnitySetup-Linux-Support-for-Editor-$VERSION.pkg" #invalid
+install "MacEditorTargetInstaller/UnitySetup-Android-Support-for-Editor-$VERSION.pkg"
+install "MacEditorTargetInstaller/UnitySetup-Linux-Support-for-Editor-$VERSION.pkg"
