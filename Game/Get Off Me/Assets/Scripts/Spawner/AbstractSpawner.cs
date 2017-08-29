@@ -60,7 +60,7 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
     /// Gets an array of alive spawned game objects
     /// </summary>
     /// <returns>An array of spawned game objects that are still alive</returns>
-    public GameObject[] GetSpawns()
+    public GameObject[] GetAllSpawns()
     {
         var spawnCount = SpawnListTransform.childCount;
 
@@ -71,6 +71,22 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         }
 
         return spawns;
+    }
+
+    /// <summary>
+    /// Destroys all alive spawns
+    /// </summary>
+    /// <returns>Whenever 1 or more spawn were destroyed</returns>
+    public bool DestroyAllSpawns()
+    {
+        var spawns = GetAllSpawns();
+        var amountOfSpawns = spawns.Length;
+        for (int i = 0; i < spawns.Length; i++)
+        {
+            Destroy(spawns[i].gameObject);
+        }
+
+        return amountOfSpawns > 0;
     }
 
     /// <summary>
