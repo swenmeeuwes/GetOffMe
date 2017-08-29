@@ -3,12 +3,12 @@ osx_image: xcode8.1
 rvm:
 - 2.2
 before_install:
-- chmod a+x ./Scripts/install.sh
-- chmod a+x ./Scripts/build.sh
+- chmod a+x ./TravisScripts/install.sh
+- chmod a+x ./TravisScripts/build.sh
 install:
-- ./Scripts/install.sh
+- ./TravisScripts/install.sh
 script:
-- ./Scripts/build.sh
+- ./TravisScripts/build.sh
 general:
   branches:
     only:
