@@ -86,7 +86,7 @@ public class OffScreenSpawner : AbstractSpawner
     private void OnDrawGizmos()
     {
         // While NOT in play-mode
-        if (!EditorApplication.isPlaying)
+        if (!EditorApplication.isPlaying && orthographicCamera != null)
             InitializeSpawnPoints(amountOfSpawnPoints);
         // ---
 
