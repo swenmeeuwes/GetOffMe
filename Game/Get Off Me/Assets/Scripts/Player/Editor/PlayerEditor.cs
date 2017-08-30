@@ -11,17 +11,25 @@ public class PlayerEditor : Editor {
     private void OnEnable()
     {
         player = (Player)serializedObject.targetObject;
+
+        if (player.sizeInterpolation == null)
+            player.sizeInterpolation = new AnimationCurve();
     }
 
     public override void OnInspectorGUI()
     {
         //DrawDefaultInspector();
 
-        GUILayout.Label("Editor", EditorStyles.boldLabel);
-        player.rateOfSizeIncrease = EditorGUILayout.CurveField(player.rateOfSizeIncrease,GUILayout.Height(100));
+        EditorGUILayout.PrefixLabel("Health");
+        player.health = EditorGUILayout.FloatField(player.health);
+
+        EditorGUILayout.PrefixLabel("Absorb Percentage");
+        player.absorbPercentage = EditorGUILayout.IntSlider(player.absorbPercentage, 1, 100);
+
+        EditorGUILayout.PrefixLabel("Size Interpolation");
+        player.sizeInterpolation = EditorGUILayout.CurveField(player.sizeInterpolation, GUILayout.Height(100));
        
 
         serializedObject.ApplyModifiedProperties();
-        
     }
 }
