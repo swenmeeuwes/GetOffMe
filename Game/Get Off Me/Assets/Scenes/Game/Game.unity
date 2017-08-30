@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabledByDefault: 1
   initialDelay: 0.1
-  interval: 1.75
+  interval: 2.5
   objectToSpawn: {fileID: 1215110422154106, guid: 2117f283babe3e14d831d7937e997440,
     type: 2}
   orthographicCamera: {fileID: 1904601765}
