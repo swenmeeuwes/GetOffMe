@@ -21,7 +21,7 @@ public class Player : MonoBehaviour {
     }
 
     public void OnEnemyEnter(float size) {
-        float damageAmount = (size / absorbPercentage);
+        float damageAmount = size / (100 - absorbPercentage);
         Damage(damageAmount);
     }
 
