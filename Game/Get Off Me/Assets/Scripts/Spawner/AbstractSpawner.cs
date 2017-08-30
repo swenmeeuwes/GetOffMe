@@ -29,7 +29,7 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         {
             var newState = value;
             if (!Enabled && newState)
-                InvokeRepeating(SPAWN_METHOD_NAME, initialDelay, initialDelay);
+                InvokeRepeating(SPAWN_METHOD_NAME, initialDelay, interval);
             else if (Enabled && !newState)
                 CancelInvoke(SPAWN_METHOD_NAME);
 
