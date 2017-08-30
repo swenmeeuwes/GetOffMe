@@ -9,12 +9,17 @@ public class AbstractEnemy : MonoBehaviour {
     protected GameObject target;
     protected Vector3 velocity;
     protected float acceleration; // per second
+    protected float frictionAcceleration;
+    protected int weight;
 
     private Vector3 screenPoint;
     private Vector3 offset;
-    private Vector3 oldPosition = new Vector3(0,0,0);
+    private Vector3 oldPosition = Vector3.one;
+    protected Rigidbody2D rb;
 
-    void Start() { }
+    protected virtual void Start() {
+           rb = GetComponent<Rigidbody2D>();
+    }
 
     void Update() { }
 
@@ -34,6 +39,13 @@ public class AbstractEnemy : MonoBehaviour {
         transform.position = curPosition;
     }
     void OnMouseUp() {
-        velocity = transform.position - oldPosition;
+        //velocity = transform.position - oldPosition;
+        Debug.Log(transform.position - oldPosition);
+        rb.velocity = (transform.position - oldPosition) * 50;
+        //rb.AddForce(transform.position - oldPosition);
+        health -= 1;
+        if (health <= 0) {
+            Destroy(gameObject);
+        }
     }
 }
