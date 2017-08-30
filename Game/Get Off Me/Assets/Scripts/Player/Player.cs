@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
 
     private float maxHealth;
+    private float targetSize;
 
     private void Start()
     {
@@ -45,6 +46,18 @@ public class Player : MonoBehaviour {
         var lerpPosition = sizeInterpolation.Evaluate(1 - health / maxHealth);
         var newSize = Mathf.Lerp(startScale, maxScale, lerpPosition);
 
-        transform.localScale = new Vector2(newSize, newSize);
+        targetSize = newSize;
+
+        StartCoroutine(Grow());
+    }
+
+    IEnumerator Grow()
+    {
+        var growStep = 0.1f;
+        while (transform.localScale.x < targetSize)
+        {
+            transform.localScale += Vector3.one * growStep;
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
