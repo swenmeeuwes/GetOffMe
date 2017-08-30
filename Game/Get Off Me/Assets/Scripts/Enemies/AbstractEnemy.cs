@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class AbstractEnemy : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    protected int health;
+    protected float speed;
+    protected GameObject target;
+
+    void Start() { }
+
+    void Update() { }
 }
