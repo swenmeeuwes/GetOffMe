@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour {
@@ -29,6 +30,10 @@ public class Player : MonoBehaviour {
     {
         health -= amount;
         UpdateSize();
+
+        // Temp death function
+        if (health <= 0)
+            SceneManager.LoadScene("StartMenu");
     }
 
     private void UpdateSize()
