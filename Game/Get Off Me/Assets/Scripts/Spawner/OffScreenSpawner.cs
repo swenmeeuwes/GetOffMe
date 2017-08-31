@@ -69,7 +69,7 @@ public class OffScreenSpawner : AbstractSpawner
             
         var spawnCircleRadius = OffsettedScreenDiagonal / 2f;
 
-        var possibleSpawnPoints = new Vector2[precision];
+        var possibleSpawnPoints = new List<Vector2>();
         for (int i = 0; i < precision; i++)
         {
             var degree = ((float)i / (float)precision) * 360f;
@@ -81,10 +81,10 @@ public class OffScreenSpawner : AbstractSpawner
             var x = (float)(orthographicCamera.transform.position.x + spawnCircleRadius * Math.Cos(radianAngle));
             var y = (float)(orthographicCamera.transform.position.y + spawnCircleRadius * Math.Sin(radianAngle));
 
-            possibleSpawnPoints[i] = new Vector2(x, y);
+            possibleSpawnPoints.Add(new Vector2(x, y));
         }
 
-        spawnPoints = possibleSpawnPoints;
+        spawnPoints = possibleSpawnPoints.ToArray();
     }
 
     private void OnDrawGizmos()
