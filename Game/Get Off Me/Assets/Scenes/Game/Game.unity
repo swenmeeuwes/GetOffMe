@@ -329,8 +329,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  health: 50
-  absorbPercentage: 10
+  health: 10
+  absorbPercentage: 100
 --- !u!95 &451530798
 Animator:
   serializedVersion: 3
