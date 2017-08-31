@@ -18,6 +18,8 @@ public class OffScreenSpawner : AbstractSpawner
     private float spawnDistanceOffset = 0.0f;
     [SerializeField]
     private int amountOfSpawnPoints = 180;
+    [SerializeField]
+    private Vector2[] degreeBlacklist;
     // ---
 
     private float OffsettedScreenDiagonal
@@ -73,6 +75,9 @@ public class OffScreenSpawner : AbstractSpawner
             var degree = ((float)i / (float)precision) * 360f;
             var radianAngle = degree * Mathf.Deg2Rad;
 
+            if (DegreeIsBlackListed(degree))
+                continue;
+
             var x = (float)(orthographicCamera.transform.position.x + spawnCircleRadius * Math.Cos(radianAngle));
             var y = (float)(orthographicCamera.transform.position.y + spawnCircleRadius * Math.Sin(radianAngle));
 
@@ -103,5 +108,20 @@ public class OffScreenSpawner : AbstractSpawner
                 Gizmos.DrawCube(spawnPoints[i], Vector3.one * 0.2f);                
             }
         }
+    }
+
+    private bool DegreeIsBlackListed(float degree)
+    {
+        if(degreeBlacklist == null)
+            return false;
+
+        for (int i = 0; i < degreeBlacklist.Length; i++)
+        {
+            var item = degreeBlacklist[i];
+            if (item.x <= degree && item.y >= degree)
+                return true;
+        }
+
+        return false;
     }
 }
