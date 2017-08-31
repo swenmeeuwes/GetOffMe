@@ -23,7 +23,7 @@ public class Player : MonoBehaviour {
     }
 
     public void OnEnemyEnter(float size) {
-        float damageAmount = size / (100 - absorbPercentage);
+        float damageAmount = size / Mathf.Clamp((100 - absorbPercentage), 1, 100);
         Damage(damageAmount);
     }
 
@@ -31,10 +31,6 @@ public class Player : MonoBehaviour {
     {
         health -= amount;
         UpdateSize();
-
-        // Temp death function
-        if (health <= 0)
-            SceneManager.LoadScene("StartMenu");
     }
 
     private void UpdateSize()
@@ -59,5 +55,9 @@ public class Player : MonoBehaviour {
             transform.localScale += Vector3.one * growStep;
             yield return new WaitForEndOfFrame();
         }
+
+        // Temp death function
+        if (health <= 0)
+            SceneManager.LoadScene("StartMenu");
     }
 }
