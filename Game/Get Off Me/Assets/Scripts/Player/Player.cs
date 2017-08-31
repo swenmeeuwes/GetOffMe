@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour {
     public AnimationCurve sizeInterpolation;
     public float health;
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour {
 
     private Camera orthographicCamera;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
 
     private float maxHealth;
     private float targetSize;
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour {
         maxHealth = health;
         orthographicCamera = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     public void OnEnemyEnter(float size) {
@@ -44,10 +47,11 @@ public class Player : MonoBehaviour {
 
         targetSize = newSize;
 
+        animator.SetTrigger("hit");
         StartCoroutine(Grow());
     }
 
-    IEnumerator Grow()
+    private IEnumerator Grow()
     {
         var growStep = 0.1f;
         while (transform.localScale.x < targetSize)
