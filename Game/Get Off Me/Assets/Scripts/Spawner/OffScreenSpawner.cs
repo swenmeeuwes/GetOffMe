@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -86,7 +85,7 @@ public class OffScreenSpawner : AbstractSpawner
     private void OnDrawGizmos()
     {
         // While NOT in play-mode
-        if (!EditorApplication.isPlaying && orthographicCamera != null)
+        if (orthographicCamera != null)
             InitializeSpawnPoints(amountOfSpawnPoints);
         // ---
 
