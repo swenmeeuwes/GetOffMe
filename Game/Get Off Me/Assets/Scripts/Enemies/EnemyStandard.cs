@@ -28,6 +28,9 @@ public class EnemyStandard : AbstractEnemy {
 
     void OnCollisionEnter2D(Collision2D coll) {
         Destroy(gameObject);
-        target.GetComponent<Player>().OnEnemyEnter(model.health);
+
+        var player = coll.gameObject.GetComponent<Player>();
+        if(player)
+            player.OnEnemyEnter(model.health);
     }
 }
