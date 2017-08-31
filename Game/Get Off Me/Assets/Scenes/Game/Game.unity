@@ -184,6 +184,9 @@ MonoBehaviour:
   orthographicCamera: {fileID: 1904601765}
   spawnDistanceOffset: 2.44
   amountOfSpawnPoints: 180
+  degreeBlacklist:
+  - {x: 45, y: 135}
+  - {x: 225, y: 315}
 --- !u!1 &451530792
 GameObject:
   m_ObjectHideFlags: 0
