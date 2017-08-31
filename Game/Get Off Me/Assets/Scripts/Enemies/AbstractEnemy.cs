@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbstractEnemy : MonoBehaviour {
+public class AbstractEnemy : MonoBehaviour
+{
+    [SerializeField]
+    private Enemy enemyModel;
 
-    protected int health;
-    protected float maxSpeed;
+    protected Enemy model;
     protected GameObject target;
     protected Vector3 velocity;
     protected float acceleration; // per second
@@ -17,12 +19,16 @@ public class AbstractEnemy : MonoBehaviour {
     private Vector3 oldPosition = Vector3.one;
     protected Rigidbody2D rb;
 
-    protected virtual void Start() {
-           rb = GetComponent<Rigidbody2D>();
+    protected virtual void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        model = Instantiate(enemyModel);
     }
 
-    void Update() { }
+    void Update()
+    {
 
+    }
 
     void OnMouseDown()
     {
@@ -38,14 +44,22 @@ public class AbstractEnemy : MonoBehaviour {
         Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
         transform.position = curPosition;
     }
-    void OnMouseUp() {
-        //velocity = transform.position - oldPosition;
-        Debug.Log(transform.position - oldPosition);
+    void OnMouseUp()
+    {
         rb.velocity = (transform.position - oldPosition) * 50;
-        //rb.AddForce(transform.position - oldPosition);
-        health -= 1;
-        if (health <= 0) {
-            Destroy(gameObject);
+        model.health -= 1;
+        if (model.health <= 0)
+            StartCoroutine(Die());
+    }
+
+    IEnumerator Die()
+    {
+        var shrinkStep = 0.05f;
+        while (transform.localScale.x > 0)
+        {
+            transform.localScale -= Vector3.one * shrinkStep;
+            yield return new WaitForEndOfFrame();
         }
+        Destroy(gameObject);
     }
 }
