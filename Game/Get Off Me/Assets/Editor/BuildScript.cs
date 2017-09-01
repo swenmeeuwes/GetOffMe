@@ -8,7 +8,7 @@ class BuildScript
 {
     static string[] SCENES = FindEnabledEditorScenes();
 
-    static string APP_NAME = PlayerSettings.productName;
+    static string APP_NAME = "Get Off Me";//PlayerSettings.productName; // PlayerSettings don't work on Jenkins
     static string TARGET_DIR = "Target";
 
     //[MenuItem("Custom/CI/Build Mac OS X")]
