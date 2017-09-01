@@ -41,6 +41,12 @@ public class EnemyEditor : EditorWindow
         EditorGUILayout.PrefixLabel("Speed");
         enemy.speed = EditorGUILayout.FloatField(enemy.speed);
 
+        EditorGUILayout.PrefixLabel("varianceInSpeed");
+        enemy.varianceInSpeed = EditorGUILayout.FloatField(enemy.varianceInSpeed);
+
+        EditorGUILayout.PrefixLabel("Weight");
+        enemy.weight = EditorGUILayout.FloatField(enemy.weight);
+
         if (showFileNotFoundWarning)
             EditorGUILayout.HelpBox("Could not load enemy, enemy not found", MessageType.Warning);
 

@@ -6,4 +6,6 @@ public class Enemy : ScriptableObject
 {
     public int health;
     public float speed;
+    public float varianceInSpeed;
+    public float weight;
 }
