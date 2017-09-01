@@ -59,6 +59,9 @@ public class AbstractEnemy : MonoBehaviour
             transform.localScale -= Vector3.one * shrinkStep;
             yield return new WaitForEndOfFrame();
         }
+
+        ScoreManager.Instance.Score++;
+
         Destroy(gameObject);
     }
 }
