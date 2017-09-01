@@ -8,21 +8,13 @@ class BuildScript
 {
     static string[] SCENES = FindEnabledEditorScenes();
 
-    static string APP_NAME = "getoffme";//PlayerSettings.productName; // PlayerSettings don't work on Jenkins
+    static string APP_NAME = "Get Off Me";//PlayerSettings.productName; // PlayerSettings might not work on Jenkins
     static string TARGET_DIR = "Target";
-
-    //[MenuItem("Custom/CI/Build Mac OS X")]
-    //static void PerformMacOSXBuild()
-    //{
-    //    string target_dir = APP_NAME + ".app";
-    //    GenericBuild(SCENES, TARGET_DIR + "/" + target_dir, BuildTarget.StandaloneOSXIntel, BuildOptions.None);
-    //}
 
     [MenuItem("Custom/CI/Build Android")]
     static void PerformAndroidBuild()
     {
         string targetFile = APP_NAME + ".apk";
-        Debug.Log(targetFile);
         GenericBuild(SCENES, TARGET_DIR + "/" + targetFile, BuildTargetGroup.Android, BuildTarget.Android, BuildOptions.None);
     }
 
@@ -39,10 +31,9 @@ class BuildScript
 
     static void GenericBuild(string[] scenes, string targetDir, BuildTargetGroup buildTargetGroup, BuildTarget buildTarget, BuildOptions buildOptions)
     {
-        Debug.Log(targetDir);
         EditorUserBuildSettings.SwitchActiveBuildTarget(buildTargetGroup, buildTarget);
         string res = BuildPipeline.BuildPlayer(scenes, targetDir, buildTarget, buildOptions);
-        if (res.Length > 0) // pls...
+        if (res.Length > 0)
         {
             throw new Exception("BuildPlayer failure: " + res);
         }
