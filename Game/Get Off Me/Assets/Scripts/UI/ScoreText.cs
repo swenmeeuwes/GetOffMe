@@ -7,9 +7,12 @@ using UnityEngine.UI;
 public class ScoreText : MonoBehaviour {
     private Text textField;
 
-	void Start () {
+	private void Start () {
         textField = GetComponent<Text>();
+    }
 
-        textField.text = ScoreManager.Instance.Score.ToString();
+    private void Update()
+    {
+        textField.text = ScoreManager.Instance.Score.ToString(); // Listen to score changed event?
     }
 }
