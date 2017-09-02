@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class EnemyEditor : EditorWindow
+public class EntityEditor : EditorWindow
 {
     private EntityModel enemy;
     private string currentFileName;
 
     private bool showFileNotFoundWarning = false;
 
-    [MenuItem("Window/Enemy Editor")]
+    [MenuItem("Window/Entity Editor")]
     public static void ShowWindow()
     {
-        var window = EditorWindow.GetWindow(typeof(EnemyEditor));
+        var window = EditorWindow.GetWindow(typeof(EntityEditor));
         window.minSize = new Vector2(400, 200);
     }
 
@@ -55,12 +55,12 @@ public class EnemyEditor : EditorWindow
 
     private void HandleSaveButton()
     {
-        AssetDatabase.CreateAsset(enemy, EnemyAssetLocator.Instance.ResolveFileName(currentFileName));
+        AssetDatabase.CreateAsset(enemy, EntityAssetLocator.Instance.ResolveFileName(currentFileName));
     }
 
     private void HandleLoadButton()
     {
-        var enemyAsset = AssetDatabase.LoadAssetAtPath<EntityModel>(EnemyAssetLocator.Instance.ResolveFileName(currentFileName));
+        var enemyAsset = AssetDatabase.LoadAssetAtPath<EntityModel>(EntityAssetLocator.Instance.ResolveFileName(currentFileName));
         if (enemyAsset != null)
         {
             enemy = enemyAsset;
