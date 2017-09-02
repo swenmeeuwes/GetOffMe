@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A standard enemy which will attempt to reach the player
+/// An enemy which will attempt to reach the player
 /// </summary>
-public class EnemyStandard : AbstractEntity {
+public class SeekingEnemy : AbstractEntity {
     private GameObject target;
 
     protected override void Start () {
