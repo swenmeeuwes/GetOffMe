@@ -44,7 +44,7 @@ public class Player : MonoBehaviour {
     private void UpdateSize()
     {
         var playerTextureHeight = spriteRenderer.sprite.texture.height;
-        var maxScale = 15.6f; // Size in units to touch the top of the camera, maybe we could compute this dynamically...
+        var maxScale = 15.6f; // Size in units to touch the top of the camera, we could compute this dynamically...
 
         var lerpPosition = sizeInterpolation.Evaluate(1 - health / maxHealth);
         var newSize = Mathf.Lerp(startScale, maxScale, lerpPosition);
