@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EntityEditor : EditorWindow
 {
-    private EntityModel enemy;
+    private EntityModel entity;
     private string currentFileName;
 
     private bool showFileNotFoundWarning = false;
@@ -14,12 +14,12 @@ public class EntityEditor : EditorWindow
     public static void ShowWindow()
     {
         var window = EditorWindow.GetWindow(typeof(EntityEditor));
-        window.minSize = new Vector2(400, 200);
+        window.minSize = new Vector2(400, 300);
     }
 
     private void OnEnable()
     {
-        enemy = ScriptableObject.CreateInstance<EntityModel>();
+        entity = ScriptableObject.CreateInstance<EntityModel>();
     }
 
     private void OnGUI()
@@ -35,17 +35,26 @@ public class EntityEditor : EditorWindow
 
         GUILayout.BeginVertical();
 
+        GUILayout.Label("Properties", EditorStyles.boldLabel);
+
         EditorGUILayout.PrefixLabel("Health");
-        enemy.health = EditorGUILayout.IntField(enemy.health);
+        entity.health = EditorGUILayout.IntField(entity.health);
 
         EditorGUILayout.PrefixLabel("Speed");
-        enemy.speed = EditorGUILayout.FloatField(enemy.speed);
+        entity.speed = EditorGUILayout.FloatField(entity.speed);
 
-        EditorGUILayout.PrefixLabel("varianceInSpeed");
-        enemy.varianceInSpeed = EditorGUILayout.FloatField(enemy.varianceInSpeed);
+        EditorGUILayout.PrefixLabel("Variance in speed");
+        entity.varianceInSpeed = EditorGUILayout.FloatField(entity.varianceInSpeed);
 
         EditorGUILayout.PrefixLabel("Weight");
-        enemy.weight = EditorGUILayout.FloatField(enemy.weight);
+        entity.weight = EditorGUILayout.FloatField(entity.weight);
+
+        EditorGUILayout.Separator();
+
+        GUILayout.Label("Special", EditorStyles.boldLabel);
+
+        EditorGUILayout.PrefixLabel("Helmet");
+        entity.hasHelmet = EditorGUILayout.Toggle(entity.hasHelmet);
 
         if (showFileNotFoundWarning)
             EditorGUILayout.HelpBox("Could not load enemy, enemy not found", MessageType.Warning);
@@ -55,7 +64,8 @@ public class EntityEditor : EditorWindow
 
     private void HandleSaveButton()
     {
-        AssetDatabase.CreateAsset(enemy, EntityAssetLocator.Instance.ResolveFileName(currentFileName));
+        AssetDatabase.SaveAssets();
+        //AssetDatabase.CreateAsset(entity, EntityAssetLocator.Instance.ResolveFileName(currentFileName));
     }
 
     private void HandleLoadButton()
@@ -63,12 +73,12 @@ public class EntityEditor : EditorWindow
         var enemyAsset = AssetDatabase.LoadAssetAtPath<EntityModel>(EntityAssetLocator.Instance.ResolveFileName(currentFileName));
         if (enemyAsset != null)
         {
-            enemy = enemyAsset;
+            entity = enemyAsset;
             showFileNotFoundWarning = false;
         }
         else
         {
-            enemy = ScriptableObject.CreateInstance<EntityModel>();
+            entity = ScriptableObject.CreateInstance<EntityModel>();
             showFileNotFoundWarning = true;
         }
     }
