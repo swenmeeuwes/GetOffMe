@@ -10,7 +10,7 @@ public class AbstractEntity : MonoBehaviour
     private EntityModel entityModel;
 
     protected Rigidbody2D rb;
-    protected GameObject helmet;
+    protected Transform helmet;
 
     protected EntityModel model;
 
@@ -24,12 +24,18 @@ public class AbstractEntity : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         model = Instantiate(entityModel);
-        helmet = transform.Find("Helmet").gameObject;
+        helmet = transform.Find("Helmet");
 
         model.speed += Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
 
+        // TEMP UNTIL DIFFICULTY MANAGER
+        var r = Random.value;
+        model.hasHelmet = r > 0.8f;
+        // ---
+
+
         if (helmet != null && !model.hasHelmet)
-            helmet.SetActive(false);
+            helmet.gameObject.SetActive(false);
     }
 
     private void Update() { }
@@ -70,7 +76,7 @@ public class AbstractEntity : MonoBehaviour
             model.hasHelmet = false;
 
             if(helmet != null)
-                helmet.SetActive(false);
+                helmet.gameObject.SetActive(false);
         }
     }
 

@@ -11,7 +11,7 @@ public class OffScreenSpawner : AbstractSpawner
 {
     // Exposed inspector fields
     [SerializeField]
-    private GameObject objectToSpawn;
+    private GameObject objectToSpawn; // Obsolete
     [SerializeField]
     private Camera orthographicCamera;
     [SerializeField]
@@ -20,6 +20,12 @@ public class OffScreenSpawner : AbstractSpawner
     private int amountOfSpawnPoints = 180;
     [SerializeField]
     private Vector2[] degreeBlacklist;
+    // ---
+
+    // TEMP - Until data structure of dificulty manager in place
+    // Prefab, chance to spawn (%)
+    [SerializeField]
+    public Tuple<GameObject, int>[] entitySpawnList;
     // ---
 
     private float OffsettedScreenDiagonal
@@ -123,5 +129,21 @@ public class OffScreenSpawner : AbstractSpawner
         }
 
         return false;
+    }
+
+    private GameObject GetRandomEntityFromSpawnList()
+    {
+        var randomValue = UnityEngine.Random.value;
+        for (int i = 0; i < entitySpawnList.Length; i++)
+        {
+            var entityTuple = entitySpawnList[i];
+            randomValue -= entityTuple.item2 / 100;
+
+            if (randomValue <= 0)
+                return entityTuple.item1;
+        }
+
+        Debug.LogWarning("Please make sure the entity spawn chance total is 100.");
+        throw new Exception("Enemy spawn chance total is not 100%");
     }
 }

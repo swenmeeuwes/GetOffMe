@@ -65,7 +65,7 @@ public class EntityEditor : EditorWindow
     private void HandleSaveButton()
     {
         AssetDatabase.SaveAssets();
-        //AssetDatabase.CreateAsset(entity, EntityAssetLocator.Instance.ResolveFileName(currentFileName));
+        AssetDatabase.CreateAsset(entity, EntityAssetLocator.Instance.ResolveFileName(currentFileName));
     }
 
     private void HandleLoadButton()
