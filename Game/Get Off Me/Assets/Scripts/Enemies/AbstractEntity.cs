@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbstractEnemy : MonoBehaviour
+public class AbstractEntity : MonoBehaviour
 {
     [SerializeField]
-    private Enemy enemyModel;
+    private EntityModel enemyModel;
 
-    protected Enemy model;
-    protected GameObject target;
+    protected EntityModel model;
 
     private Vector3 screenPoint;
     private Vector3 offset;

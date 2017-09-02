@@ -16,7 +16,7 @@ public class DifficultyManager : EditorWindow {
         var window = EditorWindow.GetWindow(typeof(DifficultyManager));
         window.minSize = new Vector2(600, 400);
     }
-    private List<AbstractEnemy> enemyTypes;
+    private List<AbstractEntity> enemyTypes;
     private int enemyTypesCount = 4;
 
     private List<GamePhase> gamePhases = new List<GamePhase>();

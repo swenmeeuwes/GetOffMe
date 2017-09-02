@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyEditor : EditorWindow
 {
-    private Enemy enemy;
+    private EntityModel enemy;
     private string currentFileName;
 
     private bool showFileNotFoundWarning = false;
@@ -19,7 +19,7 @@ public class EnemyEditor : EditorWindow
 
     private void OnEnable()
     {
-        enemy = ScriptableObject.CreateInstance<Enemy>();
+        enemy = ScriptableObject.CreateInstance<EntityModel>();
     }
 
     private void OnGUI()
@@ -60,7 +60,7 @@ public class EnemyEditor : EditorWindow
 
     private void HandleLoadButton()
     {
-        var enemyAsset = AssetDatabase.LoadAssetAtPath<Enemy>(EnemyAssetLocator.Instance.ResolveFileName(currentFileName));
+        var enemyAsset = AssetDatabase.LoadAssetAtPath<EntityModel>(EnemyAssetLocator.Instance.ResolveFileName(currentFileName));
         if (enemyAsset != null)
         {
             enemy = enemyAsset;
@@ -68,7 +68,7 @@ public class EnemyEditor : EditorWindow
         }
         else
         {
-            enemy = ScriptableObject.CreateInstance<Enemy>();
+            enemy = ScriptableObject.CreateInstance<EntityModel>();
             showFileNotFoundWarning = true;
         }
     }

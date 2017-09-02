@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStandard : AbstractEnemy {
+/// <summary>
+/// A standard enemy which will attempt to reach the player
+/// </summary>
+public class EnemyStandard : AbstractEntity {
+    private GameObject target;
+
     protected override void Start () {
         base.Start();
-        target = GameObject.FindWithTag("Player");
 
+        target = GameObject.FindWithTag("Player");
     }
 	
 	void Update () {
