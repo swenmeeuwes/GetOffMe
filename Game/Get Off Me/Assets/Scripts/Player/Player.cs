@@ -14,15 +14,20 @@ public class Player : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
+    private float startScale;
+
     private float maxHealth;
     private float targetSize;
 
     private void Start()
     {
-        maxHealth = health;
         orthographicCamera = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
+        maxHealth = health;
+
+        startScale = transform.localScale.x; // ASSUMPTION: Player is a square
     }
 
     public void OnEnemyEnter(float size) {
@@ -39,7 +44,6 @@ public class Player : MonoBehaviour {
     private void UpdateSize()
     {
         var playerTextureHeight = spriteRenderer.sprite.texture.height;
-        var startScale = 1f; // Maybe editor tool for this?
         var maxScale = 15.6f; // Size in units to touch the top of the camera, maybe we could compute this dynamically...
 
         var lerpPosition = sizeInterpolation.Evaluate(1 - health / maxHealth);
