@@ -11,7 +11,7 @@ class BuildScript
     static string APP_NAME = "Get Off Me";//PlayerSettings.productName; // PlayerSettings might not work on Jenkins
     static string TARGET_DIR = "Target";
 
-    [MenuItem("Custom/CI/Build Android")]
+    [MenuItem("Build Tools/Build Android")]
     static void PerformAndroidBuild()
     {
         string targetFile = APP_NAME + ".apk";
