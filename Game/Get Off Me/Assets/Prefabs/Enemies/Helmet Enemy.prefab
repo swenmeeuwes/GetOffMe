@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4132278181262264}
   - component: {fileID: 212548543017236392}
+  - component: {fileID: 95626256342039938}
   m_Layer: 0
   m_Name: Helmet
   m_TagString: Untagged
@@ -119,6 +120,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1, y: 1.1}
   m_EdgeRadius: 0
+--- !u!95 &95626256342039938
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165713945332908}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58c2b829ed391094c99c234e94590afb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95843087090314320
 Animator:
   serializedVersion: 3

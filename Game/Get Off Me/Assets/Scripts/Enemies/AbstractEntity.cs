@@ -75,8 +75,11 @@ public class AbstractEntity : MonoBehaviour
         {
             model.hasHelmet = false;
 
-            if(helmet != null)
-                helmet.gameObject.SetActive(false);
+            if (helmet != null)
+            {
+                helmet.gameObject.GetComponent<Animator>().SetTrigger("FlipOff");
+                //helmet.gameObject.SetActive(false);
+            }
         }
     }
 
