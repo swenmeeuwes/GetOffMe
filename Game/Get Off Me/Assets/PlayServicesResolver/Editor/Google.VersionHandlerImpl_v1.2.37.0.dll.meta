@@ -1,10 +1,10 @@
 fileFormatVersion: 2
 guid: a047152bbb3949759c3e3d5db3f11008
 labels:
+- gvh_v1.2.37.0
 - gvh
-- gvh_targets-editor
-- gvh_version-1.2.37.0
-timeCreated: 1504458466
+- gvh_teditor
+timeCreated: 1504470593
 licenseType: Free
 PluginImporter:
   serializedVersion: 2

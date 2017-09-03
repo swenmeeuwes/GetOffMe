@@ -217,8 +217,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/GitHub/GetOffMe/Game/Get Off Me/appSignKeyStore.keystore
-  AndroidKeyaliasName: 'get off me '
+  AndroidKeystoreName: C:/Users/Swen/Projects/Unity/GetOffMe/Game/Get Off Me/appSignKeyStore.keystore
+  AndroidKeyaliasName: getoffme
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 1
