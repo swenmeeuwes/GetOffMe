@@ -8,7 +8,7 @@ class BuildScript
 {
     static string[] SCENES = FindEnabledEditorScenes();
 
-    static string APP_NAME = "Get Off Me";//PlayerSettings.productName; // PlayerSettings might not work on Jenkins
+    static string APP_NAME = PlayerSettings.productName; // PlayerSettings might not work on Jenkins
     static string TARGET_DIR = "Target";
 
     [MenuItem("Build Tools/Build Android")]
