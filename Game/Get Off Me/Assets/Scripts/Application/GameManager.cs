@@ -22,9 +22,11 @@ public class GameManager {
             _state = value;
         }
     }
+    public bool PlayerIsAuthenticated; // Google play services
 
     public GameManager()
     {
         _state = GameState.PLAY;
+        PlayerIsAuthenticated = false;
     }
 }
