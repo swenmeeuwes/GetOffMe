@@ -25,7 +25,7 @@ public class OffScreenSpawner : AbstractSpawner
     // TEMP - Until data structure of dificulty manager in place
     // Prefab, chance to spawn (%)
     [SerializeField]
-    public Tuple<GameObject, int>[] entitySpawnList;
+    public List<GamePhase> gamePhases = GamePhase.loadGamePhasesFromFile();
     // ---
 
     private float OffsettedScreenDiagonal
