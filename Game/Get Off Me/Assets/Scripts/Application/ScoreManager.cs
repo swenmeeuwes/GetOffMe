@@ -15,21 +15,21 @@ public class ScoreManager
         }
     }
 
-    private Timer timer;
+    //private Timer timer;
 
     private ScoreManager() {
         Score = 0;
 
-        timer = new Timer();
-        timer.Interval = 5000;
-        timer.Elapsed += new ElapsedEventHandler(OnTimerElapsed);
-        timer.Start();
+        //timer = new Timer();
+        //timer.Interval = 5000;
+        //timer.Elapsed += new ElapsedEventHandler(OnTimerElapsed);
+        //timer.Start();
     }
 
     public int Score { get; set; }
 
-    private void OnTimerElapsed(object sender, ElapsedEventArgs e)
-    {
-        Score++;
-    }
+    //private void OnTimerElapsed(object sender, ElapsedEventArgs e)
+    //{
+    //    Score++;
+    //}
 }

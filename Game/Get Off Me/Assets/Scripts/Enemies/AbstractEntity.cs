@@ -105,6 +105,8 @@ public class AbstractEntity : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        ScoreManager.Instance.Score++;
+
         Destroy(gameObject);
     }
 }
