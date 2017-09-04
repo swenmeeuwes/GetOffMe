@@ -55,6 +55,9 @@ public class OffScreenSpawner : AbstractSpawner
 
     public override void Spawn()
     {
+        if (GameManager.Instance.State != GameState.PLAY)
+            return;
+
         var randomSpawnPosition = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length - 1)];
 
         var spawned = base.CreateSpawn(objectToSpawn);

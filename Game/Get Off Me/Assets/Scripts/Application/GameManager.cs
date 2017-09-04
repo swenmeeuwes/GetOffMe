@@ -3,13 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager {
-    public GameManager _instance;
+    private static GameManager _instance;
 
-    private GameManager Instance {
+    public static GameManager Instance {
         get {
             if (_instance == null)
-                return new GameManager();
+                _instance =  new GameManager();
             return _instance;
         }
+    }
+
+    private GameState _state;
+    public GameState State {
+        get {
+            return _state;
+        }
+        set {
+            _state = value;
+        }
+    }
+    public bool PlayerIsAuthenticated; // Google play services
+
+    public GameManager()
+    {
+        _state = GameState.PLAY;
+        PlayerIsAuthenticated = false;
     }
 }

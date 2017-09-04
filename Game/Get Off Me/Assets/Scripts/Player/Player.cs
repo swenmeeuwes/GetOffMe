@@ -66,6 +66,6 @@ public class Player : MonoBehaviour {
 
         // Temp death function
         if (health <= 0)
-            SceneManager.LoadScene("StartMenu");
+            GameManager.Instance.State = GameState.GAMEOVER;
     }
 }
