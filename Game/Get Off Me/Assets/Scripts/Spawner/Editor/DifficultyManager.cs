@@ -11,7 +11,6 @@ public class DifficultyManager : EditorWindow {
         public List<GameObject> enemyTypes = new List<GameObject>();
     }
 
-
     [MenuItem("Window/Difficulty Editor")]
     public static void ShowWindow()
     {
@@ -26,7 +25,6 @@ public class DifficultyManager : EditorWindow {
         handleLoad();
     }
     private void OnGUI() {
-        Debug.Log(gamePhases.Count);
         for (int i = 0; i < gamePhases.Count; i++) {
             if (gamePhases[i].percentages == null) gamePhases[i].percentages = new List<float>();
             if (gamePhases[i].objectKeys == null) gamePhases[i].objectKeys = new List<GameObject>();
@@ -87,6 +85,7 @@ public class DifficultyManager : EditorWindow {
         gamePhases.Add(tmp);
     }
     private void handleSave() {
+        AssetDatabase.SaveAssets();
         for (int i = 0; i < gamePhases.Count; i++)
         {
             AssetDatabase.CreateAsset(gamePhases[i], DifficultyAssetLocator.Instance.ResolveFileNamePhases("phase_" + i));

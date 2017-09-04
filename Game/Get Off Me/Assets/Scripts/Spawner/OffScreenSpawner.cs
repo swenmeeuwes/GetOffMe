@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -25,7 +27,7 @@ public class OffScreenSpawner : AbstractSpawner
     // TEMP - Until data structure of dificulty manager in place
     // Prefab, chance to spawn (%)
     [SerializeField]
-    public List<GamePhase> gamePhases = GamePhase.loadGamePhasesFromFile();
+    public List<GamePhase> gamePhases;
     // ---
 
     private float OffsettedScreenDiagonal
@@ -46,7 +48,7 @@ public class OffScreenSpawner : AbstractSpawner
     public override void Start()
     {
         base.Start();
-
+        gamePhases = loadGamePhasesFromFile();
         if (orthographicCamera == null)
             orthographicCamera = Camera.main;
 
@@ -60,8 +62,19 @@ public class OffScreenSpawner : AbstractSpawner
 
         var randomSpawnPosition = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length - 1)];
 
-        var spawned = base.CreateSpawn(objectToSpawn);
-        spawned.transform.position = randomSpawnPosition;
+        float randomNumber = UnityEngine.Random.Range(0.0f, 100.0f);
+        Debug.Log(randomNumber);
+
+        float cumulative = 0;
+        for (int i = 0; i < gamePhases[0].percentages.Count; i++) {
+            cumulative += gamePhases[0].percentages[i];
+            if (randomNumber < cumulative) {
+                var spawned = base.CreateSpawn(gamePhases[0].objectKeys[i]);
+                spawned.transform.position = randomSpawnPosition;
+                break;
+            }
+        }
+        
     }
 
     /// <summary>
@@ -136,17 +149,32 @@ public class OffScreenSpawner : AbstractSpawner
 
     private GameObject GetRandomEntityFromSpawnList()
     {
-        var randomValue = UnityEngine.Random.value;
-        for (int i = 0; i < entitySpawnList.Length; i++)
-        {
-            var entityTuple = entitySpawnList[i];
-            randomValue -= entityTuple.item2 / 100;
 
-            if (randomValue <= 0)
-                return entityTuple.item1;
-        }
+        var randomValue = UnityEngine.Random.value;
+        //for (int i = 0; i < entitySpawnList.Length; i++)
+       // {
+        //    var entityTuple = entitySpawnList[i];
+         //   randomValue -= entityTuple.item2 / 100;
+
+//            if (randomValue <= 0)
+  //              return entityTuple.item1;
+    //    }
 
         Debug.LogWarning("Please make sure the entity spawn chance total is 100.");
         throw new Exception("Enemy spawn chance total is not 100%");
+    }
+    public List<GamePhase> loadGamePhasesFromFile() // TEMPORARY, MOVE THIS.
+    {
+        List<GamePhase> gamePhases = new List<GamePhase>();
+        //string[] aMaterialFiles = Directory.GetFiles(DifficultyAssetLocator.Instance.GetPhaseSavePath(), "*.asset", SearchOption.AllDirectories);
+        string[] aMaterialFiles = Directory.GetFiles("Assets/Scripts/Spawner/Editor/Phases", "*.asset", SearchOption.AllDirectories);
+        foreach (string matFile in aMaterialFiles)
+        {
+            string assetPath = matFile.Replace(Application.dataPath, "").Replace('\\', '/');
+            var sourceMat = AssetDatabase.LoadAssetAtPath<GamePhase>(assetPath);
+
+            gamePhases.Add(sourceMat);
+        }
+        return gamePhases;
     }
 }

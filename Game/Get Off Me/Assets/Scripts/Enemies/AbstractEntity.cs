@@ -28,12 +28,6 @@ public class AbstractEntity : MonoBehaviour
 
         model.speed += Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
 
-        // TEMP UNTIL DIFFICULTY MANAGER
-        var r = Random.value;
-        model.hasHelmet = r > 0.8f;
-        // ---
-
-
         if (helmet != null && !model.hasHelmet)
             helmet.gameObject.SetActive(false);
     }
