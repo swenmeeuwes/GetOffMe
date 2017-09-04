@@ -7,10 +7,6 @@ using UnityEngine;
 
 public class DifficultyManager : EditorWindow {
 
-    public class EnemyCollection : ScriptableObject {
-        public List<GameObject> enemyTypes = new List<GameObject>();
-    }
-
     [MenuItem("Window/Difficulty Editor")]
     public static void ShowWindow()
     {
@@ -22,13 +18,15 @@ public class DifficultyManager : EditorWindow {
     private EnemyCollection enemyCollection;
 
     void OnEnable() {
-        handleLoad();
+        enemyCollection = ScriptableObject.CreateInstance<EnemyCollection>();
+        HandleLoad();
     }
     private void OnGUI() {
         for (int i = 0; i < gamePhases.Count; i++) {
             if (gamePhases[i].percentages == null) gamePhases[i].percentages = new List<float>();
             if (gamePhases[i].objectKeys == null) gamePhases[i].objectKeys = new List<GameObject>();
         }
+        if (enemyCollection.enemyTypes == null) enemyCollection.enemyTypes = new List<GameObject>();
 
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Time");
@@ -66,7 +64,7 @@ public class DifficultyManager : EditorWindow {
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Save")) { handleSave();  }
+        if (GUILayout.Button("Save")) { HandleSave();  }
         GUILayout.EndHorizontal();
     }
     private void addPhase() {
@@ -84,7 +82,7 @@ public class DifficultyManager : EditorWindow {
         }
         gamePhases.Add(tmp);
     }
-    private void handleSave() {
+    private void HandleSave() { // werkt niet
         AssetDatabase.SaveAssets();
         for (int i = 0; i < gamePhases.Count; i++)
         {
@@ -92,7 +90,7 @@ public class DifficultyManager : EditorWindow {
         }
         AssetDatabase.CreateAsset(enemyCollection, DifficultyAssetLocator.Instance.ResolveFileNameEnemies());
     }
-    private void handleLoad() {
+    private void HandleLoad() {
         string[] aMaterialFiles = Directory.GetFiles(DifficultyAssetLocator.Instance.GetPhaseSavePath(), "*.asset", SearchOption.AllDirectories);
         foreach (string matFile in aMaterialFiles)
         {

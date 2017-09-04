@@ -166,14 +166,9 @@ public class OffScreenSpawner : AbstractSpawner
     public List<GamePhase> loadGamePhasesFromFile() // TEMPORARY, MOVE THIS.
     {
         List<GamePhase> gamePhases = new List<GamePhase>();
-        //string[] aMaterialFiles = Directory.GetFiles(DifficultyAssetLocator.Instance.GetPhaseSavePath(), "*.asset", SearchOption.AllDirectories);
-        string[] aMaterialFiles = Directory.GetFiles("Assets/Scripts/Spawner/Editor/Phases", "*.asset", SearchOption.AllDirectories);
-        foreach (string matFile in aMaterialFiles)
+        foreach (GamePhase g in Resources.LoadAll("Phases", typeof(GamePhase)))
         {
-            string assetPath = matFile.Replace(Application.dataPath, "").Replace('\\', '/');
-            var sourceMat = AssetDatabase.LoadAssetAtPath<GamePhase>(assetPath);
-
-            gamePhases.Add(sourceMat);
+            gamePhases.Add(g);
         }
         return gamePhases;
     }

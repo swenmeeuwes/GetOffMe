@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DifficultyAssetLocator {
-    private readonly string PHASES_SAVE_PATH = "Assets/Scripts/Spawner/Editor/Phases";
+    private readonly string PHASES_SAVE_PATH = "Assets/Resources/Phases";
     private readonly string ENEMY_SAVE_PATH = "Assets/Scripts/Spawner/Editor/Enemies";
 
     private static DifficultyAssetLocator m_instance;
