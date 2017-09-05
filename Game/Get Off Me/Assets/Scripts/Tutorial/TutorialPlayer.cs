@@ -43,7 +43,7 @@ public class TutorialPlayer : MonoBehaviour {
         spawned.transform.position = randomPosition;
 
         spawnedEntity.model.health = 1;
-        spawnedEntity.model.speed = 0.5f;
+        //spawnedEntity.model.speed = 1f;
         spawnedEntity.model.varianceInSpeed = 0f;
 
         sprite.transform.parent = spawned.transform;
