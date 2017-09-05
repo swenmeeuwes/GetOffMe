@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IDispatcher {
-    void AddEventListener(string type, Action<object> action);
+    void AddEventListener(string type, Action<object> action, bool autoClear);
     void RemoveEventListener(string type, Action<object> action);
     void Dispatch(string type, object e);
 }

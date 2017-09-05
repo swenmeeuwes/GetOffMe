@@ -5,24 +5,39 @@ using UnityEngine;
 
 public class EventDispatcher : MonoBehaviour, IDispatcher
 {
-    private Dictionary<string, List<Action<object>>> listeners;
+    private Dictionary<string, List<Tuple<Action<object>, bool>>> listeners;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
-        listeners = new Dictionary<string, List<Action<object>>>();
+        listeners = new Dictionary<string, List<Tuple<Action<object>, bool>>>();
     }
 
-    public void AddEventListener(string type, Action<object> action)
+    public void AddEventListener(string type, Action<object> action, bool autoClear = false)
     {
         if (!listeners.ContainsKey(type))
-            listeners.Add(type, new List<Action<object>>());
+            listeners.Add(type, new List<Tuple<Action<object>, bool>>());
 
-        listeners[type].Add(action);
+        listeners[type].Add(new Tuple<Action<object>, bool>(action, autoClear));
     }
 
     public void RemoveEventListener(string type, Action<object> action)
     {
-        listeners[type].Remove(action);
+        var listenersOfType = listeners[type];
+        var foundIndex = -1;
+        for (int i = 0; i < listenersOfType.Count; i++)
+        {
+            var actionItem = listenersOfType[i];
+            if(actionItem.item1 == action)
+            {
+                foundIndex = i;
+                break;
+            }
+        }
+
+        if (foundIndex > -1)
+            listenersOfType.RemoveAt(foundIndex);
+        else
+            Debug.LogWarning("Listener was never added!");
     }
 
     public void Dispatch(string type, object eventObject)
@@ -31,9 +46,17 @@ public class EventDispatcher : MonoBehaviour, IDispatcher
             return;
 
         var triggers = listeners[type];
+        var awaitingDoom = new List<Tuple<Action<object>, bool>>(); // listeners to be deleted
         foreach (var trigger in triggers)
         {
-            trigger.Invoke(eventObject);
+            trigger.item1.Invoke(eventObject);
+            if (trigger.item2)
+                awaitingDoom.Add(trigger);
+        }
+
+        foreach (var doomedItem in awaitingDoom)
+        {
+            triggers.Remove(doomedItem);
         }
     }
 }

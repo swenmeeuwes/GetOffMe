@@ -13,20 +13,24 @@ public class AbstractEntity : EventDispatcher
     protected Rigidbody2D rb;
     protected Transform helmet;
 
-    protected EntityModel model;
+    public EntityModel model;
 
     private Vector3 screenPoint;
     private Vector3 offset;
     private Vector3 oldPosition = Vector3.one;
     private Vector3 futurePosition;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
-        base.Start();
-
-        rb = GetComponent<Rigidbody2D>();
+        base.Awake();
 
         model = Instantiate(entityModel);
+    }
+
+    protected virtual void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+
         helmet = transform.Find("Helmet");
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);

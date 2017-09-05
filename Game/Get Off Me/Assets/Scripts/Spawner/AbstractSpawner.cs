@@ -28,12 +28,12 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         set
         {
             var newState = value;
-            if (!Enabled && newState)
+            if (!_enabled && newState)
                 InvokeRepeating(SPAWN_METHOD_NAME, initialDelay, interval);
             else if (Enabled && !newState)
                 CancelInvoke(SPAWN_METHOD_NAME);
 
-            _enabled = enabled;
+            _enabled = newState;
         }
     }
 
@@ -45,10 +45,13 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         }
     }
 
-    public virtual void Start()
+    protected virtual void Awake()
     {
         Enabled = enabledByDefault;
+    }
 
+    public virtual void Start()
+    {
         // Create a empty game object to keep the spawns
         var spawnsList = new GameObject(SPAWN_LIST_NAME);
         spawnsList.transform.parent = transform;
@@ -94,7 +97,7 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
     /// </summary>
     /// <param name="objectToSpawn">The prefab to spawn</param>
     /// <returns>The spawned game object</returns>
-    protected GameObject CreateSpawn(GameObject objectToSpawn)
+    public GameObject CreateSpawn(GameObject objectToSpawn)
     {
         var spawned = Instantiate(objectToSpawn);
         spawned.transform.parent = SpawnListTransform;
