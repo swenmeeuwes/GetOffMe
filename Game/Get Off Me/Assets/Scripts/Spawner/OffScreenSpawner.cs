@@ -61,7 +61,6 @@ public class OffScreenSpawner : AbstractSpawner
     {
         // OPTIMAZATION: setTimeout(function(){ goToNextPhase }, nextPhase.time - currentPhase.time);
         counter += Time.deltaTime;
-        Debug.Log("Timer: "+counter);
         for (int i = 0; i < gamePhases.Count; i++) {
             if (counter > gamePhases[i].time) {
                 currentPhase = gamePhases[i];
@@ -155,9 +154,6 @@ public class OffScreenSpawner : AbstractSpawner
     {
 
         float randomNumber = UnityEngine.Random.Range(0.0f, 100.0f);
-        Debug.Log("Random Number: "+randomNumber);
-        Debug.Log("Enemy 1: " + phase.percentages[0]);
-        Debug.Log("Enemy 2: " + phase.percentages[1]);
 
         float cumulative = 0;
         for (int i = 0; i < phase.percentages.Count; i++)
@@ -181,9 +177,6 @@ public class OffScreenSpawner : AbstractSpawner
         }
 
         gamePhases.Sort((g1, g2) => g2.time.CompareTo(g1.time));
-        Debug.Log(gamePhases[0].time);
-        Debug.Log(gamePhases[1].time);
-        Debug.Log(gamePhases[2].time);
         return gamePhases;
     }
 }
