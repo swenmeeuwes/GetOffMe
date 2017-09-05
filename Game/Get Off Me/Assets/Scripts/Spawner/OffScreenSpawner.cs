@@ -30,6 +30,8 @@ public class OffScreenSpawner : AbstractSpawner
     public List<GamePhase> gamePhases;
     // ---
 
+    private bool spawnPointsInitialized = false;
+
     private float OffsettedScreenDiagonal
     {
         get
@@ -60,7 +62,7 @@ public class OffScreenSpawner : AbstractSpawner
         if (GameManager.Instance.State != GameState.PLAY)
             return;
 
-        var randomSpawnPosition = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length - 1)];
+        var randomSpawnPosition = GetRandomSpawnPoint();
 
         float randomNumber = UnityEngine.Random.Range(0.0f, 100.0f);
         Debug.Log(randomNumber);
@@ -74,7 +76,6 @@ public class OffScreenSpawner : AbstractSpawner
                 break;
             }
         }
-        
     }
 
     /// <summary>
@@ -83,6 +84,11 @@ public class OffScreenSpawner : AbstractSpawner
     /// <param name="precision">Amount of spawn amounts</param>
     private void InitializeSpawnPoints(int precision)
     {
+        if (spawnPointsInitialized)
+            return;
+
+        spawnPointsInitialized = true;
+
         if (precision < 0)
         {
             spawnPoints = new Vector2[0];
@@ -107,6 +113,15 @@ public class OffScreenSpawner : AbstractSpawner
         }
 
         spawnPoints = possibleSpawnPoints.ToArray();
+    }
+
+    public Vector2 GetRandomSpawnPoint()
+    {
+        if (spawnPoints == null)
+            InitializeSpawnPoints(amountOfSpawnPoints);
+
+        var randomSpawnPosition = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length - 1)];
+        return randomSpawnPosition;
     }
 
     private void OnDrawGizmos()
