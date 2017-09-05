@@ -61,15 +61,21 @@ public class OffScreenSpawner : AbstractSpawner
 
     void Update()
     {
-        // OPTIMAZATION: setTimeout(function(){ goToNextPhase }, nextPhase.time - currentPhase.time);
-        counter += Time.deltaTime;
-        for (int i = 0; i < gamePhases.Count; i++) {
-            if (counter > gamePhases[i].time) {
-                currentPhase = gamePhases[i];
-                break;
+        if (Enabled)
+        {
+            // OPTIMAZATION: setTimeout(function(){ goToNextPhase }, nextPhase.time - currentPhase.time);
+            counter += Time.deltaTime;
+            for (int i = 0; i < gamePhases.Count; i++)
+            {
+                if (counter > gamePhases[i].time)
+                {
+                    currentPhase = gamePhases[i];
+                    break;
+                }
             }
         }
     }
+
     public override void Spawn()
     {
         if (GameManager.Instance.State != GameState.PLAY)
