@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbstractEntity : MonoBehaviour
+public class AbstractEntity : EventDispatcher
 {
     private readonly float SWIPE_MAGNITUDE = 0.2f; // Swipe threshold, the minimum required distance for a swipe (in units)
 
@@ -21,12 +22,14 @@ public class AbstractEntity : MonoBehaviour
 
     protected virtual void Start()
     {
+        base.Start();
+
         rb = GetComponent<Rigidbody2D>();
 
         model = Instantiate(entityModel);
         helmet = transform.Find("Helmet");
 
-        model.speed += Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
+        model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
 
         if (helmet != null && !model.hasHelmet)
             helmet.gameObject.SetActive(false);
@@ -75,6 +78,8 @@ public class AbstractEntity : MonoBehaviour
                 //helmet.gameObject.SetActive(false);
             }
         }
+
+        Dispatch("tapped", this);
     }
 
     private void OnSwipe(Vector3 swipeVector)
@@ -88,6 +93,8 @@ public class AbstractEntity : MonoBehaviour
         model.health -= 1;
         if (model.health <= 0)
             StartCoroutine(Die());
+
+        Dispatch("swiped", this);
     }
 
     IEnumerator Die()
@@ -100,6 +107,8 @@ public class AbstractEntity : MonoBehaviour
         }
 
         ScoreManager.Instance.Score++;
+
+        Dispatch("dieing", this);
 
         Destroy(gameObject);
     }
