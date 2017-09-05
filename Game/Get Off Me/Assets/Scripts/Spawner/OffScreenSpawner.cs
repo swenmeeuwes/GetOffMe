@@ -30,6 +30,8 @@ public class OffScreenSpawner : AbstractSpawner
 
     private float counter = 0;
 
+    private bool spawnPointsInitialized = false;
+
     private float OffsettedScreenDiagonal
     {
         get
@@ -59,25 +61,30 @@ public class OffScreenSpawner : AbstractSpawner
 
     void Update()
     {
-        // OPTIMAZATION: setTimeout(function(){ goToNextPhase }, nextPhase.time - currentPhase.time);
-        counter += Time.deltaTime;
-        for (int i = 0; i < gamePhases.Count; i++) {
-            if (counter > gamePhases[i].time) {
-                currentPhase = gamePhases[i];
-                break;
+        if (Enabled)
+        {
+            // OPTIMAZATION: setTimeout(function(){ goToNextPhase }, nextPhase.time - currentPhase.time);
+            counter += Time.deltaTime;
+            for (int i = 0; i < gamePhases.Count; i++)
+            {
+                if (counter > gamePhases[i].time)
+                {
+                    currentPhase = gamePhases[i];
+                    break;
+                }
             }
         }
     }
+
     public override void Spawn()
     {
         if (GameManager.Instance.State != GameState.PLAY)
             return;
 
-        var randomSpawnPosition = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length - 1)];
+        var randomSpawnPosition = GetRandomSpawnPoint();
 
         GameObject randomEntity = base.CreateSpawn(GetRandomEntityFromSpawnList(currentPhase));
         randomEntity.transform.position = randomSpawnPosition;
-
     }
 
     /// <summary>
@@ -86,6 +93,11 @@ public class OffScreenSpawner : AbstractSpawner
     /// <param name="precision">Amount of spawn amounts</param>
     private void InitializeSpawnPoints(int precision)
     {
+        if (spawnPointsInitialized)
+            return;
+
+        spawnPointsInitialized = true;
+
         if (precision < 0)
         {
             spawnPoints = new Vector2[0];
@@ -110,6 +122,15 @@ public class OffScreenSpawner : AbstractSpawner
         }
 
         spawnPoints = possibleSpawnPoints.ToArray();
+    }
+
+    public Vector2 GetRandomSpawnPoint()
+    {
+        if (spawnPoints == null)
+            InitializeSpawnPoints(amountOfSpawnPoints);
+
+        var randomSpawnPosition = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length - 1)];
+        return randomSpawnPosition;
     }
 
     private void OnDrawGizmos()

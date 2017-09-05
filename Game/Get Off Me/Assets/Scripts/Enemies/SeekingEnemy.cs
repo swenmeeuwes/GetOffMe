@@ -23,7 +23,10 @@ public class SeekingEnemy : AbstractEntity {
         Destroy(gameObject);
 
         var player = coll.gameObject.GetComponent<Player>();
-        if(player)
+        if (player)
+        {
             player.OnEnemyEnter(model.health);
+            Dispatch("dying", this);
+        }
     }
 }
