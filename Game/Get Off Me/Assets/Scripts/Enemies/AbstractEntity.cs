@@ -112,7 +112,7 @@ public class AbstractEntity : EventDispatcher
 
         ScoreManager.Instance.Score++;
 
-        Dispatch("dieing", this);
+        Dispatch("dying", this);
 
         Destroy(gameObject);
     }

@@ -58,7 +58,7 @@ public class TutorialPlayer : MonoBehaviour {
             spriteRenderer.sprite = swipeDialog;
         }
             
-        spawnedEntity.AddEventListener("dieing", (e) => Next(), true);
+        spawnedEntity.AddEventListener("dying", (e) => Next(), true);
 
         encounterIndex++;
     }
