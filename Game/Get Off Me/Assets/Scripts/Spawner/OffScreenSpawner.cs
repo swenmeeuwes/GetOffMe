@@ -24,11 +24,11 @@ public class OffScreenSpawner : AbstractSpawner
     private Vector2[] degreeBlacklist;
     // ---
 
-    // TEMP - Until data structure of dificulty manager in place
-    // Prefab, chance to spawn (%)
     [SerializeField]
     public List<GamePhase> gamePhases;
-    // ---
+    private GamePhase currentPhase;
+
+    private float counter = 0;
 
     private float OffsettedScreenDiagonal
     {
@@ -38,6 +38,7 @@ public class OffScreenSpawner : AbstractSpawner
             var cameraWidth = cameraHeight * orthographicCamera.aspect;
 
             var screenDiagonal = (float)Math.Sqrt(Math.Pow(cameraHeight, 2) + Math.Pow(cameraWidth, 2));
+
 
             return screenDiagonal + spawnDistanceOffset;
         }
@@ -49,12 +50,25 @@ public class OffScreenSpawner : AbstractSpawner
     {
         base.Start();
         gamePhases = loadGamePhasesFromFile();
+        currentPhase = gamePhases[0];
         if (orthographicCamera == null)
             orthographicCamera = Camera.main;
 
         InitializeSpawnPoints(amountOfSpawnPoints);
     }
 
+    void Update()
+    {
+        // OPTIMAZATION: setTimeout(function(){ goToNextPhase }, nextPhase.time - currentPhase.time);
+        counter += Time.deltaTime;
+        Debug.Log("Timer: "+counter);
+        for (int i = 0; i < gamePhases.Count; i++) {
+            if (counter > gamePhases[i].time) {
+                currentPhase = gamePhases[i];
+                break;
+            }
+        }
+    }
     public override void Spawn()
     {
         if (GameManager.Instance.State != GameState.PLAY)
@@ -62,19 +76,9 @@ public class OffScreenSpawner : AbstractSpawner
 
         var randomSpawnPosition = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length - 1)];
 
-        float randomNumber = UnityEngine.Random.Range(0.0f, 100.0f);
-        Debug.Log(randomNumber);
+        GameObject randomEntity = base.CreateSpawn(GetRandomEntityFromSpawnList(currentPhase));
+        randomEntity.transform.position = randomSpawnPosition;
 
-        float cumulative = 0;
-        for (int i = 0; i < gamePhases[0].percentages.Count; i++) {
-            cumulative += gamePhases[0].percentages[i];
-            if (randomNumber < cumulative) {
-                var spawned = base.CreateSpawn(gamePhases[0].objectKeys[i]);
-                spawned.transform.position = randomSpawnPosition;
-                break;
-            }
-        }
-        
     }
 
     /// <summary>
@@ -147,18 +151,23 @@ public class OffScreenSpawner : AbstractSpawner
         return false;
     }
 
-    private GameObject GetRandomEntityFromSpawnList()
+    private GameObject GetRandomEntityFromSpawnList(GamePhase phase)
     {
 
-        var randomValue = UnityEngine.Random.value;
-        //for (int i = 0; i < entitySpawnList.Length; i++)
-       // {
-        //    var entityTuple = entitySpawnList[i];
-         //   randomValue -= entityTuple.item2 / 100;
+        float randomNumber = UnityEngine.Random.Range(0.0f, 100.0f);
+        Debug.Log("Random Number: "+randomNumber);
+        Debug.Log("Enemy 1: " + phase.percentages[0]);
+        Debug.Log("Enemy 2: " + phase.percentages[1]);
 
-//            if (randomValue <= 0)
-  //              return entityTuple.item1;
-    //    }
+        float cumulative = 0;
+        for (int i = 0; i < phase.percentages.Count; i++)
+        {
+            cumulative += phase.percentages[i];
+            if (randomNumber < cumulative)
+            {
+                return phase.objectKeys[i];
+            }
+        }
 
         Debug.LogWarning("Please make sure the entity spawn chance total is 100.");
         throw new Exception("Enemy spawn chance total is not 100%");
@@ -170,6 +179,11 @@ public class OffScreenSpawner : AbstractSpawner
         {
             gamePhases.Add(g);
         }
+
+        gamePhases.Sort((g1, g2) => g2.time.CompareTo(g1.time));
+        Debug.Log(gamePhases[0].time);
+        Debug.Log(gamePhases[1].time);
+        Debug.Log(gamePhases[2].time);
         return gamePhases;
     }
 }
