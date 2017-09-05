@@ -24,8 +24,8 @@ public class GooglePlayServicesInit : MonoBehaviour {
         Social.localUser.Authenticate((bool success) => {
             GameManager.Instance.PlayerIsAuthenticated = success;
 
-            if (success)
-                PlayGamesPlatform.Instance.ShowLeaderboardUI(GooglePlayServiceConstants.leaderboard_score);
+            //if (success)
+            //    PlayGamesPlatform.Instance.ShowLeaderboardUI(GooglePlayServiceConstants.leaderboard_score);
         });
     }
 }
