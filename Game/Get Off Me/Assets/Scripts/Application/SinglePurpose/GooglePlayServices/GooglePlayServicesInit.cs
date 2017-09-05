@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GooglePlayServicesInit : MonoBehaviour {
-	private void Start () {
+	/*private void Start () {
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
             //// requests the email address of the player be available.
             //// Will bring up a prompt for consent.
@@ -27,5 +27,5 @@ public class GooglePlayServicesInit : MonoBehaviour {
             //if (success)
             //    PlayGamesPlatform.Instance.ShowLeaderboardUI(GooglePlayServiceConstants.leaderboard_score);
         });
-    }
+    }*/
 }
