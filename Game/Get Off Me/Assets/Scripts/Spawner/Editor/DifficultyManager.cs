@@ -95,11 +95,11 @@ public class DifficultyManager : EditorWindow {
         foreach (string matFile in aMaterialFiles)
         {
             string assetPath = matFile.Replace(Application.dataPath, "").Replace('\\', '/');
-            var sourceMat = AssetDatabase.LoadAssetAtPath<GamePhase>(assetPath);
+            GamePhase clone = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GamePhase>(assetPath)) as GamePhase;
 
-            gamePhases.Add(sourceMat);
+            gamePhases.Add(clone);
         }
-        enemyCollection = AssetDatabase.LoadAssetAtPath<EnemyCollection>(DifficultyAssetLocator.Instance.ResolveFileNameEnemies());
+        enemyCollection = Object.Instantiate(AssetDatabase.LoadAssetAtPath<EnemyCollection>(DifficultyAssetLocator.Instance.ResolveFileNameEnemies())) as EnemyCollection;
         if (enemyCollection == null) {
             enemyCollection = new EnemyCollection();
         }
