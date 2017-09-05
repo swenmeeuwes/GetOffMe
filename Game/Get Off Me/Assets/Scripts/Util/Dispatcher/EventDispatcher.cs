@@ -7,7 +7,7 @@ public class EventDispatcher : MonoBehaviour, IDispatcher
 {
     private Dictionary<string, List<Action<object>>> listeners;
 
-    private void Start()
+    protected virtual void Start()
     {
         listeners = new Dictionary<string, List<Action<object>>>();
     }
