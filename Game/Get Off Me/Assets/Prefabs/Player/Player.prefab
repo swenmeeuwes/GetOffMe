@@ -76,9 +76,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.03}
+  m_Offset: {x: 0, y: -0.02}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.2
 --- !u!95 &95384280964722592
 Animator:
   serializedVersion: 3
@@ -109,30 +109,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeInterpolation:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.6705128
-      value: 0.82884616
-      inSlope: 1.107883
-      outSlope: 1.107883
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: 0.025000334
-      outSlope: 0.025000334
-      tangentMode: 0
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  health: 10
-  absorbPercentage: 100
+  health: 0
+  absorbPercentage: 0
 --- !u!212 &212234773244433810
 SpriteRenderer:
   m_ObjectHideFlags: 1
