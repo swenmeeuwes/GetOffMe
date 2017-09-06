@@ -115,6 +115,8 @@ public abstract class AbstractEntity : EventDispatcher
             yield return new WaitForEndOfFrame();
         }
 
+        FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(1, transform.position, true);
+
         ScoreManager.Instance.Score++;
 
         Dispatch("dying", this);

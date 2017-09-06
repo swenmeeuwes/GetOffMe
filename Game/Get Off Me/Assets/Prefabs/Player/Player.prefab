@@ -76,9 +76,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.03}
+  m_Offset: {x: 0, y: -0.02}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.2
 --- !u!95 &95384280964722592
 Animator:
   serializedVersion: 3
@@ -117,16 +117,16 @@ MonoBehaviour:
       outSlope: 1
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.6705128
-      value: 0.82884616
-      inSlope: 1.107883
-      outSlope: 1.107883
+      time: 0.5964753
+      value: 0.7798076
+      inSlope: 1.0001659
+      outSlope: 1.0001659
       tangentMode: 0
     - serializedVersion: 2
       time: 1
       value: 1
-      inSlope: 0.025000334
-      outSlope: 0.025000334
+      inSlope: -0.03061178
+      outSlope: -0.03061178
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

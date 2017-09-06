@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198328507267641054}
   - component: {fileID: 199697104849549284}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: enemy_drag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
