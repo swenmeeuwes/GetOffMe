@@ -11,7 +11,7 @@ public abstract class AbstractEntity : EventDispatcher
     private EntityModel entityModel;
 
     protected Rigidbody2D rb;
-    protected Transform helmet;
+    protected Animator animator;
 
     [HideInInspector]
     public EntityModel model;
@@ -31,13 +31,9 @@ public abstract class AbstractEntity : EventDispatcher
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        helmet = transform.Find("Helmet");
+        animator = GetComponent<Animator>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
-
-        if (helmet != null && !model.hasHelmet)
-            helmet.gameObject.SetActive(false);
     }
 
     private void Update() { }
@@ -76,12 +72,7 @@ public abstract class AbstractEntity : EventDispatcher
         if (model.hasHelmet)
         {
             model.hasHelmet = false;
-
-            if (helmet != null)
-            {
-                helmet.gameObject.GetComponent<Animator>().SetTrigger("FlipOff");
-                //helmet.gameObject.SetActive(false);
-            }
+            animator.SetTrigger("loseHelmet");
         }
 
         Dispatch("tapped", this);
