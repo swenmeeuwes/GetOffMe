@@ -14,7 +14,7 @@ public class ScoreParticleManager : MonoBehaviour {
             var offset = 32;
             screenPostion = new Vector3(
                 Mathf.Clamp(screenPostion.x, 0 + offset, Camera.main.pixelWidth - offset),
-                Mathf.Clamp(screenPostion.y, 0 + offset, Camera.main.pixelHeight - offset),
+                Mathf.Clamp(screenPostion.y, 0 + offset, Camera.main.pixelHeight - offset * 2), // Increase offset to allow the animation to be seen
                 screenPostion.z
             );
         }

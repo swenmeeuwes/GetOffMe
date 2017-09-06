@@ -40,7 +40,8 @@ public class ScoreRewardIndicator : MonoBehaviour
             fromBottomToTopInOneSecond.x = 0;
             fromBottomToTopInOneSecond.z = 0;
 
-            transform.position += fromBottomToTopInOneSecond * 0.2f; // 0.2th of the screen in one second
+            //if(transform.position - startPosition < 0.2f)
+                transform.position += fromBottomToTopInOneSecond * 0.4f; // 0.2th of the screen in one second
 
             // Alpha
             var textFieldColor = textField.color;
