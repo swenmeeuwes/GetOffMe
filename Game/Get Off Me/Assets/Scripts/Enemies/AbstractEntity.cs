@@ -20,6 +20,8 @@ public abstract class AbstractEntity : EventDispatcher
     private Vector3 oldPosition = Vector3.one;
     private Vector3 futurePosition;
 
+    private ParticleSystem DragParticles;
+
     protected virtual void Awake()
     {
         base.Awake();
@@ -29,6 +31,8 @@ public abstract class AbstractEntity : EventDispatcher
 
     protected virtual void Start()
     {
+        DragParticles = GameObject.Find("EntityDragParticle").GetComponent<ParticleSystem>();
+        DragParticles.Stop();
         rb = GetComponent<Rigidbody2D>();
 
         helmet = transform.Find("Helmet");
@@ -43,6 +47,8 @@ public abstract class AbstractEntity : EventDispatcher
 
     private void OnMouseDown()
     {
+        DragParticles.transform.position = transform.position;
+        DragParticles.Play();
         oldPosition = transform.position;
         futurePosition = transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
@@ -51,6 +57,7 @@ public abstract class AbstractEntity : EventDispatcher
 
     private void OnMouseDrag()
     {
+        DragParticles.transform.position = transform.position;
         oldPosition = transform.position;
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
@@ -62,6 +69,7 @@ public abstract class AbstractEntity : EventDispatcher
     }
     private void OnMouseUp()
     {
+        DragParticles.Stop();
         var swipeVector = futurePosition - oldPosition; // Swipe distance in units
 
         if (swipeVector.magnitude > SWIPE_MAGNITUDE)
@@ -104,6 +112,10 @@ public abstract class AbstractEntity : EventDispatcher
     {
         Player player = coll.gameObject.GetComponent<Player>();
         if (player) OnPlayerHit(player); 
+    }
+    public virtual void OnDestroy() {
+        DragParticles.Stop();
+        Destroy(gameObject);
     }
     public abstract void OnPlayerHit(Player player);
     IEnumerator Die()
