@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbstractEntity : EventDispatcher
+public abstract class AbstractEntity : EventDispatcher
 {
     private readonly float SWIPE_MAGNITUDE = 0.2f; // Swipe threshold, the minimum required distance for a swipe (in units)
 
@@ -100,7 +100,12 @@ public class AbstractEntity : EventDispatcher
 
         Dispatch("swiped", this);
     }
-
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        Player player = coll.gameObject.GetComponent<Player>();
+        if (player) OnPlayerHit(player); 
+    }
+    public abstract void OnPlayerHit(Player player);
     IEnumerator Die()
     {
         var shrinkStep = 0.05f;
