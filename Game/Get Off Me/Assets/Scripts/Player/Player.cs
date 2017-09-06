@@ -30,7 +30,7 @@ public class Player : MonoBehaviour {
         startScale = transform.localScale.x; // ASSUMPTION: Player is a square
     }
 
-    public void OnEnemyEnter(float size) {
+    public void AbsorbEnemy(float size) {
         float damageAmount = size / Mathf.Clamp((100 - absorbPercentage), 1, 100);
         Damage(damageAmount);
     }
