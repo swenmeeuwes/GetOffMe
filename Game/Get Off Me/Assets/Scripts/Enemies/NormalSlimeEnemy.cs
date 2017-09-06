@@ -13,7 +13,7 @@ public class NormalSlimeEnemy : SeekingEntity
         player.AbsorbEnemy(model.health);
 
         Dispatch("dying", this);
-        Destroy(gameObject);
+        OnDestroy();
     }
 }
 

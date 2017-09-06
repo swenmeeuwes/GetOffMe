@@ -78,19 +78,8 @@ public abstract class AbstractEntity : EventDispatcher
             OnTap();        
     }
 
-    private void OnTap()
+    public virtual void OnTap()
     {
-        if (model.hasHelmet)
-        {
-            model.hasHelmet = false;
-
-            if (helmet != null)
-            {
-                helmet.gameObject.GetComponent<Animator>().SetTrigger("FlipOff");
-                //helmet.gameObject.SetActive(false);
-            }
-        }
-
         Dispatch("tapped", this);
     }
 
