@@ -13,6 +13,7 @@ public abstract class AbstractEntity : EventDispatcher
     protected Rigidbody2D rb;
     protected Transform helmet;
 
+    [HideInInspector]
     public EntityModel model;
 
     private Vector3 screenPoint;
