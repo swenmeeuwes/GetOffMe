@@ -73,6 +73,13 @@ public abstract class AbstractEntity : EventDispatcher
         {
             model.hasHelmet = false;
             animator.SetTrigger("loseHelmet");
+
+            // Create flipped particle
+            var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");
+            var helmetObject = Instantiate(helmetPrefab);
+
+            helmetObject.transform.position = transform.position;
+            helmetObject.transform.SetParent(transform);
         }
 
         Dispatch("tapped", this);
