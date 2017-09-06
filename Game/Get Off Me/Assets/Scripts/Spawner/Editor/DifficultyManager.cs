@@ -39,8 +39,13 @@ public class DifficultyManager : EditorWindow {
                 {
                     for (int j = 0; j < gamePhases.Count; j++)
                     {
-                        gamePhases[j].percentages.Add(0);
-                        gamePhases[j].objectKeys.Add(enemyCollection.enemyTypes[i]);
+                        if (gamePhases[j].percentages.Count < enemyCollection.enemyTypes.Count) {
+                            gamePhases[j].percentages.Add(0);
+                            gamePhases[j].objectKeys.Add(enemyCollection.enemyTypes[i]);
+                        }
+                        else{
+                            gamePhases[j].objectKeys[i] = enemyCollection.enemyTypes[i];
+                        }
                     }
                 }
             }
