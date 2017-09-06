@@ -25,6 +25,11 @@ public class ScoreManager
         //timer.Elapsed += new ElapsedEventHandler(OnTimerElapsed);
         //timer.Start();
     }
+    public void HandleHighscore() {
+        if(Score > PlayerPrefs.GetInt("highscore")) PlayerPrefs.SetInt("highscore", Score);
+
+        Debug.Log("Highscore: "+PlayerPrefs.GetInt("highscore"));
+    }
 
     public int Score { get; set; }
 

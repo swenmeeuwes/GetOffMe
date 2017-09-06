@@ -65,7 +65,9 @@ public class Player : MonoBehaviour {
         }
 
         // Temp death function
-        if (health <= 0)
+        if (health <= 0) {
+            ScoreManager.Instance.HandleHighscore();
             GameManager.Instance.State = GameState.GAMEOVER;
+        }
     }
 }
