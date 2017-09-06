@@ -19,19 +19,33 @@ public class ScoreManager
 
     private ScoreManager() {
         Score = 0;
+        Highscore = PlayerPrefs.GetInt("highscore");
 
         //timer = new Timer();
         //timer.Interval = 5000;
         //timer.Elapsed += new ElapsedEventHandler(OnTimerElapsed);
         //timer.Start();
     }
-    public void HandleHighscore() {
-        if(Score > PlayerPrefs.GetInt("highscore")) PlayerPrefs.SetInt("highscore", Score);
 
-        Debug.Log("Highscore: "+PlayerPrefs.GetInt("highscore"));
+    private int _score;
+    public int Score
+    {
+        get
+        {
+            return _score;
+        }
+        set
+        {
+            _score = value;
+            if (_score > Highscore)
+            {
+                PlayerPrefs.SetInt("highscore", _score);
+                Highscore = _score;
+            }
+        }
     }
-
-    public int Score { get; set; }
+    
+    public int Highscore { get; private set; }
 
     //private void OnTimerElapsed(object sender, ElapsedEventArgs e)
     //{

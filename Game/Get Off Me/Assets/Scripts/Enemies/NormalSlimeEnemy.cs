@@ -11,6 +11,8 @@ public class NormalSlimeEnemy : SeekingEntity
     public override void OnPlayerHit(Player player)
     {
         player.AbsorbEnemy(model.health);
+
+        Dispatch("dying", this);
         Destroy(gameObject);
     }
 }

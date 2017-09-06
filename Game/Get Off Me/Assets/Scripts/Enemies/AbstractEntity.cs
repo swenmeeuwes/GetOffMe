@@ -111,7 +111,8 @@ public abstract class AbstractEntity : EventDispatcher
     void OnCollisionEnter2D(Collision2D coll)
     {
         Player player = coll.gameObject.GetComponent<Player>();
-        if (player) OnPlayerHit(player); 
+        if (player)
+            OnPlayerHit(player);
     }
     public virtual void OnDestroy() {
         DragParticles.Stop();

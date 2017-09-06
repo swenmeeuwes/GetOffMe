@@ -23,11 +23,11 @@ public class ScoreRewardIndicator : MonoBehaviour
     private void Awake()
     {
         textField = GetComponent<Text>();
-        startPosition = transform.position;
     }
 
     private void Start()
     {
+        startPosition = transform.position;
         StartCoroutine(Animate());
     }
 
@@ -36,16 +36,21 @@ public class ScoreRewardIndicator : MonoBehaviour
         while (textField.color.a > 0)
         {
             // Position
+            // Make this a const?
             var fromBottomToTopInOneSecond = Camera.main.WorldToScreenPoint(Vector3.zero) * Time.deltaTime;
             fromBottomToTopInOneSecond.x = 0;
             fromBottomToTopInOneSecond.z = 0;
 
-            //if(transform.position - startPosition < 0.2f)
-                transform.position += fromBottomToTopInOneSecond * 0.4f; // 0.2th of the screen in one second
-
-            // Alpha
-            var textFieldColor = textField.color;
-            textField.color = new Color(textFieldColor.r, textFieldColor.g, textFieldColor.b, textFieldColor.a - 1f * Time.deltaTime);
+            if (transform.position.y - startPosition.y < 16) // 16 pixels
+            {
+                transform.position += fromBottomToTopInOneSecond * 0.4f; // 0.4th of the screen in one second
+            }
+            else
+            {
+                // Alpha
+                var textFieldColor = textField.color;
+                textField.color = new Color(textFieldColor.r, textFieldColor.g, textFieldColor.b, textFieldColor.a - 1f * Time.deltaTime);
+            }
 
             yield return new WaitForEndOfFrame();
         }
