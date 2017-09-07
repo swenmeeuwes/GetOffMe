@@ -37,7 +37,6 @@ public abstract class AbstractEntity : EventDispatcher
         ShowParticles = true;
         Draggable = true;
         DragParticles = GameObject.Find("EntityDragParticle").GetComponent<ParticleSystem>();
-        DragParticles.Stop();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
