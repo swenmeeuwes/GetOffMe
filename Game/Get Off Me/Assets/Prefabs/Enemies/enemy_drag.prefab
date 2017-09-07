@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4591894625868464}
   - component: {fileID: 198328507267641054}
+  - component: {fileID: 114272028075489268}
   - component: {fileID: 199697104849549284}
   m_Layer: 0
   m_Name: enemy_drag
@@ -41,6 +42,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114272028075489268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495807938748298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a475c94dbd5ada14fa3b86e9fb42f74e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198328507267641054
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -547,9 +559,9 @@ ParticleSystem:
     angle: 0
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
-    radiusThickness: 0
+    radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: -0.1, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
@@ -565,7 +577,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0.15
     radius:
-      value: 0.01
+      value: 0.6
       mode: 0
       spread: 0
       speed:
@@ -3336,7 +3348,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0.005
