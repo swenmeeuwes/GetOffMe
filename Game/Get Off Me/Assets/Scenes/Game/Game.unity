@@ -269,16 +269,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabledByDefault: 1
-  initialDelay: 0.1
-  interval: 2.5
-  objectToSpawn: {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b,
-    type: 2}
-  orthographicCamera: {fileID: 1904601765}
-  spawnDistanceOffset: 2.44
-  amountOfSpawnPoints: 180
-  degreeBlacklist:
-  - {x: 45, y: 135}
-  - {x: 225, y: 315}
+  spawnRateCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 5.0736694
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 4.0093994
+      value: 0.40353394
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   speedAdditionCurve:
     serializedVersion: 2
     m_Curve:
@@ -289,14 +297,28 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
+      time: 9.916406
+      value: 7.8527274
+      inSlope: 0.69856644
+      outSlope: 0.69856644
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 14.133913
+      value: 8.344469
+      inSlope: -0.62321323
+      outSlope: -0.62321323
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  objectToSpawn: {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b,
+    type: 2}
+  orthographicCamera: {fileID: 1904601765}
+  spawnDistanceOffset: 2.44
+  amountOfSpawnPoints: 180
+  degreeBlacklist:
+  - {x: 45, y: 135}
+  - {x: 225, y: 315}
   gamePhases: []
 --- !u!1 &399683303
 GameObject:

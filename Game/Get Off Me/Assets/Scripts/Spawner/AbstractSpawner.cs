@@ -8,15 +8,20 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
     // Exposed inspector fields
     [SerializeField]
     private bool enabledByDefault;
-    [SerializeField][Tooltip("The time it takes in seconds for the first object to spawn.")]
-    protected float initialDelay;
-    [SerializeField][Tooltip("The time in seconds in between spawns.")]
-    protected float interval;
+    //[SerializeField][Tooltip("The time it takes in seconds for the first object to spawn.")]
+    //protected float initialDelay;
+    //[SerializeField][Tooltip("The time in seconds in between spawns.")]
+    //protected float interval;
+    [SerializeField]
+    private AnimationCurve spawnRateCurve;
+    [SerializeField]
+    private AnimationCurve speedAdditionCurve;
     // ---
 
     private readonly string SPAWN_METHOD_NAME = "Spawn";
     private readonly string SPAWN_LIST_NAME = "spawns";
 
+    protected float counter = 0;
     private bool _enabled;
 
     public bool Enabled
@@ -29,9 +34,10 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         {
             var newState = value;
             if (!_enabled && newState)
-                InvokeRepeating(SPAWN_METHOD_NAME, initialDelay, interval);
-            else if (Enabled && !newState)
-                CancelInvoke(SPAWN_METHOD_NAME);
+                Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter));
+                //InvokeRepeating(SPAWN_METHOD_NAME, initialDelay, interval);
+            //else if (Enabled && !newState)
+            //    CancelInvoke(SPAWN_METHOD_NAME);
 
             _enabled = newState;
         }
@@ -57,7 +63,17 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         spawnsList.transform.parent = transform;
     }
 
-    public abstract void Spawn();
+    protected virtual void Update()
+    {
+        if(Enabled)
+            counter += Time.deltaTime;
+    }
+
+    public virtual void Spawn()
+    {
+        if(Enabled)
+            Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter));
+    }
 
     /// <summary>
     /// Gets an array of alive spawned game objects
@@ -101,6 +117,12 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
     {
         var spawned = Instantiate(objectToSpawn);
         spawned.transform.parent = SpawnListTransform;
+
+        // Speed addition
+        var speedAddition = speedAdditionCurve.Evaluate(counter);
+
+        var entity = spawned.GetComponent<AbstractEntity>();
+        entity.model.speed += speedAddition;
 
         return spawned;
     }
