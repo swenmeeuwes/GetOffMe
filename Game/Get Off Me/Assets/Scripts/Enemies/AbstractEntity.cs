@@ -11,8 +11,9 @@ public abstract class AbstractEntity : EventDispatcher
     private EntityModel entityModel;
 
     protected Rigidbody2D rb;
-    protected Transform helmet;
+    protected Animator animator;
 
+    [HideInInspector]
     public EntityModel model;
 
     private Vector3 screenPoint;
@@ -34,13 +35,9 @@ public abstract class AbstractEntity : EventDispatcher
         DragParticles = GameObject.Find("EntityDragParticle").GetComponent<ParticleSystem>();
         DragParticles.Stop();
         rb = GetComponent<Rigidbody2D>();
-
-        helmet = transform.Find("Helmet");
+        animator = GetComponent<Animator>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
-
-        if (helmet != null && !model.hasHelmet)
-            helmet.gameObject.SetActive(false);
     }
 
     private void Update() { }
