@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameOverPanel : MonoBehaviour {
+    [SerializeField]
+    private GameObject newPersonalBestPanel;
+
     private GameObject gameOverPanel;
 
     private bool lastStateEnabled;
@@ -16,16 +19,16 @@ public class GameOverPanel : MonoBehaviour {
     private void Update()
     {
         var newState = GameManager.Instance.State == GameState.GAMEOVER;
-        gameOverPanel.SetActive(newState);
 
         if (!lastStateEnabled && newState)
         {
-            Debug.Log(" DEAD");
-            Social.ReportScore(ScoreManager.Instance.Score, GooglePlayServiceConstants.leaderboard_score, (bool success) => {
-                // handle success or failure
-            });
-            
+            var isNewPersonalBest = ScoreManager.Instance.Score > ScoreManager.Instance.Highscore;
+            newPersonalBestPanel.SetActive(isNewPersonalBest);
+
+            ScoreManager.Instance.SubmitHighscore();
         }
+
+        gameOverPanel.SetActive(newState);
 
         lastStateEnabled = newState;
     }
