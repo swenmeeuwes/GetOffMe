@@ -1057,7 +1057,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4591894625868464, guid: 74b4f5ca4550f8e489e9f0c2c2f2589e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 4591894625868464, guid: 74b4f5ca4550f8e489e9f0c2c2f2589e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1086,11 +1086,6 @@ Prefab:
     - target: {fileID: 1495807938748298, guid: 74b4f5ca4550f8e489e9f0c2c2f2589e, type: 2}
       propertyPath: m_Name
       value: EntityDragParticle
-      objectReference: {fileID: 0}
-    - target: {fileID: 199697104849549284, guid: 74b4f5ca4550f8e489e9f0c2c2f2589e,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74b4f5ca4550f8e489e9f0c2c2f2589e, type: 2}
