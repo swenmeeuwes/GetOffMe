@@ -48,7 +48,7 @@ public class TutorialPlayer : MonoBehaviour {
 
         sprite.transform.parent = spawned.transform;
 
-        if (spawnedEntity.model.hasHelmet)
+        if (spawnedEntity is HelmetSlimeEnemy)
         {
             spriteRenderer.sprite = tapDialog;
             spawnedEntity.AddEventListener("tapped", (e) => spriteRenderer.sprite = swipeDialog, true);

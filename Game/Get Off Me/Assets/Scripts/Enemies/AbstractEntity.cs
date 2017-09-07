@@ -16,22 +16,26 @@ public abstract class AbstractEntity : EventDispatcher
     [HideInInspector]
     public EntityModel model;
 
-    private Vector3 screenPoint;
-    private Vector3 offset;
-    private Vector3 oldPosition = Vector3.one;
-    private Vector3 futurePosition;
+    public bool ShowParticles { get; set; }
+    public bool Draggable { get; set; }
+
+    protected Vector3 screenPoint;
+    protected Vector3 offset;
+    protected Vector3 oldPosition = Vector3.zero;
+    protected Vector3 futurePosition;
 
     private ParticleSystem DragParticles;
 
     protected virtual void Awake()
     {
         base.Awake();
-
         model = Instantiate(entityModel);
     }
 
     protected virtual void Start()
     {
+        ShowParticles = true;
+        Draggable = true;
         DragParticles = GameObject.Find("EntityDragParticle").GetComponent<ParticleSystem>();
         DragParticles.Stop();
         rb = GetComponent<Rigidbody2D>();
@@ -42,29 +46,33 @@ public abstract class AbstractEntity : EventDispatcher
 
     private void Update() { }
 
-    private void OnMouseDown()
+    protected virtual void OnMouseDown()
     {
-        DragParticles.transform.position = transform.position;
-        DragParticles.Play();
+        if (ShowParticles) {
+            DragParticles.transform.position = transform.position;
+            DragParticles.Play();
+        }
+
         oldPosition = transform.position;
         futurePosition = transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
         offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
     }
-
-    private void OnMouseDrag()
+    protected virtual void OnMouseDrag()
     {
-        DragParticles.transform.position = transform.position;
+        if (ShowParticles) {
+            DragParticles.transform.position = transform.position;
+        }
+        
         oldPosition = transform.position;
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
-        if (model.hasHelmet)
-            return;
-
-        transform.position = futurePosition;
+        if (Draggable) {
+            transform.position = futurePosition;
+        }
     }
-    private void OnMouseUp()
+    protected virtual void OnMouseUp()
     {
         DragParticles.Stop();
         var swipeVector = futurePosition - oldPosition; // Swipe distance in units
@@ -80,11 +88,8 @@ public abstract class AbstractEntity : EventDispatcher
         Dispatch("tapped", this);
     }
 
-    private void OnSwipe(Vector3 swipeVector)
+    protected virtual void OnSwipe(Vector3 swipeVector)
     {
-        if (model.hasHelmet)
-            return;
-
         var newVelocity = swipeVector * (100 - model.weight);
         rb.velocity = newVelocity;
 
@@ -100,7 +105,7 @@ public abstract class AbstractEntity : EventDispatcher
         if (player)
             OnPlayerHit(player);
     }
-    public virtual void OnDestroy() {
+    public virtual void OnEntityDestroy() {
         DragParticles.Stop();
         Destroy(gameObject);
     }

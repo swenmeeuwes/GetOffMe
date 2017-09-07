@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61865153174007162}
   - component: {fileID: 50697057756070454}
   - component: {fileID: 95843087090314320}
-  - component: {fileID: 114389527680419942}
+  - component: {fileID: 114979612151141858}
   m_Layer: 8
   m_Name: Helmet Enemy
   m_TagString: Enemy
@@ -106,7 +106,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114389527680419942
+--- !u!114 &114979612151141858
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1215110422154106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 903086c57b54c7347b543a49424cfd8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f0ed8d11fe4e634c8d9c7447f424a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityModel: {fileID: 11400000, guid: 2aca8730013d61c41b8a2993fad0e744, type: 2}
