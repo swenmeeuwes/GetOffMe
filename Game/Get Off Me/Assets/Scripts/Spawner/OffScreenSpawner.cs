@@ -21,6 +21,10 @@ public class OffScreenSpawner : AbstractSpawner
     private int amountOfSpawnPoints = 180;
     [SerializeField]
     private Vector2[] degreeBlacklist;
+    [SerializeField]
+    private AnimationCurve speedAdditionCurve;
+    //[SerializeField][Tooltip("When the speed will cap (in seconds)")]
+    //private float speedAdditionTimeCap;
     // ---
 
     [SerializeField]
@@ -84,6 +88,12 @@ public class OffScreenSpawner : AbstractSpawner
 
         GameObject randomEntity = base.CreateSpawn(GetRandomEntityFromSpawnList(currentPhase));
         randomEntity.transform.position = randomSpawnPosition;
+
+        // Speed addition
+        var speedAddition = speedAdditionCurve.Evaluate(counter);
+
+        var entity = randomEntity.GetComponent<AbstractEntity>();
+        entity.model.speed += speedAddition;
     }
 
     /// <summary>
