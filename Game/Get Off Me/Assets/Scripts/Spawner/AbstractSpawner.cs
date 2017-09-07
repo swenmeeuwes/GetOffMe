@@ -34,10 +34,9 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         {
             var newState = value;
             if (!_enabled && newState)
-                Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter));
-                //InvokeRepeating(SPAWN_METHOD_NAME, initialDelay, interval);
-            //else if (Enabled && !newState)
-            //    CancelInvoke(SPAWN_METHOD_NAME);
+                Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter)); //InvokeRepeating(SPAWN_METHOD_NAME, initialDelay, interval);
+            else if (Enabled && !newState)
+                CancelInvoke(SPAWN_METHOD_NAME);
 
             _enabled = newState;
         }
