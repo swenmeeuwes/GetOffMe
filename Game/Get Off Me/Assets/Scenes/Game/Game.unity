@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 104227106}
   - component: {fileID: 104227109}
   - component: {fileID: 104227108}
+  - component: {fileID: 104227107}
   m_Layer: 0
   m_Name: HighScoreNewBestPanelText
   m_TagString: Untagged
@@ -189,6 +190,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!111 &104227107
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 104227105}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &104227108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1266,6 +1281,7 @@ GameObject:
   - component: {fileID: 1389621325}
   - component: {fileID: 1389621327}
   - component: {fileID: 1389621326}
+  - component: {fileID: 1389621328}
   m_Layer: 0
   m_Name: HighScoreNewBestPanel
   m_TagString: Untagged
@@ -1325,6 +1341,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1389621324}
+--- !u!95 &1389621328
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1389621324}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b782d87ab1031b94d8bf7ec1f6148394, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1415474471
 GameObject:
   m_ObjectHideFlags: 0
