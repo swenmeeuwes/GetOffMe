@@ -51,11 +51,6 @@ public class EntityEditor : EditorWindow
 
         EditorGUILayout.Separator();
 
-        GUILayout.Label("Special", EditorStyles.boldLabel);
-
-        EditorGUILayout.PrefixLabel("Helmet");
-        entity.hasHelmet = EditorGUILayout.Toggle(entity.hasHelmet);
-
         if (showFileNotFoundWarning)
             EditorGUILayout.HelpBox("Could not load enemy, enemy not found", MessageType.Warning);
 

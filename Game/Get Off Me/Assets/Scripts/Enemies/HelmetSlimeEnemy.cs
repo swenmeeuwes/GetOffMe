@@ -8,13 +8,16 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
     protected override void Start() {
         base.Start();
+        ShowParticles = false;
         hasHelmet = true;
+        Draggable = false;
     }
     public override void OnTap() {
-        Debug.Log("tap");
         if (hasHelmet)
         {
             hasHelmet = false;
+            ShowParticles = true;
+            Draggable = true;
             animator.SetTrigger("loseHelmet");
 
             // Create flipped particle
@@ -26,37 +29,15 @@ public class HelmetSlimeEnemy : SeekingEntity {
         }
         base.OnTap();
     }
-    protected override void OnMouseDown()
-    {
-        if (hasHelmet)
-        {
-            oldPosition = transform.position;
-            futurePosition = transform.position;
-        }
-        else {
-            base.OnMouseDown();
-        }
-    }
     protected override void OnSwipe(Vector3 swipeVector) {
         if (hasHelmet)
             return;
         base.OnSwipe(swipeVector);
     }
-    protected override void OnMouseDrag() {
-        if (hasHelmet)
-        {
-            oldPosition = transform.position;
-            Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-            futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint + offset);
-        }
-        else {
-            base.OnMouseDrag();
-        }
-    }
     public override void OnPlayerHit(Player player)
     {
         player.AbsorbEnemy(model.health + (hasHelmet?1: 0)); // TODO Temporary extra health for helmet
         Dispatch("dying", this);
-        OnDestroy();
+        OnEntityDestroy();
     }
 }

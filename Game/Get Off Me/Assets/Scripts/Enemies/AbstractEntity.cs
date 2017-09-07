@@ -16,6 +16,9 @@ public abstract class AbstractEntity : EventDispatcher
     [HideInInspector]
     public EntityModel model;
 
+    public bool ShowParticles { get; set; }
+    public bool Draggable { get; set; }
+
     protected Vector3 screenPoint;
     protected Vector3 offset;
     protected Vector3 oldPosition = Vector3.zero;
@@ -26,12 +29,13 @@ public abstract class AbstractEntity : EventDispatcher
     protected virtual void Awake()
     {
         base.Awake();
-
         model = Instantiate(entityModel);
     }
 
     protected virtual void Start()
     {
+        ShowParticles = true;
+        Draggable = true;
         DragParticles = GameObject.Find("EntityDragParticle").GetComponent<ParticleSystem>();
         DragParticles.Stop();
         rb = GetComponent<Rigidbody2D>();
@@ -44,23 +48,29 @@ public abstract class AbstractEntity : EventDispatcher
 
     protected virtual void OnMouseDown()
     {
-        DragParticles.transform.position = transform.position;
-        DragParticles.Play();
+        if (ShowParticles) {
+            DragParticles.transform.position = transform.position;
+            DragParticles.Play();
+        }
 
         oldPosition = transform.position;
         futurePosition = transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
         offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
     }
-
     protected virtual void OnMouseDrag()
     {
-        DragParticles.transform.position = transform.position;
+        if (ShowParticles) {
+            DragParticles.transform.position = transform.position;
+        }
+        
         oldPosition = transform.position;
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
-        transform.position = futurePosition;
+        if (Draggable) {
+            transform.position = futurePosition;
+        }
     }
     protected virtual void OnMouseUp()
     {
@@ -95,7 +105,7 @@ public abstract class AbstractEntity : EventDispatcher
         if (player)
             OnPlayerHit(player);
     }
-    public virtual void OnDestroy() {
+    public virtual void OnEntityDestroy() {
         DragParticles.Stop();
         Destroy(gameObject);
     }
