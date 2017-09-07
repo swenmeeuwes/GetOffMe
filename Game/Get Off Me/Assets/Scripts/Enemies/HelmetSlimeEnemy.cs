@@ -24,8 +24,12 @@ public class HelmetSlimeEnemy : SeekingEntity {
             var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");
             var helmetObject = Instantiate(helmetPrefab);
 
-            helmetObject.transform.position = transform.position;
-            helmetObject.transform.SetParent(transform);
+            var parent = new GameObject();
+            parent.AddComponent<DeleteObjectDelayed>();
+            parent.transform.position = transform.position;
+
+            helmetObject.transform.position = Vector3.zero;
+            helmetObject.transform.SetParent(parent.transform);
         }
         base.OnTap();
     }
