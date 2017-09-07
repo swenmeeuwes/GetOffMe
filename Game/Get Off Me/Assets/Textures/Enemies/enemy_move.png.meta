@@ -1,17 +1,22 @@
 fileFormatVersion: 2
-guid: b5d7684eb60e5b142b34cf45162f33ef
-timeCreated: 1504686911
+guid: 5a77cad89f7055943a52b19fa587b62a
+timeCreated: 1504789390
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: enemy_jump_rogue_0
-    21300002: enemy_jump_rogue_1
-    21300004: enemy_jump_rogue_2
-    21300006: enemy_jump_rogue_3
-    21300008: enemy_jump_rogue_4
-    21300010: enemy_jump_rogue_5
-    21300012: enemy_jump_rogue_6
-    21300014: enemy_jump_rogue_7
+    21300000: enemy_move_0
+    21300002: enemy_move_1
+    21300004: enemy_move_2
+    21300006: enemy_move_3
+    21300008: enemy_move_4
+    21300010: enemy_move_5
+    21300012: enemy_move_6
+    21300014: enemy_move_7
+    21300016: enemy_move_8
+    21300018: enemy_move_9
+    21300020: enemy_move_10
+    21300022: enemy_move_11
+    21300024: enemy_move_12
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -99,12 +104,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: enemy_jump_rogue_0
+      name: enemy_move_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 72
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -113,12 +118,12 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump_rogue_1
+      name: enemy_move_1
       rect:
         serializedVersion: 2
-        x: 72
+        x: 128
         y: 0
-        width: 72
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -127,12 +132,12 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump_rogue_2
+      name: enemy_move_2
       rect:
         serializedVersion: 2
-        x: 144
+        x: 256
         y: 0
-        width: 72
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -141,12 +146,12 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump_rogue_3
+      name: enemy_move_3
       rect:
         serializedVersion: 2
-        x: 216
+        x: 384
         y: 0
-        width: 72
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -155,12 +160,12 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump_rogue_4
+      name: enemy_move_4
       rect:
         serializedVersion: 2
-        x: 288
+        x: 512
         y: 0
-        width: 72
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -169,12 +174,12 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump_rogue_5
+      name: enemy_move_5
       rect:
         serializedVersion: 2
-        x: 360
+        x: 640
         y: 0
-        width: 72
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -183,12 +188,12 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump_rogue_6
+      name: enemy_move_6
       rect:
         serializedVersion: 2
-        x: 432
+        x: 768
         y: 0
-        width: 72
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -197,12 +202,82 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump_rogue_7
+      name: enemy_move_7
       rect:
         serializedVersion: 2
-        x: 504
+        x: 896
         y: 0
-        width: 72
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: enemy_move_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: enemy_move_9
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: enemy_move_10
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: enemy_move_11
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 0
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: enemy_move_12
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
