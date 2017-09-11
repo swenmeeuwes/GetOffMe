@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GooglePlayServicesScripts : MonoBehaviour {
-    public void ShowScoreLeaderBoard()
+    public void ShowScoreLeaderBoard(GooglePlayLoginPromptPopup popup)
     {
+        if (!GooglePlayServicesManager.Instance.PlayerIsAuthenticated)
+            popup.Activate();
         GooglePlayServicesManager.Instance.ShowLeaderboard(GooglePlayServiceConstants.leaderboard_score);
     }
 }

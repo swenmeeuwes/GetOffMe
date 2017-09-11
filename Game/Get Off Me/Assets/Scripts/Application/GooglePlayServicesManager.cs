@@ -17,7 +17,13 @@ public class GooglePlayServicesManager {
         }
     }
 
-    public bool PlayerIsAuthenticated { get; set; }
+    public bool ServiceInitialized { get; private set; }
+    public bool PlayerIsAuthenticated {
+        get
+        {
+            return PlayGamesPlatform.Instance.IsAuthenticated();
+        }
+    }
 
     public void Initialize()
     {
@@ -29,12 +35,14 @@ public class GooglePlayServicesManager {
 
         // Activate the Google Play Games platform
         PlayGamesPlatform.Activate();
+
+        ServiceInitialized = true; // Check for fail?
     }
 
     public bool PromptAuthentication()
     {
         Social.localUser.Authenticate((bool success) => {
-            PlayerIsAuthenticated = success;
+            
         });
 
         return PlayerIsAuthenticated;
@@ -42,6 +50,9 @@ public class GooglePlayServicesManager {
     
     public bool ReportScoreToLeaderboard(string leaderboard, long score)
     {
+        if (!PlayerIsAuthenticated)
+            return false;
+
         var isSuccessful = false;
         Social.ReportScore(score, leaderboard, (bool success) => {
             if (!success)
@@ -55,11 +66,17 @@ public class GooglePlayServicesManager {
 
     public void ShowLeaderboard()
     {
+        if (!PlayerIsAuthenticated)
+            return;
+
         Social.ShowLeaderboardUI();
     }
 
     public void ShowLeaderboard(string leaderboardID)
     {
+        if (!PlayerIsAuthenticated)
+            return;
+
         PlayGamesPlatform.Instance.ShowLeaderboardUI(leaderboardID);
     }
 }
