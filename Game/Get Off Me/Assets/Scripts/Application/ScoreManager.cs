@@ -65,15 +65,12 @@ public class ScoreManager
         }
     }
 
-    public void SubmitHighscore(bool reportToGooglePlay = true)
+    public void SubmitHighscore(bool reportToGooglePlay = false)
     {
         Highscore = ActualHighscore;
 
-        if(reportToGooglePlay)
-            Social.ReportScore(Highscore, GooglePlayServiceConstants.leaderboard_score, (bool success) => {
-                if (!success)
-                    Debug.LogWarning("Unable to report high score to Google Play");
-            });
+        if (reportToGooglePlay)
+            GooglePlayServicesManager.Instance.ReportScoreToLeaderboard(GooglePlayServiceConstants.leaderboard_score, Highscore);
     }
 
     //private void OnTimerElapsed(object sender, ElapsedEventArgs e)

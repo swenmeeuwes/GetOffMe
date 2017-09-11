@@ -25,7 +25,7 @@ public class GameOverPanel : MonoBehaviour {
             var isNewPersonalBest = ScoreManager.Instance.Score > ScoreManager.Instance.Highscore;
             newPersonalBestPanel.SetActive(isNewPersonalBest);
 
-            ScoreManager.Instance.SubmitHighscore();
+            ScoreManager.Instance.SubmitHighscore(true);
         }
 
         gameOverPanel.SetActive(newState);

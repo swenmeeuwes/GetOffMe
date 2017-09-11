@@ -7,7 +7,6 @@ using UnityEngine;
 public class GooglePlayServicesScripts : MonoBehaviour {
     public void ShowScoreLeaderBoard()
     {
-        //Social.ShowLeaderboardUI();
-        PlayGamesPlatform.Instance.ShowLeaderboardUI(GooglePlayServiceConstants.leaderboard_score);
+        GooglePlayServicesManager.Instance.ShowLeaderboard(GooglePlayServiceConstants.leaderboard_score);
     }
 }
