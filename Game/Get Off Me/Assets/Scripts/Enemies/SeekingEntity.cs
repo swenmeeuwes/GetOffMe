@@ -12,7 +12,7 @@ public abstract class SeekingEntity : AbstractEntity {
         base.Start();
         target = GameObject.FindWithTag("Player");
     }
-	void Update () {
+	protected override void UpdateEntity () {
         Vector3 direction = (target.transform.position - transform.position).normalized;
         rb.AddForce(direction * model.speed);
     }

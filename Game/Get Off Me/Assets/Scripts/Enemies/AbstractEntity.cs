@@ -43,10 +43,16 @@ public abstract class AbstractEntity : EventDispatcher
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
     }
 
-    private void Update() { }
+    protected virtual void Update() {
+        if (GameManager.Instance.State == GameState.PAUSE) return;
+        else UpdateEntity();
+    }
+
+    protected virtual void UpdateEntity() {}
 
     protected virtual void OnMouseDown()
     {
+        if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles) {
             DragParticles.transform.position = transform.position;
             DragParticles.Play();
@@ -59,6 +65,7 @@ public abstract class AbstractEntity : EventDispatcher
     }
     protected virtual void OnMouseDrag()
     {
+        if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles) {
             DragParticles.transform.position = transform.position;
         }
@@ -74,6 +81,7 @@ public abstract class AbstractEntity : EventDispatcher
     protected virtual void OnMouseUp()
     {
         DragParticles.Stop();
+        if (GameManager.Instance.State == GameState.PAUSE) return;
         var swipeVector = futurePosition - oldPosition; // Swipe distance in units
 
         if (swipeVector.magnitude > SWIPE_MAGNITUDE)
@@ -108,7 +116,10 @@ public abstract class AbstractEntity : EventDispatcher
         DragParticles.Stop();
         Destroy(gameObject);
     }
-    public abstract void OnPlayerHit(Player player);
+    public virtual void OnPlayerHit(Player player) {
+        Dispatch("dying", this);
+        OnEntityDestroy();
+    }
     IEnumerator Die()
     {
         var shrinkStep = 0.05f;
