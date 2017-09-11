@@ -13,6 +13,6 @@ public class UsernameText : MonoBehaviour {
 
     private void Update()
     {
-        textField.text = GameManager.Instance.PlayerIsAuthenticated ? Social.localUser.userName : "Not logged in";
+        textField.text = GooglePlayServicesManager.Instance.PlayerIsAuthenticated ? Social.localUser.userName : "Not logged in";
     }
 }
