@@ -29,4 +29,12 @@ public class GameManager {
         _state = GameState.PLAY;
         PlayerIsAuthenticated = false;
     }
+    public void Pause() {
+        Time.timeScale = 0;
+        _state = GameState.PAUSE;
+    }
+    public void Resume() {
+        Time.timeScale = 1;
+        _state = GameState.PLAY;
+    }
 }

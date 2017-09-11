@@ -35,6 +35,13 @@ public class Player : MonoBehaviour {
         Damage(damageAmount);
     }
 
+    public void OnMouseDown() {
+        if (GameManager.Instance.State == GameState.PAUSE)
+            GameManager.Instance.Resume();
+        else
+            GameManager.Instance.Pause();
+    }
+
     private void Damage(float amount)
     {
         health -= amount;
