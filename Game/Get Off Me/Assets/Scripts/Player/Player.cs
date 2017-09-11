@@ -36,6 +36,7 @@ public class Player : MonoBehaviour {
     }
 
     public void OnMouseDown() {
+        if (GameManager.Instance.State == GameState.GAMEOVER) return;
         if (GameManager.Instance.State == GameState.PAUSE)
             GameManager.Instance.Resume();
         else
