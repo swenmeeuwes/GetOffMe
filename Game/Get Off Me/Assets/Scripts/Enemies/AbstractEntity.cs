@@ -18,6 +18,7 @@ public abstract class AbstractEntity : EventDispatcher
 
     public bool ShowParticles { get; set; }
     public bool Draggable { get; set; }
+    public bool Dragged { get; set; }
 
     protected Vector3 screenPoint;
     protected Vector3 offset;
@@ -58,6 +59,7 @@ public abstract class AbstractEntity : EventDispatcher
             DragParticles.Play();
         }
 
+        Dragged = true;
         oldPosition = transform.position;
         futurePosition = transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
@@ -81,6 +83,7 @@ public abstract class AbstractEntity : EventDispatcher
     protected virtual void OnMouseUp()
     {
         DragParticles.Stop();
+        Dragged = false;
         if (GameManager.Instance.State == GameState.PAUSE) return;
         var swipeVector = futurePosition - oldPosition; // Swipe distance in units
 
