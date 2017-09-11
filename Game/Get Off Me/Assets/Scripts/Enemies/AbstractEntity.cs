@@ -105,6 +105,12 @@ public abstract class AbstractEntity : EventDispatcher
             StartCoroutine(Die());
 
         Dispatch("swiped", this);
+
+        if (GameManager.Instance.State == GameState.PLAY)
+        {
+            ScoreManager.Instance.Score++;
+            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(1, transform.position, true);
+        }
     }
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -128,11 +134,6 @@ public abstract class AbstractEntity : EventDispatcher
             transform.localScale -= Vector3.one * shrinkStep;
             yield return new WaitForEndOfFrame();
         }
-
-        FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(1, transform.position, true);
-
-        if(GameManager.Instance.State == GameState.PLAY)
-            ScoreManager.Instance.Score++;
 
         Dispatch("dying", this);
 
