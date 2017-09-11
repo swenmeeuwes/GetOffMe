@@ -120,7 +120,8 @@ public abstract class AbstractEntity : EventDispatcher
 
         FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(1, transform.position, true);
 
-        ScoreManager.Instance.Score++;
+        if(GameManager.Instance.State == GameState.PLAY)
+            ScoreManager.Instance.Score++;
 
         Dispatch("dying", this);
 
