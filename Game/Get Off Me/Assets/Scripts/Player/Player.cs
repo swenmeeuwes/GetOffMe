@@ -54,7 +54,10 @@ public class Player : MonoBehaviour {
         animator.SetTrigger("hit");
         StartCoroutine(Grow());
     }
-
+    public void GameOver() {
+        GameObject.Find("Spawner").GetComponent<OffScreenSpawner>().DestroyAllSpawns();
+        GameManager.Instance.State = GameState.GAMEOVER;
+    }
     private IEnumerator Grow()
     {
         var growStep = 0.1f;
@@ -66,7 +69,7 @@ public class Player : MonoBehaviour {
 
         // Temp death function
         if (health <= 0) {
-            GameManager.Instance.State = GameState.GAMEOVER;
+            GameOver();
         }
     }
 }
