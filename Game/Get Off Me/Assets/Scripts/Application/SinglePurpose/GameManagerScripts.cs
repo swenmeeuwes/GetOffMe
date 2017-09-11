@@ -13,4 +13,12 @@ public class GameManagerScripts : MonoBehaviour {
     {
         GameManager.Instance.State = newState;
     }
+
+    public void SetPause() {
+        GameManager.Instance.Pause();
+    }
+
+    public void SetResume() {
+        GameManager.Instance.Resume();
+    }
 }
