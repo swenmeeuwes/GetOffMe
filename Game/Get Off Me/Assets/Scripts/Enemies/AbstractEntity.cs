@@ -49,7 +49,7 @@ public abstract class AbstractEntity : EventDispatcher
         else UpdateEntity();
     }
 
-    protected virtual void UpdateEntity() {}
+    protected abstract void UpdateEntity();
 
     protected virtual void OnMouseDown()
     {

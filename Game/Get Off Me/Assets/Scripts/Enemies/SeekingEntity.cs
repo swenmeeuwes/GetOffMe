@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// An enemy which will attempt to reach the player
+/// An entity which will attempt to reach the player
 /// </summary>
 public abstract class SeekingEntity : AbstractEntity {
     protected GameObject target;
@@ -13,6 +13,11 @@ public abstract class SeekingEntity : AbstractEntity {
         target = GameObject.FindWithTag("Player");
     }
 	protected override void UpdateEntity () {
+        Seek();
+    }
+
+    protected virtual void Seek()
+    {
         Vector3 direction = (target.transform.position - transform.position).normalized;
         rb.AddForce(direction * model.speed);
     }
