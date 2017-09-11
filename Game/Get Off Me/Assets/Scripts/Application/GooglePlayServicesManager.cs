@@ -16,7 +16,9 @@ public class GooglePlayServicesManager {
             return _instance;
         }
     }
-    
+
+    public bool PlayerIsAuthenticated { get; set; }
+
     public void Initialize()
     {
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
@@ -32,10 +34,10 @@ public class GooglePlayServicesManager {
     public bool PromptAuthentication()
     {
         Social.localUser.Authenticate((bool success) => {
-            GameManager.Instance.PlayerIsAuthenticated = success;
+            PlayerIsAuthenticated = success;
         });
 
-        return GameManager.Instance.PlayerIsAuthenticated;
+        return PlayerIsAuthenticated;
     }
     
     public bool ReportScoreToLeaderboard(string leaderboard, long score)
