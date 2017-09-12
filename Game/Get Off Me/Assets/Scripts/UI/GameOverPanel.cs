@@ -22,7 +22,6 @@ public class GameOverPanel : MonoBehaviour {
 
         if (!lastStateEnabled && newState)
         {
-            Debug.Log(ScoreManager.Instance.Score + "   " + ScoreManager.Instance.Highscore.ToString());
             var isNewPersonalBest = ScoreManager.Instance.Score >= ScoreManager.Instance.Highscore;
             newPersonalBestPanel.SetActive(isNewPersonalBest);
 
