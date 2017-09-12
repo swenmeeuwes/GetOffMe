@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager {
     private static GameManager _instance;
@@ -26,6 +27,9 @@ public class GameManager {
     public GameManager()
     {
         _state = GameState.MAINMENU;
+
+        if(SceneManager.GetActiveScene().name == "Game")
+            _state = GameState.PLAY;
     }
     public void Play() {
         _state = GameState.PLAY;
