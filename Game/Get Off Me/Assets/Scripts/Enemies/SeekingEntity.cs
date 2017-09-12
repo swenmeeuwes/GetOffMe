@@ -19,6 +19,6 @@ public abstract class SeekingEntity : AbstractEntity {
     protected virtual void Seek()
     {
         Vector3 direction = (target.transform.position - transform.position).normalized;
-        rb.AddForce(direction * model.speed);
+        rb.AddForce(direction * amplifiedSpeed * Time.deltaTime);
     }
 }

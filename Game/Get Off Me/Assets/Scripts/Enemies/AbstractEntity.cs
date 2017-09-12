@@ -10,6 +10,8 @@ public abstract class AbstractEntity : EventDispatcher
     [SerializeField]
     private EntityModel entityModel;
 
+    protected float amplifiedSpeed;
+
     protected Rigidbody2D rb;
     protected Animator animator;
 
@@ -42,6 +44,7 @@ public abstract class AbstractEntity : EventDispatcher
         animator = GetComponent<Animator>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
+        amplifiedSpeed = model.speed * 60;
     }
 
     protected virtual void Update() {
