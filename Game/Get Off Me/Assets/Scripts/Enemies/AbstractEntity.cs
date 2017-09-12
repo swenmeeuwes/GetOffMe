@@ -25,7 +25,7 @@ public abstract class AbstractEntity : EventDispatcher
     protected Vector3 oldPosition = Vector3.zero;
     protected Vector3 futurePosition;
 
-    private ParticleSystem DragParticles;
+    private ParticleSystem particleSystem;
 
     protected virtual void Awake()
     {
@@ -37,7 +37,7 @@ public abstract class AbstractEntity : EventDispatcher
     {
         ShowParticles = true;
         Draggable = true;
-        DragParticles = GameObject.Find("EntityDragParticle").GetComponent<ParticleSystem>();
+        particleSystem = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -55,8 +55,8 @@ public abstract class AbstractEntity : EventDispatcher
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles) {
-            DragParticles.transform.position = transform.position;
-            DragParticles.Play();
+            //particleSystem.transform.position = transform.position;
+            particleSystem.Play();
         }
 
         Dragged = true;
@@ -69,7 +69,7 @@ public abstract class AbstractEntity : EventDispatcher
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles) {
-            DragParticles.transform.position = transform.position;
+            particleSystem.transform.position = transform.position;
         }
         
         oldPosition = transform.position;
@@ -82,7 +82,7 @@ public abstract class AbstractEntity : EventDispatcher
     }
     protected virtual void OnMouseUp()
     {
-        DragParticles.Stop();
+        particleSystem.Stop();
         Dragged = false;
         if (GameManager.Instance.State == GameState.PAUSE) return;
         var swipeVector = futurePosition - oldPosition; // Swipe distance in units
@@ -122,7 +122,7 @@ public abstract class AbstractEntity : EventDispatcher
             OnPlayerHit(player);
     }
     public virtual void OnEntityDestroy() {
-        DragParticles.Stop();
+        particleSystem.Stop();
         Destroy(gameObject);
     }
     public virtual void OnPlayerHit(Player player) {
