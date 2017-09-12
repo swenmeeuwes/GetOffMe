@@ -54,10 +54,8 @@ public abstract class AbstractEntity : EventDispatcher
     protected virtual void OnMouseDown()
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
-        if (ShowParticles) {
-            //particleSystem.transform.position = transform.position;
+        if (ShowParticles)
             particleSystem.Play();
-        }
 
         Dragged = true;
         oldPosition = transform.position;
