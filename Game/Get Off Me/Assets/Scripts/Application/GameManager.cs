@@ -25,7 +25,11 @@ public class GameManager {
 
     public GameManager()
     {
+        _state = GameState.MAINMENU;
+    }
+    public void Play() {
         _state = GameState.PLAY;
+        Time.timeScale = 1;
     }
     public void Pause() {
         Time.timeScale = 0;
@@ -34,5 +38,9 @@ public class GameManager {
     public void Resume() {
         Time.timeScale = 1;
         _state = GameState.PLAY;
+    }
+    public void PrepareMainMenu() {
+        Time.timeScale = 1;
+        _state = GameState.MAINMENU;
     }
 }
