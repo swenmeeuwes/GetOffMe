@@ -14,5 +14,6 @@ public class HighScoreText : MonoBehaviour {
     private void Update()
     {
         textField.text = ScoreManager.Instance.Highscore.ToString(); // Listen to score changed event?
+        Debug.Log(" yoy " + ScoreManager.Instance.Highscore.ToString());
     }
 }

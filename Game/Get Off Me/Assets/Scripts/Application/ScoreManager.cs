@@ -36,7 +36,7 @@ public class ScoreManager
         set
         {
             _score = value;
-            if (_score > Highscore)
+            if (_score > ActualHighscore)
                 ActualHighscore = _score;
         }
     }
@@ -68,7 +68,8 @@ public class ScoreManager
 
     public void SubmitHighscore(bool reportToGooglePlay = false)
     {
-        Highscore = ActualHighscore;
+        if(ActualHighscore > Highscore)
+            Highscore = ActualHighscore;
 
         if (reportToGooglePlay)
             GooglePlayServicesManager.Instance.ReportScoreToLeaderboard(GooglePlayServiceConstants.leaderboard_score, Highscore);
