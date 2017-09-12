@@ -975,7 +975,7 @@ Prefab:
     - target: {fileID: 114687582774452498, guid: af8947d1a64e33b488a6154b27caffee,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114687582774452498, guid: af8947d1a64e33b488a6154b27caffee,
         type: 2}
@@ -986,11 +986,11 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1356660165}
+      objectReference: {fileID: 1356660163}
     - target: {fileID: 114687582774452498, guid: af8947d1a64e33b488a6154b27caffee,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: GotoScene
+      value: PrepareMenu
       objectReference: {fileID: 0}
     - target: {fileID: 114687582774452498, guid: af8947d1a64e33b488a6154b27caffee,
         type: 2}
@@ -1006,16 +1006,16 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1356660163}
+      objectReference: {fileID: 1356660165}
     - target: {fileID: 114687582774452498, guid: af8947d1a64e33b488a6154b27caffee,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetResume
+      value: GotoScene
       objectReference: {fileID: 0}
     - target: {fileID: 114687582774452498, guid: af8947d1a64e33b488a6154b27caffee,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af8947d1a64e33b488a6154b27caffee, type: 2}
