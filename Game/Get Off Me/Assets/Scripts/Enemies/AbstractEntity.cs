@@ -18,13 +18,14 @@ public abstract class AbstractEntity : EventDispatcher
 
     public bool ShowParticles { get; set; }
     public bool Draggable { get; set; }
+    public bool Dragged { get; set; }
 
     protected Vector3 screenPoint;
     protected Vector3 offset;
     protected Vector3 oldPosition = Vector3.zero;
     protected Vector3 futurePosition;
 
-    private ParticleSystem DragParticles;
+    private ParticleSystem particleSystem;
 
     protected virtual void Awake()
     {
@@ -36,7 +37,7 @@ public abstract class AbstractEntity : EventDispatcher
     {
         ShowParticles = true;
         Draggable = true;
-        DragParticles = GameObject.Find("EntityDragParticle").GetComponent<ParticleSystem>();
+        particleSystem = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -48,16 +49,15 @@ public abstract class AbstractEntity : EventDispatcher
         else UpdateEntity();
     }
 
-    protected virtual void UpdateEntity() {}
+    protected abstract void UpdateEntity();
 
     protected virtual void OnMouseDown()
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
-        if (ShowParticles) {
-            DragParticles.transform.position = transform.position;
-            DragParticles.Play();
-        }
+        if (ShowParticles)
+            particleSystem.Play();
 
+        Dragged = true;
         oldPosition = transform.position;
         futurePosition = transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
@@ -67,7 +67,7 @@ public abstract class AbstractEntity : EventDispatcher
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles) {
-            DragParticles.transform.position = transform.position;
+            particleSystem.transform.position = transform.position;
         }
         
         oldPosition = transform.position;
@@ -80,7 +80,8 @@ public abstract class AbstractEntity : EventDispatcher
     }
     protected virtual void OnMouseUp()
     {
-        DragParticles.Stop();
+        particleSystem.Stop();
+        Dragged = false;
         if (GameManager.Instance.State == GameState.PAUSE) return;
         var swipeVector = futurePosition - oldPosition; // Swipe distance in units
 
@@ -105,6 +106,12 @@ public abstract class AbstractEntity : EventDispatcher
             StartCoroutine(Die());
 
         Dispatch("swiped", this);
+
+        if (GameManager.Instance.State == GameState.PLAY)
+        {
+            ScoreManager.Instance.Score++;
+            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(1, transform.position, true);
+        }
     }
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -113,7 +120,7 @@ public abstract class AbstractEntity : EventDispatcher
             OnPlayerHit(player);
     }
     public virtual void OnEntityDestroy() {
-        DragParticles.Stop();
+        particleSystem.Stop();
         Destroy(gameObject);
     }
     public virtual void OnPlayerHit(Player player) {
@@ -128,11 +135,6 @@ public abstract class AbstractEntity : EventDispatcher
             transform.localScale -= Vector3.one * shrinkStep;
             yield return new WaitForEndOfFrame();
         }
-
-        FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(1, transform.position, true);
-
-        if(GameManager.Instance.State == GameState.PLAY)
-            ScoreManager.Instance.Score++;
 
         Dispatch("dying", this);
 

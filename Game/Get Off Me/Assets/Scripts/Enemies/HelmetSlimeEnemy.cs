@@ -30,6 +30,12 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
             helmetObject.transform.position = Vector3.zero;
             helmetObject.transform.SetParent(parent.transform);
+
+            if (GameManager.Instance.State == GameState.PLAY)
+            {
+                ScoreManager.Instance.Score++;
+                FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(1, transform.position, true);
+            }
         }
         base.OnTap();
     }

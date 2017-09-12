@@ -43,9 +43,17 @@ public class Player : MonoBehaviour {
             GameManager.Instance.Pause();
     }
 
+    public void Heal(float amount)
+    {
+        health = Mathf.Clamp(health + amount, -1, maxHealth);
+        UpdateSize();
+    }
+
     private void Damage(float amount)
     {
         health -= amount;
+
+        animator.SetTrigger("hit");
         UpdateSize();
     }
 
@@ -59,25 +67,35 @@ public class Player : MonoBehaviour {
 
         targetSize = newSize;
 
-        animator.SetTrigger("hit");
-        StartCoroutine(Grow());
+        StartCoroutine(AdaptSize());
     }
     public void GameOver() {
         GameObject.Find("Spawner").GetComponent<OffScreenSpawner>().DestroyAllSpawns();
         GameManager.Instance.State = GameState.GAMEOVER;
     }
-    private IEnumerator Grow()
+    private IEnumerator AdaptSize()
     {
-        var growStep = 0.1f;
-        while (transform.localScale.x < targetSize)
+        var step = 0.1f;
+
+        if (transform.localScale.x < targetSize)
         {
-            transform.localScale += Vector3.one * growStep;
-            yield return new WaitForEndOfFrame();
+            while (transform.localScale.x < targetSize)
+            {
+                transform.localScale += Vector3.one * step;
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        else
+        {
+            while (transform.localScale.x > targetSize)
+            {
+                transform.localScale -= Vector3.one * step;
+                yield return new WaitForEndOfFrame();
+            }
         }
 
         // Temp death function
-        if (health <= 0) {
+        if (health <= 0)
             GameOver();
-        }
     }
 }

@@ -7,11 +7,11 @@ public class GooglePlayLoginPromptPopup : Panel
     public void HandleContinueButton()
     {
         GooglePlayServicesManager.Instance.PromptAuthentication();
-        Deactiveate();
+        Deactivate();
     }
 
     public void HandleCancelButton()
     {
-        Deactiveate();
+        Deactivate();
     }
 }

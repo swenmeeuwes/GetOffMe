@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialPlayer : MonoBehaviour {
     [SerializeField]
@@ -11,6 +12,8 @@ public class TutorialPlayer : MonoBehaviour {
     private Sprite tapDialog;
     [SerializeField]
     private Sprite swipeDialog;
+    [SerializeField]
+    private Text tutorialTextField; 
 
     private int encounterIndex;
 
@@ -19,6 +22,7 @@ public class TutorialPlayer : MonoBehaviour {
         encounterIndex = 0;
 
         spawner.Enabled = false; // Halt spawning
+        tutorialTextField.text = "";
 
         Next();
     }
