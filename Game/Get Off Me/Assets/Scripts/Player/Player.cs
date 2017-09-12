@@ -72,6 +72,8 @@ public class Player : MonoBehaviour {
     public void GameOver() {
         GameObject.Find("Spawner").GetComponent<OffScreenSpawner>().DestroyAllSpawns();
         GameManager.Instance.State = GameState.GAMEOVER;
+
+        ScoreManager.Instance.SubmitHighscore(true);
     }
     private IEnumerator AdaptSize()
     {
