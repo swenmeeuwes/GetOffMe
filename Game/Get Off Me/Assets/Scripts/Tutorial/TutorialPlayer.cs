@@ -17,7 +17,7 @@ public class TutorialPlayer : MonoBehaviour {
     [SerializeField]
     private string[] tutorialTextSequence;
 
-    private Animation animation;
+    private Animation textAnimation;
 
     private GameObject player;
 
@@ -26,7 +26,7 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void Start()
     {
-        animation = GetComponent<Animation>();
+        textAnimation = tutorialTextField.GetComponent<Animation>();
 
         player = GameObject.FindGameObjectWithTag("Player");
 
@@ -35,7 +35,7 @@ public class TutorialPlayer : MonoBehaviour {
 
         spawner.Enabled = false; // Halt spawning
 
-        tutorialTextField.color = new Color(1, 1, 1, 0);
+        //tutorialTextField.color = new Color(1, 1, 1, 0);
         tutorialTextField.text = "";
 
         Next();
@@ -62,12 +62,21 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void HandleText()
     {
-        animation.Play("TextFadeInAnimation");
-        AnimationUtil.OnAnimationFinished(animation, () => {
-            tutorialTextField.text = tutorialTextSequence[tutorialSequenceIndex];
-        });
-        
-        Invoke("Next", 1.5f);
+        // Show text
+        tutorialTextField.text = tutorialTextSequence[tutorialSequenceIndex];
+        textAnimation.PlayQueued("TextFadeInAnimation", QueueMode.PlayNow);
+        StartCoroutine(AnimationUtil.OnAnimationFinished(textAnimation, () => {
+            Invoke("HideText", 1.5f);
+        }));
+    }
+
+    private void HideText()
+    {
+        textAnimation.PlayQueued("TextFadeOutAnimation", QueueMode.PlayNow);
+
+        StartCoroutine(AnimationUtil.OnAnimationFinished(textAnimation, () => {
+            Invoke("Next", 0.5f);
+        }));
     }
 
     private void HandleEncounter()
