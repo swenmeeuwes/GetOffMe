@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ParticleSystem))]
 public class StopParticleSystem : MonoBehaviour {
-
-	// Use this for initialization
 	void Start () {
         gameObject.GetComponent<ParticleSystem>().Stop();	
 	}
