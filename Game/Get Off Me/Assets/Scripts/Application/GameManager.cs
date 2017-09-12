@@ -28,8 +28,8 @@ public class GameManager {
     {
         _state = GameState.MAINMENU;
 
-        if(SceneManager.GetActiveScene().name == "Game")
-            _state = GameState.PLAY;
+        if (SceneManager.GetActiveScene().name == "Game")
+            Play();
     }
     public void Play() {
         _state = GameState.PLAY;
