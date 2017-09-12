@@ -1144,7 +1144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1679212489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1407,6 +1407,7 @@ GameObject:
   - component: {fileID: 2124341807}
   - component: {fileID: 2124341809}
   - component: {fileID: 2124341808}
+  - component: {fileID: 2124341810}
   m_Layer: 0
   m_Name: HelpText
   m_TagString: Untagged
@@ -1471,3 +1472,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2124341806}
+--- !u!111 &2124341810
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2124341806}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0

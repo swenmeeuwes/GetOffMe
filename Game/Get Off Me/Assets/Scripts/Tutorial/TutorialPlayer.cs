@@ -13,15 +13,29 @@ public class TutorialPlayer : MonoBehaviour {
     [SerializeField]
     private Sprite swipeDialog;
     [SerializeField]
-    private Text tutorialTextField; 
+    private Text tutorialTextField;
+    [SerializeField]
+    private string[] tutorialTextSequence;
 
+    private Animation animation;
+
+    private GameObject player;
+
+    private int tutorialSequenceIndex;
     private int encounterIndex;
 
     private void Start()
     {
+        animation = GetComponent<Animation>();
+
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        tutorialSequenceIndex = 0;
         encounterIndex = 0;
 
         spawner.Enabled = false; // Halt spawning
+
+        tutorialTextField.color = new Color(1, 1, 1, 0);
         tutorialTextField.text = "";
 
         Next();
@@ -29,12 +43,35 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void Next()
     {
-        if(encounterIndex > tutorialEncounters.Length - 1)
+        if (tutorialSequenceIndex < tutorialTextSequence.Length)
         {
-            spawner.Enabled = true;
-            return;
+            HandleText();
+            tutorialSequenceIndex++;
         }
+        else if (encounterIndex < tutorialEncounters.Length)
+        {
+            HandleEncounter();
+            encounterIndex++;
+        }
+        else
+        {
+            // Tutorial is finished
+            spawner.Enabled = true;
+        }
+    }
 
+    private void HandleText()
+    {
+        animation.Play("TextFadeInAnimation");
+        AnimationUtil.OnAnimationFinished(animation, () => {
+            tutorialTextField.text = tutorialTextSequence[tutorialSequenceIndex];
+        });
+        
+        Invoke("Next", 1.5f);
+    }
+
+    private void HandleEncounter()
+    {
         var nextEntity = tutorialEncounters[encounterIndex].GetComponent<AbstractEntity>(); // ASSUMPTION: Encounter is an entity!
         var randomPosition = spawner.GetRandomSpawnPoint();
 
@@ -61,9 +98,7 @@ public class TutorialPlayer : MonoBehaviour {
         {
             spriteRenderer.sprite = swipeDialog;
         }
-            
-        spawnedEntity.AddEventListener("dying", (e) => Next(), true);
 
-        encounterIndex++;
+        spawnedEntity.AddEventListener("dying", (e) => Next(), true);
     }
 }
