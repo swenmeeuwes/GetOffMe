@@ -112,6 +112,7 @@ public class TutorialPlayer : MonoBehaviour {
             //spawnedEntity.AddEventListener("tapped", (e) => spriteRenderer.sprite = swipeDialog, true);
 
             instructionCanvas.GetComponentInChildren<Text>().text = "Tap";
+            spawnedEntity.AddEventListener("tapped", (e) => instructionCanvas.GetComponentInChildren<Text>().text = "Swipe", true);
         }
         else
         {
