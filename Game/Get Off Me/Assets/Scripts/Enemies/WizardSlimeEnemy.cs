@@ -55,15 +55,15 @@ public class WizardSlimeEnemy : SeekingEntity {
         animator.SetBool("isChanneling", teleporting);
     }
     private void CreatePoofCloudOnMe() {
-        var poofClouds = Resources.Load<GameObject>("Enemy/Props/Helmet");
+        var poofClouds = Resources.Load<GameObject>("Enemy/Props/PoofCloud");
         var cloudObject = Instantiate(poofClouds);
 
         var parent = new GameObject();
         parent.AddComponent<DeleteObjectDelayed>();
         parent.transform.position = transform.position;
 
-        cloudObject.transform.position = Vector3.zero;
-        cloudObject.transform.SetParent(parent.transform);
+		cloudObject.transform.SetParent(parent.transform);
+		cloudObject.transform.localPosition = Vector3.zero;
     }
     public override void OnPlayerHit(Player player)
     {
