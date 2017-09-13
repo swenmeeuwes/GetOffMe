@@ -18,9 +18,11 @@ public abstract class AbstractEntity : EventDispatcher
     [HideInInspector]
     public EntityModel model;
 
-    public bool ShowParticles { get; set; }
-    public bool Draggable { get; set; }
-    public bool Dragged { get; set; }
+    protected bool ShowParticles { get; set; }
+	protected bool Draggable { get; set; }
+	protected bool Dragged { get; set; }
+	protected bool InComboRadius{ get; set; }
+	public bool actionRewardsCombo { get; set; }
 
     protected Vector3 screenPoint;
     protected Vector3 offset;
@@ -28,6 +30,7 @@ public abstract class AbstractEntity : EventDispatcher
     protected Vector3 futurePosition;
 
     private ParticleSystem particleSystem;
+	protected ComboSystem comboSystem;
 
     protected virtual void Awake()
     {
@@ -37,6 +40,7 @@ public abstract class AbstractEntity : EventDispatcher
 
     protected virtual void Start()
     {
+		comboSystem = GameObject.Find ("ComboSystem").GetComponent<ComboSystem> ();
         ShowParticles = true;
         Draggable = true;
         particleSystem = GetComponent<ParticleSystem>();
@@ -56,6 +60,11 @@ public abstract class AbstractEntity : EventDispatcher
 
     protected virtual void OnMouseDown()
     {
+		if (comboSystem.CheckIfCombo (transform.position))
+			InComboRadius = true;
+		else
+			comboSystem.Reset ();
+		
         if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles)
             particleSystem.Play();
@@ -83,6 +92,8 @@ public abstract class AbstractEntity : EventDispatcher
     }
     protected virtual void OnMouseUp()
     {
+		actionRewardsCombo = false;
+		
         particleSystem.Stop();
         Dragged = false;
         if (GameManager.Instance.State == GameState.PAUSE) return;
@@ -91,7 +102,12 @@ public abstract class AbstractEntity : EventDispatcher
         if (swipeVector.magnitude > SWIPE_MAGNITUDE)
             OnSwipe(swipeVector);
         else
-            OnTap();        
+            OnTap();       
+
+		if (InComboRadius && actionRewardsCombo) {
+			comboSystem.Increase (1);
+		}
+		InComboRadius = false;
     }
 
     public virtual void OnTap()
@@ -101,6 +117,7 @@ public abstract class AbstractEntity : EventDispatcher
 
     protected virtual void OnSwipe(Vector3 swipeVector)
     {
+		actionRewardsCombo = true;
         var newVelocity = swipeVector * (100 - model.weight);
         rb.velocity = newVelocity;
 
@@ -112,8 +129,8 @@ public abstract class AbstractEntity : EventDispatcher
 
         if (GameManager.Instance.State == GameState.PLAY)
         {
-            ScoreManager.Instance.Score++;
-            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(1, transform.position, true);
+			int addedScore = comboSystem.AwardPoints(1);
+			FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
     void OnCollisionEnter2D(Collision2D coll)
