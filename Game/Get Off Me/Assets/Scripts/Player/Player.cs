@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
     private Camera orthographicCamera;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+	private ComboSystem comboSystem;
 
     private float startScale;
 
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour {
 
     private void Start()
     {
+		comboSystem = GameObject.Find ("ComboSystem").GetComponent<ComboSystem> ();
         orthographicCamera = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -51,10 +53,12 @@ public class Player : MonoBehaviour {
 
     private void Damage(float amount)
     {
+		comboSystem.Reset ();
         health -= amount;
 
         animator.SetTrigger("hit");
         UpdateSize();
+		comboSystem.SetSize (targetSize);
     }
 
     private void UpdateSize()

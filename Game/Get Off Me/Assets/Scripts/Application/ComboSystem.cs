@@ -8,7 +8,8 @@ public class ComboSystem : MonoBehaviour {
 	[SerializeField]
 	private Camera orthographicCamera;
 
-	public float radius;
+	private float radius;
+	public float originalRadius;
 	public int Combo { get; set; }
 
 	// Use this for initialization
@@ -16,13 +17,17 @@ public class ComboSystem : MonoBehaviour {
 		if (orthographicCamera == null)
 			orthographicCamera = Camera.main;
 
-		if (radius == 0) {
-			radius = 3.0f;
+		if (originalRadius == 0) {
+			originalRadius = 3.0f;
 		}
+		radius = originalRadius;
 	}
 	public void Increase(int addValue){
 		Combo += addValue;
 		Debug.Log (Combo);
+	}
+	public void SetSize(float size){
+		radius = originalRadius * size;
 	}
 	public void Reset(){
 		Combo = 0;
@@ -33,20 +38,15 @@ public class ComboSystem : MonoBehaviour {
 		ScoreManager.Instance.Score += addScore; 
 		return addScore;
 	}
-	public bool CheckIfCombo(Vector3 enemyPosition){
-		return (Vector3.Distance (transform.position, enemyPosition) < radius);
+	public bool CheckIfCombo(Vector2 enemyPosition){
+		return (Vector2.Distance (transform.position, enemyPosition) < radius);
 	}
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	private void OnDrawGizmos()
 	{
 		if (orthographicCamera != null)
 		{
 			Gizmos.color = Color.magenta;
-			Gizmos.DrawWireSphere(transform.position, radius);
+			Gizmos.DrawWireSphere(transform.position, originalRadius);
 		}
 	}
 }
