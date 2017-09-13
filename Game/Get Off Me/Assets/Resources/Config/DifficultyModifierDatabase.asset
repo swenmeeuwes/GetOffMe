@@ -16,5 +16,14 @@ MonoBehaviour:
     Name: Mod1
     Enabled: 0
   - Unlocked: 0
-    Name: Mo2
+    Name: Mod2
+    Enabled: 0
+  - Unlocked: 0
+    Name: Mod3
+    Enabled: 0
+  - Unlocked: 0
+    Name: Mod4
+    Enabled: 0
+  - Unlocked: 0
+    Name: Mod5
     Enabled: 0
