@@ -8,18 +8,21 @@ public class TutorialPlayer : MonoBehaviour {
     private OffScreenSpawner spawner;
     [SerializeField]
     private GameObject[] tutorialEncounters;
-    [SerializeField]
-    private Sprite tapDialog;
-    [SerializeField]
-    private Sprite swipeDialog;
+    //[SerializeField]
+    //private Sprite tapDialog;
+    //[SerializeField]
+    //private Sprite swipeDialog;
     [SerializeField]
     private GameObject instructionCanvasPrefab;
+    [SerializeField]
+    private GameObject tutorialCanvas;
     [SerializeField]
     private Text tutorialTextField;
     [SerializeField]
     private string[] tutorialTextSequence;
 
     private Animation textAnimation;
+    private Camera tutorialCamera;
 
     private GameObject player;
 
@@ -29,8 +32,12 @@ public class TutorialPlayer : MonoBehaviour {
     private void Start()
     {
         textAnimation = tutorialTextField.GetComponent<Animation>();
+        tutorialCamera = GetComponent<Camera>();
 
         player = GameObject.FindGameObjectWithTag("Player");
+
+        tutorialCanvas.SetActive(false);
+        tutorialCamera.enabled = false;
 
         tutorialSequenceIndex = 0;
         encounterIndex = 0;
