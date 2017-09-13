@@ -154,6 +154,8 @@ MonoBehaviour:
   - {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b, type: 2}
   tapDialog: {fileID: 21300000, guid: a0c48dfd19c406049b0f3335432bff71, type: 3}
   swipeDialog: {fileID: 21300000, guid: 33c1f8b342d88c44d8a9a39457bbf4ec, type: 3}
+  instructionCanvasPrefab: {fileID: 1462253990068934, guid: c95a36f7d2216274d8c39110e0c20d19,
+    type: 2}
   tutorialTextField: {fileID: 2124341808}
   tutorialTextSequence:
   - Protect yourself
