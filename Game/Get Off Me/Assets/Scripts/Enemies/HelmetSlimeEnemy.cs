@@ -15,6 +15,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
     public override void OnTap() {
         if (hasHelmet)
         {
+			actionRewardsCombo = true;
             hasHelmet = false;
             ShowParticles = true;
             Draggable = true;
@@ -33,8 +34,8 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
             if (GameManager.Instance.State == GameState.PLAY)
             {
-                ScoreManager.Instance.Score++;
-                FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(1, transform.position, true);
+				int addedScore = comboSystem.AwardPoints(1);
+				FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
             }
         }
         base.OnTap();
