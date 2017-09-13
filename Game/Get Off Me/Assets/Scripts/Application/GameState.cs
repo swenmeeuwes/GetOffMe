@@ -6,5 +6,6 @@ public enum GameState
 {
     PLAY,
     PAUSE,
-    GAMEOVER
+    GAMEOVER,
+    MAINMENU
 }

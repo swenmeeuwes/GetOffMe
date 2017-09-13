@@ -10,6 +10,8 @@ public abstract class AbstractEntity : EventDispatcher
     [SerializeField]
     private EntityModel entityModel;
 
+    protected float amplifiedSpeed;
+
     protected Rigidbody2D rb;
     protected Animator animator;
 
@@ -25,7 +27,7 @@ public abstract class AbstractEntity : EventDispatcher
     protected Vector3 oldPosition = Vector3.zero;
     protected Vector3 futurePosition;
 
-    private ParticleSystem DragParticles;
+    private ParticleSystem particleSystem;
 
     protected virtual void Awake()
     {
@@ -37,11 +39,12 @@ public abstract class AbstractEntity : EventDispatcher
     {
         ShowParticles = true;
         Draggable = true;
-        DragParticles = GameObject.Find("EntityDragParticle").GetComponent<ParticleSystem>();
+        particleSystem = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
+        amplifiedSpeed = model.speed * 60;
     }
 
     protected virtual void Update() {
@@ -54,10 +57,8 @@ public abstract class AbstractEntity : EventDispatcher
     protected virtual void OnMouseDown()
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
-        if (ShowParticles) {
-            DragParticles.transform.position = transform.position;
-            DragParticles.Play();
-        }
+        if (ShowParticles)
+            particleSystem.Play();
 
         Dragged = true;
         oldPosition = transform.position;
@@ -69,7 +70,7 @@ public abstract class AbstractEntity : EventDispatcher
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles) {
-            DragParticles.transform.position = transform.position;
+            particleSystem.transform.position = transform.position;
         }
         
         oldPosition = transform.position;
@@ -82,7 +83,7 @@ public abstract class AbstractEntity : EventDispatcher
     }
     protected virtual void OnMouseUp()
     {
-        DragParticles.Stop();
+        particleSystem.Stop();
         Dragged = false;
         if (GameManager.Instance.State == GameState.PAUSE) return;
         var swipeVector = futurePosition - oldPosition; // Swipe distance in units
@@ -122,7 +123,7 @@ public abstract class AbstractEntity : EventDispatcher
             OnPlayerHit(player);
     }
     public virtual void OnEntityDestroy() {
-        DragParticles.Stop();
+        particleSystem.Stop();
         Destroy(gameObject);
     }
     public virtual void OnPlayerHit(Player player) {

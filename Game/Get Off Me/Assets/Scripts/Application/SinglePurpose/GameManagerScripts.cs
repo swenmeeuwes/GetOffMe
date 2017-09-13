@@ -21,4 +21,8 @@ public class GameManagerScripts : MonoBehaviour {
     public void SetResume() {
         GameManager.Instance.Resume();
     }
+
+    public void PrepareMenu() {
+        GameManager.Instance.PrepareMainMenu();
+    }
 }

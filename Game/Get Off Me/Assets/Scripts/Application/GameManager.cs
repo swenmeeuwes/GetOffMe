@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager {
     private static GameManager _instance;
@@ -25,7 +26,14 @@ public class GameManager {
 
     public GameManager()
     {
+        _state = GameState.MAINMENU;
+
+        if (SceneManager.GetActiveScene().name == "Game")
+            Play();
+    }
+    public void Play() {
         _state = GameState.PLAY;
+        Time.timeScale = 1;
     }
     public void Pause() {
         Time.timeScale = 0;
@@ -34,5 +42,9 @@ public class GameManager {
     public void Resume() {
         Time.timeScale = 1;
         _state = GameState.PLAY;
+    }
+    public void PrepareMainMenu() {
+        Time.timeScale = 1;
+        _state = GameState.MAINMENU;
     }
 }
