@@ -13,6 +13,8 @@ public class TutorialPlayer : MonoBehaviour {
     [SerializeField]
     private Sprite swipeDialog;
     [SerializeField]
+    private GameObject instructionCanvasPrefab;
+    [SerializeField]
     private Text tutorialTextField;
     [SerializeField]
     private string[] tutorialTextSequence;
@@ -35,7 +37,6 @@ public class TutorialPlayer : MonoBehaviour {
 
         spawner.Enabled = false; // Halt spawning
 
-        //tutorialTextField.color = new Color(1, 1, 1, 0);
         tutorialTextField.text = "";
 
         Next();
@@ -84,9 +85,11 @@ public class TutorialPlayer : MonoBehaviour {
         var nextEntity = tutorialEncounters[encounterIndex].GetComponent<AbstractEntity>(); // ASSUMPTION: Encounter is an entity!
         var randomPosition = spawner.GetRandomSpawnPoint();
 
-        var sprite = new GameObject("DialogBalloon");
-        var spriteRenderer = sprite.AddComponent<SpriteRenderer>();
-        sprite.transform.position = randomPosition + new Vector2(0, 1);
+        //var sprite = new GameObject("DialogBalloon");
+        //var spriteRenderer = sprite.AddComponent<SpriteRenderer>();
+        //sprite.transform.position = randomPosition + new Vector2(0, 1);
+
+        var instructionCanvas = Instantiate(instructionCanvasPrefab);
 
         var spawned = spawner.CreateSpawn(nextEntity.gameObject);
         var spawnedEntity = spawned.GetComponent<AbstractEntity>();
@@ -96,16 +99,24 @@ public class TutorialPlayer : MonoBehaviour {
         //spawnedEntity.model.speed = 1f;
         spawnedEntity.model.varianceInSpeed = 0f;
 
-        sprite.transform.parent = spawned.transform;
+        //sprite.transform.parent = spawned.transform;
+        //instructionCanvas.transform.parent = spawned.transform;
+        //instructionCanvas.GetComponent<RectTransform>().localPosition = new Vector3(0, -0.6f, 0);
+
+        instructionCanvas.transform.SetParent(spawned.transform, false);
+
 
         if (spawnedEntity is HelmetSlimeEnemy)
         {
-            spriteRenderer.sprite = tapDialog;
-            spawnedEntity.AddEventListener("tapped", (e) => spriteRenderer.sprite = swipeDialog, true);
+            //spriteRenderer.sprite = tapDialog;
+            //spawnedEntity.AddEventListener("tapped", (e) => spriteRenderer.sprite = swipeDialog, true);
+
+            instructionCanvas.GetComponentInChildren<Text>().text = "Tap";
         }
         else
         {
-            spriteRenderer.sprite = swipeDialog;
+            //spriteRenderer.sprite = swipeDialog;
+            instructionCanvas.GetComponentInChildren<Text>().text = "Swipe";
         }
 
         spawnedEntity.AddEventListener("dying", (e) => Next(), true);
