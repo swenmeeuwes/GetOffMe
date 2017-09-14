@@ -6,11 +6,12 @@ public class WizardSlimeEnemy : SeekingEntity {
 
     private bool teleporting = false;
     public float chanceToTeleport;
-    public float IntervalCheckIfTeleport;
+    public float intervalCheckIfTeleport;
+	public float channelTime;
 	// Use this for initialization
 	protected override void Start () {
         base.Start();
-        InvokeRepeating("TeleportCheck", IntervalCheckIfTeleport, IntervalCheckIfTeleport);
+		InvokeRepeating("TeleportCheck", intervalCheckIfTeleport, intervalCheckIfTeleport);
     }
 	
 	// Update is called once per frame
@@ -26,7 +27,7 @@ public class WizardSlimeEnemy : SeekingEntity {
     public void ChannelTeleport() {
         teleporting = true;
         animator.SetBool("isChanneling", teleporting);
-        Invoke("Teleport", Mathf.Min(IntervalCheckIfTeleport, 2));
+		Invoke("Teleport", channelTime);
     }
     public void TeleportCheck() {
         var random = Random.Range(1, 100);
@@ -63,11 +64,14 @@ public class WizardSlimeEnemy : SeekingEntity {
         parent.transform.position = transform.position;
 
 		cloudObject.transform.SetParent(parent.transform);
-		cloudObject.transform.localPosition = Vector3.zero;
+		cloudObject.transform.localPosition = new Vector3 (0.0f, -0.14f, 0.0f);
     }
     public override void OnPlayerHit(Player player)
     {
         player.AbsorbEnemy(model.health);
         base.OnPlayerHit(player);
     }
+	public void Configure(int pointsModifier, float channelTimeModifier){
+		
+	}
 }
