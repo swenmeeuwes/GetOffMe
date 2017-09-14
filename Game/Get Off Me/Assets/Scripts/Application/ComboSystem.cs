@@ -49,7 +49,7 @@ public class ComboSystem : MonoBehaviour {
 		if (orthographicCamera != null)
 		{
 			Gizmos.color = Color.magenta;
-			Gizmos.DrawWireSphere(transform.position, originalRadius);
+			Gizmos.DrawWireSphere(transform.position, radius);
 		}
 	}
 }
