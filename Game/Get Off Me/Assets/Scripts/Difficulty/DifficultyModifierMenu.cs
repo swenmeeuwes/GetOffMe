@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class DifficultyModifierMenu : MonoBehaviour {
     [SerializeField]
     private Text modifierNameTextField;
+    [SerializeField]
+    private Text statusTextField;
 
     private SaveGameModel saveGameModel;
     private DifficultyModifier selectedModifier;
@@ -48,6 +50,15 @@ public class DifficultyModifierMenu : MonoBehaviour {
         selectedModifier = saveGameModel.DifficultyModifiers[selectedModifierIndex];
         modifierNameTextField.text = selectedModifier.Name;
 
-        modifierNameTextField.color = selectedModifier.Enabled ? new Color(0, 1, 0) : new Color(1, 0, 0);
+        if(selectedModifier.Enabled)
+        {
+            modifierNameTextField.color = new Color(0, 1, 0);
+            statusTextField.text = "Disable";
+        }
+        else
+        {
+            modifierNameTextField.color = new Color(1, 0, 0);
+            statusTextField.text = "Enable";
+        }
     }
 }

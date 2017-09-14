@@ -24,6 +24,7 @@ public class ScoreParticleManager : MonoBehaviour {
 
         var rewardIndicator = rewardIndicatorObject.GetComponent<ScoreRewardIndicator>();
         rewardIndicator.Text = string.Format("+{0}", scoreAmount);
+        rewardIndicator.Color = ComboColorResolver.Resolve(scoreAmount);
 
         rewardIndicatorObject.transform.SetParent(transform, true);
     }

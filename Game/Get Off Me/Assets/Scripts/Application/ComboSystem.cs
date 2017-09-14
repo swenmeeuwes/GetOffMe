@@ -24,7 +24,6 @@ public class ComboSystem : MonoBehaviour {
 	}
 	public void Increase(int addValue){
 		Combo += addValue;
-		Debug.Log (Combo);
 	}
 	public void SetSize(float size){
 		radius = originalRadius * size;

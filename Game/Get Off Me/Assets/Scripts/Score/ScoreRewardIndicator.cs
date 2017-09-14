@@ -18,6 +18,18 @@ public class ScoreRewardIndicator : MonoBehaviour
         }
     }
 
+    public Color Color
+    {
+        get
+        {
+            return textField.color;
+        }
+        set
+        {
+            textField.color = value;
+        }
+    }
+
     private Text textField;
     private Vector3 startPosition;
     private void Awake()

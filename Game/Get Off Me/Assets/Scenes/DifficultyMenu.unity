@@ -1000,6 +1000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modifierNameTextField: {fileID: 1119670827}
+  statusTextField: {fileID: 566766128}
 --- !u!4 &1538250031
 Transform:
   m_ObjectHideFlags: 0
