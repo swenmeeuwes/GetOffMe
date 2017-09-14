@@ -133,6 +133,8 @@ public abstract class AbstractEntity : EventDispatcher
 			FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
+		
+	public abstract void Accept(IVial vial);
 
 	public virtual void Configure(int pointModifier){
 		model.awardPoints += pointModifier;

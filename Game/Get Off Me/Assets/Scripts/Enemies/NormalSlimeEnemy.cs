@@ -13,5 +13,9 @@ public class NormalSlimeEnemy : SeekingEntity
         player.AbsorbEnemy(model.health);
         base.OnPlayerHit(player);
     }
+	public override void Accept (IVial vial)
+	{
+		vial.Apply (this);
+	}
 }
 

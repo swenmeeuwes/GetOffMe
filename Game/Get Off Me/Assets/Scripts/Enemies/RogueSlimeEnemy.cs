@@ -13,8 +13,8 @@ public class RogueSlimeEnemy : SeekingEntity {
 		player.AbsorbEnemy(model.health);
 		base.OnPlayerHit(player);
 	}
-	public void Configure(int pointModifier, int speedModifier){
-		base.Configure(pointModifier);
-		model.speed += speedModifier;
+	public override void Accept (IVial vial)
+	{
+		vial.Apply (this);
 	}
 }
