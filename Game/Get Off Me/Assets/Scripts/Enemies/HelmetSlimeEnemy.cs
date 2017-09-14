@@ -10,8 +10,12 @@ public class HelmetSlimeEnemy : SeekingEntity {
 	[HideInInspector]
 	public int neededTapsForHelmet;
 
+	public int pointsForHelmetTap;
+
     protected override void Start() {
         base.Start();
+		if (pointsForHelmetTap <= 0)
+			pointsForHelmetTap = 1;
 		neededTapsForHelmet = 1;
         ShowParticles = false;
         hasHelmet = true;
@@ -42,7 +46,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
             if (GameManager.Instance.State == GameState.PLAY)
             {
-				int addedScore = comboSystem.AwardPoints(model.awardPoints);
+				int addedScore = comboSystem.AwardPoints(pointsForHelmetTap);
 				FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
             }
         }

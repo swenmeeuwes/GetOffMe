@@ -13,6 +13,9 @@ public class ComboSystem : MonoBehaviour {
 	public float originalRadius;
 	public int Combo { get; set; }
 
+	[HideInInspector]
+	public float chanceAtDoubleCombo;
+
 	// Use this for initialization
 	void Start () {
 		if (orthographicCamera == null)
@@ -21,10 +24,13 @@ public class ComboSystem : MonoBehaviour {
 		if (originalRadius == 0) {
 			originalRadius = 3.0f;
 		}
+		chanceAtDoubleCombo = 0;
         SetScale(1);
     }
 	public void Increase(int addValue){
 		Combo += addValue;
+		if (Random.Range (1.0f, 100.0f) < chanceAtDoubleCombo)
+			Combo += addValue;
 	}
 	public void SetScale(float size){
 		radius = originalRadius * size;
