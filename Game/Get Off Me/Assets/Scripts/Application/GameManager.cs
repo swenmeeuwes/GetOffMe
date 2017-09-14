@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager
 {
-    private readonly string SAVEGAME_FILE_NAME = "savegame.sav";
+    public static readonly string SAVEGAME_FILE_NAME = "savegame.sav";
 
     private static GameManager _instance;
 
