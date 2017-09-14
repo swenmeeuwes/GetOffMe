@@ -29,8 +29,10 @@ public class ComboSystem : MonoBehaviour {
 	public void SetScale(float size){
 		radius = originalRadius * size;
 
-        if(comboRadiusIndicator)
-            comboRadiusIndicator.rectTransform.sizeDelta = new Vector2(radius * 100, radius * 100); // 100 = pixels per unit
+        if (comboRadiusIndicator) {
+            var diameter = radius * 2;
+            comboRadiusIndicator.rectTransform.sizeDelta = Vector2.one * diameter;
+        }
 	}
 	public void Reset(){
 		Combo = 0;
