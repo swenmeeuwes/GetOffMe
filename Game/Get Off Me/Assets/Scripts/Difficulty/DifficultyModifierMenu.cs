@@ -48,7 +48,7 @@ public class DifficultyModifierMenu : MonoBehaviour {
     private void UpdateSelection()
     {
         selectedModifier = saveGameModel.DifficultyModifiers[selectedModifierIndex];
-        modifierNameTextField.text = selectedModifier.Name;
+        modifierNameTextField.text = selectedModifier.Type.ToString();
 
         if(selectedModifier.Enabled)
         {
