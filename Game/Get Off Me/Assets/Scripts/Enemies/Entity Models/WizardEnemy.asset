@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9471e48691dfaed4ea8a3e7a715fa2fe, type: 3}
   m_Name: WizardEnemy
   m_EditorClassIdentifier: 
-  health: 4
+  health: 2
   speed: 1
   varianceInSpeed: 0.3
   weight: 70
