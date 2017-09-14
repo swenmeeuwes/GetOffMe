@@ -105,7 +105,7 @@ public abstract class AbstractEntity : EventDispatcher
             OnTap();       
 
 		if (InComboRadius && actionRewardsCombo) {
-			comboSystem.Increase (1);
+			comboSystem.Increase(1);
 		}
 		InComboRadius = false;
     }
