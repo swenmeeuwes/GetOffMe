@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
 
         animator.SetTrigger("hit");
         UpdateSize();
-		comboSystem.SetScale(targetSize / 4);
+		comboSystem.SetScale(targetSize / 3);
     }
 
     private void UpdateSize()
