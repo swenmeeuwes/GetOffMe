@@ -8,4 +8,7 @@ public interface IVial {
 	void Apply (RogueSlimeEnemy entity);
 	void Apply (WizardSlimeEnemy entity);
 	void Apply (MedicSlimeAlly entity);
+	void Apply (Player player);
+	void Apply (ComboSystem comboSystem);
+	void Apply (OffScreenSpawner spawner);
 }
