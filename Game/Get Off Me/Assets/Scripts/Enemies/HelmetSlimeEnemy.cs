@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +7,12 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
     bool hasHelmet;
 
+	[HideInInspector]
+	public int neededTapsForHelmet;
+
     protected override void Start() {
         base.Start();
+		neededTapsForHelmet = 1;
         ShowParticles = false;
         hasHelmet = true;
         Draggable = false;
@@ -15,8 +20,11 @@ public class HelmetSlimeEnemy : SeekingEntity {
     public override void OnTap() {
         if (hasHelmet)
         {
+			neededTapsForHelmet--;
+			if (neededTapsForHelmet <= 0) {
+				hasHelmet = false;
+			}
 			actionRewardsCombo = true;
-            hasHelmet = false;
             ShowParticles = true;
             Draggable = true;
             animator.SetTrigger("loseHelmet");
@@ -34,7 +42,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
             if (GameManager.Instance.State == GameState.PLAY)
             {
-				int addedScore = comboSystem.AwardPoints(1);
+				int addedScore = comboSystem.AwardPoints(model.awardPoints);
 				FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
             }
         }

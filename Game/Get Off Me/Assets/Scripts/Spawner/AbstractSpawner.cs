@@ -87,7 +87,6 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         {
             spawns[i] = SpawnListTransform.GetChild(i).gameObject;
         }
-
         return spawns;
     }
 

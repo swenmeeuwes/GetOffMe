@@ -49,6 +49,9 @@ public class EntityEditor : EditorWindow
         EditorGUILayout.PrefixLabel("Weight");
         entity.weight = EditorGUILayout.FloatField(entity.weight);
 
+		EditorGUILayout.PrefixLabel("Points");
+		entity.awardPoints = EditorGUILayout.IntField(entity.awardPoints);
+
         EditorGUILayout.Separator();
 
         if (showFileNotFoundWarning)

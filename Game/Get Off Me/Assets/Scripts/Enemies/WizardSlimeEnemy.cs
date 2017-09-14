@@ -72,6 +72,7 @@ public class WizardSlimeEnemy : SeekingEntity {
         base.OnPlayerHit(player);
     }
 	public void Configure(int pointsModifier, float channelTimeModifier){
-		
+		base.Configure (pointsModifier);
+		channelTime -= channelTimeModifier;
 	}
 }
