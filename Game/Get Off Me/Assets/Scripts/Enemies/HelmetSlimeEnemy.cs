@@ -62,4 +62,8 @@ public class HelmetSlimeEnemy : SeekingEntity {
         player.AbsorbEnemy(model.health + (hasHelmet?1: 0)); // TODO Temporary extra health for helmet
         base.OnPlayerHit(player);
     }
+	public override void Accept (IVial vial)
+	{
+		vial.Apply (this);
+	}
 }

@@ -15,8 +15,8 @@ public class MedicSlimeAlly : SeekingEntity {
 		player.Heal(healAmount);
         base.OnPlayerHit(player);
     }
-	public void Configure(int pointModifier, int healModifier){
-		base.Configure (pointModifier);
-		healAmount += healModifier;
+	public override void Accept (IVial vial)
+	{
+		vial.Apply (this);
 	}
 }

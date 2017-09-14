@@ -71,8 +71,8 @@ public class WizardSlimeEnemy : SeekingEntity {
         player.AbsorbEnemy(model.health);
         base.OnPlayerHit(player);
     }
-	public void Configure(int pointsModifier, float channelTimeModifier){
-		base.Configure (pointsModifier);
-		channelTime -= channelTimeModifier;
+	public override void Accept (IVial vial)
+	{
+		vial.Apply (this);
 	}
 }

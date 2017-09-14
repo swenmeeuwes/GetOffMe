@@ -13,7 +13,7 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
     //[SerializeField][Tooltip("The time in seconds in between spawns.")]
     //protected float interval;
     [SerializeField]
-    private AnimationCurve spawnRateCurve;
+	public AnimationCurve spawnRateCurve;
     [SerializeField]
     private AnimationCurve speedAdditionCurve;
     // ---

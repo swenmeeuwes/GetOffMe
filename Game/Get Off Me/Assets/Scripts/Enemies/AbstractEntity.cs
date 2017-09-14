@@ -133,18 +133,9 @@ public abstract class AbstractEntity : EventDispatcher
 			FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
+		
+	public abstract void Accept(IVial vial);
 
-	public virtual void Configure(int pointModifier){
-		model.awardPoints += pointModifier;
-	}
-	public virtual void Configure(int pointModifier, int healthModifier){
-		Configure (pointModifier);
-		model.health += healthModifier;
-	}
-	public virtual void Configure(int pointModifier, int healthModifier, float speedModifier){
-		Configure (pointModifier, healthModifier);
-		model.speed += speedModifier;
-	}
     void OnCollisionEnter2D(Collision2D coll)
     {
         Player player = coll.gameObject.GetComponent<Player>();
