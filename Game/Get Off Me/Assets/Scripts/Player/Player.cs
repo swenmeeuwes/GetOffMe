@@ -22,7 +22,7 @@ public class Player : MonoBehaviour {
 
     private void Start()
     {
-		comboSystem = GameObject.Find ("ComboSystem").GetComponent<ComboSystem> ();
+		comboSystem = GameObject.Find("ComboSystem").GetComponent<ComboSystem>();
         orthographicCamera = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -30,6 +30,8 @@ public class Player : MonoBehaviour {
         maxHealth = health;
 
         startScale = transform.localScale.x; // ASSUMPTION: Player is a square
+
+        comboSystem.SetScale(startScale);
     }
 
     public void AbsorbEnemy(float size) {
@@ -58,7 +60,7 @@ public class Player : MonoBehaviour {
 
         animator.SetTrigger("hit");
         UpdateSize();
-		comboSystem.SetSize (targetSize);
+		comboSystem.SetScale(targetSize / 4);
     }
 
     private void UpdateSize()
