@@ -773,7 +773,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1080842766}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1538250030}
+        m_MethodName: ToggleSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1119670825
@@ -999,8 +1010,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30425ca6b7bc24e41a1ce925b23d2f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vialSprites:
+  - {fileID: 21300000, guid: eef33fac3eb81c34d9bf65a30244eb96, type: 3}
+  - {fileID: 21300000, guid: d146493b053d5274a866f7d27b13f516, type: 3}
+  - {fileID: 21300000, guid: beda9a829ed3bbe4c9a15cbc6339eb04, type: 3}
+  - {fileID: 21300000, guid: e4fb207fbd0ff624c9dc302bee0f9c48, type: 3}
+  - {fileID: 21300000, guid: d146493b053d5274a866f7d27b13f516, type: 3}
+  - {fileID: 21300000, guid: beda9a829ed3bbe4c9a15cbc6339eb04, type: 3}
   modifierNameTextField: {fileID: 1119670827}
   statusTextField: {fileID: 566766128}
+  imageContainers:
+  - {fileID: 969012004}
+  - {fileID: 1080842766}
+  - {fileID: 432876980}
 --- !u!4 &1538250031
 Transform:
   m_ObjectHideFlags: 0
