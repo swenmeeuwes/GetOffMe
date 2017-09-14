@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ComboSystem : MonoBehaviour {
-
-
+    [SerializeField]
+    private Image comboRadiusIndicator;
 	[SerializeField]
 	private Camera orthographicCamera;
 
@@ -20,13 +21,18 @@ public class ComboSystem : MonoBehaviour {
 		if (originalRadius == 0) {
 			originalRadius = 3.0f;
 		}
-		radius = originalRadius;
-	}
+        SetScale(1);
+    }
 	public void Increase(int addValue){
 		Combo += addValue;
 	}
-	public void SetSize(float size){
+	public void SetScale(float size){
 		radius = originalRadius * size;
+
+        if (comboRadiusIndicator) {
+            var diameter = radius * 2;
+            comboRadiusIndicator.rectTransform.sizeDelta = Vector2.one * diameter;
+        }
 	}
 	public void Reset(){
 		Combo = 0;
@@ -45,7 +51,7 @@ public class ComboSystem : MonoBehaviour {
 		if (orthographicCamera != null)
 		{
 			Gizmos.color = Color.magenta;
-			Gizmos.DrawWireSphere(transform.position, originalRadius);
+			Gizmos.DrawWireSphere(transform.position, radius);
 		}
 	}
 }

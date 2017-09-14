@@ -112,7 +112,8 @@ MonoBehaviour:
   entityModel: {fileID: 11400000, guid: b41d44f7f217a534086f602eb760b0d5, type: 2}
   model: {fileID: 0}
   chanceToTeleport: 100
-  IntervalCheckIfTeleport: 4
+  intervalCheckIfTeleport: 3
+  channelTime: 1.4
 --- !u!198 &198084374549276060
 ParticleSystem:
   m_ObjectHideFlags: 1

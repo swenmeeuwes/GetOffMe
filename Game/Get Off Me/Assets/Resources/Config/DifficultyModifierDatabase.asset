@@ -13,17 +13,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficultyModifiers:
   - Unlocked: 0
-    Name: Mod1
+    Type: 0
     Enabled: 0
   - Unlocked: 0
-    Name: Mod2
+    Type: 2
     Enabled: 0
   - Unlocked: 0
-    Name: Mod3
+    Type: 1
     Enabled: 0
   - Unlocked: 0
-    Name: Mod4
+    Type: 4
     Enabled: 0
   - Unlocked: 0
-    Name: Mod5
+    Type: 1
     Enabled: 0

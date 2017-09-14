@@ -6,6 +6,6 @@ using UnityEngine;
 [Serializable]
 public class DifficultyModifier {
     public bool Unlocked;
-    public string Name;
+    public VialType Type;
     public bool Enabled;    
 }
