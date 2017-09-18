@@ -11,16 +11,23 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
     public int pointsForHelmetTap;
 
-    protected override void Start() {
-        base.Start();
-		if (pointsForHelmetTap <= 0)
-			pointsForHelmetTap = 1;
+    private void Awake()
+    {
+        base.Awake();
 
-		NeededTapsForHelmet = 1;
+        if (pointsForHelmetTap <= 0)
+            pointsForHelmetTap = 1;
+
+        NeededTapsForHelmet = 1;
 
         ShowParticles = false;
         hasHelmet = true;
         Draggable = false;
+    }
+
+    protected override void Start() {
+        base.Start();
+		
 
         Debug.Log("Just SPawned helmet enemy with: "+NeededTapsForHelmet);
     }

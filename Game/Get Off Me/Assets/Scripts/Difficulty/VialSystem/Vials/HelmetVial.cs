@@ -7,7 +7,6 @@ public class HelmetVial : IVial {
 	private const int pointForHelmetTapModifier = 1;
 
 	public void Apply (HelmetSlimeEnemy entity){
-        entity = (HelmetSlimeEnemy)entity;
         Debug.Log("Initial Taps Needed according to Vial: " + entity.NeededTapsForHelmet);
         Debug.Log("Adding in vial: " + tapsModifier);
 		entity.NeededTapsForHelmet += tapsModifier;
