@@ -134,7 +134,7 @@ public abstract class AbstractEntity : EventDispatcher
         }
     }
 		
-	public abstract void Accept(IVial vial);
+	public virtual void Accept(IVial vial) { }
 
 	public virtual void Configure(int pointModifier){
 		model.awardPoints += pointModifier;

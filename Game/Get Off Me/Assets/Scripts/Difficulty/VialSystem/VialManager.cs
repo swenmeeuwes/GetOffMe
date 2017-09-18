@@ -29,7 +29,8 @@ public class VialManager {
 
 		for (int i = 0; i < savedModifiers.Length; i++) {
 			if (savedModifiers [i].Enabled) {
-				activeVials.Add (vials[savedModifiers[i].Type]);
+				//Debug.Log (savedModifiers [i].Type.ToString());
+				activeVials.Add (vials[savedModifiers [i].Type]);
 			}
 		}
 		return activeVials;
