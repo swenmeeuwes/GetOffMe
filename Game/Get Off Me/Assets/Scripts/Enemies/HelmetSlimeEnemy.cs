@@ -7,25 +7,29 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
     bool hasHelmet;
 
-	[HideInInspector]
-	public int neededTapsForHelmet;
+    public int NeededTapsForHelmet { get; set; }
 
-	public int pointsForHelmetTap;
+    public int pointsForHelmetTap;
 
     protected override void Start() {
         base.Start();
 		if (pointsForHelmetTap <= 0)
 			pointsForHelmetTap = 1;
-		neededTapsForHelmet = 1;
+
+		NeededTapsForHelmet = 1;
+
         ShowParticles = false;
         hasHelmet = true;
         Draggable = false;
+
+        Debug.Log("Just SPawned helmet enemy with: "+NeededTapsForHelmet);
     }
     public override void OnTap() {
         if (hasHelmet)
         {
-			neededTapsForHelmet--;
-			if (neededTapsForHelmet <= 0) {
+			NeededTapsForHelmet--;
+            Debug.Log("Tapped -> " + NeededTapsForHelmet);
+			if (NeededTapsForHelmet <= 0) {
 				hasHelmet = false;
 			}
 			actionRewardsCombo = true;

@@ -15,4 +15,4 @@ MonoBehaviour:
   speed: 1
   varianceInSpeed: 0.3
   weight: 80
-  hasHelmet: 1
+  awardPoints: 1
