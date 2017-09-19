@@ -28,7 +28,7 @@ public class OffScreenSpawner : AbstractSpawner
 
     
     
-    [SerializeField]
+    [HideInInspector]
     public List<GamePhase> gamePhases;
     private GamePhase currentPhase;
 

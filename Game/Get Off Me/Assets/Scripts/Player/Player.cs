@@ -51,6 +51,7 @@ public class Player : MonoBehaviour {
     {
         health = Mathf.Clamp(health + amount, -1, maxHealth);
         UpdateSize();
+        comboSystem.SetScale(targetSize / 3);
     }
 
     private void Damage(float amount)
