@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FastSpawnerVial : IVial {
-	private const float spawnerCurveModifier = 0.1f;
+	private const float spawnerCurveModifier = -0.3f;
 	public void Apply (HelmetSlimeEnemy entity){}
 	public void Apply (NormalSlimeEnemy entity){}
 	public void Apply (RogueSlimeEnemy entity){}
@@ -14,9 +14,14 @@ public class FastSpawnerVial : IVial {
 	public void Apply (OffScreenSpawner spawner){
         Debug.Log("spawner");
 
+        AnimationCurve newCurve;
+        Keyframe[] frames = new Keyframe[spawner.spawnRateCurve.keys.Length];
+
 		for(int i = 0; i < spawner.spawnRateCurve.keys.Length; i ++){
-            Debug.Log(spawner.spawnRateCurve.keys[i].value);
-			spawner.spawnRateCurve.keys[i].value += spawnerCurveModifier;
-		}
+            frames[i] = new Keyframe(spawner.spawnRateCurve.keys[i].time, spawner.spawnRateCurve.keys[i].value += spawnerCurveModifier);
+        }
+        newCurve = new AnimationCurve(frames);
+
+        spawner.spawnRateCurve = newCurve;
 	}
 }
