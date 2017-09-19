@@ -26,8 +26,6 @@ public class OffScreenSpawner : AbstractSpawner
     // ---
 
 
-    
-    
     [HideInInspector]
     public List<GamePhase> gamePhases;
     private GamePhase currentPhase;

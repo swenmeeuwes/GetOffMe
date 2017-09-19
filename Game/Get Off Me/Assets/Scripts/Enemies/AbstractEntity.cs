@@ -133,7 +133,7 @@ public abstract class AbstractEntity : EventDispatcher
 			FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
-    void OnCollisionEnter2D(Collision2D coll)
+    protected virtual void OnCollisionEnter2D(Collision2D coll)
     {
         Player player = coll.gameObject.GetComponent<Player>();
         if (player)
