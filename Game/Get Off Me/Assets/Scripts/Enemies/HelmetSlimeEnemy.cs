@@ -7,18 +7,19 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
     bool hasHelmet;
 
-    public int NeededTapsForHelmet { get; set; }
+    public int neededTapsForHelmet;
 
     public int pointsForHelmetTap;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
         if (pointsForHelmetTap <= 0)
             pointsForHelmetTap = 1;
 
-        NeededTapsForHelmet = 1;
+        neededTapsForHelmet = 1;
+        pointsForHelmetTap = 1;
 
         ShowParticles = false;
         hasHelmet = true;
@@ -27,33 +28,31 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
     protected override void Start() {
         base.Start();
-		
-
-        Debug.Log("Just SPawned helmet enemy with: "+NeededTapsForHelmet);
     }
     public override void OnTap() {
         if (hasHelmet)
         {
-			NeededTapsForHelmet--;
-            Debug.Log("Tapped -> " + NeededTapsForHelmet);
-			if (NeededTapsForHelmet <= 0) {
-				hasHelmet = false;
-			}
-			actionRewardsCombo = true;
-            ShowParticles = true;
-            Draggable = true;
-            animator.SetTrigger("loseHelmet");
+			neededTapsForHelmet--;
+            actionRewardsCombo = true;
+            if (neededTapsForHelmet <= 0)
+            {
+                hasHelmet = false;
 
-            // Create flipped particle
-            var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");
-            var helmetObject = Instantiate(helmetPrefab);
+                // Create flipped particle
+                var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");
+                var helmetObject = Instantiate(helmetPrefab);
 
-            var parent = new GameObject();
-            parent.AddComponent<DeleteObjectDelayed>();
-            parent.transform.position = transform.position;
+                var parent = new GameObject();
+                parent.AddComponent<DeleteObjectDelayed>();
+                parent.transform.position = transform.position;
 
-            helmetObject.transform.position = Vector3.zero;
-            helmetObject.transform.SetParent(parent.transform);
+                helmetObject.transform.position = Vector3.zero;
+                helmetObject.transform.SetParent(parent.transform);
+
+                animator.SetTrigger("loseHelmet");
+                Draggable = true;
+                ShowParticles = true;
+            }     
 
             if (GameManager.Instance.State == GameState.PLAY)
             {

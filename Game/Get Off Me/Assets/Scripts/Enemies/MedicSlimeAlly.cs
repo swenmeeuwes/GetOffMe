@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class MedicSlimeAlly : SeekingEntity {
 	private int healAmount;
-
-	protected override void Start(){
+    protected override void Awake()
+    {
+        base.Awake();
+        healAmount = 1;
+    }
+    protected override void Start(){
 		base.Start ();
-		healAmount = 1;
 	}
     public override void OnPlayerHit(Player player)
     {

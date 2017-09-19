@@ -20,14 +20,17 @@ public class Player : MonoBehaviour {
     private float maxHealth;
     private float targetSize;
 
+    private void Awake() {
+        maxHealth = health;
+        Debug.Log("awake: "+health);
+    }
+
     private void Start()
     {
 		comboSystem = GameObject.Find("ComboSystem").GetComponent<ComboSystem>();
         orthographicCamera = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-
-        maxHealth = health;
 
         startScale = transform.localScale.x; // ASSUMPTION: Player is a square
 
@@ -37,6 +40,7 @@ public class Player : MonoBehaviour {
     public void AbsorbEnemy(float size) {
         float damageAmount = size / Mathf.Clamp((100 - absorbPercentage), 1, 100);
         Damage(damageAmount);
+        Debug.Log(health);
     }
 
     public void OnMouseDown() {
