@@ -7,7 +7,7 @@ public class BombSlimeEnemy : SeekingEntity {
     // Use this for initialization
 
 
-    public float magnitudeForExplode = 10.0f;
+    public float magnitudeForExplode = 1.0f;
     public float explodeRadius = 3.0f;
 
     protected override void Start () {
@@ -22,14 +22,18 @@ public class BombSlimeEnemy : SeekingEntity {
     protected override void OnCollisionEnter2D(Collision2D coll)
     {
         base.OnCollisionEnter2D(coll);
-        if (coll.relativeVelocity.magnitude > magnitudeForExplode) Explode();
+        Debug.Log(coll.relativeVelocity.magnitude);
+        if (coll.relativeVelocity.magnitude > magnitudeForExplode) {
+            Explode();
+        }
     }
     void Explode() {
-        GameObject[] objects = GameObject.FindGameObjectsWithTag("Enemies");
+        Debug.Log("Explode");
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("Enemy");
 
         for (int i = 0; i < objects.Length; i++) {
             if (Vector2.Distance(transform.position, objects[i].transform.position) < explodeRadius) {
-                objects[i].GetComponent<AbstractEntity>().Die();
+                StartCoroutine(objects[i].GetComponent<AbstractEntity>().Die());
             }
         }
     }

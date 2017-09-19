@@ -147,7 +147,7 @@ public abstract class AbstractEntity : EventDispatcher
         Dispatch("dying", this);
         OnEntityDestroy();
     }
-    IEnumerator Die()
+    public IEnumerator Die()
     {
         var shrinkStep = 0.05f;
         while (transform.localScale.x > 0)
