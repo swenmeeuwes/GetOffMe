@@ -8,6 +8,10 @@ public class NormalSlimeEnemy : SeekingEntity
     {
         base.Start();
     }
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     public override void OnPlayerHit(Player player)
     {
         player.AbsorbEnemy(model.health);

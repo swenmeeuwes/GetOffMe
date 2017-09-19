@@ -17,15 +17,18 @@ public class ComboSystem : MonoBehaviour
 	[HideInInspector]
 	public float chanceAtDoubleCombo;
 
-	// Use this for initialization
+    // Use this for initialization
+    void Awake() {
+        if (originalRadius == 0)
+        {
+            originalRadius = 3.0f;
+        }
+        chanceAtDoubleCombo = 0;
+    }
 	void Start () {
 		if (orthographicCamera == null)
 			orthographicCamera = Camera.main;
 
-		if (originalRadius == 0) {
-			originalRadius = 3.0f;
-		}
-		chanceAtDoubleCombo = 0;
         SetScale(1);
     }
 	public void Increase(int addValue){

@@ -82,6 +82,7 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
 
     public virtual void Spawn()
     {
+        Debug.Log(spawnRateCurve.Evaluate(counter));
         if(Enabled)
             Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter) + (spawnState == SpawnState.REST? restPeriodAdditionalInterval : 0));
     }
