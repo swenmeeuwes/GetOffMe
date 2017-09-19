@@ -65,6 +65,7 @@ public class TutorialPlayer : MonoBehaviour {
         {
             // Tutorial is finished
             spawner.Enabled = true;
+            spawner.SetWave();
         }
     }
 
