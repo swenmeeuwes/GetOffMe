@@ -22,7 +22,6 @@ public class Player : MonoBehaviour {
 
     private void Awake() {
         maxHealth = health;
-        Debug.Log("awake: "+health);
     }
 
     private void Start()

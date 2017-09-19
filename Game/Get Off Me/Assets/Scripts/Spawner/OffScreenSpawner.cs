@@ -48,6 +48,7 @@ public class OffScreenSpawner : AbstractSpawner
 
     private Vector2[] spawnPoints;
 
+
     public override void Start()
     {
         base.Start();
