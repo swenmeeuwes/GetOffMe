@@ -33,7 +33,9 @@ public class InputManager : MonoBehaviour {
     {
         registeredTouchables = new List<ITouchable>();
 
+#if UNITY_EDITOR
         previousMousePosition = Input.mousePosition;
+#endif
     }
 
     private void Update () {
