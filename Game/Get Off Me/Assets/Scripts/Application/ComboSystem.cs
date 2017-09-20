@@ -31,7 +31,7 @@ public class ComboSystem : MonoBehaviour
             m_Combo = value;
             HandleComboCountChanged();
         }
-    }
+    }    
 
 	[HideInInspector]
 	public float chanceAtDoubleCombo;
@@ -75,8 +75,10 @@ public class ComboSystem : MonoBehaviour
  //       //}
  //   }
 
-    public void ShowEncouragement(string text)
+    public void ShowEncouragement(string text, bool randomizeColor = true)
     {
+        if(randomizeColor)
+            encouragementTextField.color = new Color(Random.value, Random.value, Random.value);
         encouragementTextField.text = text;
         encouragementTextField.gameObject.SetActive(true);
     }
@@ -116,7 +118,12 @@ public class ComboSystem : MonoBehaviour
         comboCircle.DistortingScale = 1 / (ComboNeededForNextTier / (float)residu);
 
         if (residu == 0)
+        {
+            ShowEncouragement(encouragementTexts[Mathf.FloorToInt(Random.value * encouragementTexts.Length)] + "!");
+            CancelInvoke("HideEncouragement");
+            Invoke("HideEncouragement", 2f);
             comboCircle.Keyframe = Combo;
+        }
     }
 
     private void OnDrawGizmos()
