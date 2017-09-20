@@ -58,6 +58,21 @@ public abstract class AbstractEntity : EventDispatcher
 
     protected abstract void UpdateEntity();
 
+    protected virtual void OnTouchBegan(Touch touch)
+    {
+        
+    }
+
+    protected virtual void OnTouch(Touch touch)
+    {
+
+    }
+
+    protected virtual void OnTouchEnded(Touch touch)
+    {
+
+    }
+
     protected virtual void OnMouseDown()
     {
 		if (comboSystem.CheckIfCombo (transform.position))
