@@ -5,6 +5,7 @@ using UnityEngine;
 public class TouchManager : MonoBehaviour {
     [SerializeField][Tooltip("The radius of the circle scanned around the touches.")]
     private float castSphereRadius = 0.2f;
+
 	private void Update () {
         for (int i = 0; i < Input.touchCount; i++)
         {
@@ -48,7 +49,7 @@ public class TouchManager : MonoBehaviour {
             var worldPosition = Camera.main.ScreenToWorldPoint(touch.position);
 
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(worldPosition, 0.2f);
+            Gizmos.DrawSphere(worldPosition, castSphereRadius);
         }
     }
 }
