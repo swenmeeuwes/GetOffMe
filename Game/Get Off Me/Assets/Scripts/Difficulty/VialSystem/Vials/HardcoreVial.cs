@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class HardcoreVial : IVial {
 	private int playerHealthModifier = -5;
-	private int absorbPercentageModifier = 30;
+    private float comboSystemRadiusMultiplier = 1.2f;
 
-	void Apply (HelmetSlimeEnemy entity){}
-	void Apply (NormalSlimeEnemy entity){}
-	void Apply (RogueSlimeEnemy entity){}
-	void Apply (WizardSlimeEnemy entity){}
-	void Apply (MedicSlimeAlly entity){}
-	void Apply (Player player){
+	public void Apply (HelmetSlimeEnemy entity){}
+	public void Apply (NormalSlimeEnemy entity){}
+	public void Apply (RogueSlimeEnemy entity){}
+	public void Apply (WizardSlimeEnemy entity){}
+	public void Apply (MedicSlimeAlly entity){}
+	public void Apply (Player player){
 		player.health += playerHealthModifier;
-		player.absorbPercentage += absorbPercentageModifier;
 	}
-	void Apply (ComboSystem comboSystem){}
-	void Apply (OffScreenSpawner spawner){}
+	public void Apply (ComboSystem comboSystem){
+        comboSystem.originalRadius *= comboSystemRadiusMultiplier;
+    }
+	public void Apply (OffScreenSpawner spawner){}
 }

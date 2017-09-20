@@ -15,3 +15,4 @@ MonoBehaviour:
   speed: 1
   varianceInSpeed: 0.3
   weight: 70
+  awardPoints: 1

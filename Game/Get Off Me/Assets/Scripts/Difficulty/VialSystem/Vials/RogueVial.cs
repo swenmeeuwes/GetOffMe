@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class RogueVial : IVial {
 	private const float speedIncrease = 1.0f;
-	void Apply (HelmetSlimeEnemy entity){}
-	void Apply (NormalSlimeEnemy entity){}
-	void Apply (RogueSlimeEnemy entity){
-		entity.model.speed += speedIncrease;
+    private const int pointModifier = 1;
+
+	public void Apply (HelmetSlimeEnemy entity){}
+	public void Apply (NormalSlimeEnemy entity){}
+	public void Apply (RogueSlimeEnemy entity){
+		entity.amplifiedSpeed += speedIncrease;
+        entity.model.awardPoints += pointModifier;
 	}
-	void Apply (WizardSlimeEnemy entity){}
-	void Apply (MedicSlimeAlly entity){}
+	public void Apply (WizardSlimeEnemy entity){}
+	public void Apply (MedicSlimeAlly entity){}
+	public void Apply (Player player){}
+	public void Apply (ComboSystem comboSystem){}
+	public void Apply (OffScreenSpawner spawner){}
 }

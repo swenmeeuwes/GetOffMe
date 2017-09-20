@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpeedVial : IVial {
-	private const float speedModifier = 0.5f;
-	private const float doubleComboChanceModifier = 20;
+	private const float speedModifier = 1.0f * 60;
+	private const float doubleComboChanceModifier = 30;
 
-	void Apply (HelmetSlimeEnemy entity){
-		entity.model.speed += speedModifier;
+	public void Apply (HelmetSlimeEnemy entity){
+		entity.amplifiedSpeed += speedModifier;
 	}
-	void Apply (NormalSlimeEnemy entity){
-		entity.model.speed += speedModifier;
+	public void Apply (NormalSlimeEnemy entity){
+		entity.amplifiedSpeed += speedModifier;
 	}
-	void Apply (RogueSlimeEnemy entity){
-		entity.model.speed += speedModifier;
+	public void Apply (RogueSlimeEnemy entity){
+		entity.amplifiedSpeed += speedModifier;
 	}
-	void Apply (WizardSlimeEnemy entity){
-		entity.model.speed += speedModifier;
+	public void Apply (WizardSlimeEnemy entity){
+		entity.amplifiedSpeed += speedModifier;
 	}
-	void Apply (MedicSlimeAlly entity){
-		entity.model.speed += speedModifier;
+	public void Apply (MedicSlimeAlly entity){
+		entity.amplifiedSpeed += speedModifier;
 	}
-	void Apply (Player player){}
-	void Apply (ComboSystem comboSystem){
+	public void Apply (Player player){}
+	public void Apply (ComboSystem comboSystem){
 		comboSystem.chanceAtDoubleCombo += doubleComboChanceModifier;
 	}
-	void Apply (OffScreenSpawner spawner){}
+	public void Apply (OffScreenSpawner spawner){}
 }

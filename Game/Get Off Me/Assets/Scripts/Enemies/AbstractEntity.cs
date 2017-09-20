@@ -10,7 +10,8 @@ public abstract class AbstractEntity : EventDispatcher
     [SerializeField]
     private EntityModel entityModel;
 
-    protected float amplifiedSpeed;
+    [HideInInspector]
+    public float amplifiedSpeed;
 
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -36,19 +37,20 @@ public abstract class AbstractEntity : EventDispatcher
     {
         base.Awake();
         model = Instantiate(entityModel);
+        amplifiedSpeed = model.speed * 60;
+
+        ShowParticles = true;
+        Draggable = true;
     }
 
     protected virtual void Start()
     {
 		comboSystem = GameObject.Find ("ComboSystem").GetComponent<ComboSystem> ();
-        ShowParticles = true;
-        Draggable = true;
         particleSystem = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
-        amplifiedSpeed = model.speed * 60;
     }
 
     protected virtual void Update() {
@@ -148,6 +150,8 @@ public abstract class AbstractEntity : EventDispatcher
 			FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
+		
+	public virtual void Accept(IVial vial) { }
 
 	public virtual void Configure(int pointModifier){
 		model.awardPoints += pointModifier;

@@ -12,7 +12,11 @@ public abstract class SeekingEntity : AbstractEntity {
         base.Start();
         target = GameObject.FindWithTag("Player");
     }
-	protected override void UpdateEntity () {
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+    protected override void UpdateEntity () {
         Seek();
     }
 
