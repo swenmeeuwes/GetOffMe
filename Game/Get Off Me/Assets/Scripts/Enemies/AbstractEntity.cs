@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractEntity : EventDispatcher
+public abstract class AbstractEntity : EventDispatcher, ITouchable
 {
     private readonly float SWIPE_MAGNITUDE = 0.2f; // Swipe threshold, the minimum required distance for a swipe (in units)
 
@@ -25,10 +25,13 @@ public abstract class AbstractEntity : EventDispatcher
 	protected bool InComboRadius{ get; set; }
 	public bool actionRewardsCombo { get; set; }
 
+    public int? FingerId { get; set; }
+
     protected Vector3 screenPoint;
     protected Vector3 offset;
     protected Vector3 oldPosition = Vector3.zero;
-    protected Vector3 futurePosition;
+    protected Vector3 futurePosition; // still needed?
+    protected float lastTouchTime;
 
     private ParticleSystem particleSystem;
 	protected ComboSystem comboSystem;
@@ -51,6 +54,8 @@ public abstract class AbstractEntity : EventDispatcher
         animator = GetComponent<Animator>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
+
+        TouchManager.Main.Register(this);
     }
 
     protected virtual void Update() {
@@ -58,30 +63,20 @@ public abstract class AbstractEntity : EventDispatcher
         else UpdateEntity();
     }
 
+    private void OnDestroy()
+    {
+        TouchManager.Main.Deregister(this);
+    }
+
     protected abstract void UpdateEntity();
 
-    protected virtual void OnTouchBegan(Touch touch)
+    public virtual void OnTouchBegan(Touch touch)
     {
-        
-    }
+        if (comboSystem.CheckIfCombo(transform.position))
+            InComboRadius = true;
+        else
+            comboSystem.Reset();
 
-    protected virtual void OnTouch(Touch touch)
-    {
-
-    }
-
-    protected virtual void OnTouchEnded(Touch touch)
-    {
-
-    }
-
-    protected virtual void OnMouseDown()
-    {
-		if (comboSystem.CheckIfCombo (transform.position))
-			InComboRadius = true;
-		else
-			comboSystem.Reset ();
-		
         if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles)
             particleSystem.Play();
@@ -91,40 +86,102 @@ public abstract class AbstractEntity : EventDispatcher
         futurePosition = transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
         offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+
+        lastTouchTime = Time.time;
     }
-    protected virtual void OnMouseDrag()
+
+    public virtual void OnTouch(Touch touch)
     {
-        if (GameManager.Instance.State == GameState.PAUSE) return;
-        if (ShowParticles) {
+        if (GameManager.Instance.State == GameState.PAUSE)
+            return;
+
+        if (ShowParticles)
             particleSystem.transform.position = transform.position;
-        }
-        
-        oldPosition = transform.position;
+
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
-        if (Draggable) {
+        if (Draggable)
+        {
             transform.position = futurePosition;
         }
     }
+
+    public virtual void OnTouchEnded(Touch touch)
+    {
+        actionRewardsCombo = false;
+        Dragged = false;
+
+        particleSystem.Stop();
+
+        var secondsSinceTouch = Time.time - lastTouchTime;
+
+        // If seconds since last touch is lower than X, see it as a tap
+        if (secondsSinceTouch < 0.08f)
+        {
+            OnTap();
+        }
+        else
+        {
+            var swipeDistance = touch.deltaPosition * touch.deltaTime;
+            OnSwipe(swipeDistance);
+        }
+
+        if (InComboRadius && actionRewardsCombo)
+            comboSystem.Increase(1);
+        InComboRadius = false;
+    }
+
+    protected virtual void OnMouseDown()
+    {
+		//if (comboSystem.CheckIfCombo (transform.position))
+		//	InComboRadius = true;
+		//else
+		//	comboSystem.Reset ();
+		
+  //      if (GameManager.Instance.State == GameState.PAUSE) return;
+  //      if (ShowParticles)
+  //          particleSystem.Play();
+
+  //      Dragged = true;
+  //      oldPosition = transform.position;
+  //      futurePosition = transform.position;
+  //      screenPoint = Camera.main.WorldToScreenPoint(transform.position);
+  //      offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+    }
+    protected virtual void OnMouseDrag()
+    {
+        //if (GameManager.Instance.State == GameState.PAUSE) return;
+        //if (ShowParticles) {
+        //    particleSystem.transform.position = transform.position;
+        //}
+        
+        //oldPosition = transform.position;
+        //Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+        //futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+
+        //if (Draggable) {
+        //    transform.position = futurePosition;
+        //}
+    }
     protected virtual void OnMouseUp()
     {
-		actionRewardsCombo = false;
+		//actionRewardsCombo = false;
 		
-        particleSystem.Stop();
-        Dragged = false;
-        if (GameManager.Instance.State == GameState.PAUSE) return;
-        var swipeVector = futurePosition - oldPosition; // Swipe distance in units
+  //      particleSystem.Stop();
+  //      Dragged = false;
+  //      if (GameManager.Instance.State == GameState.PAUSE) return;
+  //      var swipeVector = futurePosition - oldPosition; // Swipe distance in units
 
-        if (swipeVector.magnitude > SWIPE_MAGNITUDE)
-            OnSwipe(swipeVector);
-        else
-            OnTap();       
+  //      if (swipeVector.magnitude > SWIPE_MAGNITUDE)
+  //          OnSwipe(swipeVector);
+  //      else
+  //          OnTap();       
 
-		if (InComboRadius && actionRewardsCombo) {
-			comboSystem.Increase(1);
-		}
-		InComboRadius = false;
+		//if (InComboRadius && actionRewardsCombo) {
+		//	comboSystem.Increase(1);
+		//}
+		//InComboRadius = false;
     }
 
     public virtual void OnTap()
@@ -172,6 +229,7 @@ public abstract class AbstractEntity : EventDispatcher
     }
     public virtual void OnEntityDestroy() {
         particleSystem.Stop();
+
         Destroy(gameObject);
     }
     public virtual void OnPlayerHit(Player player) {
