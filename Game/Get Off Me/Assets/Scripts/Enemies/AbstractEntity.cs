@@ -145,7 +145,7 @@ public abstract class AbstractEntity : EventDispatcher
 		Configure (pointModifier, healthModifier);
 		model.speed += speedModifier;
 	}
-    void OnCollisionEnter2D(Collision2D coll)
+    protected virtual void OnCollisionEnter2D(Collision2D coll)
     {
         Player player = coll.gameObject.GetComponent<Player>();
         if (player)
@@ -159,7 +159,7 @@ public abstract class AbstractEntity : EventDispatcher
         Dispatch("dying", this);
         OnEntityDestroy();
     }
-    IEnumerator Die()
+    public IEnumerator Die()
     {
         var shrinkStep = 0.05f;
         while (transform.localScale.x > 0)

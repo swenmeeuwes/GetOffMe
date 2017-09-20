@@ -25,7 +25,8 @@ public class OffScreenSpawner : AbstractSpawner
     //private float speedAdditionTimeCap;
     // ---
 
-    [SerializeField]
+
+    [HideInInspector]
     public List<GamePhase> gamePhases;
     private GamePhase currentPhase;
 
@@ -57,7 +58,6 @@ public class OffScreenSpawner : AbstractSpawner
 
         InitializeSpawnPoints(amountOfSpawnPoints);
     }
-
     void Update()
     {
         base.Update();
