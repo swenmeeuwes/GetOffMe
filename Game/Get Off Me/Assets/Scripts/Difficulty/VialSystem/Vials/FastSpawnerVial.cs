@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class FastSpawnerVial : IVial {
 	private const float spawnerCurveModifier = -0.3f;
-	public void Apply (HelmetSlimeEnemy entity){}
-	public void Apply (NormalSlimeEnemy entity){}
-	public void Apply (RogueSlimeEnemy entity){}
-	public void Apply (WizardSlimeEnemy entity){}
-	public void Apply (MedicSlimeAlly entity){}
-	public void Apply (Player player){}
-	public void Apply (ComboSystem comboSystem){}
-	public void Apply (OffScreenSpawner spawner){
+	public void Apply(HelmetSlimeEnemy entity) { }
+	public void Apply(NormalSlimeEnemy entity) { }
+	public void Apply(RogueSlimeEnemy entity) { }
+	public void Apply(WizardSlimeEnemy entity) { }
+	public void Apply(MedicSlimeAlly entity) { }
+    public void Apply(BombSlimeEnemy entity) { }
+
+	public void Apply(Player player){}
+	public void Apply(ComboSystem comboSystem){}
+	public void Apply(OffScreenSpawner spawner){
         Debug.Log("spawner");
 
         AnimationCurve newCurve;
@@ -24,4 +26,5 @@ public class FastSpawnerVial : IVial {
 
         spawner.spawnRateCurve = newCurve;
 	}
+    public void Apply(List<GamePhase> phases) { }
 }

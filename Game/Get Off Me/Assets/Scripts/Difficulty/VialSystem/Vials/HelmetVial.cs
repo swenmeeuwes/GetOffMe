@@ -10,11 +10,14 @@ public class HelmetVial : IVial {
 		entity.neededTapsForHelmet += tapsModifier;
 		entity.pointsForHelmetTap += pointForHelmetTapModifier;
 	}
-	public void Apply (NormalSlimeEnemy entity){}
-	public void Apply (RogueSlimeEnemy entity){}
-	public void Apply (WizardSlimeEnemy entity){}
-	public void Apply (MedicSlimeAlly entity){}
-	public void Apply (Player player){}
-	public void Apply (ComboSystem comboSystem){}
-	public void Apply (OffScreenSpawner spawner){}
+	public void Apply(NormalSlimeEnemy entity) { }
+	public void Apply(RogueSlimeEnemy entity) { }
+	public void Apply(WizardSlimeEnemy entity) { }
+	public void Apply(MedicSlimeAlly entity) { }
+    public void Apply(BombSlimeEnemy entity) { }
+
+	public void Apply(Player player) { }
+	public void Apply(ComboSystem comboSystem) { }
+	public void Apply(OffScreenSpawner spawner) { }
+    public void Apply(List<GamePhase> phases) { }
 }
