@@ -931,7 +931,7 @@ GameObject:
   - component: {fileID: 1154999677}
   m_Layer: 0
   m_Name: TouchManager
-  m_TagString: Untagged
+  m_TagString: MainTouchManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -947,6 +947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efff354c8d171e14eb5038501e7c65a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  castSphereRadius: 0.2
 --- !u!4 &1154999678
 Transform:
   m_ObjectHideFlags: 0
@@ -1643,7 +1644,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1736144383 stripped
 RectTransform:
