@@ -57,7 +57,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
 
-        TouchManager.Main.Register(this);
+        InputManager.Main.Register(this);
     }
 
     protected virtual void Update() {
@@ -67,7 +67,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     private void OnDestroy()
     {
-        TouchManager.Main.Deregister(this);
+        InputManager.Main.Deregister(this);
     }
 
     protected abstract void UpdateEntity();

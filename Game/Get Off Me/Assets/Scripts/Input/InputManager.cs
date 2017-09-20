@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouchManager : MonoBehaviour {
+public class InputManager : MonoBehaviour {
     // Inspector variables
     [SerializeField][Tooltip("The radius of the circle scanned around the touches")]
     private float castSphereRadius = 0.2f;
-
-    // WISH: MOUSE CLICK TO TOUCH SIMULATION
-    //[SerializeField][Tooltip("Allows mouse clicks to count as touch")]
-    //private bool listenToMouse = false;
     // ---
+#if UNITY_EDITOR
+    private Vector3 previousMousePosition;
+#endif
 
-    public static TouchManager Main {
+    public static InputManager Main {
         get {
-            return GameObject.FindGameObjectWithTag("MainTouchManager").GetComponent<TouchManager>();
+            return GameObject.FindGameObjectWithTag("MainTouchManager").GetComponent<InputManager>();
         }
     }
 
@@ -33,6 +32,8 @@ public class TouchManager : MonoBehaviour {
     private void Awake()
     {
         registeredTouchables = new List<ITouchable>();
+
+        previousMousePosition = Input.mousePosition;
     }
 
     private void Update () {
@@ -50,16 +51,47 @@ public class TouchManager : MonoBehaviour {
             }
         }
 
-        // Mouse simulation - Wish: Make adapters
 #if UNITY_EDITOR
-        var fakeTouch = new Touch();
-        fakeTouch.fingerId = 0;
-        fakeTouch.pos
+        // Mouse simulation - Wish: Make adapters, this is hard because touch and mouse have different interfaces
+        var fakeTouch = new Touch()
+        {
+            fingerId = 99,
+            position = Input.mousePosition,
+            deltaPosition = Input.mousePosition - previousMousePosition,
+            deltaTime = Time.deltaTime
+        };
 
-        if(Input.GetMouseButtonDown(0))
+        var handleMouse = false; // SO UGLY WHYYY
+        if (Input.GetMouseButtonDown(0))
         {
             fakeTouch.phase = TouchPhase.Began;
+            handleMouse = true;
         }
+        else if (Input.GetMouseButton(0))
+        {
+            fakeTouch.phase = TouchPhase.Moved;
+            handleMouse = true;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            fakeTouch.phase = TouchPhase.Ended;
+            handleMouse = true;
+        }
+
+        if (handleMouse)
+        {
+            HandleTouch(fakeTouch);
+
+            var fakeWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var fakeHits = Physics2D.CircleCastAll(fakeWorldPosition, castSphereRadius, Vector3.forward);
+            for (int j = 0; j < fakeHits.Length; j++)
+            {
+                var fakeHit = fakeHits[j];
+                HandleTouchOn(fakeHit.transform, fakeTouch);
+            }
+        }
+
+        previousMousePosition = Input.mousePosition;
 #endif
     }
 
