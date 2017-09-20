@@ -410,6 +410,15 @@ MonoBehaviour:
   orthographicCamera: {fileID: 1904601765}
   encouragementTextField: {fileID: 2136205733}
   comboCircle: {fileID: 1193015036}
+  ComboNeededForNextTier: 5
+  encouragementTexts:
+  - Amazing
+  - Extraordinary
+  - Fantastic
+  - Phenomenal
+  - Awesome
+  - Incredible
+  - Spectacular
   chanceAtDoubleCombo: 0
 --- !u!4 &193991102
 Transform:
@@ -1235,7 +1244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orthographicCamera: {fileID: 1904601765}
   circleQuality: 50
-  updateInterval: 0.1
+  baseDistortInterval: 0.05
+  maxDistortInterval: 0.01
   circleRadius: 2
   sizeInterpolation:
     serializedVersion: 2

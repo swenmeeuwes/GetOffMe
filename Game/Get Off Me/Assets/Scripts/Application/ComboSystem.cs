@@ -15,6 +15,8 @@ public class ComboSystem : MonoBehaviour
     private ComboCircle comboCircle;
     [SerializeField]
     private int ComboNeededForNextTier = 5;
+    [SerializeField]
+    private string[] encouragementTexts;
 
     private float radius;
 
