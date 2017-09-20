@@ -25,10 +25,10 @@ public class ComboCircle : MonoBehaviour {
     private float distortInterval;
 
     private void Start () {
-        Initialize();
-
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.loop = true;
+
+        Initialize();        
 
         distortInterval = baseDistortInterval;
 
