@@ -9,6 +9,8 @@ public class ComboSystem : MonoBehaviour
     private Image comboRadiusIndicator;
     [SerializeField]
     private Camera orthographicCamera;
+    [SerializeField]
+    private Text encouragementTextField;
 
     private float radius;
     public float originalRadius;
@@ -29,6 +31,8 @@ public class ComboSystem : MonoBehaviour
 		if (orthographicCamera == null)
 			orthographicCamera = Camera.main;
 
+        encouragementTextField.gameObject.SetActive(false);
+
         SetScale(1);
     }
 	public void Increase(int addValue){
@@ -47,6 +51,18 @@ public class ComboSystem : MonoBehaviour
             comboRadiusIndicator.rectTransform.sizeDelta = Vector2.one * diameter;
         }
     }
+
+    public void ShowEncouragement(string text)
+    {
+        encouragementTextField.text = text;
+        encouragementTextField.gameObject.SetActive(true);
+    }
+
+    public void HideEncouragement()
+    {
+        encouragementTextField.gameObject.SetActive(false);
+    }
+
     public void Reset()
     {
         Combo = 0;
@@ -59,10 +75,12 @@ public class ComboSystem : MonoBehaviour
         ScoreManager.Instance.Score += addScore;
         return addScore;
     }
+
     public bool CheckIfCombo(Vector2 enemyPosition)
     {
         return (Vector2.Distance(transform.position, enemyPosition) < radius);
     }
+
     private void OnDrawGizmos()
     {
         if (orthographicCamera != null)
