@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 50697057756070454}
   - component: {fileID: 95843087090314320}
   - component: {fileID: 114979612151141858}
-  - component: {fileID: 58328048782353296}
   - component: {fileID: 199199627154016908}
   - component: {fileID: 198048450793481308}
+  - component: {fileID: 61415974782310720}
   m_Layer: 8
   m_Name: Helmet Enemy
   m_TagString: Enemy
@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1215110422154106}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -772.7591, y: 290.01947, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,8 +66,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58328048782353296
-CircleCollider2D:
+--- !u!61 &61415974782310720
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -79,8 +79,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.72}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 0.64, y: 0.72}
+  m_EdgeRadius: 0
 --- !u!95 &95843087090314320
 Animator:
   serializedVersion: 3
@@ -110,7 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityModel: {fileID: 11400000, guid: 2aca8730013d61c41b8a2993fad0e744, type: 2}
+  amplifiedSpeed: 0
   model: {fileID: 0}
+  neededTapsForHelmet: 0
+  pointsForHelmetTap: 0
 --- !u!198 &198048450793481308
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -170,7 +183,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -595092000
+  randomSeed: -2132803182
   InitialModule:
     serializedVersion: 3
     enabled: 1
