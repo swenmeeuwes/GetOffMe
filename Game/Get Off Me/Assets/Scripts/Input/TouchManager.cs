@@ -49,7 +49,19 @@ public class TouchManager : MonoBehaviour {
                 HandleTouchOn(hit.transform, touch);                
             }
         }
-	}
+
+        // Mouse simulation - Wish: Make adapters
+#if UNITY_EDITOR
+        var fakeTouch = new Touch();
+        fakeTouch.fingerId = 0;
+        fakeTouch.pos
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            fakeTouch.phase = TouchPhase.Began;
+        }
+#endif
+    }
 
     private void HandleTouchOn(Transform transform, Touch touch)
     {
