@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 212145387598313574}
   - component: {fileID: 50776576477934286}
   - component: {fileID: 95538380581139048}
-  - component: {fileID: 58341725800262794}
   - component: {fileID: 199898154335768198}
   - component: {fileID: 198696543751748984}
   - component: {fileID: 114779006644881234}
+  - component: {fileID: 61284528147266706}
   m_Layer: 8
   m_Name: RogueEnemy
   m_TagString: Enemy
@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1741743097136120}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -772.85443, y: 289.5, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,8 +66,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58341725800262794
-CircleCollider2D:
+--- !u!61 &61284528147266706
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -79,8 +79,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.72, y: 0.64}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 0.72, y: 0.64}
+  m_EdgeRadius: 0
 --- !u!95 &95538380581139048
 Animator:
   serializedVersion: 3
@@ -110,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityModel: {fileID: 11400000, guid: 8382c3bfeabd64e4cb52990440a64c2d, type: 2}
+  amplifiedSpeed: 0
   model: {fileID: 0}
 --- !u!198 &198696543751748984
 ParticleSystem:
@@ -170,7 +181,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1709245777
+  randomSeed: -598344776
   InitialModule:
     serializedVersion: 3
     enabled: 1
