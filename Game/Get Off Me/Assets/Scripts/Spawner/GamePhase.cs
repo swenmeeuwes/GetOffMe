@@ -7,5 +7,5 @@ public class GamePhase : ScriptableObject
 {
     public int time;
     public List<GameObject> objectKeys;
-    public List<float> percentages;
+    public List<float> weights;
 }
