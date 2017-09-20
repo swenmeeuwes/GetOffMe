@@ -22,7 +22,8 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     protected bool ShowParticles { get; set; }
 	protected bool Draggable { get; set; }
 	protected bool Dragged { get; set; }
-	protected bool InComboRadius{ get; set; }
+	protected bool InComboRadius { get; set; }
+    protected bool IgnoreTap { get; set; } // Feature: To bypass tap delay -> smoother swipe
 	public bool actionRewardsCombo { get; set; }
 
     public int? FingerId { get; set; }
@@ -44,6 +45,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         ShowParticles = true;
         Draggable = true;
+        IgnoreTap = false;
     }
 
     protected virtual void Start()
