@@ -31,6 +31,7 @@ public class OffScreenSpawner : AbstractSpawner
     private GamePhase currentPhase;
 
     private bool spawnPointsInitialized = false;
+	private List<IVial> activeVials;
 
     private float OffsettedScreenDiagonal
     {
@@ -48,9 +49,11 @@ public class OffScreenSpawner : AbstractSpawner
 
     private Vector2[] spawnPoints;
 
+
     public override void Start()
     {
         base.Start();
+		activeVials = VialManager.Instance.GetActiveVials();
         gamePhases = loadGamePhasesFromFile();
         currentPhase = gamePhases[0];
         if (orthographicCamera == null)
@@ -85,6 +88,12 @@ public class OffScreenSpawner : AbstractSpawner
 
         GameObject randomEntity = base.CreateSpawn(GetRandomEntityFromSpawnList(currentPhase));
         randomEntity.transform.position = randomSpawnPosition;
+        var entity = randomEntity.GetComponent<AbstractEntity>();
+
+        for (int i = 0; i < activeVials.Count; i++) {
+            //AbstractEntity entity = randomEntity.GetComponent (typeof(AbstractEntity));
+			entity.Accept (activeVials [i]);
+		}
 
         base.Spawn();
     }

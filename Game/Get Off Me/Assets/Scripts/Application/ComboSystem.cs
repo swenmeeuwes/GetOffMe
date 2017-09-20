@@ -14,26 +14,32 @@ public class ComboSystem : MonoBehaviour
     public float originalRadius;
     public int Combo { get; set; }
 
-    // Use this for initialization
-    void Start()
-    {
-        if (orthographicCamera == null)
-            orthographicCamera = Camera.main;
+	[HideInInspector]
+	public float chanceAtDoubleCombo;
 
+    // Use this for initialization
+    void Awake() {
         if (originalRadius == 0)
         {
             originalRadius = 3.0f;
         }
+        chanceAtDoubleCombo = 0;
+    }
+	void Start () {
+		if (orthographicCamera == null)
+			orthographicCamera = Camera.main;
+
         SetScale(1);
     }
-    public void Increase(int addValue)
-    {
-        Combo += addValue;
-        comboRadiusIndicator.color = ComboColorResolver.Resolve(Combo, 0.1f);
-    }
-    public void SetScale(float size)
-    {
-        radius = originalRadius * size;
+	public void Increase(int addValue){
+		Combo += addValue;
+		if (Random.Range (1.0f, 100.0f) < chanceAtDoubleCombo)
+			Combo += addValue;
+
+		comboRadiusIndicator.color = ComboColorResolver.Resolve(Combo, 0.1f);
+	}
+	public void SetScale(float size){
+		radius = originalRadius * size;
 
         if (comboRadiusIndicator)
         {

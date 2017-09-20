@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalSlimeEnemy : SeekingEntity
-{
-    protected override void Start()
-    {
-        base.Start();
-    }
+public class RogueSlimeEnemy : SeekingEntity {
+
+	protected override void Start()
+	{
+		base.Start();
+	}
     protected override void Awake()
     {
         base.Awake();
     }
     public override void OnPlayerHit(Player player)
-    {
-        player.AbsorbEnemy(model.health);
-        base.OnPlayerHit(player);
-    }
+	{
+		player.AbsorbEnemy(model.health);
+		base.OnPlayerHit(player);
+	}
 	public override void Accept (IVial vial)
 	{
 		vial.Apply (this);
 	}
 }
-

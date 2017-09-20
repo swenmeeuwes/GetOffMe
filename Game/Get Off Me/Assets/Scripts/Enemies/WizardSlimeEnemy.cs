@@ -13,9 +13,12 @@ public class WizardSlimeEnemy : SeekingEntity {
         base.Start();
 		InvokeRepeating("TeleportCheck", intervalCheckIfTeleport, intervalCheckIfTeleport);
     }
-	
-	// Update is called once per frame
-	protected override void UpdateEntity () {
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+    // Update is called once per frame
+    protected override void UpdateEntity () {
         if (!teleporting) {
             base.UpdateEntity();
             return;
@@ -71,7 +74,8 @@ public class WizardSlimeEnemy : SeekingEntity {
         player.AbsorbEnemy(model.health);
         base.OnPlayerHit(player);
     }
-	public void Configure(int pointsModifier, float channelTimeModifier){
-		
+	public override void Accept (IVial vial)
+	{
+		vial.Apply (this);
 	}
 }
