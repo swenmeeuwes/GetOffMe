@@ -74,7 +74,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     public void OnTouchBegan(Touch touch)
     {
-        if (comboSystem.CheckIfCombo(transform.position))
+        if (comboSystem.IntersectsComboCircle(transform.position))
             InComboRadius = true;
         else
             comboSystem.Reset();

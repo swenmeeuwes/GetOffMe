@@ -18,7 +18,7 @@ public class HardcoreVial : IVial {
 		player.health += playerHealthModifier;
 	}
 	public void Apply(ComboSystem comboSystem){
-        comboSystem.originalRadius *= comboSystemRadiusMultiplier;
+        //comboSystem.originalRadius *= comboSystemRadiusMultiplier; // HAS TO BE REIMPLEMENTED
     }
 	public void Apply(OffScreenSpawner spawner) { }
     public void Apply(List<GamePhase> phases) {
