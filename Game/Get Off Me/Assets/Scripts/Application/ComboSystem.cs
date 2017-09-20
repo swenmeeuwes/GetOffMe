@@ -13,6 +13,8 @@ public class ComboSystem : MonoBehaviour
     private Text encouragementTextField;
     [SerializeField]
     private ComboCircle comboCircle;
+    [SerializeField]
+    private int ComboNeededForNextTier = 5;
 
     private float radius;
 
@@ -109,8 +111,8 @@ public class ComboSystem : MonoBehaviour
         comboCircle.Keyframe = Combo;
         Camera.main.backgroundColor = ComboColorResolver.Resolve(Combo, 0.085f);
 
-        if (Combo % 5 == 0)
-            ShowEncouragement("C-C-Combo " + Combo); // Replace with random encouragement text
+        var residu = Combo % ComboNeededForNextTier;
+        comboCircle.DistortingScale = 1 / (ComboNeededForNextTier / (float)residu);
     }
 
     private void OnDrawGizmos()
