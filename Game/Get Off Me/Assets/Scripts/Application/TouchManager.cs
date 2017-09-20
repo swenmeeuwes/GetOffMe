@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class TouchManager : MonoBehaviour {
     // Inspector variables
-    [SerializeField][Tooltip("The radius of the circle scanned around the touches.")]
+    [SerializeField][Tooltip("The radius of the circle scanned around the touches")]
     private float castSphereRadius = 0.2f;
+
+    // WISH: MOUSE CLICK TO TOUCH SIMULATION
+    //[SerializeField][Tooltip("Allows mouse clicks to count as touch")]
+    //private bool listenToMouse = false;
     // ---
 
     public static TouchManager Main {
