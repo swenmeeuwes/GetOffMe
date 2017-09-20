@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum VialType {
-    SCORE_VIAL,
 	SPAWN_VIAL,
 	HARDCORE_VIAL,
 	SPEED_VIAL,

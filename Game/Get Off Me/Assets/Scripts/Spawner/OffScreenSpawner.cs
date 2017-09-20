@@ -185,20 +185,25 @@ public class OffScreenSpawner : AbstractSpawner
     private GameObject GetRandomEntityFromSpawnList(GamePhase phase)
     {
 
-        float randomNumber = UnityEngine.Random.Range(0.0f, 100.0f);
+        float totalWeight = 0;
+        for (int i = 0; i < phase.weights.Count; i++) {
+            totalWeight += phase.weights[i];
+        }
 
-        float cumulative = 0;
-        for (int i = 0; i < phase.percentages.Count; i++)
+        float randomNumber = UnityEngine.Random.Range(0.0f, totalWeight);
+
+        float cumulativeCounter = 0;
+        for (int i = 0; i < phase.weights.Count; i++)
         {
-            cumulative += phase.percentages[i];
-            if (randomNumber < cumulative)
+            cumulativeCounter += phase.weights[i];
+            if (randomNumber <= cumulativeCounter)
             {
                 return phase.objectKeys[i];
             }
         }
 
-        Debug.LogWarning("Please make sure the entity spawn chance total is 100.");
-        throw new Exception("Enemy spawn chance total is not 100%");
+        Debug.LogWarning("Error While spawning enemy");
+        throw new Exception("Error While spawning enemy");
     }
     public List<GamePhase> loadGamePhasesFromFile() // TEMPORARY, MOVE THIS.
     {
