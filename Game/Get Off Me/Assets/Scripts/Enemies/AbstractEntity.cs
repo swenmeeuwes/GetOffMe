@@ -70,7 +70,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     protected abstract void UpdateEntity();
 
-    public virtual void OnTouchBegan(Touch touch)
+    public void OnTouchBegan(Touch touch)
     {
         if (comboSystem.CheckIfCombo(transform.position))
             InComboRadius = true;
@@ -90,7 +90,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         lastTouchTime = Time.time;
     }
 
-    public virtual void OnTouch(Touch touch)
+    public void OnTouch(Touch touch)
     {
         if (GameManager.Instance.State == GameState.PAUSE)
             return;
@@ -107,7 +107,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         }
     }
 
-    public virtual void OnTouchEnded(Touch touch)
+    public void OnTouchEnded(Touch touch)
     {
         actionRewardsCombo = false;
         Dragged = false;
@@ -130,58 +130,6 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         if (InComboRadius && actionRewardsCombo)
             comboSystem.Increase(1);
         InComboRadius = false;
-    }
-
-    protected virtual void OnMouseDown()
-    {
-		//if (comboSystem.CheckIfCombo (transform.position))
-		//	InComboRadius = true;
-		//else
-		//	comboSystem.Reset ();
-		
-  //      if (GameManager.Instance.State == GameState.PAUSE) return;
-  //      if (ShowParticles)
-  //          particleSystem.Play();
-
-  //      Dragged = true;
-  //      oldPosition = transform.position;
-  //      futurePosition = transform.position;
-  //      screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-  //      offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-    }
-    protected virtual void OnMouseDrag()
-    {
-        //if (GameManager.Instance.State == GameState.PAUSE) return;
-        //if (ShowParticles) {
-        //    particleSystem.transform.position = transform.position;
-        //}
-        
-        //oldPosition = transform.position;
-        //Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-        //futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-
-        //if (Draggable) {
-        //    transform.position = futurePosition;
-        //}
-    }
-    protected virtual void OnMouseUp()
-    {
-		//actionRewardsCombo = false;
-		
-  //      particleSystem.Stop();
-  //      Dragged = false;
-  //      if (GameManager.Instance.State == GameState.PAUSE) return;
-  //      var swipeVector = futurePosition - oldPosition; // Swipe distance in units
-
-  //      if (swipeVector.magnitude > SWIPE_MAGNITUDE)
-  //          OnSwipe(swipeVector);
-  //      else
-  //          OnTap();       
-
-		//if (InComboRadius && actionRewardsCombo) {
-		//	comboSystem.Increase(1);
-		//}
-		//InComboRadius = false;
     }
 
     public virtual void OnTap()
