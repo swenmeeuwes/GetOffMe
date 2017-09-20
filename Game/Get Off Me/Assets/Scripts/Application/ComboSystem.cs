@@ -107,12 +107,14 @@ public class ComboSystem : MonoBehaviour
 
     private void HandleComboCountChanged()
     {
-        comboCircle.Color = ComboColorResolver.Resolve(Combo, 0.7f);
-        comboCircle.Keyframe = Combo;
+        comboCircle.Color = ComboColorResolver.Resolve(Combo, 0.7f);        
         Camera.main.backgroundColor = ComboColorResolver.Resolve(Combo, 0.085f);
 
         var residu = Combo % ComboNeededForNextTier;
         comboCircle.DistortingScale = 1 / (ComboNeededForNextTier / (float)residu);
+
+        if (residu == 0)
+            comboCircle.Keyframe = Combo;
     }
 
     private void OnDrawGizmos()

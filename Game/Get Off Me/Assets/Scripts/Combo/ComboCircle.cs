@@ -77,11 +77,11 @@ public class ComboCircle : MonoBehaviour {
         }
         set
         {
-            distortInterval = Mathf.Lerp(baseDistortInterval, maxDistortInterval, Mathf.Clamp01(value));
+            m_distortingScale = value;
+            distortInterval = Mathf.Lerp(baseDistortInterval, maxDistortInterval, Mathf.Clamp01(value)); // 0.2f no work?
+
             if (value > 0)
                 StartCoroutine(Distort());
-
-            m_distortingScale = value;
         }
     }
 
