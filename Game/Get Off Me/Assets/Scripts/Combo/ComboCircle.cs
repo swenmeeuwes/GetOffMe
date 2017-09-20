@@ -78,7 +78,7 @@ public class ComboCircle : MonoBehaviour {
         set
         {
             m_distortingScale = value;
-            distortInterval = Mathf.Lerp(baseDistortInterval, maxDistortInterval, Mathf.Clamp01(value)); // 0.2f no work?
+            distortInterval = Mathf.Lerp(baseDistortInterval, maxDistortInterval, Mathf.Clamp01(value));
 
             if (value > 0)
                 StartCoroutine(Distort());
