@@ -29,14 +29,14 @@ public class TouchManager : MonoBehaviour {
         switch(touch.phase)
         {
             case TouchPhase.Began:
-                transform.gameObject.SendMessage("OnTouchBegan", touch);
+                transform.gameObject.SendMessage("OnTouchBegan", touch, SendMessageOptions.DontRequireReceiver);
                 break;
             case TouchPhase.Moved:
             case TouchPhase.Stationary:
-                transform.gameObject.SendMessage("OnTouch", touch);
+                transform.gameObject.SendMessage("OnTouch", touch, SendMessageOptions.DontRequireReceiver);
                 break;
             case TouchPhase.Ended:
-                transform.gameObject.SendMessage("OnTouchEnded", touch);
+                transform.gameObject.SendMessage("OnTouchEnded", touch, SendMessageOptions.DontRequireReceiver);
                 break;
         }        
     }
