@@ -44,6 +44,6 @@ public class BombSlimeEnemy : SeekingEntity {
     }
     public override void Accept(IVial vial)
     {
-        //vial.Apply(this);
+        vial.Apply(this);
     }
 }

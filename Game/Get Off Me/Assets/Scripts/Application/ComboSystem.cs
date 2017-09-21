@@ -19,6 +19,8 @@ public class ComboSystem : MonoBehaviour
     private string[] encouragementTexts;
 
     private float radius;
+    public float comboSizeCurveModifier = 1;
+    private ParticleSystem particles;
 
     private int m_Combo;
     public int Combo {
@@ -35,15 +37,10 @@ public class ComboSystem : MonoBehaviour
 
 	[HideInInspector]
 	public float chanceAtDoubleCombo;
-    //public float originalRadius;
 
-    // Use this for initialization
     void Awake() {
-        //if (originalRadius == 0)
-        //{
-        //    originalRadius = 3.0f;
-        //}
         chanceAtDoubleCombo = 0;
+        particles = gameObject.GetComponentInChildren<ParticleSystem>();
     }
 
 	void Start () {
@@ -51,29 +48,13 @@ public class ComboSystem : MonoBehaviour
 			orthographicCamera = Camera.main;
 
         encouragementTextField.gameObject.SetActive(false);
-
-        //SetScale(1);
     }
 
 	public void Increase(int addValue){
 		Combo += addValue;
 		if (Random.Range (1.0f, 100.0f) < chanceAtDoubleCombo)
 			Combo += addValue;
-
-        //comboRadiusIndicator.color = ComboColorResolver.Resolve(Combo, 0.1f);
     }
-
-	//public void SetScale(float size){
-		//radius = originalRadius * size;
- //       //comboCircle.Radius = radius;
-
-
- //       //if (comboRadiusIndicator)
- //       //{
- //       //    var diameter = radius * 2;
- //       //    comboRadiusIndicator.rectTransform.sizeDelta = Vector2.one * diameter;
- //       //}
- //   }
 
     public void ShowEncouragement(string text, bool randomizeColor = true)
     {
@@ -93,8 +74,6 @@ public class ComboSystem : MonoBehaviour
         Combo = 0;
         comboCircle.Color = new Color(17f / 255f, 17f / 255f, 17f / 255f, 1);
         Camera.main.backgroundColor = Color.black;
-
-        //comboRadiusIndicator.color = new Color(17f / 255f, 17f / 255f, 17f / 255f, 1);
     }
 
     public int AwardPoints(int score)
@@ -122,7 +101,16 @@ public class ComboSystem : MonoBehaviour
             ShowEncouragement(encouragementTexts[Mathf.FloorToInt(Random.value * encouragementTexts.Length)] + "!");
             CancelInvoke("HideEncouragement");
             Invoke("HideEncouragement", 2f);
-            comboCircle.Keyframe = Combo;
+
+            if (Combo != 0) {
+                ParticleSystem.ShapeModule shapeModule = particles.shape;
+                shapeModule.radius = comboCircle.Radius;
+
+                particles.Emit(60);
+            }
+            
+
+            comboCircle.Keyframe = (Combo * comboSizeCurveModifier);
         }
     }
 

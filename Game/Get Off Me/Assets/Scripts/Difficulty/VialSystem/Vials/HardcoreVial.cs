@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HardcoreVial : IVial {
 	private int playerHealthModifier = -5;
-    private float comboSystemRadiusMultiplier = 1.2f;
+    private float comboSystemRadiusCurveModifier = -0.2f;
     private float medicWeightModifier = 5;
 
 	public void Apply(HelmetSlimeEnemy entity) { }
@@ -19,7 +19,7 @@ public class HardcoreVial : IVial {
         player.maxHealth = player.health;
 	}
 	public void Apply(ComboSystem comboSystem){
-        //comboSystem.originalRadius *= comboSystemRadiusMultiplier; // HAS TO BE REIMPLEMENTED
+        comboSystem.comboSizeCurveModifier += comboSystemRadiusCurveModifier;
     }
 	public void Apply(OffScreenSpawner spawner) { }
     public void Apply(List<GamePhase> phases) {

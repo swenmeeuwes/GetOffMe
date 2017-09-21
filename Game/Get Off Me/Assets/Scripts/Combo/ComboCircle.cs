@@ -57,6 +57,9 @@ public class ComboCircle : MonoBehaviour {
             circleRadius = value;
             GenerateCircle();
         }
+        get {
+            return circleRadius;
+        }
     }
 
     public float Keyframe
