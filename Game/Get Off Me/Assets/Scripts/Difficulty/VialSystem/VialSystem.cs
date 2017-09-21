@@ -15,9 +15,10 @@ public class VialSystem : MonoBehaviour {
 
 		var activeVials = VialManager.Instance.GetActiveVials ();
 		for(int i = 0; i < activeVials.Count; i ++){
-			activeVials [i].Apply (player);
-			activeVials [i].Apply (comboSystem);
-			activeVials [i].Apply (spawner);
+			activeVials[i].Apply(player);
+			activeVials[i].Apply(comboSystem);
+			activeVials[i].Apply(spawner);
+            activeVials[i].Apply(spawner.gamePhases);
 		}
 	}
 }

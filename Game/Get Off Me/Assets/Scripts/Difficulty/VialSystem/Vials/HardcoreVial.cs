@@ -16,6 +16,7 @@ public class HardcoreVial : IVial {
 
 	public void Apply(Player player){
 		player.health += playerHealthModifier;
+        player.maxHealth = player.health;
 	}
 	public void Apply(ComboSystem comboSystem){
         comboSystem.originalRadius *= comboSystemRadiusMultiplier;

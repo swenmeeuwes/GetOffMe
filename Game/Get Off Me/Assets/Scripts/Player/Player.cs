@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
 
     private float startScale;
 
-    private float maxHealth;
+    public float maxHealth;
     private float targetSize;
 
     private void Awake() {
