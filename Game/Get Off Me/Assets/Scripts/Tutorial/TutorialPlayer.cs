@@ -21,6 +21,9 @@ public class TutorialPlayer : MonoBehaviour {
     [SerializeField]
     private string[] tutorialTextSequence;
 
+    //public TutorialSequence tutorialSequence;
+    public List<TutorialItem> tutorialSequence = new List<TutorialItem>();
+
     private Animation textAnimation;
     private Camera tutorialCamera;
 
