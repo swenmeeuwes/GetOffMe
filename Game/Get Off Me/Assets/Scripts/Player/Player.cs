@@ -33,7 +33,7 @@ public class Player : MonoBehaviour {
 
         startScale = transform.localScale.x; // ASSUMPTION: Player is a square
 
-        comboSystem.SetScale(startScale);
+        //comboSystem.SetScale(startScale);
     }
 
     public void AbsorbEnemy(float size) {
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour {
     {
         health = Mathf.Clamp(health + amount, -1, maxHealth);
         UpdateSize();
-        comboSystem.SetScale(targetSize / 3);
+        //comboSystem.SetScale(targetSize / 3);
     }
 
     private void Damage(float amount)
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour {
 
         animator.SetTrigger("hit");
         UpdateSize();
-		comboSystem.SetScale(targetSize / 3);
+		//comboSystem.SetScale(targetSize / 3);
     }
 
     private void UpdateSize()
