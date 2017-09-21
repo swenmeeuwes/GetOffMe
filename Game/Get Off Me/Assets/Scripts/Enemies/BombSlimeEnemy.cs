@@ -10,6 +10,13 @@ public class BombSlimeEnemy : SeekingEntity {
     public float magnitudeForExplode = 1.0f;
     public float explodeRadius = 3.0f;
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        IgnoreTap = true;
+    }
+
     protected override void Start () {
         base.Start();
 	}

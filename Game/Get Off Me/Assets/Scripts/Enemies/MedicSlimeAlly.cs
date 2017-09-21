@@ -9,6 +9,8 @@ public class MedicSlimeAlly : SeekingEntity {
     {
         base.Awake();
         healAmount = 1;
+
+        IgnoreTap = true;
     }
     protected override void Start(){
 		base.Start ();

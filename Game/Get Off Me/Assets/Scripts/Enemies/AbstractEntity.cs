@@ -104,9 +104,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
         if (Draggable)
-        {
             transform.position = futurePosition;
-        }
     }
 
     public void OnTouchEnded(Touch touch)
@@ -119,7 +117,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         var secondsSinceTouch = Time.time - lastTouchTime;
 
         // If seconds since last touch is lower than X, see it as a tap
-        if (secondsSinceTouch < 0.1f)
+        if (!IgnoreTap && secondsSinceTouch < 0.1f)
         {
             OnTap();
         }
