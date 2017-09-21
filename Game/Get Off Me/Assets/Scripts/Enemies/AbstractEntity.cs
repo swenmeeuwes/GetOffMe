@@ -65,11 +65,6 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         else UpdateEntity();
     }
 
-    private void OnDestroy()
-    {
-        InputManager.Main.Deregister(this);
-    }
-
     protected abstract void UpdateEntity();
 
     public void OnTouchBegan(Touch touch)
@@ -188,8 +183,9 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         if (player)
             OnPlayerHit(player);
     }
-    public virtual void OnEntityDestroy() {
+    public void OnEntityDestroy() {
         particleSystem.Stop();
+        InputManager.Main.Deregister(this);
 
         Destroy(gameObject);
     }
