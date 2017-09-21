@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe84c1f35f9dccc4db64333351a4ecb8, type: 3}
-  m_Name: phase_0
+  m_Name: phase_6
   m_EditorClassIdentifier: 
-  time: 0
+  time: 100
   objectKeys:
   - {fileID: 1215110422154106, guid: 2117f283babe3e14d831d7937e997440, type: 2}
   - {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b, type: 2}
@@ -20,9 +20,9 @@ MonoBehaviour:
   - {fileID: 1900798280667138, guid: ef732f5afda7ff74890be4ef03bc0dce, type: 2}
   - {fileID: 1247453931331628, guid: 3d66339c2d1340b43aaa51fe02261c34, type: 2}
   weights:
-  - 8
   - 5
-  - 0
-  - 0
-  - 0
-  - 0
+  - 6
+  - 7
+  - 3
+  - 6
+  - 5

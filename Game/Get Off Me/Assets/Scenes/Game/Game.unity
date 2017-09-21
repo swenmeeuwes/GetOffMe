@@ -337,14 +337,14 @@ MonoBehaviour:
     - serializedVersion: 2
       time: -1.1940384
       value: 1.7910278
-      inSlope: -0.0019084077
-      outSlope: -0.0019084077
+      inSlope: -0.0020584236
+      outSlope: -0.0020584236
       tangentMode: 0
     - serializedVersion: 2
       time: 302.16498
       value: 1.4011261
-      inSlope: -0.0018250708
-      outSlope: -0.0018250708
+      inSlope: -0.0015710923
+      outSlope: -0.0015710923
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1908,6 +1908,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4260000305553744, guid: 40c205518d3d4d74687c1f853f021dbd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1960,6 +1965,61 @@ Prefab:
       propertyPath: orthographicCamera
       value: 
       objectReference: {fileID: 1904601765}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[0].value
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[1].time
+      value: 49.986897
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[1].value
+      value: 25.250122
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[1].inSlope
+      value: -1.4021573
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[1].outSlope
+      value: -1.4021573
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[2].time
+      value: 49.986897
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[2].value
+      value: 1.3205023
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[2].inSlope
+      value: -3.1111035
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[2].outSlope
+      value: -3.1111035
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[0].inSlope
+      value: -1.407931
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: sizeInterpolation.m_Curve.Array.data[0].outSlope
+      value: -1.407931
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40c205518d3d4d74687c1f853f021dbd, type: 2}
   m_IsPrefabParent: 0
