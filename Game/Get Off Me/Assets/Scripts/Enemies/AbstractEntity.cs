@@ -141,7 +141,8 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     protected virtual void OnSwipe(Vector3 swipeVector)
     {
-		actionRewardsCombo = true;
+        HandleCombo();
+
         var newVelocity = swipeVector * (100 - model.weight);
         rb.velocity = newVelocity;
 
@@ -151,11 +152,21 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         Dispatch("swiped", this);
 
+        HandleScore();
+    }
+
+    protected virtual void HandleScore()
+    {
         if (GameManager.Instance.State == GameState.PLAY)
         {
-			int addedScore = comboSystem.AwardPoints(model.awardPoints);
-			FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
+            int addedScore = comboSystem.AwardPoints(model.awardPoints);
+            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
+    }
+
+    protected virtual void HandleCombo()
+    {
+        actionRewardsCombo = true;
     }
 		
 	public virtual void Accept(IVial vial) { }

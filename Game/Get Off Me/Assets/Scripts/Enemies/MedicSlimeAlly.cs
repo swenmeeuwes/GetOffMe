@@ -22,4 +22,14 @@ public class MedicSlimeAlly : SeekingEntity {
 	{
 		vial.Apply (this);
 	}
+
+    protected override void HandleScore()
+    {
+        // NO SCORE
+    }
+
+    protected override void HandleCombo()
+    {
+        actionRewardsCombo = false;
+    }
 }
