@@ -119,8 +119,12 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         }
         else
         {
-            var swipeDistance = touch.deltaPosition * touch.deltaTime;
-            OnSwipe(swipeDistance);
+            var touchPositionInWorldSpace = Camera.main.ScreenToWorldPoint(touch.position);
+            if (Vector2.Distance(touchPositionInWorldSpace, oldPosition) > 0.4f)
+            {
+                var swipeDistance = touch.deltaPosition * touch.deltaTime;
+                OnSwipe(swipeDistance);
+            }
         }
     }
 
