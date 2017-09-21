@@ -109,7 +109,9 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     public void OnTouchEnded(Touch touch)
     {
-        actionRewardsCombo = false;
+        if (model.health <= 0)
+            return;
+
         Dragged = false;
 
         particleSystem.Stop();
