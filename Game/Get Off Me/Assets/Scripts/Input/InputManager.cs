@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-#if UNITY_EDITOR
 using UnityEngine;
-#endif
 
 public class InputManager : MonoBehaviour {
     // Inspector variables
@@ -156,7 +153,7 @@ public class InputManager : MonoBehaviour {
             Gizmos.DrawSphere(worldPosition, touch.radius);
 
 #if UNITY_EDITOR
-            Handles.Label(worldPosition, touch.fingerId.ToString());
+            UnityEditor.Handles.Label(worldPosition, touch.fingerId.ToString());
 #endif
         }
     }
