@@ -113,7 +113,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         var secondsSinceTouch = Time.time - lastTouchTime;
 
         // If seconds since last touch is lower than X, see it as a tap
-        if (!IgnoreTap && secondsSinceTouch < 0.1f)
+        if (!IgnoreTap && secondsSinceTouch < 0.3f)
         {
             OnTap();
         }
