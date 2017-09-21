@@ -37,6 +37,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
             if (neededTapsForHelmet <= 0)
             {
                 hasHelmet = false;
+                IgnoreTap = true;
 
                 // Create flipped particle
                 var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");

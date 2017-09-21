@@ -8,7 +8,7 @@ public class WizardSlimeEnemy : SeekingEntity {
     public float chanceToTeleport;
     public float intervalCheckIfTeleport;
 	public float channelTime;
-	// Use this for initialization
+    
 	protected override void Start () {
         base.Start();
 		InvokeRepeating("TeleportCheck", intervalCheckIfTeleport, intervalCheckIfTeleport);
@@ -16,8 +16,10 @@ public class WizardSlimeEnemy : SeekingEntity {
     protected override void Awake()
     {
         base.Awake();
+
+        IgnoreTap = true;
     }
-    // Update is called once per frame
+    
     protected override void UpdateEntity () {
         if (!teleporting) {
             base.UpdateEntity();

@@ -9,6 +9,8 @@ public class MedicSlimeAlly : SeekingEntity {
     {
         base.Awake();
         healAmount = 1;
+
+        IgnoreTap = true;
     }
     protected override void Start(){
 		base.Start ();
@@ -22,4 +24,14 @@ public class MedicSlimeAlly : SeekingEntity {
 	{
 		vial.Apply (this);
 	}
+
+    protected override void HandleScore()
+    {
+        // NO SCORE
+    }
+
+    protected override void HandleCombo()
+    {
+        actionRewardsCombo = false;
+    }
 }

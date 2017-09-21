@@ -121,10 +121,10 @@ public class InputManager : MonoBehaviour {
     {
         foreach (var touchable in registeredTouchables)
         {
-            if (touchable.FingerId == null)
+            if (touchable.FingerId == null || touchable.FingerId != touch.fingerId)
                 continue;
 
-            switch(touch.phase)
+            switch (touch.phase)
             {
                 case TouchPhase.Moved:
                 case TouchPhase.Stationary:
@@ -134,8 +134,7 @@ public class InputManager : MonoBehaviour {
                     touchable.OnTouchEnded(touch);
 
                     // Remove tag so that the events won't fire anymore
-                    if(touchable.FingerId == touch.fingerId)
-                        touchable.FingerId = null;
+                    touchable.FingerId = null;
                     break;
             }
         }

@@ -46,7 +46,10 @@ public class TutorialPlayer : MonoBehaviour {
 
         tutorialTextField.text = "";
 
-        Next();
+        if (PlayerPrefs.GetInt("ShowTutorial", 1) == 1)
+            Next();
+        else
+            Finish();
     }
 
     private void Next()
@@ -63,10 +66,14 @@ public class TutorialPlayer : MonoBehaviour {
         }
         else
         {
-            // Tutorial is finished
-            spawner.Enabled = true;
-            spawner.SetWave();
+            Finish();
         }
+    }
+
+    private void Finish()
+    {
+        spawner.Enabled = true;
+        spawner.SetWave();
     }
 
     private void HandleText()
@@ -93,10 +100,6 @@ public class TutorialPlayer : MonoBehaviour {
         var nextEntity = tutorialEncounters[encounterIndex].GetComponent<AbstractEntity>(); // ASSUMPTION: Encounter is an entity!
         var randomPosition = spawner.GetRandomSpawnPoint();
 
-        //var sprite = new GameObject("DialogBalloon");
-        //var spriteRenderer = sprite.AddComponent<SpriteRenderer>();
-        //sprite.transform.position = randomPosition + new Vector2(0, 1);
-
         var instructionCanvas = Instantiate(instructionCanvasPrefab);
 
         var spawned = spawner.CreateSpawn(nextEntity.gameObject);
@@ -104,27 +107,18 @@ public class TutorialPlayer : MonoBehaviour {
         spawned.transform.position = randomPosition;
 
         spawnedEntity.model.health = 1;
-        //spawnedEntity.model.speed = 1f;
         spawnedEntity.model.varianceInSpeed = 0f;
-
-        //sprite.transform.parent = spawned.transform;
-        //instructionCanvas.transform.parent = spawned.transform;
-        //instructionCanvas.GetComponent<RectTransform>().localPosition = new Vector3(0, -0.6f, 0);
 
         instructionCanvas.transform.SetParent(spawned.transform, false);
 
 
         if (spawnedEntity is HelmetSlimeEnemy)
         {
-            //spriteRenderer.sprite = tapDialog;
-            //spawnedEntity.AddEventListener("tapped", (e) => spriteRenderer.sprite = swipeDialog, true);
-
             instructionCanvas.GetComponentInChildren<Text>().text = "Tap";
             spawnedEntity.AddEventListener("tapped", (e) => instructionCanvas.GetComponentInChildren<Text>().text = "Swipe", true);
         }
         else
         {
-            //spriteRenderer.sprite = swipeDialog;
             instructionCanvas.GetComponentInChildren<Text>().text = "Swipe";
         }
 

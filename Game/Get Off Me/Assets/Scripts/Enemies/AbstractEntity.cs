@@ -104,9 +104,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
         if (Draggable)
-        {
             transform.position = futurePosition;
-        }
     }
 
     public void OnTouchEnded(Touch touch)
@@ -119,7 +117,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         var secondsSinceTouch = Time.time - lastTouchTime;
 
         // If seconds since last touch is lower than X, see it as a tap
-        if (secondsSinceTouch < 0.08f)
+        if (!IgnoreTap && secondsSinceTouch < 0.1f)
         {
             OnTap();
         }
@@ -141,7 +139,8 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     protected virtual void OnSwipe(Vector3 swipeVector)
     {
-		actionRewardsCombo = true;
+        HandleCombo();
+
         var newVelocity = swipeVector * (100 - model.weight);
         rb.velocity = newVelocity;
 
@@ -151,11 +150,21 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         Dispatch("swiped", this);
 
+        HandleScore();
+    }
+
+    protected virtual void HandleScore()
+    {
         if (GameManager.Instance.State == GameState.PLAY)
         {
-			int addedScore = comboSystem.AwardPoints(model.awardPoints);
-			FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
+            int addedScore = comboSystem.AwardPoints(model.awardPoints);
+            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
+    }
+
+    protected virtual void HandleCombo()
+    {
+        actionRewardsCombo = true;
     }
 		
 	public virtual void Accept(IVial vial) { }
