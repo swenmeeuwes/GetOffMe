@@ -119,12 +119,8 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         }
         else
         {
-            var touchPositionInWorldSpace = Camera.main.ScreenToWorldPoint(touch.position);
-            if (Vector2.Distance(touchPositionInWorldSpace, oldPosition) > 0.4f)
-            {
-                var swipeDistance = touch.deltaPosition * touch.deltaTime;
-                OnSwipe(swipeDistance);
-            }
+            var swipeDistance = touch.deltaPosition * touch.deltaTime;
+            OnSwipe(swipeDistance);
         }
     }
 
@@ -137,6 +133,9 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     {
         var newVelocity = swipeVector * (100 - model.weight);
         rb.velocity = newVelocity;
+
+        if (swipeVector.magnitude < 0.25f)
+            return;
 
         model.health -= 1;
         if (model.health <= 0)
