@@ -96,7 +96,7 @@ public class ComboSystem : MonoBehaviour
         var residu = Combo % ComboNeededForNextTier;
         comboCircle.DistortingScale = 1 / (ComboNeededForNextTier / (float)residu);
 
-        if (residu == 0)
+        if (Combo > 0 && residu == 0)
         {
             ShowEncouragement(encouragementTexts[Mathf.FloorToInt(Random.value * encouragementTexts.Length)] + "!");
             CancelInvoke("HideEncouragement");
