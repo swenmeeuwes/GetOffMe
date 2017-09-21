@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1247453931331628}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -8.504727, y: 4.523534, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -113,7 +113,7 @@ MonoBehaviour:
   amplifiedSpeed: 0
   model: {fileID: 0}
   magnitudeForExplode: 1
-  explodeRadius: 3
+  explodeRadius: 2
 --- !u!198 &198339619877014186
 ParticleSystem:
   m_ObjectHideFlags: 1
