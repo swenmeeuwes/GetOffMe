@@ -24,7 +24,6 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 	protected bool Dragged { get; set; }
 	protected bool InComboRadius { get; set; }
     protected bool IgnoreTap { get; set; } // Feature: To bypass tap delay -> smoother swipe
-	public bool actionRewardsCombo { get; set; }
 
     public int? FingerId { get; set; }
 
@@ -63,11 +62,6 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     protected virtual void Update() {
         if (GameManager.Instance.State == GameState.PAUSE) return;
         else UpdateEntity();
-    }
-
-    private void OnDestroy()
-    {
-        InputManager.Main.Deregister(this);
     }
 
     protected abstract void UpdateEntity();
@@ -109,7 +103,9 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     public void OnTouchEnded(Touch touch)
     {
-        actionRewardsCombo = false;
+        if (model.health <= 0)
+            return;
+
         Dragged = false;
 
         particleSystem.Stop();
@@ -117,7 +113,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         var secondsSinceTouch = Time.time - lastTouchTime;
 
         // If seconds since last touch is lower than X, see it as a tap
-        if (!IgnoreTap && secondsSinceTouch < 0.1f)
+        if (!IgnoreTap && secondsSinceTouch < 0.3f)
         {
             OnTap();
         }
@@ -126,10 +122,6 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
             var swipeDistance = touch.deltaPosition * touch.deltaTime;
             OnSwipe(swipeDistance);
         }
-
-        if (InComboRadius && actionRewardsCombo)
-            comboSystem.Increase(1);
-        InComboRadius = false;
     }
 
     public virtual void OnTap()
@@ -139,8 +131,6 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     protected virtual void OnSwipe(Vector3 swipeVector)
     {
-        HandleCombo();
-
         var newVelocity = swipeVector * (100 - model.weight);
         rb.velocity = newVelocity;
 
@@ -151,6 +141,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         Dispatch("swiped", this);
 
         HandleScore();
+        HandleCombo();
     }
 
     protected virtual void HandleScore()
@@ -164,7 +155,9 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     protected virtual void HandleCombo()
     {
-        actionRewardsCombo = true;
+        if (InComboRadius)
+            comboSystem.Increase(1);
+        InComboRadius = false;
     }
 		
 	public virtual void Accept(IVial vial) { }
@@ -186,8 +179,9 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         if (player)
             OnPlayerHit(player);
     }
-    public virtual void OnEntityDestroy() {
+    public void OnEntityDestroy() {
         particleSystem.Stop();
+        InputManager.Main.Deregister(this);
 
         Destroy(gameObject);
     }

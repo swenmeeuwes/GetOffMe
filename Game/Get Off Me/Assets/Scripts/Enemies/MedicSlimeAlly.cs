@@ -32,6 +32,6 @@ public class MedicSlimeAlly : SeekingEntity {
 
     protected override void HandleCombo()
     {
-        actionRewardsCombo = false;
+        // NO COMBO
     }
 }

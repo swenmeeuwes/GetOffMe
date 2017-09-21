@@ -33,7 +33,6 @@ public class HelmetSlimeEnemy : SeekingEntity {
         if (hasHelmet)
         {
 			neededTapsForHelmet--;
-            actionRewardsCombo = true;
             if (neededTapsForHelmet <= 0)
             {
                 hasHelmet = false;
