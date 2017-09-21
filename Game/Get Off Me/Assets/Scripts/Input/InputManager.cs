@@ -149,6 +149,12 @@ public class InputManager : MonoBehaviour {
 
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(worldPosition, castSphereRadius);
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawSphere(worldPosition, touch.radius);
+
+#if UNITY_EDITOR
+            UnityEditor.Handles.Label(worldPosition, touch.fingerId.ToString());
+#endif
         }
     }
 }

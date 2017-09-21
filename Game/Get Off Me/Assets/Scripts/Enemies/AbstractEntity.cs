@@ -134,6 +134,9 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         var newVelocity = swipeVector * (100 - model.weight);
         rb.velocity = newVelocity;
 
+        if (swipeVector.magnitude < 0.25f)
+            return;
+
         model.health -= 1;
         if (model.health <= 0)
             StartCoroutine(Die());
