@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1247453931331628}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.74, y: 3.87, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -90,7 +90,7 @@ Animator:
   m_GameObject: {fileID: 1247453931331628}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f2cc69f63b267da489e1623369daf5ed, type: 2}
+  m_Controller: {fileID: 9100000, guid: bf12c86beff76814cac63a6d17d883cd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -110,8 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityModel: {fileID: 11400000, guid: 38569a76b9840124ca925b3f51141589, type: 2}
+  amplifiedSpeed: 0
   model: {fileID: 0}
-  magnitudeForExplode: 10
+  magnitudeForExplode: 1
   explodeRadius: 3
 --- !u!198 &198339619877014186
 ParticleSystem:
@@ -172,7 +173,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1457064212
+  randomSeed: 36109760
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3459,7 +3460,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b32839730abb5ae42a6b8a397a454f5d, type: 3}
+  m_Sprite: {fileID: 21300002, guid: b4da3526ad409a446b87deb00e998c03, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

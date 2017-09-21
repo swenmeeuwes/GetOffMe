@@ -30,12 +30,25 @@ public class BombSlimeEnemy : SeekingEntity {
     {
         base.OnCollisionEnter2D(coll);
         Debug.Log(coll.relativeVelocity.magnitude);
+        Debug.Log(magnitudeForExplode);
+
+        Explode();
         if (coll.relativeVelocity.magnitude > magnitudeForExplode) {
             Explode();
         }
     }
     void Explode() {
-        Debug.Log("Explode");
+
+        var explosionPrefab = Resources.Load<GameObject>("Enemy/Props/Explosion");
+        var explosionObject = Instantiate(explosionPrefab);
+
+        var parent = new GameObject();
+        parent.AddComponent<DeleteObjectDelayed>();
+        parent.transform.position = transform.position;
+
+        explosionObject.transform.SetParent(parent.transform);
+        explosionObject.transform.localPosition = new Vector3(0.0f, -0.14f, 0.0f);
+
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Enemy");
 
         for (int i = 0; i < objects.Length; i++) {
