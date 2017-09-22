@@ -29,7 +29,6 @@ public class TutorialPlayer : MonoBehaviour {
         tutorialCamera = GetComponent<Camera>();
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        player.Damage(1);    
 
         tutorialCanvas.SetActive(false);
         tutorialCamera.enabled = false;
@@ -42,9 +41,14 @@ public class TutorialPlayer : MonoBehaviour {
         tutorialTextField.text = "";
 
         if (PlayerPrefs.GetInt("ShowTutorial", 1) == 1)
+        {
+            player.Damage(1);
             Next();
+        }
         else
+        {
             Finish();
+        }
     }
 
     private void Next()
