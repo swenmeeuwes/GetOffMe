@@ -22,12 +22,12 @@ public class TutorialPlayer : MonoBehaviour {
     private string[] tutorialTextSequence;
 
     //public TutorialSequence tutorialSequence;
-    public List<TutorialItem> tutorialSequence = new List<TutorialItem>();
+    public List<TutorialSequenceItem> tutorialSequence = new List<TutorialSequenceItem>();
 
     private Animation textAnimation;
     private Camera tutorialCamera;
 
-    private GameObject player;
+    private Player player;
 
     private int tutorialSequenceIndex;
     private int encounterIndex;
@@ -37,7 +37,8 @@ public class TutorialPlayer : MonoBehaviour {
         textAnimation = tutorialTextField.GetComponent<Animation>();
         tutorialCamera = GetComponent<Camera>();
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player.Damage(1);    
 
         tutorialCanvas.SetActive(false);
         tutorialCamera.enabled = false;
@@ -57,15 +58,12 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void Next()
     {
-        if (tutorialSequenceIndex < tutorialTextSequence.Length)
+        if (tutorialSequenceIndex < tutorialSequence.Count)
         {
-            HandleText();
+            var sequenceItem = tutorialSequence[tutorialSequenceIndex];
+            HandleSequenceItem(sequenceItem);
+
             tutorialSequenceIndex++;
-        }
-        else if (encounterIndex < tutorialEncounters.Length)
-        {
-            HandleEncounter();
-            encounterIndex++;
         }
         else
         {
@@ -79,13 +77,26 @@ public class TutorialPlayer : MonoBehaviour {
         spawner.SetWave();
     }
 
-    private void HandleText()
+    private void HandleSequenceItem(TutorialSequenceItem sequenceItem)
+    {
+        switch (sequenceItem.type)
+        {
+            case TutorialSequenceItemType.TEXT:
+                HandleText(sequenceItem.textContent, sequenceItem.textDuration);
+                break;
+            case TutorialSequenceItemType.SPAWN:
+                HandleSpawn(sequenceItem.spawnPrefab);
+                break;
+        }
+    }
+
+    private void HandleText(string text, float duration)
     {
         // Show text
-        tutorialTextField.text = tutorialTextSequence[tutorialSequenceIndex];
+        tutorialTextField.text = text;
         textAnimation.PlayQueued("TextFadeInAnimation", QueueMode.PlayNow);
         StartCoroutine(AnimationUtil.OnAnimationFinished(textAnimation, () => {
-            Invoke("HideText", 1.5f);
+            Invoke("HideText", duration);
         }));
     }
 
@@ -94,13 +105,13 @@ public class TutorialPlayer : MonoBehaviour {
         textAnimation.PlayQueued("TextFadeOutAnimation", QueueMode.PlayNow);
 
         StartCoroutine(AnimationUtil.OnAnimationFinished(textAnimation, () => {
-            Invoke("Next", 0.5f);
+            Invoke("Next", 0.1f);
         }));
     }
 
-    private void HandleEncounter()
+    private void HandleSpawn(GameObject spawnPrefab)
     {
-        var nextEntity = tutorialEncounters[encounterIndex].GetComponent<AbstractEntity>(); // ASSUMPTION: Encounter is an entity!
+        var nextEntity = spawnPrefab.GetComponent<AbstractEntity>(); // ASSUMPTION: Encounter is an entity!
         var randomPosition = spawner.GetRandomSpawnPoint();
 
         var instructionCanvas = Instantiate(instructionCanvasPrefab);
@@ -124,6 +135,9 @@ public class TutorialPlayer : MonoBehaviour {
         {
             instructionCanvas.GetComponentInChildren<Text>().text = "Swipe";
         }
+
+        if(spawnedEntity is MedicSlimeAlly)
+            instructionCanvas.GetComponentInChildren<Text>().text = "";
 
         spawnedEntity.AddEventListener("dying", (e) => Next(), true);
     }
