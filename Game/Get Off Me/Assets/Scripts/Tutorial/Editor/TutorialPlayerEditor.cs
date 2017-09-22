@@ -73,8 +73,6 @@ public class TutorialPlayerEditor : Editor {
     {
         DrawDefaultInspector();
 
-        GUILayout.Label("Tutorial sequence", EditorStyles.boldLabel);
-
         serializedObject.Update();
         list.DoLayoutList();
         serializedObject.ApplyModifiedProperties();
