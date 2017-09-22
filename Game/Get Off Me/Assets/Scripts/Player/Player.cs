@@ -56,9 +56,9 @@ public class Player : MonoBehaviour {
         //comboSystem.SetScale(targetSize / 3);
     }
 
-    private void Damage(float amount)
+    public void Damage(float amount)
     {
-		comboSystem.Reset ();
+		comboSystem.Reset();
         health -= amount;
 
         animator.SetTrigger("hit");
