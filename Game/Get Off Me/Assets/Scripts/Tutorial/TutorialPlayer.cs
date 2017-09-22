@@ -7,21 +7,12 @@ public class TutorialPlayer : MonoBehaviour {
     [SerializeField]
     private OffScreenSpawner spawner;
     [SerializeField]
-    private GameObject[] tutorialEncounters;
-    //[SerializeField]
-    //private Sprite tapDialog;
-    //[SerializeField]
-    //private Sprite swipeDialog;
-    [SerializeField]
     private GameObject instructionCanvasPrefab;
     [SerializeField]
     private GameObject tutorialCanvas;
     [SerializeField]
     private Text tutorialTextField;
-    [SerializeField]
-    private string[] tutorialTextSequence;
 
-    //public TutorialSequence tutorialSequence;
     public List<TutorialSequenceItem> tutorialSequence = new List<TutorialSequenceItem>();
 
     private Animation textAnimation;
