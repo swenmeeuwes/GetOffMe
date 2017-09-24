@@ -25,6 +25,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 	protected bool InComboRadius { get; set; }
     protected bool IgnoreTap { get; set; } // Feature: To bypass tap delay -> smoother swipe
 
+
     public int? FingerId { get; set; }
 
     protected Vector3 screenPoint;
@@ -139,7 +140,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         model.health -= 1;
         if (model.health <= 0)
-            StartCoroutine(Die());
+            Die();
 
         Dispatch("swiped", this);
 
@@ -192,7 +193,11 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         Dispatch("dying", this);
         OnEntityDestroy();
     }
-    public IEnumerator Die()
+    public void Die() {
+        Destroy(GetComponent <CircleCollider2D>() );
+        StartCoroutine(DieAnimation());
+    }
+    public IEnumerator DieAnimation() // make private
     {
         var shrinkStep = 0.05f;
         while (transform.localScale.x > 0)
@@ -205,4 +210,5 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         Destroy(gameObject);
     }
+
 }

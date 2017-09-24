@@ -9,7 +9,6 @@ public class ExplosionScript : MonoBehaviour {
     {
         AbstractEntity entity = coll.gameObject.GetComponent<AbstractEntity>();
         if (entity)
-            StartCoroutine(entity.Die());
+            entity.Die();
     }
-
 }
