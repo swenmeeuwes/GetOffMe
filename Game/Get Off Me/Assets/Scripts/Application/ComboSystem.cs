@@ -10,6 +10,8 @@ public class ComboSystem : MonoBehaviour
     [SerializeField]
     private Camera orthographicCamera;
     [SerializeField]
+    private Text comboStreakTextField;
+    [SerializeField]
     private Text encouragementTextField;
     [SerializeField]
     private ComboCircle comboCircle;
@@ -48,6 +50,7 @@ public class ComboSystem : MonoBehaviour
 			orthographicCamera = Camera.main;
 
         encouragementTextField.gameObject.SetActive(false);
+        comboStreakTextField.gameObject.SetActive(false);
     }
 
 	public void Increase(int addValue){
@@ -112,6 +115,25 @@ public class ComboSystem : MonoBehaviour
 
             comboCircle.Keyframe = (Combo * comboSizeCurveModifier);
         }
+
+        ShowComboStreak(Combo);
+    }
+
+    private void ShowComboStreak(int amount)
+    {
+        var randomX = Random.value * 50 - 25;
+        var randomY = Random.value * 80 - 40;
+        var randomZ = Random.value * 70 - 35;
+        comboStreakTextField.rectTransform.localRotation = Quaternion.Euler(randomX, randomY, randomZ);
+        comboStreakTextField.text = amount + "x";
+        comboStreakTextField.color = ComboColorResolver.Resolve(Combo);
+
+        comboStreakTextField.gameObject.SetActive(true);
+    }
+
+    private void HideComboStreak()
+    {
+        comboStreakTextField.gameObject.SetActive(false);
     }
 
     private void OnDrawGizmos()
