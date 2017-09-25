@@ -13,6 +13,7 @@ public enum TutorialSequenceItemType
 public struct TutorialSequenceItem {    
     public TutorialSequenceItemType type;
     public float delay;
+    public bool waitUntilComplete;
 
     // TEXT
     public string textContent;

@@ -23,6 +23,8 @@ public class TutorialPlayer : MonoBehaviour {
     private int tutorialSequenceIndex;
     private int encounterIndex;
 
+    private TutorialSequenceItem currentSequenceItem;
+
     private void Start()
     {
         textAnimation = tutorialTextField.GetComponent<Animation>();
@@ -55,10 +57,10 @@ public class TutorialPlayer : MonoBehaviour {
     {
         if (tutorialSequenceIndex < tutorialSequence.Count)
         {
-            var sequenceItem = tutorialSequence[tutorialSequenceIndex];
-            HandleSequenceItem(sequenceItem);
-
+            currentSequenceItem = tutorialSequence[tutorialSequenceIndex];
             tutorialSequenceIndex++;
+
+            HandleSequenceItem(currentSequenceItem);
         }
         else
         {
@@ -90,9 +92,19 @@ public class TutorialPlayer : MonoBehaviour {
         // Show text
         tutorialTextField.text = text;
         textAnimation.PlayQueued("TextFadeInAnimation", QueueMode.PlayNow);
-        StartCoroutine(AnimationUtil.OnAnimationFinished(textAnimation, () => {
-            Invoke("HideText", duration);
-        }));
+        if (currentSequenceItem.waitUntilComplete)
+        {
+            StartCoroutine(
+                AnimationUtil.OnAnimationFinished(textAnimation, () =>
+                {
+                    Invoke("HideText", duration);
+                })
+            );
+        }
+        else
+        {
+            Next();
+        }
     }
 
     private void HideText()
@@ -100,11 +112,7 @@ public class TutorialPlayer : MonoBehaviour {
         textAnimation.PlayQueued("TextFadeOutAnimation", QueueMode.PlayNow);
 
         StartCoroutine(AnimationUtil.OnAnimationFinished(textAnimation, () => {
-            var delay = 0f;
-            if (tutorialSequenceIndex < tutorialSequence.Count - 1)
-                delay = tutorialSequence[tutorialSequenceIndex].delay;
-
-            Invoke("Next", delay); // Index is already incremented by one, so this is this next sequence item
+            Invoke("Next", currentSequenceItem.delay);
         }));
     }
 
@@ -138,6 +146,9 @@ public class TutorialPlayer : MonoBehaviour {
         if(spawnedEntity is MedicSlimeAlly)
             instructionCanvas.GetComponentInChildren<Text>().text = "";
 
-        spawnedEntity.AddEventListener("dying", (e) => Next(), true);
+        if (currentSequenceItem.waitUntilComplete)
+            spawnedEntity.AddEventListener("dying", (e) => Next(), true);
+        else
+            Next();
     }
 }
