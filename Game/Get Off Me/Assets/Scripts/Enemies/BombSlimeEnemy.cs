@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class BombSlimeEnemy : SeekingEntity {
 
-    // Use this for initialization
-
-
     public float magnitudeForExplode = 1.0f;
     public float explodeRadius = 3.0f;
+
+    private GameObject explosionObject;
 
     protected override void Awake()
     {
@@ -17,15 +16,6 @@ public class BombSlimeEnemy : SeekingEntity {
         IgnoreTap = true;
     }
 
-    protected override void Start () {
-        base.Start();
-	}
-	
-	// Update is called once per frame
-	protected override void UpdateEntity () {
-        base.UpdateEntity();
-        
-	}
     protected override void OnCollisionEnter2D(Collision2D coll)
     {
         base.OnCollisionEnter2D(coll);
@@ -39,14 +29,13 @@ public class BombSlimeEnemy : SeekingEntity {
             }
         }
     }
-    void Explode() {
-
+    private void Explode() {
         var explosionPrefab = Resources.Load<GameObject>("Enemy/Props/Explosion");
-        var explosionObject = Instantiate(explosionPrefab);
+        explosionObject = Instantiate(explosionPrefab);
 
         var parent = new GameObject();
-        parent.AddComponent<DeleteObjectDelayed>();
         parent.transform.position = transform.position;
+        parent.name = "Explosion container";
 
         explosionObject.transform.SetParent(parent.transform);
         explosionObject.transform.localPosition = new Vector3(0.0f, -0.14f, 0.0f);
