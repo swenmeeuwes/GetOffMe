@@ -102,12 +102,12 @@ public class ComboSystem : MonoBehaviour
             CancelInvoke("HideEncouragement");
             Invoke("HideEncouragement", 2f);
 
-            //if (Combo != 0) {
-            //    ParticleSystem.ShapeModule shapeModule = particles.shape;
-            //    shapeModule.radius = comboCircle.Radius;
+            if (Combo != 0) {
+                ParticleSystem.ShapeModule shapeModule = particles.shape;
+                shapeModule.radius = comboCircle.Radius;
 
-            //    particles.Emit(60);
-            //}
+                particles.Emit(60);
+            }
             
 
             comboCircle.Keyframe = (Combo * comboSizeCurveModifier);

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public abstract class AbstractEntity : EventDispatcher, ITouchable
 {
-    private readonly float SWIPE_MAGNITUDE = 0.2f; // Swipe threshold, the minimum required distance for a swipe (in units)
-
     [SerializeField]
     private EntityModel entityModel;
 
@@ -34,10 +32,10 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     protected Vector3 futurePosition; // still needed?
     protected float lastTouchTime;
 
-    private ParticleSystem particleSystem;
+    private ParticleSystem dragParticles;
 	protected ComboSystem comboSystem;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
         base.Awake();
         model = Instantiate(entityModel);
@@ -51,7 +49,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     protected virtual void Start()
     {
 		comboSystem = GameObject.Find ("ComboSystem").GetComponent<ComboSystem> ();
-        particleSystem = GetComponent<ParticleSystem>();
+        dragParticles = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -76,7 +74,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles)
-            particleSystem.Play();
+            dragParticles.Play();
 
         Dragged = true;
         oldPosition = transform.position;
@@ -93,7 +91,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
             return;
 
         if (ShowParticles)
-            particleSystem.transform.position = transform.position;
+            dragParticles.transform.position = transform.position;
 
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
@@ -109,7 +107,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         Dragged = false;
 
-        particleSystem.Stop();
+        dragParticles.Stop();
 
         var secondsSinceTouch = Time.time - lastTouchTime;
 
@@ -184,7 +182,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
             OnPlayerHit(player);
     }
     public void OnEntityDestroy() {
-        particleSystem.Stop();
+        dragParticles.Stop();
         InputManager.Main.Deregister(this);
 
         Destroy(gameObject);

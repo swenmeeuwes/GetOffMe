@@ -61,7 +61,7 @@ public class OffScreenSpawner : AbstractSpawner
 
         InitializeSpawnPoints(amountOfSpawnPoints);
     }
-    void Update()
+    protected override void Update()
     {
         base.Update();
 

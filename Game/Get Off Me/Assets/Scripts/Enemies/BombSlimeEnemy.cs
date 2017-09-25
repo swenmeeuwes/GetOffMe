@@ -51,14 +51,6 @@ public class BombSlimeEnemy : SeekingEntity {
         explosionObject.transform.SetParent(parent.transform);
         explosionObject.transform.localPosition = new Vector3(0.0f, -0.14f, 0.0f);
         explosionObject.transform.localScale = new Vector3(explodeRadius * 2, explodeRadius * 2, explodeRadius * 2);
-
-        GameObject[] objects = GameObject.FindGameObjectsWithTag("Enemy");
-
-        //for (int i = 0; i < objects.Length; i++) {
-        //    if (Vector2.Distance(transform.position, objects[i].transform.position)- objects[i].GetComponent<CircleCollider2D>().radius < explodeRadius) {
-        //        StartCoroutine(objects[i].GetComponent<AbstractEntity>().Die());
-        //    }
-        //}
     }
     public override void OnPlayerHit(Player player)
     {
