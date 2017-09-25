@@ -97,12 +97,13 @@ public class TutorialPlayer : MonoBehaviour {
             StartCoroutine(
                 AnimationUtil.OnAnimationFinished(textAnimation, () =>
                 {
-                    Invoke("HideText", duration);
+                    Invoke("HideTextAndGotoNext", duration);
                 })
             );
         }
         else
         {
+            Invoke("HideText", duration);
             Next();
         }
     }
@@ -110,6 +111,11 @@ public class TutorialPlayer : MonoBehaviour {
     private void HideText()
     {
         textAnimation.PlayQueued("TextFadeOutAnimation", QueueMode.PlayNow);
+    }
+
+    private void HideTextAndGotoNext()
+    {
+        HideText();
 
         StartCoroutine(AnimationUtil.OnAnimationFinished(textAnimation, () => {
             Invoke("Next", currentSequenceItem.delay);
