@@ -29,7 +29,25 @@ public class TutorialPlayerEditor : Editor {
             });
 
             menu.ShowAsContext();
-        };        
+        };
+
+        list.elementHeightCallback = (int index) =>
+        {
+            var element = list.serializedProperty.GetArrayElementAtIndex(index);
+            var elementType = element.FindPropertyRelative("type");
+
+            switch ((TutorialSequenceItemType)elementType.enumValueIndex)
+            {
+                case TutorialSequenceItemType.TEXT:
+                    // TODO
+                    break;
+                case TutorialSequenceItemType.SPAWN:
+                    break;
+            }
+
+            // DEFAULT CASE
+            return EditorGUIUtility.singleLineHeight;
+        };
 
         list.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
         {
@@ -45,12 +63,13 @@ public class TutorialPlayerEditor : Editor {
             {
                 case TutorialSequenceItemType.TEXT:
                     EditorGUI.PropertyField(
-                        new Rect(rect.x + 60 + 4, rect.y, rect.width - 64 - 54, EditorGUIUtility.singleLineHeight),
+                        new Rect(rect.x + 60 + 4, rect.y, rect.width - 64, EditorGUIUtility.singleLineHeight),
                         element.FindPropertyRelative("textContent"), GUIContent.none);
 
                     EditorGUI.PropertyField(
-                        new Rect(rect.x + rect.width - 50, rect.y, 50, EditorGUIUtility.singleLineHeight),
-                        element.FindPropertyRelative("textDuration"), GUIContent.none);
+                        new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight + 4, rect.width, EditorGUIUtility.singleLineHeight),
+                        element.FindPropertyRelative("textDuration"),
+                        new GUIContent("Text duration"));
 
                     break;
                 case TutorialSequenceItemType.SPAWN:
