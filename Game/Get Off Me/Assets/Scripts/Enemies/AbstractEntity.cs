@@ -197,7 +197,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         Destroy(GetComponent <CircleCollider2D>() );
         StartCoroutine(DieAnimation());
     }
-    public IEnumerator DieAnimation() // make private
+    private IEnumerator DieAnimation()
     {
         var shrinkStep = 0.05f;
         while (transform.localScale.x > 0)
@@ -208,7 +208,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         Dispatch("dying", this);
 
-        Destroy(gameObject);
+        OnEntityDestroy();
     }
 
 }
