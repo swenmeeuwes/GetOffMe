@@ -100,7 +100,7 @@ public class TutorialPlayer : MonoBehaviour {
         textAnimation.PlayQueued("TextFadeOutAnimation", QueueMode.PlayNow);
 
         StartCoroutine(AnimationUtil.OnAnimationFinished(textAnimation, () => {
-            Invoke("Next", 0.1f);
+            Invoke("Next", tutorialSequence[tutorialSequenceIndex].delay); // Index is already incremented by one, so this is this next sequence item
         }));
     }
 
