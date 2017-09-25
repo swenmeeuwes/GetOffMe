@@ -22,10 +22,10 @@ public class TutorialPlayerEditor : Editor {
         list.onAddDropdownCallback = (Rect buttonRect, ReorderableList l) => {
             var menu = new GenericMenu();
             menu.AddItem(new GUIContent("Text"), false, () => {
-                tutorialPlayer.tutorialSequence.Add(new TutorialSequenceItem() { type = TutorialSequenceItemType.TEXT });
+                tutorialPlayer.tutorialSequence.Add(new TutorialSequenceItem() { type = TutorialSequenceItemType.TEXT, waitUntilComplete = true });
             });
             menu.AddItem(new GUIContent("Spawn"), false, () => {
-                tutorialPlayer.tutorialSequence.Add(new TutorialSequenceItem() { type = TutorialSequenceItemType.SPAWN });
+                tutorialPlayer.tutorialSequence.Add(new TutorialSequenceItem() { type = TutorialSequenceItemType.SPAWN, waitUntilComplete = true });
             });
 
             menu.ShowAsContext();
@@ -40,10 +40,10 @@ public class TutorialPlayerEditor : Editor {
             switch ((TutorialSequenceItemType)elementType.enumValueIndex)
             {
                 case TutorialSequenceItemType.TEXT:
-                    rows = 3;
+                    rows = 4;
                     break;
                 case TutorialSequenceItemType.SPAWN:
-                    rows = 1;
+                    rows = 2;
                     break;
             }
 
@@ -77,20 +77,24 @@ public class TutorialPlayerEditor : Editor {
                         element.FindPropertyRelative("delay"),
                         new GUIContent("Delay"));
 
+                    EditorGUI.PropertyField(
+                        new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3 + 4 * 3, rect.width, EditorGUIUtility.singleLineHeight),
+                        element.FindPropertyRelative("waitUntilComplete"),
+                        new GUIContent("Wait until complete"));
+
                     break;
                 case TutorialSequenceItemType.SPAWN:
                     EditorGUI.PropertyField(
                         new Rect(rect.x + 64, rect.y, rect.width - 64, EditorGUIUtility.singleLineHeight),
                         element.FindPropertyRelative("spawnPrefab"), GUIContent.none);
+
+                    EditorGUI.PropertyField(
+                        new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight + 4, rect.width, EditorGUIUtility.singleLineHeight),
+                        element.FindPropertyRelative("waitUntilComplete"),
+                        new GUIContent("Wait until complete"));
+
                     break;
             }
-
-            //EditorGUI.PropertyField(
-            //    new Rect(rect.x + 60, rect.y, rect.width - 60 - 30, EditorGUIUtility.singleLineHeight),
-            //    element.FindPropertyRelative("Prefab"), GUIContent.none);
-            //EditorGUI.PropertyField(
-            //    new Rect(rect.x + rect.width - 30, rect.y, 30, EditorGUIUtility.singleLineHeight),
-            //    element.FindPropertyRelative("Count"), GUIContent.none);
         };
     }
 

@@ -157,84 +157,100 @@ MonoBehaviour:
   tutorialSequence:
   - type: 0
     delay: 0
+    waitUntilComplete: 1
     textContent: Protect yourself
     textDuration: 1.2
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
+    waitUntilComplete: 1
     textContent: Swipe away the red slimes
     textDuration: 1.4
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
+    waitUntilComplete: 1
     textContent: Don't let them hit you or you'll grow
     textDuration: 1.5
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
+    waitUntilComplete: 0
     textContent: Here comes one now!
     textDuration: 1
     spawnPrefab: {fileID: 0}
   - type: 1
     delay: 0
+    waitUntilComplete: 1
     textContent: 
     textDuration: 0
     spawnPrefab: {fileID: 1215110422154106, guid: 2117f283babe3e14d831d7937e997440,
       type: 2}
   - type: 0
     delay: 0
+    waitUntilComplete: 0
     textContent: Some enemies are different
     textDuration: 1
     spawnPrefab: {fileID: 0}
   - type: 1
     delay: 0
+    waitUntilComplete: 1
     textContent: 
     textDuration: 0
     spawnPrefab: {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b,
       type: 2}
   - type: 0
     delay: 0
+    waitUntilComplete: 1
     textContent: Not all slimes are bad
     textDuration: 0.8
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
+    waitUntilComplete: 1
     textContent: Blue slimes are allies and will help you
     textDuration: 1.2
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
+    waitUntilComplete: 1
     textContent: Don't be afraid
     textDuration: 0.4
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
+    waitUntilComplete: 0
     textContent: Let it reach you and you'll be healed
     textDuration: 0.8
     spawnPrefab: {fileID: 0}
   - type: 1
     delay: 0
+    waitUntilComplete: 1
     textContent: 
     textDuration: 0
     spawnPrefab: {fileID: 1215110422154106, guid: d37eb6f165322b140ab19e08f0ceca73,
       type: 2}
   - type: 0
     delay: 0
+    waitUntilComplete: 1
     textContent: The bigger you get the harder it gets
     textDuration: 1
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
+    waitUntilComplete: 1
     textContent: When you reach the height of the screen you lose
     textDuration: 2
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
+    waitUntilComplete: 1
     textContent: See that circle around you?
     textDuration: 1
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
+    waitUntilComplete: 1
     textContent: Let enemies come within the circle to build a combo
     textDuration: 1.2
     spawnPrefab: {fileID: 0}
@@ -754,11 +770,6 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2111261803}
-    - target: {fileID: 114141326485020286, guid: 5ec39055545a27640aaae50df4e00f47,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PauseButton
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ec39055545a27640aaae50df4e00f47, type: 2}
   m_IsPrefabParent: 0
@@ -1368,7 +1379,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 890962672ae0d9b40aebc50b4027365f, type: 3}
-    m_FontSize: 96
+    m_FontSize: 92
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 9
@@ -2511,8 +2522,8 @@ RectTransform:
   m_Father: {fileID: 1679212489}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.2, y: 0.65}
-  m_AnchorMax: {x: 0.8, y: 0.95}
+  m_AnchorMin: {x: 0.1, y: 0.65}
+  m_AnchorMax: {x: 0.9, y: 0.95}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2546,7 +2557,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: <TUTORIAL TEXT>
 --- !u!222 &2124341809
@@ -2610,7 +2621,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 890962672ae0d9b40aebc50b4027365f, type: 3}
-    m_FontSize: 96
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
