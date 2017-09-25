@@ -97,6 +97,12 @@ public class ComboSystem : MonoBehaviour
         encouragementTextField.gameObject.SetActive(false);
     }
 
+    public void HideEncouragement(float delay)
+    {
+        CancelInvoke("HideEncouragement");
+        Invoke("HideEncouragement", delay);
+    }
+
     public void Reset()
     {
         Combo = 0;
@@ -126,8 +132,7 @@ public class ComboSystem : MonoBehaviour
         if (Combo > 0 && residu == 0)
         {
             ShowEncouragement(encouragementTexts[Mathf.FloorToInt(Random.value * encouragementTexts.Length)] + "!");
-            CancelInvoke("HideEncouragement");
-            Invoke("HideEncouragement", 2f);
+            HideEncouragement(2f);
 
             comboCircle.Keyframe = (Combo * comboSizeCurveModifier);
         }
