@@ -8,10 +8,23 @@ public class NormalSlimeEnemy : SeekingEntity
     {
         base.Start();
     }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        IgnoreTap = true;
+    }
+
     public override void OnPlayerHit(Player player)
     {
         player.AbsorbEnemy(model.health);
         base.OnPlayerHit(player);
     }
+
+	public override void Accept (IVial vial)
+	{
+		vial.Apply (this);
+	}
 }
 

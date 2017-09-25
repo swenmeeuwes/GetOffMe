@@ -8,4 +8,5 @@ public class EntityModel : ScriptableObject
     public float speed;
     public float varianceInSpeed;
     public float weight;
+	public int awardPoints;
 }

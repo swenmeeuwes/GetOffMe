@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 212196604059763218}
   - component: {fileID: 50446512098225340}
   - component: {fileID: 95929259820414484}
-  - component: {fileID: 58718706274731126}
   - component: {fileID: 114762470900382100}
   - component: {fileID: 199408836471168078}
   - component: {fileID: 198084374549276060}
+  - component: {fileID: 61577447463821920}
   m_Layer: 8
   m_Name: WizardEnemy
   m_TagString: Enemy
@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1900798280667138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -771.3008, y: 289.69537, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,8 +66,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58718706274731126
-CircleCollider2D:
+--- !u!61 &61577447463821920
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -78,9 +78,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0}
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.8}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 0.64, y: 0.8}
+  m_EdgeRadius: 0
 --- !u!95 &95929259820414484
 Animator:
   serializedVersion: 3
@@ -110,9 +120,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityModel: {fileID: 11400000, guid: b41d44f7f217a534086f602eb760b0d5, type: 2}
+  amplifiedSpeed: 0
   model: {fileID: 0}
   chanceToTeleport: 100
-  IntervalCheckIfTeleport: 4
+  intervalCheckIfTeleport: 3
+  channelTime: 1.4
 --- !u!198 &198084374549276060
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -172,7 +184,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -77880828
+  randomSeed: -1884667179
   InitialModule:
     serializedVersion: 3
     enabled: 1

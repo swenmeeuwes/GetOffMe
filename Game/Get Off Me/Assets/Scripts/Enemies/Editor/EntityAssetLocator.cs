@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityAssetLocator {
-    private readonly string ASSET_SAVE_PATH = "Assets/Scripts/Enemies/Enemy Models";
+    private readonly string ASSET_SAVE_PATH = "Assets/Scripts/Enemies/Entity Models";
 
     private static EntityAssetLocator m_instance;
     public static EntityAssetLocator Instance {

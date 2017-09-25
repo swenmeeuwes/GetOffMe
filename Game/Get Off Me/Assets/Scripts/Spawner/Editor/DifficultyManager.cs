@@ -23,7 +23,7 @@ public class DifficultyManager : EditorWindow {
     }
     private void OnGUI() {
         for (int i = 0; i < gamePhases.Count; i++) {
-            if (gamePhases[i].percentages == null) gamePhases[i].percentages = new List<float>();
+            if (gamePhases[i].weights == null) gamePhases[i].weights = new List<float>();
             if (gamePhases[i].objectKeys == null) gamePhases[i].objectKeys = new List<GameObject>();
         }
         if (enemyCollection.enemyTypes == null) enemyCollection.enemyTypes = new List<GameObject>();
@@ -39,8 +39,8 @@ public class DifficultyManager : EditorWindow {
                 {
                     for (int j = 0; j < gamePhases.Count; j++)
                     {
-                        if (gamePhases[j].percentages.Count < enemyCollection.enemyTypes.Count) {
-                            gamePhases[j].percentages.Add(0);
+                        if (gamePhases[j].weights.Count < enemyCollection.enemyTypes.Count) {
+                            gamePhases[j].weights.Add(0);
                             gamePhases[j].objectKeys.Add(enemyCollection.enemyTypes[i]);
                         }
                         else{
@@ -59,7 +59,7 @@ public class DifficultyManager : EditorWindow {
             
             for(int j =0; j < gamePhases[i].objectKeys.Count; j++)
             {
-                gamePhases[i].percentages[j] = EditorGUILayout.FloatField(gamePhases[i].percentages[j]);
+                gamePhases[i].weights[j] = EditorGUILayout.FloatField(gamePhases[i].weights[j]);
             }
             GUILayout.EndHorizontal();
         }
@@ -74,14 +74,14 @@ public class DifficultyManager : EditorWindow {
     }
     private void addPhase() {
         GamePhase tmp = new GamePhase();
-        tmp.percentages = new List<float>();
+        tmp.weights = new List<float>();
         tmp.objectKeys = new List<GameObject>();
 
         for (int i = 0; i < enemyCollection.enemyTypes.Count; i++)
         {
             if (enemyCollection.enemyTypes[i] != null)
             {
-                tmp.percentages.Add(0);
+                tmp.weights.Add(0);
                 tmp.objectKeys.Add(enemyCollection.enemyTypes[i]);
             }
         }

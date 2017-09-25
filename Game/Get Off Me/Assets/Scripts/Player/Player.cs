@@ -10,47 +10,50 @@ public class Player : MonoBehaviour {
     public float health;
     public int absorbPercentage;
 
-    private Camera orthographicCamera;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+	private ComboSystem comboSystem;
 
     private float startScale;
 
-    private float maxHealth;
+    public float maxHealth;
     private float targetSize;
+
+    private void Awake() {
+        maxHealth = health;
+        comboSystem = GameObject.Find("ComboSystem").GetComponent<ComboSystem>();
+    }
 
     private void Start()
     {
-        orthographicCamera = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-
-        maxHealth = health;
 
         startScale = transform.localScale.x; // ASSUMPTION: Player is a square
     }
 
     public void AbsorbEnemy(float size) {
-        float damageAmount = size / Mathf.Clamp((100 - absorbPercentage), 1, 100);
-        Damage(damageAmount);
+        //float damageAmount = size / Mathf.Clamp((100 - absorbPercentage), 1, 100);
+        //Damage(damageAmount);
+        Damage(1);
     }
 
-    public void OnMouseDown() {
+    public void PauseButton() {
         if (GameManager.Instance.State == GameState.GAMEOVER) return;
         if (GameManager.Instance.State == GameState.PAUSE)
             GameManager.Instance.Resume();
         else
             GameManager.Instance.Pause();
     }
-
     public void Heal(float amount)
     {
         health = Mathf.Clamp(health + amount, -1, maxHealth);
         UpdateSize();
     }
 
-    private void Damage(float amount)
+    public void Damage(float amount)
     {
+		comboSystem.Decrease();
         health -= amount;
 
         animator.SetTrigger("hit");
@@ -94,7 +97,6 @@ public class Player : MonoBehaviour {
             }
         }
 
-        // Temp death function
         if (health <= 0)
             GameOver();
     }

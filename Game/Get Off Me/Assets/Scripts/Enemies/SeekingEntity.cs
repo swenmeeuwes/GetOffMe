@@ -12,13 +12,17 @@ public abstract class SeekingEntity : AbstractEntity {
         base.Start();
         target = GameObject.FindWithTag("Player");
     }
-	protected override void UpdateEntity () {
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+    protected override void UpdateEntity () {
         Seek();
     }
 
     protected virtual void Seek()
     {
         Vector3 direction = (target.transform.position - transform.position).normalized;
-        rb.AddForce(direction * model.speed);
+        rb.AddForce(direction * amplifiedSpeed * Time.deltaTime);
     }
 }

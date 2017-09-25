@@ -25,11 +25,13 @@ public class OffScreenSpawner : AbstractSpawner
     //private float speedAdditionTimeCap;
     // ---
 
-    [SerializeField]
+
+    [HideInInspector]
     public List<GamePhase> gamePhases;
     private GamePhase currentPhase;
 
     private bool spawnPointsInitialized = false;
+	private List<IVial> activeVials;
 
     private float OffsettedScreenDiagonal
     {
@@ -47,9 +49,11 @@ public class OffScreenSpawner : AbstractSpawner
 
     private Vector2[] spawnPoints;
 
+
     public override void Start()
     {
         base.Start();
+		activeVials = VialManager.Instance.GetActiveVials();
         gamePhases = loadGamePhasesFromFile();
         currentPhase = gamePhases[0];
         if (orthographicCamera == null)
@@ -57,8 +61,7 @@ public class OffScreenSpawner : AbstractSpawner
 
         InitializeSpawnPoints(amountOfSpawnPoints);
     }
-
-    void Update()
+    protected override void Update()
     {
         base.Update();
 
@@ -85,6 +88,12 @@ public class OffScreenSpawner : AbstractSpawner
 
         GameObject randomEntity = base.CreateSpawn(GetRandomEntityFromSpawnList(currentPhase));
         randomEntity.transform.position = randomSpawnPosition;
+        var entity = randomEntity.GetComponent<AbstractEntity>();
+
+        for (int i = 0; i < activeVials.Count; i++) {
+            //AbstractEntity entity = randomEntity.GetComponent (typeof(AbstractEntity));
+			entity.Accept (activeVials [i]);
+		}
 
         base.Spawn();
     }
@@ -176,20 +185,25 @@ public class OffScreenSpawner : AbstractSpawner
     private GameObject GetRandomEntityFromSpawnList(GamePhase phase)
     {
 
-        float randomNumber = UnityEngine.Random.Range(0.0f, 100.0f);
+        float totalWeight = 0;
+        for (int i = 0; i < phase.weights.Count; i++) {
+            totalWeight += phase.weights[i];
+        }
 
-        float cumulative = 0;
-        for (int i = 0; i < phase.percentages.Count; i++)
+        float randomNumber = UnityEngine.Random.Range(0.0f, totalWeight);
+
+        float cumulativeCounter = 0;
+        for (int i = 0; i < phase.weights.Count; i++)
         {
-            cumulative += phase.percentages[i];
-            if (randomNumber < cumulative)
+            cumulativeCounter += phase.weights[i];
+            if (randomNumber <= cumulativeCounter)
             {
                 return phase.objectKeys[i];
             }
         }
 
-        Debug.LogWarning("Please make sure the entity spawn chance total is 100.");
-        throw new Exception("Enemy spawn chance total is not 100%");
+        Debug.LogWarning("Error While spawning enemy");
+        throw new Exception("Error While spawning enemy");
     }
     public List<GamePhase> loadGamePhasesFromFile() // TEMPORARY, MOVE THIS.
     {

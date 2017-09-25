@@ -7,63 +7,154 @@ public class TutorialPlayer : MonoBehaviour {
     [SerializeField]
     private OffScreenSpawner spawner;
     [SerializeField]
-    private GameObject[] tutorialEncounters;
+    private GameObject instructionCanvasPrefab;
     [SerializeField]
-    private Sprite tapDialog;
+    private GameObject tutorialCanvas;
     [SerializeField]
-    private Sprite swipeDialog;
-    [SerializeField]
-    private Text tutorialTextField; 
+    private Text tutorialTextField;
 
+    public List<TutorialSequenceItem> tutorialSequence = new List<TutorialSequenceItem>();
+
+    private Animation textAnimation;
+    private Camera tutorialCamera;
+
+    private Player player;
+
+    private int tutorialSequenceIndex;
     private int encounterIndex;
+
+    private TutorialSequenceItem currentSequenceItem;
 
     private void Start()
     {
+        textAnimation = tutorialTextField.GetComponent<Animation>();
+        tutorialCamera = GetComponent<Camera>();
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        tutorialCanvas.SetActive(false);
+        tutorialCamera.enabled = false;
+
+        tutorialSequenceIndex = 0;
         encounterIndex = 0;
 
         spawner.Enabled = false; // Halt spawning
+
         tutorialTextField.text = "";
 
-        Next();
+        if (PlayerPrefs.GetInt("ShowTutorial", 1) == 1)
+        {
+            //player.Damage(1);
+            Next();
+        }
+        else
+        {
+            Finish();
+        }
     }
 
     private void Next()
     {
-        if(encounterIndex > tutorialEncounters.Length - 1)
+        if (tutorialSequenceIndex < tutorialSequence.Count)
         {
-            spawner.Enabled = true;
-            return;
-        }
+            currentSequenceItem = tutorialSequence[tutorialSequenceIndex];
+            tutorialSequenceIndex++;
 
-        var nextEntity = tutorialEncounters[encounterIndex].GetComponent<AbstractEntity>(); // ASSUMPTION: Encounter is an entity!
+            HandleSequenceItem(currentSequenceItem);
+        }
+        else
+        {
+            Finish();
+        }
+    }
+
+    private void Finish()
+    {
+        spawner.Enabled = true;
+        spawner.SetWave();
+    }
+
+    private void HandleSequenceItem(TutorialSequenceItem sequenceItem)
+    {
+        switch (sequenceItem.type)
+        {
+            case TutorialSequenceItemType.TEXT:
+                HandleText(sequenceItem.textContent, sequenceItem.textDuration);
+                break;
+            case TutorialSequenceItemType.SPAWN:
+                HandleSpawn(sequenceItem.spawnPrefab);
+                break;
+        }
+    }
+
+    private void HandleText(string text, float duration)
+    {
+        // Show text
+        tutorialTextField.text = text;
+        textAnimation.PlayQueued("TextFadeInAnimation", QueueMode.PlayNow);
+        if (currentSequenceItem.waitUntilComplete)
+        {
+            StartCoroutine(
+                AnimationUtil.OnAnimationFinished(textAnimation, () =>
+                {
+                    Invoke("HideTextAndGotoNext", duration);
+                })
+            );
+        }
+        else
+        {
+            Invoke("HideText", duration);
+            Next();
+        }
+    }
+
+    private void HideText()
+    {
+        textAnimation.PlayQueued("TextFadeOutAnimation", QueueMode.PlayNow);
+    }
+
+    private void HideTextAndGotoNext()
+    {
+        HideText();
+
+        StartCoroutine(AnimationUtil.OnAnimationFinished(textAnimation, () => {
+            Invoke("Next", currentSequenceItem.delay);
+        }));
+    }
+
+    private void HandleSpawn(GameObject spawnPrefab)
+    {
+        var nextEntity = spawnPrefab.GetComponent<AbstractEntity>(); // ASSUMPTION: Encounter is an entity!
         var randomPosition = spawner.GetRandomSpawnPoint();
 
-        var sprite = new GameObject("DialogBalloon");
-        var spriteRenderer = sprite.AddComponent<SpriteRenderer>();
-        sprite.transform.position = randomPosition + new Vector2(0, 1);
+        var instructionCanvas = Instantiate(instructionCanvasPrefab);
 
         var spawned = spawner.CreateSpawn(nextEntity.gameObject);
         var spawnedEntity = spawned.GetComponent<AbstractEntity>();
         spawned.transform.position = randomPosition;
 
         spawnedEntity.model.health = 1;
-        //spawnedEntity.model.speed = 1f;
         spawnedEntity.model.varianceInSpeed = 0f;
 
-        sprite.transform.parent = spawned.transform;
+        instructionCanvas.transform.SetParent(spawned.transform, false);
+
 
         if (spawnedEntity is HelmetSlimeEnemy)
         {
-            spriteRenderer.sprite = tapDialog;
-            spawnedEntity.AddEventListener("tapped", (e) => spriteRenderer.sprite = swipeDialog, true);
+            instructionCanvas.GetComponentInChildren<Text>().text = "Tap";
+            spawnedEntity.AddEventListener("tapped", (e) => instructionCanvas.GetComponentInChildren<Text>().text = "Swipe", true);
         }
         else
         {
-            spriteRenderer.sprite = swipeDialog;
+            instructionCanvas.GetComponentInChildren<Text>().text = "Swipe";
         }
-            
-        spawnedEntity.AddEventListener("dying", (e) => Next(), true);
 
-        encounterIndex++;
+        if(spawnedEntity is MedicSlimeAlly)
+            instructionCanvas.GetComponentInChildren<Text>().text = "";
+
+        if (currentSequenceItem.waitUntilComplete)
+            spawnedEntity.AddEventListener("dying", (e) => Next(), true);
+        else
+            Next();
     }
 }

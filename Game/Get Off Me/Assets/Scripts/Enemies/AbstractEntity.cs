@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractEntity : EventDispatcher
+public abstract class AbstractEntity : EventDispatcher, ITouchable
 {
-    private readonly float SWIPE_MAGNITUDE = 0.2f; // Swipe threshold, the minimum required distance for a swipe (in units)
-
     [SerializeField]
     private EntityModel entityModel;
+
+    [HideInInspector]
+    public float amplifiedSpeed;
 
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -16,32 +17,47 @@ public abstract class AbstractEntity : EventDispatcher
     [HideInInspector]
     public EntityModel model;
 
-    public bool ShowParticles { get; set; }
-    public bool Draggable { get; set; }
-    public bool Dragged { get; set; }
+    protected bool ShowParticles { get; set; }
+	protected bool Draggable { get; set; }
+	protected bool Dragged { get; set; }
+	protected bool InComboRadius { get; set; }
+    protected bool IgnoreTap { get; set; } // Feature: To bypass tap delay -> smoother swipe
+
+
+    public int? FingerId { get; set; }
 
     protected Vector3 screenPoint;
     protected Vector3 offset;
-    protected Vector3 oldPosition = Vector3.zero;
-    protected Vector3 futurePosition;
+    protected Vector3 oldPosition = Vector3.zero; // Refactor to began touch position?
+    protected Vector3 futurePosition; // still needed?
+    protected float lastTouchTime;
 
-    private ParticleSystem particleSystem;
+    private ParticleSystem dragParticles;
+	protected ComboSystem comboSystem;
+    protected GameObject player;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
         base.Awake();
         model = Instantiate(entityModel);
+        amplifiedSpeed = model.speed * 60;
+
+        ShowParticles = true;
+        Draggable = true;
+        IgnoreTap = false;
     }
 
     protected virtual void Start()
     {
-        ShowParticles = true;
-        Draggable = true;
-        particleSystem = GetComponent<ParticleSystem>();
+		comboSystem = GameObject.Find ("ComboSystem").GetComponent<ComboSystem> ();
+        dragParticles = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player");
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
+
+        InputManager.Main.Register(this);
     }
 
     protected virtual void Update() {
@@ -51,44 +67,65 @@ public abstract class AbstractEntity : EventDispatcher
 
     protected abstract void UpdateEntity();
 
-    protected virtual void OnMouseDown()
+    public void OnTouchBegan(Touch touch)
     {
+        if (comboSystem.IntersectsComboCircle(transform.position))
+            InComboRadius = true;
+        else
+            comboSystem.Decrease();
+
         if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles)
-            particleSystem.Play();
+            dragParticles.Play();
 
         Dragged = true;
         oldPosition = transform.position;
         futurePosition = transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
         offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+
+        lastTouchTime = Time.time;
     }
-    protected virtual void OnMouseDrag()
+
+    public void OnTouch(Touch touch)
     {
-        if (GameManager.Instance.State == GameState.PAUSE) return;
-        if (ShowParticles) {
-            particleSystem.transform.position = transform.position;
-        }
-        
-        oldPosition = transform.position;
+        if (GameManager.Instance.State == GameState.PAUSE)
+            return;
+
+        if (ShowParticles)
+            dragParticles.transform.position = transform.position;
+
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
-        if (Draggable) {
+        if (Draggable)
             transform.position = futurePosition;
-        }
-    }
-    protected virtual void OnMouseUp()
-    {
-        particleSystem.Stop();
-        Dragged = false;
-        if (GameManager.Instance.State == GameState.PAUSE) return;
-        var swipeVector = futurePosition - oldPosition; // Swipe distance in units
 
-        if (swipeVector.magnitude > SWIPE_MAGNITUDE)
-            OnSwipe(swipeVector);
+		var newVelocity = (touch.deltaPosition * touch.deltaTime) * (100 - model.weight);
+		rb.velocity = newVelocity;
+    }
+
+    public void OnTouchEnded(Touch touch)
+    {
+        if (model.health <= 0)
+            return;
+
+        Dragged = false;
+
+        dragParticles.Stop();
+
+        var secondsSinceTouch = Time.time - lastTouchTime;
+
+        // If seconds since last touch is lower than X, see it as a tap
+        if (!IgnoreTap && secondsSinceTouch < 0.3f)
+        {
+            OnTap();
+        }
         else
-            OnTap();        
+        {
+            var swipeDistance = touch.deltaPosition * touch.deltaTime;
+            OnSwipe(swipeDistance);
+        }
     }
 
     public virtual void OnTap()
@@ -101,33 +138,81 @@ public abstract class AbstractEntity : EventDispatcher
         var newVelocity = swipeVector * (100 - model.weight);
         rb.velocity = newVelocity;
 
+        if (swipeVector.magnitude < 0.25f)
+            return;
+
         model.health -= 1;
         if (model.health <= 0)
-            StartCoroutine(Die());
+            Die();
+
+        if (Vector2.Distance(oldPosition, player.transform.position) < player.transform.localScale.x + 0.5f)
+        {
+            var uglyCloseCallArray = new string[] { "Good save!", "Close call!", "Ninja!", "Just in time!" }; // PLS FIX
+            comboSystem.ShowEncouragement(uglyCloseCallArray[Mathf.FloorToInt(UnityEngine.Random.value * uglyCloseCallArray.Length)], true);
+            comboSystem.HideEncouragement(2f);
+        }
 
         Dispatch("swiped", this);
 
+        HandleScore();
+        HandleCombo();
+    }
+
+    protected virtual void HandleScore()
+    {
         if (GameManager.Instance.State == GameState.PLAY)
         {
-            ScoreManager.Instance.Score++;
-            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(1, transform.position, true);
+            int addedScore = comboSystem.AwardPoints(model.awardPoints);
+            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
-    void OnCollisionEnter2D(Collision2D coll)
+    protected virtual void HandleScore(int addedScore)
+    {
+        if (GameManager.Instance.State == GameState.PLAY)
+            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
+    }
+
+    protected virtual void HandleCombo()
+    {
+        if (InComboRadius)
+            comboSystem.Increase(1);
+        InComboRadius = false;
+    }
+		
+	public virtual void Accept(IVial vial) { }
+
+	public virtual void Configure(int pointModifier){
+		model.awardPoints += pointModifier;
+	}
+	public virtual void Configure(int pointModifier, int healthModifier){
+		Configure (pointModifier);
+		model.health += healthModifier;
+	}
+	public virtual void Configure(int pointModifier, int healthModifier, float speedModifier){
+		Configure (pointModifier, healthModifier);
+		model.speed += speedModifier;
+	}
+    protected virtual void OnCollisionEnter2D(Collision2D coll)
     {
         Player player = coll.gameObject.GetComponent<Player>();
         if (player)
             OnPlayerHit(player);
     }
-    public virtual void OnEntityDestroy() {
-        particleSystem.Stop();
+    public void OnEntityDestroy() {
+        dragParticles.Stop();
+        InputManager.Main.Deregister(this);
+
         Destroy(gameObject);
     }
     public virtual void OnPlayerHit(Player player) {
         Dispatch("dying", this);
         OnEntityDestroy();
     }
-    IEnumerator Die()
+    public void Die() {
+        Destroy(GetComponent <CircleCollider2D>() );
+        StartCoroutine(DieAnimation());
+    }
+    private IEnumerator DieAnimation()
     {
         var shrinkStep = 0.05f;
         while (transform.localScale.x > 0)
@@ -138,6 +223,7 @@ public abstract class AbstractEntity : EventDispatcher
 
         Dispatch("dying", this);
 
-        Destroy(gameObject);
+        OnEntityDestroy();
     }
+
 }

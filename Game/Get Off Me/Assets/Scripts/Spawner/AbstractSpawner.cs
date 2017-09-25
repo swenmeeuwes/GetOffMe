@@ -13,7 +13,7 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
     //[SerializeField][Tooltip("The time in seconds in between spawns.")]
     //protected float interval;
     [SerializeField]
-    private AnimationCurve spawnRateCurve;
+	public AnimationCurve spawnRateCurve;
     [SerializeField]
     private AnimationCurve speedAdditionCurve;
     // ---
@@ -23,6 +23,18 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
 
     protected float counter = 0;
     private bool _enabled;
+
+    enum SpawnState
+    {
+        WAVE,
+        REST
+    }
+
+    public float wavePeriod = 12;
+    public float restPeriod = 5;
+    public float restPeriodAdditionalInterval = 1.0f;
+
+    SpawnState spawnState = SpawnState.WAVE;
 
     public bool Enabled
     {
@@ -71,7 +83,7 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
     public virtual void Spawn()
     {
         if(Enabled)
-            Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter));
+            Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter) + (spawnState == SpawnState.REST? restPeriodAdditionalInterval : 0));
     }
 
     /// <summary>
@@ -87,7 +99,6 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         {
             spawns[i] = SpawnListTransform.GetChild(i).gameObject;
         }
-
         return spawns;
     }
 
@@ -124,5 +135,17 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         entity.model.speed += speedAddition;
 
         return spawned;
+    }
+    public void SetWave()
+    {
+        Debug.Log("Start wave");
+        spawnState = SpawnState.WAVE;
+        Invoke("SetRest", wavePeriod);
+    }
+    public void SetRest()
+    {
+        Debug.Log("Start Rest");
+        spawnState = SpawnState.REST;
+        Invoke("SetWave", restPeriod);
     }
 }
