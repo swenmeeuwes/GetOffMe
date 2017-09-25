@@ -245,14 +245,8 @@ MonoBehaviour:
   - type: 0
     delay: 0
     waitUntilComplete: 1
-    textContent: See that circle around you?
+    textContent: Swipe enemies within the circle to gain a combo
     textDuration: 1
-    spawnPrefab: {fileID: 0}
-  - type: 0
-    delay: 0
-    waitUntilComplete: 1
-    textContent: Let enemies come within the circle to build a combo
-    textDuration: 1.2
     spawnPrefab: {fileID: 0}
 --- !u!20 &55127441
 Camera:
@@ -321,7 +315,7 @@ RectTransform:
   - {fileID: 2136205735}
   - {fileID: 1243758998}
   m_Father: {fileID: 721340395}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -463,8 +457,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   wavePeriod: 15
-  restPeriod: 5
-  restPeriodAdditionalInterval: 5
+  restPeriod: 3
+  restPeriodAdditionalInterval: 3
   objectToSpawn: {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b,
     type: 2}
   orthographicCamera: {fileID: 1904601765}
@@ -802,9 +796,9 @@ Transform:
   m_Children:
   - {fileID: 1736144383}
   - {fileID: 501845861}
+  - {fileID: 140755039}
   - {fileID: 1964418959}
   - {fileID: 1988041904}
-  - {fileID: 140755039}
   - {fileID: 339717619}
   - {fileID: 1887371190}
   m_Father: {fileID: 2104009682}
@@ -1735,7 +1729,7 @@ Prefab:
     - target: {fileID: 224957012627228140, guid: af8947d1a64e33b488a6154b27caffee,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224957012627228140, guid: af8947d1a64e33b488a6154b27caffee,
         type: 2}
@@ -2391,7 +2385,7 @@ RectTransform:
   - {fileID: 571058449}
   - {fileID: 1010234247}
   m_Father: {fileID: 721340395}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
