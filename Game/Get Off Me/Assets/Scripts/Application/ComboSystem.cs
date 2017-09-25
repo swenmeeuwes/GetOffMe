@@ -120,14 +120,15 @@ public class ComboSystem : MonoBehaviour
         var residu = Combo % ComboNeededForNextTier;
         comboCircle.DistortingScale = 1 / (ComboNeededForNextTier / (float)residu);
 
+
+
         if (Combo > 0 && residu == 0)
         {
             ShowEncouragement(encouragementTexts[Mathf.FloorToInt(Random.value * encouragementTexts.Length)] + "!");
             CancelInvoke("HideEncouragement");
             Invoke("HideEncouragement", 2f);
-
-            comboCircle.Keyframe = (Combo * comboSizeCurveModifier);
         }
+        comboCircle.Keyframe = (Combo - residu) * comboSizeCurveModifier;
     }
 
     private void OnDrawGizmos()
