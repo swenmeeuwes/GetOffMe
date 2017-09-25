@@ -36,17 +36,18 @@ public class TutorialPlayerEditor : Editor {
             var element = list.serializedProperty.GetArrayElementAtIndex(index);
             var elementType = element.FindPropertyRelative("type");
 
+            var rows = 1;
             switch ((TutorialSequenceItemType)elementType.enumValueIndex)
             {
                 case TutorialSequenceItemType.TEXT:
-                    // TODO
+                    rows = 2;
                     break;
                 case TutorialSequenceItemType.SPAWN:
+                    rows = 1;
                     break;
             }
 
-            // DEFAULT CASE
-            return EditorGUIUtility.singleLineHeight;
+            return EditorGUIUtility.singleLineHeight * rows + 4 * rows;
         };
 
         list.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
