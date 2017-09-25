@@ -70,7 +70,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         if (comboSystem.IntersectsComboCircle(transform.position))
             InComboRadius = true;
         else
-            comboSystem.Reset();
+            comboSystem.Decrease();
 
         if (GameManager.Instance.State == GameState.PAUSE) return;
         if (ShowParticles)

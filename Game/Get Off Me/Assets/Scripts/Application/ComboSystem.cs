@@ -18,9 +18,13 @@ public class ComboSystem : MonoBehaviour
     [SerializeField]
     private string[] encouragementTexts;
 
+    private int currentComboTier = 0;
+
     private float radius;
     public float comboSizeCurveModifier = 1;
     private ParticleSystem particles;
+
+    public int comboLosePoints = 10;
 
     private int m_Combo;
     public int Combo {
@@ -51,9 +55,30 @@ public class ComboSystem : MonoBehaviour
     }
 
 	public void Increase(int addValue){
+        if (Mathf.FloorToInt((Combo + addValue) / ComboNeededForNextTier) != currentComboTier) {
+            ParticleSystem.ShapeModule shapeModule = particles.shape;
+            shapeModule.radius = comboCircle.Radius;
+
+            particles.Emit(60);
+        }
+
 		Combo += addValue;
 		if (Random.Range (1.0f, 100.0f) < chanceAtDoubleCombo)
 			Combo += addValue;
+
+        currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
+    }
+    public void Decrease()
+    {
+        if (Mathf.FloorToInt(Mathf.Max(0, Combo - comboLosePoints) / ComboNeededForNextTier) != currentComboTier)
+        {
+            ParticleSystem.ShapeModule shapeModule = particles.shape;
+            shapeModule.radius = comboCircle.Radius;
+
+            particles.Emit(60);
+        }
+        Combo = Mathf.Max(0, Combo - comboLosePoints);
+        currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
     }
 
     public void ShowEncouragement(string text, bool randomizeColor = true)
@@ -75,7 +100,6 @@ public class ComboSystem : MonoBehaviour
         comboCircle.Color = new Color(17f / 255f, 17f / 255f, 17f / 255f, 1);
         Camera.main.backgroundColor = Color.black;
     }
-
     public int AwardPoints(int score)
     {
         int addScore = (score + Combo);
@@ -101,14 +125,6 @@ public class ComboSystem : MonoBehaviour
             ShowEncouragement(encouragementTexts[Mathf.FloorToInt(Random.value * encouragementTexts.Length)] + "!");
             CancelInvoke("HideEncouragement");
             Invoke("HideEncouragement", 2f);
-
-            if (Combo != 0) {
-                ParticleSystem.ShapeModule shapeModule = particles.shape;
-                shapeModule.radius = comboCircle.Radius;
-
-                particles.Emit(60);
-            }
-            
 
             comboCircle.Keyframe = (Combo * comboSizeCurveModifier);
         }
