@@ -147,7 +147,8 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         if (Vector2.Distance(oldPosition, player.transform.position) < player.transform.localScale.x + 0.5f)
         {
-            comboSystem.ShowEncouragement("Good save!", true);
+            var uglyCloseCallArray = new string[] { "Good save!", "Close call!", "Ninja!", "Just in time!" }; // PLS FIX
+            comboSystem.ShowEncouragement(uglyCloseCallArray[Mathf.FloorToInt(UnityEngine.Random.value * uglyCloseCallArray.Length)], true);
             comboSystem.HideEncouragement(2f);
         }
 
