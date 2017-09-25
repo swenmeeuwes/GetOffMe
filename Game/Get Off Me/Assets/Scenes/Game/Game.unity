@@ -430,16 +430,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: -1.1940384
-      value: 1.7910278
-      inSlope: -0.0020584236
-      outSlope: -0.0020584236
+      time: -0.32081223
+      value: 1.75
+      inSlope: -0.0016414644
+      outSlope: -0.0016414644
       tangentMode: 0
     - serializedVersion: 2
       time: 302.16498
       value: 1.4011261
-      inSlope: -0.0015710923
-      outSlope: -0.0015710923
+      inSlope: -0.0010868139
+      outSlope: -0.0010868139
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
