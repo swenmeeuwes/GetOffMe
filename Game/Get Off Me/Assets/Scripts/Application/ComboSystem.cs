@@ -132,7 +132,10 @@ public class ComboSystem : MonoBehaviour
             comboCircle.Keyframe = (Combo * comboSizeCurveModifier);
         }
 
-        ShowComboStreak(Combo);
+        if (Combo > 0)
+            ShowComboStreak(Combo);
+        else
+            HideComboStreak();
     }
 
     private void ShowComboStreak(int amount)
