@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: 82bbbb2370ad0664b910d577eb29bf06
-timeCreated: 1504264175
+guid: 2bef069029d2edb4e8f6f1b285f0126b
+timeCreated: 1506343456
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: enemy_jump-sheet_0
-    21300002: enemy_jump-sheet_1
-    21300004: enemy_jump-sheet_2
-    21300006: enemy_jump-sheet_3
-    21300008: enemy_jump-sheet_4
-    21300010: enemy_jump-sheet_5
-    21300012: enemy_jump-sheet_6
-    21300014: enemy_jump-sheet_7
+    21300000: enemy_jump_0
+    21300002: enemy_jump_1
+    21300004: enemy_jump_2
+    21300006: enemy_jump_3
+    21300008: enemy_jump_4
+    21300010: enemy_jump_5
+    21300012: enemy_jump_6
+    21300014: enemy_jump_7
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -99,7 +99,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: enemy_jump-sheet_0
+      name: enemy_jump_0
       rect:
         serializedVersion: 2
         x: 0
@@ -107,13 +107,13 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump-sheet_1
+      name: enemy_jump_1
       rect:
         serializedVersion: 2
         x: 64
@@ -121,13 +121,13 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump-sheet_2
+      name: enemy_jump_2
       rect:
         serializedVersion: 2
         x: 128
@@ -135,13 +135,13 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump-sheet_3
+      name: enemy_jump_3
       rect:
         serializedVersion: 2
         x: 192
@@ -149,13 +149,13 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump-sheet_4
+      name: enemy_jump_4
       rect:
         serializedVersion: 2
         x: 256
@@ -163,13 +163,13 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump-sheet_5
+      name: enemy_jump_5
       rect:
         serializedVersion: 2
         x: 320
@@ -177,13 +177,13 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump-sheet_6
+      name: enemy_jump_6
       rect:
         serializedVersion: 2
         x: 384
@@ -191,13 +191,13 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: enemy_jump-sheet_7
+      name: enemy_jump_7
       rect:
         serializedVersion: 2
         x: 448
@@ -205,7 +205,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
