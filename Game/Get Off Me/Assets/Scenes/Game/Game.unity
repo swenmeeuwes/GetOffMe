@@ -160,6 +160,70 @@ MonoBehaviour:
   tutorialTextSequence:
   - Protect yourself
   - Swipe away the red slimes
+  tutorialSequence:
+  - type: 0
+    textContent: Protect yourself
+    textDuration: 1.5
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    textContent: Swipe away the red slimes
+    textDuration: 2
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    textContent: Don't let them hit you or you'll grow
+    textDuration: 2.3
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    textContent: Here comes one now!
+    textDuration: 1
+    spawnPrefab: {fileID: 0}
+  - type: 1
+    textContent: 
+    textDuration: 0
+    spawnPrefab: {fileID: 1215110422154106, guid: 2117f283babe3e14d831d7937e997440,
+      type: 2}
+  - type: 0
+    textContent: Some enemies are different
+    textDuration: 1
+    spawnPrefab: {fileID: 0}
+  - type: 1
+    textContent: 
+    textDuration: 0
+    spawnPrefab: {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b,
+      type: 2}
+  - type: 0
+    textContent: Not all slimes are bad
+    textDuration: 0.8
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    textContent: Blue slimes are allies and will help you
+    textDuration: 1.2
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    textContent: There comes a medic ally
+    textDuration: 1.2
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    textContent: Don't be afraid
+    textDuration: 0.4
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    textContent: Let it reach you and you'll be healed
+    textDuration: 0.8
+    spawnPrefab: {fileID: 0}
+  - type: 1
+    textContent: 
+    textDuration: 0
+    spawnPrefab: {fileID: 1215110422154106, guid: d37eb6f165322b140ab19e08f0ceca73,
+      type: 2}
+  - type: 0
+    textContent: The bigger you get the harder it gets
+    textDuration: 1
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    textContent: When you reach the height of the screen you lose
+    textDuration: 2
+    spawnPrefab: {fileID: 0}
 --- !u!20 &55127441
 Camera:
   m_ObjectHideFlags: 0
