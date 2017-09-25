@@ -42,7 +42,7 @@ public class TutorialPlayer : MonoBehaviour {
 
         if (PlayerPrefs.GetInt("ShowTutorial", 1) == 1)
         {
-            player.Damage(1);
+            //player.Damage(1);
             Next();
         }
         else
