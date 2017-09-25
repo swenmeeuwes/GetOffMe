@@ -10,7 +10,6 @@ public class Player : MonoBehaviour {
     public float health;
     public int absorbPercentage;
 
-    private Camera orthographicCamera;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 	private ComboSystem comboSystem;
@@ -22,18 +21,15 @@ public class Player : MonoBehaviour {
 
     private void Awake() {
         maxHealth = health;
+        comboSystem = GameObject.Find("ComboSystem").GetComponent<ComboSystem>();
     }
 
     private void Start()
     {
-		comboSystem = GameObject.Find("ComboSystem").GetComponent<ComboSystem>();
-        orthographicCamera = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
         startScale = transform.localScale.x; // ASSUMPTION: Player is a square
-
-        //comboSystem.SetScale(startScale);
     }
 
     public void AbsorbEnemy(float size) {
@@ -53,17 +49,15 @@ public class Player : MonoBehaviour {
     {
         health = Mathf.Clamp(health + amount, -1, maxHealth);
         UpdateSize();
-        //comboSystem.SetScale(targetSize / 3);
     }
 
     public void Damage(float amount)
     {
-		comboSystem.Reset();
+		comboSystem.Decrease();
         health -= amount;
 
         animator.SetTrigger("hit");
         UpdateSize();
-		//comboSystem.SetScale(targetSize / 3);
     }
 
     private void UpdateSize()
@@ -103,7 +97,6 @@ public class Player : MonoBehaviour {
             }
         }
 
-        // Temp death function
         if (health <= 0)
             GameOver();
     }
