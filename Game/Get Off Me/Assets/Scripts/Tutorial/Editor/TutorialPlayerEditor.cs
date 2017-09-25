@@ -40,7 +40,7 @@ public class TutorialPlayerEditor : Editor {
             switch ((TutorialSequenceItemType)elementType.enumValueIndex)
             {
                 case TutorialSequenceItemType.TEXT:
-                    rows = 2;
+                    rows = 3;
                     break;
                 case TutorialSequenceItemType.SPAWN:
                     rows = 1;
@@ -71,6 +71,11 @@ public class TutorialPlayerEditor : Editor {
                         new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight + 4, rect.width, EditorGUIUtility.singleLineHeight),
                         element.FindPropertyRelative("textDuration"),
                         new GUIContent("Text duration"));
+
+                    EditorGUI.PropertyField(
+                        new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2 + 4 * 2, rect.width, EditorGUIUtility.singleLineHeight),
+                        element.FindPropertyRelative("delay"),
+                        new GUIContent("Delay"));
 
                     break;
                 case TutorialSequenceItemType.SPAWN:

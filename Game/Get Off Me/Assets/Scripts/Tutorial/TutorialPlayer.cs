@@ -42,7 +42,7 @@ public class TutorialPlayer : MonoBehaviour {
 
         if (PlayerPrefs.GetInt("ShowTutorial", 1) == 1)
         {
-            player.Damage(1);
+            //player.Damage(1);
             Next();
         }
         else
@@ -100,7 +100,11 @@ public class TutorialPlayer : MonoBehaviour {
         textAnimation.PlayQueued("TextFadeOutAnimation", QueueMode.PlayNow);
 
         StartCoroutine(AnimationUtil.OnAnimationFinished(textAnimation, () => {
-            Invoke("Next", 0.1f);
+            var delay = 0f;
+            if (tutorialSequenceIndex < tutorialSequence.Count - 1)
+                delay = tutorialSequence[tutorialSequenceIndex].delay;
+
+            Invoke("Next", delay); // Index is already incremented by one, so this is this next sequence item
         }));
     }
 

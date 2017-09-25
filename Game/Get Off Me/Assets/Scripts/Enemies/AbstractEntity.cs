@@ -154,6 +154,11 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
             FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
+    protected virtual void HandleScore(int addedScore)
+    {
+        if (GameManager.Instance.State == GameState.PLAY)
+            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
+    }
 
     protected virtual void HandleCombo()
     {

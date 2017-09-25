@@ -54,22 +54,22 @@ public class HelmetSlimeEnemy : SeekingEntity {
                 ShowParticles = true;
             }     
 
-            if (GameManager.Instance.State == GameState.PLAY)
-            {
-				int addedScore = comboSystem.AwardPoints(pointsForHelmetTap);
-				FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
-            }
+            int addedScore = comboSystem.AwardPoints(pointsForHelmetTap);
+            HandleScore(addedScore);
+            HandleCombo();
         }
         base.OnTap();
     }
+
     protected override void OnSwipe(Vector3 swipeVector) {
         if (hasHelmet)
             return;
         base.OnSwipe(swipeVector);
     }
+
     public override void OnPlayerHit(Player player)
     {
-        player.AbsorbEnemy(model.health + (hasHelmet?1: 0)); // TODO Temporary extra health for helmet
+        player.AbsorbEnemy(model.health + (hasHelmet ? 1: 0)); // TODO Temporary extra health for helmet
         base.OnPlayerHit(player);
     }
 	public override void Accept (IVial vial)
