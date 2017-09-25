@@ -37,14 +37,13 @@ public class Player : MonoBehaviour {
         Damage(damageAmount);
     }
 
-    public void OnMouseDown() {
+    public void PauseButton() {
         if (GameManager.Instance.State == GameState.GAMEOVER) return;
         if (GameManager.Instance.State == GameState.PAUSE)
             GameManager.Instance.Resume();
         else
             GameManager.Instance.Pause();
     }
-
     public void Heal(float amount)
     {
         health = Mathf.Clamp(health + amount, -1, maxHealth);
