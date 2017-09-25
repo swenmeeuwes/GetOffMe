@@ -158,17 +158,17 @@ MonoBehaviour:
   - type: 0
     delay: 0
     textContent: Protect yourself
-    textDuration: 1.5
+    textDuration: 1.2
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
     textContent: Swipe away the red slimes
-    textDuration: 2
+    textDuration: 1.4
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
     textContent: Don't let them hit you or you'll grow
-    textDuration: 2.3
+    textDuration: 1.5
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
@@ -204,11 +204,6 @@ MonoBehaviour:
     spawnPrefab: {fileID: 0}
   - type: 0
     delay: 0
-    textContent: There comes a medic ally
-    textDuration: 1.2
-    spawnPrefab: {fileID: 0}
-  - type: 0
-    delay: 0
     textContent: Don't be afraid
     textDuration: 0.4
     spawnPrefab: {fileID: 0}
@@ -232,6 +227,16 @@ MonoBehaviour:
     delay: 0
     textContent: When you reach the height of the screen you lose
     textDuration: 2
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    delay: 0
+    textContent: See that circle around you?
+    textDuration: 1
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    delay: 0
+    textContent: Let enemies come within the circle to build a combo
+    textDuration: 1.2
     spawnPrefab: {fileID: 0}
 --- !u!20 &55127441
 Camera:
