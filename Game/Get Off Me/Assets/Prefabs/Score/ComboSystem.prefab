@@ -123,21 +123,15 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 2
       time: 0.7141876
-      value: 50.546505
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 28.629902
-      value: 29.777052
-      inSlope: -2.3724394
-      outSlope: -2.3724394
+      value: 75
+      inSlope: -1.407931
+      outSlope: -1.407931
       tangentMode: 0
     - serializedVersion: 2
       time: 49.986897
-      value: 1.3205023
-      inSlope: -3.1111035
-      outSlope: -3.1111035
+      value: 25.250122
+      inSlope: -1.4021573
+      outSlope: -1.4021573
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -361,7 +355,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1433827567
+  randomSeed: 1904891
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -409,7 +403,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 7
+      scalar: 5
       minScalar: 5
       maxCurve:
         serializedVersion: 2

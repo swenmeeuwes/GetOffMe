@@ -28,12 +28,13 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     protected Vector3 screenPoint;
     protected Vector3 offset;
-    protected Vector3 oldPosition = Vector3.zero;
+    protected Vector3 oldPosition = Vector3.zero; // Refactor to began touch position?
     protected Vector3 futurePosition; // still needed?
     protected float lastTouchTime;
 
     private ParticleSystem dragParticles;
 	protected ComboSystem comboSystem;
+    protected GameObject player;
 
     protected override void Awake()
     {
@@ -52,6 +53,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         dragParticles = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player");
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
 
@@ -139,6 +141,12 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         model.health -= 1;
         if (model.health <= 0)
             Die();
+
+        if (Vector2.Distance(oldPosition, player.transform.position) < player.transform.localScale.x + 0.5f)
+        {
+            comboSystem.ShowEncouragement("Good save!", true);
+            comboSystem.HideEncouragement(2f);
+        }
 
         Dispatch("swiped", this);
 
