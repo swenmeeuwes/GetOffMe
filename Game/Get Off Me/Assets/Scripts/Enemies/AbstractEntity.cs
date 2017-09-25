@@ -100,6 +100,9 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         if (Draggable)
             transform.position = futurePosition;
+
+		var newVelocity = (touch.deltaPosition * touch.deltaTime) * (100 - model.weight);
+		rb.velocity = newVelocity;
     }
 
     public void OnTouchEnded(Touch touch)
