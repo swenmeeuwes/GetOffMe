@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe84c1f35f9dccc4db64333351a4ecb8, type: 3}
   m_Name: phase_6
   m_EditorClassIdentifier: 
-  time: 100
+  time: 90
   objectKeys:
   - {fileID: 1215110422154106, guid: 2117f283babe3e14d831d7937e997440, type: 2}
   - {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b, type: 2}
