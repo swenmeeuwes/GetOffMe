@@ -56,8 +56,8 @@ public class ComboSystem : MonoBehaviour
     }
 
 	void Start () {
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-		if (orthographicCamera == null)
+        //soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        if (orthographicCamera == null)
 			orthographicCamera = Camera.main;
 
         encouragementTextField.gameObject.SetActive(false);
@@ -154,7 +154,7 @@ public class ComboSystem : MonoBehaviour
             HideComboStreak();
 
         currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
-        soundManager.HandleComboTier(currentComboTier);
+        //soundManager.HandleComboTier(currentComboTier);
     }
 
     private void ShowComboStreak(int amount)
