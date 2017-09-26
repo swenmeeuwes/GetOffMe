@@ -2304,6 +2304,11 @@ Prefab:
       propertyPath: comboStreakTextField
       value: 
       objectReference: {fileID: 1243758999}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: invisibleCircleRadiusOffset
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40c205518d3d4d74687c1f853f021dbd, type: 2}
   m_IsPrefabParent: 0
