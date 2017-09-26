@@ -74,7 +74,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
 
-        if (comboSystem.IntersectsComboCircle(transform.position))
+        if (comboSystem.IntersectsComboCircle(Camera.main.ScreenToWorldPoint(touch.position)))
             InComboRadius = true;
         else
             comboSystem.Decrease();
