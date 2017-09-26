@@ -54,6 +54,10 @@ public class SoundManager : MonoBehaviour {
         Mute(noise);
         Mute(lead);
         Mute(lead2);
+        bass.pitch = 1.0f;
+        noise.pitch = 1.0f;
+        lead.pitch = 1.0f;
+        lead2.pitch = 1.0f;
 
         if (tier >= 0)
         {
@@ -62,7 +66,6 @@ public class SoundManager : MonoBehaviour {
         }
         if (tier >= 2)
         {
-            Debug.Log("lead");
             Play(lead);
         }
         if (tier >= 6)
@@ -70,10 +73,12 @@ public class SoundManager : MonoBehaviour {
             Play(lead2);
         }
         if (tier >= 9) {
-            //yes
+            bass.pitch = 1.1f;
+            noise.pitch = 1.1f;
+            lead.pitch = 1.1f;
+            lead2.pitch = 1.1f;
         }
         playingComboTier = tier;
-        //TODO some switch with diffent states...
     }
     private void Mute(AudioSource source) {
         source.mute = true;
