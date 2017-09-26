@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicChannels:
-  - {fileID: 8300000, guid: 7bf13390e62330142bfedeb606ac5eea, type: 3}
-  - {fileID: 8300000, guid: e9c6d3e1e73de994e8be2e239663c84b, type: 3}
-  - {fileID: 8300000, guid: e172daa56edf22a408dab059c849ace6, type: 3}
-  - {fileID: 8300000, guid: e082b9b183fed3241b9208333bfa04e0, type: 3}
+  - {fileID: 8300000, guid: 727332c8c18ec9647802777c023837e3, type: 3}
+  - {fileID: 8300000, guid: 6134c351a001bf847b452debdb02856f, type: 3}
+  - {fileID: 8300000, guid: fdc6aba1889cfca41bbdc269451bb598, type: 3}
+  - {fileID: 8300000, guid: fed1682fc79a13a4a8e5d1f3f8666ade, type: 3}
