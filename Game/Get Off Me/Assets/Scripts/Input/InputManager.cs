@@ -111,7 +111,7 @@ public class InputManager : MonoBehaviour {
                 return;
 
             // Tag the ITouchable with the fingerId so we can call OnTouch and OnTouchEnded on the same object later
-            touchable.FingerId = touch.fingerId;
+            touchable.FingerIds.Add(touch.fingerId);
 
             touchable.OnTouchBegan(touch);
         }
@@ -121,7 +121,7 @@ public class InputManager : MonoBehaviour {
     {
         foreach (var touchable in registeredTouchables)
         {
-            if (touchable.FingerId == null || touchable.FingerId != touch.fingerId)
+            if (touchable.FingerIds.Count == 0 || !touchable.FingerIds.Contains(touch.fingerId))
                 continue;
 
             switch (touch.phase)
@@ -134,7 +134,7 @@ public class InputManager : MonoBehaviour {
                     touchable.OnTouchEnded(touch);
 
                     // Remove tag so that the events won't fire anymore
-                    touchable.FingerId = null;
+                    touchable.FingerIds.Remove(touch.fingerId);
                     break;
             }
         }
