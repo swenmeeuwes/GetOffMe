@@ -2187,6 +2187,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
         type: 2}
       propertyPath: sizeInterpolation.m_Curve.Array.size
@@ -2308,6 +2313,26 @@ Prefab:
         type: 2}
       propertyPath: invisibleCircleRadiusOffset
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[1].time
+      value: 0.9884007
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[1].value
+      value: 1.0814662
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_RotationOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40c205518d3d4d74687c1f853f021dbd, type: 2}

@@ -19,6 +19,8 @@ public class ComboSystem : MonoBehaviour
     private int ComboNeededForNextTier = 5;
     [SerializeField]
     private string[] encouragementTexts;
+    [SerializeField]
+    private AnimationCurve comboScoreRatio;
 
     private int currentComboTier = 0;
 
@@ -27,6 +29,7 @@ public class ComboSystem : MonoBehaviour
 
     [HideInInspector]
     public float comboSizeCurveModifier = 1;
+    [Tooltip("The amount of combo points the player loses on hit")]
     public int comboLosePoints = 10;
 
     private int m_Combo;
@@ -72,6 +75,7 @@ public class ComboSystem : MonoBehaviour
 
         currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
     }
+
     public void Decrease()
     {
         if (Mathf.FloorToInt(Mathf.Max(0, Combo - comboLosePoints) / ComboNeededForNextTier) != currentComboTier)
@@ -112,7 +116,8 @@ public class ComboSystem : MonoBehaviour
     }
     public int AwardPoints(int score)
     {
-        int addScore = (score + Combo);
+        var comboAddition = Mathf.FloorToInt(Combo * comboScoreRatio.Evaluate(Combo));
+        int addScore = (score + comboAddition);
         ScoreManager.Instance.Score += addScore;
         return addScore;
     }
