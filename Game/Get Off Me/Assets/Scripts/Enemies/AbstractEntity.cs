@@ -69,12 +69,14 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     public void OnTouchBegan(Touch touch)
     {
+        if (GameManager.Instance.State == GameState.PAUSE) return;
+
         if (comboSystem.IntersectsComboCircle(transform.position))
             InComboRadius = true;
         else
             comboSystem.Decrease();
 
-        if (GameManager.Instance.State == GameState.PAUSE) return;
+        
         if (ShowParticles)
             dragParticles.Play();
 
@@ -99,10 +101,12 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
         if (Draggable)
+        {
             transform.position = futurePosition;
 
-		var newVelocity = (touch.deltaPosition * touch.deltaTime) * (100 - model.weight);
-		rb.velocity = newVelocity;
+            var newVelocity = (touch.deltaPosition * touch.deltaTime) * (100 - model.weight);
+            rb.velocity = newVelocity;
+        }
     }
 
     public void OnTouchEnded(Touch touch)
