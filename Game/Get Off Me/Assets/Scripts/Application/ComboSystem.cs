@@ -23,9 +23,10 @@ public class ComboSystem : MonoBehaviour
     private int currentComboTier = 0;
 
     private float radius;
-    public float comboSizeCurveModifier = 1;
     private ParticleSystem particles;
 
+    [HideInInspector]
+    public float comboSizeCurveModifier = 1;
     public int comboLosePoints = 10;
 
     private int m_Combo;
