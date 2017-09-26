@@ -425,15 +425,15 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 2
       time: -0.32081223
-      value: 1.75
-      inSlope: -0.0016414644
-      outSlope: -0.0016414644
+      value: 1.2
+      inSlope: -0.0015412527
+      outSlope: -0.0015412527
       tangentMode: 0
     - serializedVersion: 2
-      time: 302.16498
-      value: 1.4011261
-      inSlope: -0.0010868139
-      outSlope: -0.0010868139
+      time: 299.82715
+      value: 0.8
+      inSlope: -0.0014365364
+      outSlope: -0.0014365364
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -457,8 +457,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   wavePeriod: 15
-  restPeriod: 3
-  restPeriodAdditionalInterval: 3
+  restPeriod: 7
+  restPeriodAdditionalInterval: 7
   objectToSpawn: {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b,
     type: 2}
   orthographicCamera: {fileID: 1904601765}
