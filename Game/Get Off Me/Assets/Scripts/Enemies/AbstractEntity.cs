@@ -40,7 +40,6 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     {
         base.Awake();
         model = Instantiate(entityModel);
-        amplifiedSpeed = model.speed * 60;
 
         ShowParticles = true;
         Draggable = true;
@@ -56,6 +55,8 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         player = GameObject.FindGameObjectWithTag("Player");
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
+
+        amplifiedSpeed = model.speed * 60;
 
         InputManager.Main.Register(this);
     }
