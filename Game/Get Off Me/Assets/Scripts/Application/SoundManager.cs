@@ -6,7 +6,6 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour {
 
     public List<AudioClip> musicChannels;
-    public AudioClip menuMusic;
 
     private AudioSource[] sources;
 
@@ -16,11 +15,11 @@ public class SoundManager : MonoBehaviour {
     private AudioSource lead;
     private AudioSource lead2;
 
-    private AudioSource menu;
+
+    private int playingComboTier = 0;
 
     // Use this for initialization
     void Awake() {
-        DontDestroyOnLoad(transform.gameObject);
         sources = GetComponents<AudioSource>();
 
         bass = sources[0];
@@ -28,39 +27,58 @@ public class SoundManager : MonoBehaviour {
         lead = sources[2];
         lead2 = sources[3];
 
-        menu = sources[4];
-
         bass.clip = musicChannels[0];
         noise.clip = musicChannels[1];
         lead.clip = musicChannels[2];
         lead2.clip = musicChannels[3];
-
-        menu.clip = menuMusic;
-
-        sources[4].clip = menuMusic;
     }
     void Start() {
-        PlayMenu();
+        PlayStage();
     }
     public void PlayStage() {
-        menu.Stop();
 
         bass.Play();
         noise.Play();
         lead.Play();
         lead2.Play();
 
-        lead.mute = true;
-        lead2.mute = true;
+        Mute(lead);
+        Mute(lead2);
     }
-    public void PlayMenu()
-    {
-        bass.Stop();
-        noise.Stop();
-        lead.Stop();
-        lead2.Stop();
+    public void HandleComboTier(int tier) {
+        Debug.Log("Tier: "+tier);
+        if (tier == playingComboTier) { return; }
 
-        menu.Play();
 
+        Mute(bass);
+        Mute(noise);
+        Mute(lead);
+        Mute(lead2);
+
+        if (tier >= 0)
+        {
+            Play(bass);
+            Play(noise);
+        }
+        if (tier >= 2)
+        {
+            Debug.Log("lead");
+            Play(lead);
+        }
+        if (tier >= 6)
+        {
+            Play(lead2);
+        }
+        if (tier >= 9) {
+            //yes
+        }
+        playingComboTier = tier;
+        //TODO some switch with diffent states...
+    }
+    private void Mute(AudioSource source) {
+        source.mute = true;
+    }
+    private void Play(AudioSource source) {
+        source.mute = false;
     }
 }
