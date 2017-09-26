@@ -24,7 +24,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     protected bool IgnoreTap { get; set; } // Feature: To bypass tap delay -> smoother swipe
 
 
-    public int? FingerId { get; set; }
+    public HashSet<int> FingerIds { get; set; }
 
     protected Vector3 screenPoint;
     protected Vector3 offset;
@@ -39,6 +39,8 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     protected override void Awake()
     {
         base.Awake();
+
+        FingerIds = new HashSet<int>();
         model = Instantiate(entityModel);
 
         ShowParticles = true;

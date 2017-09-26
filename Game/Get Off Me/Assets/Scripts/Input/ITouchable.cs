@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface ITouchable {
-    int? FingerId { get; set; }
+    HashSet<int> FingerIds { get; set; }
 
     void OnTouchBegan(Touch touch);
     void OnTouch(Touch touch);
