@@ -15,6 +15,7 @@ public class ComboCircle : MonoBehaviour {
     private float maxDistortInterval = 0.01f;
 
     public float circleRadius = 1f;
+    public float invisibleCircleRadiusOffset = 0.1f; // The distance outside of the visible server that still allows for a combo
     public AnimationCurve sizeInterpolation;
 
     private LineRenderer lineRenderer;    
@@ -97,7 +98,7 @@ public class ComboCircle : MonoBehaviour {
 
     public bool Intersects(Vector2 point)
     {
-        return Vector2.Distance(transform.position, point) < circleRadius;
+        return Vector2.Distance(transform.position, point) - invisibleCircleRadiusOffset < circleRadius;
     }
 
     private void Initialize()
@@ -146,5 +147,11 @@ public class ComboCircle : MonoBehaviour {
 
             yield return new WaitForSeconds(distortInterval);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, circleRadius + invisibleCircleRadiusOffset);
     }
 }
