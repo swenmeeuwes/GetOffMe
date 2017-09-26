@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,9 @@ public class GameManager
 {
     public static readonly string SAVEGAME_FILE_NAME = "savegame.sav";
 
+
     private static GameManager _instance;
+    private float timeGameStarted;
 
     public static GameManager Instance
     {
@@ -31,6 +34,7 @@ public class GameManager
         set
         {
             _state = value;
+            HandleGameSave();
         }
     }
 
@@ -58,7 +62,21 @@ public class GameManager
             //
         }
     }
-
+    private void HandleGameSave() {
+        switch (State) {
+            case GameState.GAMEOVER:
+                SaveGame.TotalTimeAlive += (Time.time - timeGameStarted);
+                SaveGame.TotalGamesPlayed++;
+                if (SaveGame.TotalGamesPlayed > 3600) {
+                    SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == VialType.SPAWN_VIAL).First().Unlocked = true;
+                }
+                Save();
+                break;
+            case GameState.PLAY:
+                timeGameStarted = Time.time;
+                break;
+        }
+    }
     public void Save()
     {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
