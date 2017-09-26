@@ -14,4 +14,5 @@ MonoBehaviour:
   health: 4
   speed: 3
   varianceInSpeed: 0.3
-  weight: 90
+  weight: 80
+  awardPoints: 0

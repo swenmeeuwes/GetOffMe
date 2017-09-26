@@ -33,8 +33,9 @@ public class Player : MonoBehaviour {
     }
 
     public void AbsorbEnemy(float size) {
-        float damageAmount = size / Mathf.Clamp((100 - absorbPercentage), 1, 100);
-        Damage(damageAmount);
+        //float damageAmount = size / Mathf.Clamp((100 - absorbPercentage), 1, 100);
+        //Damage(damageAmount);
+        Damage(1);
     }
 
     public void PauseButton() {

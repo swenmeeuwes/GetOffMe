@@ -40,7 +40,6 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     {
         base.Awake();
         model = Instantiate(entityModel);
-        amplifiedSpeed = model.speed * 60;
 
         ShowParticles = true;
         Draggable = true;
@@ -57,6 +56,8 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
 
+        amplifiedSpeed = model.speed * 60;
+
         InputManager.Main.Register(this);
     }
 
@@ -69,12 +70,14 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     public void OnTouchBegan(Touch touch)
     {
+        if (GameManager.Instance.State == GameState.PAUSE) return;
+
         if (comboSystem.IntersectsComboCircle(transform.position))
             InComboRadius = true;
         else
             comboSystem.Decrease();
 
-        if (GameManager.Instance.State == GameState.PAUSE) return;
+        
         if (ShowParticles)
             dragParticles.Play();
 
@@ -82,7 +85,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         oldPosition = transform.position;
         futurePosition = transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, -Camera.main.transform.position.z));
 
         lastTouchTime = Time.time;
     }
@@ -95,14 +98,16 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         if (ShowParticles)
             dragParticles.transform.position = transform.position;
 
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+        Vector3 curScreenPoint = new Vector3(touch.position.x, touch.position.y, -Camera.main.transform.position.z);
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
         if (Draggable)
+        {
             transform.position = futurePosition;
 
-		var newVelocity = (touch.deltaPosition * touch.deltaTime) * (100 - model.weight);
-		rb.velocity = newVelocity;
+            var newVelocity = (touch.deltaPosition * touch.deltaTime) * (100 - model.weight);
+            rb.velocity = newVelocity;
+        }
     }
 
     public void OnTouchEnded(Touch touch)
@@ -147,7 +152,8 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         if (Vector2.Distance(oldPosition, player.transform.position) < player.transform.localScale.x + 0.5f)
         {
-            comboSystem.ShowEncouragement("Good save!", true);
+            var uglyCloseCallArray = new string[] { "Good save!", "Close call!", "Ninja!", "Just in time!" }; // PLS FIX
+            comboSystem.ShowEncouragement(uglyCloseCallArray[Mathf.FloorToInt(UnityEngine.Random.value * uglyCloseCallArray.Length)], true);
             comboSystem.HideEncouragement(2f);
         }
 

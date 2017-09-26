@@ -245,14 +245,8 @@ MonoBehaviour:
   - type: 0
     delay: 0
     waitUntilComplete: 1
-    textContent: See that circle around you?
+    textContent: Swipe enemies within the circle to gain a combo
     textDuration: 1
-    spawnPrefab: {fileID: 0}
-  - type: 0
-    delay: 0
-    waitUntilComplete: 1
-    textContent: Let enemies come within the circle to build a combo
-    textDuration: 1.2
     spawnPrefab: {fileID: 0}
 --- !u!20 &55127441
 Camera:
@@ -321,7 +315,7 @@ RectTransform:
   - {fileID: 2136205735}
   - {fileID: 1243758998}
   m_Father: {fileID: 721340395}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -430,16 +424,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: -1.1940384
-      value: 1.7910278
-      inSlope: -0.0020584236
-      outSlope: -0.0020584236
+      time: -0.32081223
+      value: 1.2
+      inSlope: -0.0015412527
+      outSlope: -0.0015412527
       tangentMode: 0
     - serializedVersion: 2
-      time: 302.16498
-      value: 1.4011261
-      inSlope: -0.0015710923
-      outSlope: -0.0015710923
+      time: 299.82715
+      value: 0.8
+      inSlope: -0.0014365364
+      outSlope: -0.0014365364
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -463,8 +457,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   wavePeriod: 15
-  restPeriod: 5
-  restPeriodAdditionalInterval: 5
+  restPeriod: 7
+  restPeriodAdditionalInterval: 7
   objectToSpawn: {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b,
     type: 2}
   orthographicCamera: {fileID: 1904601765}
@@ -802,9 +796,9 @@ Transform:
   m_Children:
   - {fileID: 1736144383}
   - {fileID: 501845861}
+  - {fileID: 140755039}
   - {fileID: 1964418959}
   - {fileID: 1988041904}
-  - {fileID: 140755039}
   - {fileID: 339717619}
   - {fileID: 1887371190}
   m_Father: {fileID: 2104009682}
@@ -1735,7 +1729,7 @@ Prefab:
     - target: {fileID: 224957012627228140, guid: af8947d1a64e33b488a6154b27caffee,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224957012627228140, guid: af8947d1a64e33b488a6154b27caffee,
         type: 2}
@@ -1835,6 +1829,11 @@ Prefab:
     - target: {fileID: 1016911403638574, guid: af8947d1a64e33b488a6154b27caffee, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223486808812173054, guid: af8947d1a64e33b488a6154b27caffee,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af8947d1a64e33b488a6154b27caffee, type: 2}
@@ -2188,6 +2187,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
         type: 2}
       propertyPath: sizeInterpolation.m_Curve.Array.size
@@ -2305,6 +2309,31 @@ Prefab:
       propertyPath: comboStreakTextField
       value: 
       objectReference: {fileID: 1243758999}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: invisibleCircleRadiusOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[1].time
+      value: 0.9884007
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[1].value
+      value: 1.0814662
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40c205518d3d4d74687c1f853f021dbd, type: 2}
   m_IsPrefabParent: 0
@@ -2391,7 +2420,7 @@ RectTransform:
   - {fileID: 571058449}
   - {fileID: 1010234247}
   m_Father: {fileID: 721340395}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
