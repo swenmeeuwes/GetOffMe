@@ -34,7 +34,16 @@ public class GameManager
         }
     }
 
-    public SaveGameModel SaveGame { get; set; }
+    private SaveGameModel _saveGame;
+    public SaveGameModel SaveGame {
+        get {
+            return _saveGame;
+        }
+        set {
+            _saveGame = value;
+            Save();
+        }
+    }
 
     public GameManager()
     {
