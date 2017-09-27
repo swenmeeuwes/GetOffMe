@@ -70,6 +70,7 @@ public class Player : MonoBehaviour {
 
         VibrationService.Vibrate(onHitVibrationDuration);
         animator.SetTrigger("hit");
+        Camera.main.GetComponent<Animator>().Play("CameraShake", 0);
         UpdateSize();
     }
     

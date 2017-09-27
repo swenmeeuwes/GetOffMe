@@ -65,7 +65,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1425909260388956}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6b627e492be645943aadbbee07eb8262, type: 3}
@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8318567b7d3084183b6999fa2f9238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vibrationDuration: 800
 --- !u!212 &212305046397311780
 SpriteRenderer:
   m_ObjectHideFlags: 1
