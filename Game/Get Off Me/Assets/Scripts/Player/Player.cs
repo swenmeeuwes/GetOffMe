@@ -73,7 +73,7 @@ public class Player : MonoBehaviour {
     }
     private IEnumerator AdaptSize()
     {
-        var step = 0.1f;
+        var step = 0.2f;
 
         if (transform.localScale.x < targetSize)
         {
