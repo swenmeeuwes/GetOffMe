@@ -13,7 +13,7 @@ public static class VibrationService {
     public static AndroidJavaObject vibrator;
 #endif
 
-    public static bool IsEnabled = true;
+    public static bool IsEnabled = false;
 
     public static void Vibrate()
     {
