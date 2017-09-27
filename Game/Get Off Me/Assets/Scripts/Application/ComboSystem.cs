@@ -19,14 +19,20 @@ public class ComboSystem : MonoBehaviour
     private int ComboNeededForNextTier = 5;
     [SerializeField]
     private string[] encouragementTexts;
+    [SerializeField]
+    private AnimationCurve comboScoreRatio;
 
     private int currentComboTier = 0;
 
     private float radius;
-    public float comboSizeCurveModifier = 1;
     private ParticleSystem particles;
 
+    [HideInInspector]
+    public float comboSizeCurveModifier = 1;
+    [Tooltip("The amount of combo points the player loses on hit")]
     public int comboLosePoints = 10;
+
+    private SoundManager soundManager;
 
     private int m_Combo;
     public int Combo {
@@ -50,7 +56,8 @@ public class ComboSystem : MonoBehaviour
     }
 
 	void Start () {
-		if (orthographicCamera == null)
+        //soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        if (orthographicCamera == null)
 			orthographicCamera = Camera.main;
 
         encouragementTextField.gameObject.SetActive(false);
@@ -69,8 +76,8 @@ public class ComboSystem : MonoBehaviour
 		if (Random.Range (1.0f, 100.0f) < chanceAtDoubleCombo)
 			Combo += addValue;
 
-        currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
     }
+
     public void Decrease()
     {
         if (Mathf.FloorToInt(Mathf.Max(0, Combo - comboLosePoints) / ComboNeededForNextTier) != currentComboTier)
@@ -81,7 +88,6 @@ public class ComboSystem : MonoBehaviour
             particles.Emit(60);
         }
         Combo = Mathf.Max(0, Combo - comboLosePoints);
-        currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
     }
 
     public void ShowEncouragement(string text, bool randomizeColor = true)
@@ -111,7 +117,8 @@ public class ComboSystem : MonoBehaviour
     }
     public int AwardPoints(int score)
     {
-        int addScore = (score + Combo);
+        var comboAddition = Mathf.FloorToInt(Combo * comboScoreRatio.Evaluate(Combo));
+        int addScore = (score + comboAddition);
         ScoreManager.Instance.Score += addScore;
         return addScore;
     }
@@ -140,10 +147,14 @@ public class ComboSystem : MonoBehaviour
         }
         comboCircle.Keyframe = (Combo - residu) * comboSizeCurveModifier;
 
+
         if (Combo > 0)
             ShowComboStreak(Combo);
         else
             HideComboStreak();
+
+        currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
+        //soundManager.HandleComboTier(currentComboTier);
     }
 
     private void ShowComboStreak(int amount)

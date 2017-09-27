@@ -9,7 +9,7 @@ public class RogueVial : IVial {
 	public void Apply(HelmetSlimeEnemy entity) { }
 	public void Apply(NormalSlimeEnemy entity) { }
 	public void Apply(RogueSlimeEnemy entity){
-		entity.amplifiedSpeed += speedIncrease;
+		entity.model.speed += speedIncrease;
         entity.model.awardPoints += pointModifier;
 	}
 	public void Apply(WizardSlimeEnemy entity) { }

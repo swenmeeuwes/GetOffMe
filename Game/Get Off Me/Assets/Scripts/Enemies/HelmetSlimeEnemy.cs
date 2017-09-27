@@ -56,7 +56,8 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
             int addedScore = comboSystem.AwardPoints(pointsForHelmetTap);
             HandleScore(addedScore);
-            HandleCombo();
+
+            //HandleCombo(); // Don't count HELMET taps towards combo count
         }
         base.OnTap();
     }

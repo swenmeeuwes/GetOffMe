@@ -23,8 +23,8 @@ public class PlayerEditor : Editor {
         EditorGUILayout.PrefixLabel("Health");
         player.health = EditorGUILayout.FloatField(player.health);
 
-        EditorGUILayout.PrefixLabel("Absorb Percentage");
-        player.absorbPercentage = EditorGUILayout.IntSlider(player.absorbPercentage, 1, 100);
+        //EditorGUILayout.PrefixLabel("Absorb Percentage");
+        //player.absorbPercentage = EditorGUILayout.IntSlider(player.absorbPercentage, 1, 100);
 
         EditorGUILayout.PrefixLabel("Size Interpolation");
         player.sizeInterpolation = EditorGUILayout.CurveField(player.sizeInterpolation, GUILayout.Height(100));

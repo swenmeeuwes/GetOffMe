@@ -22,9 +22,10 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 	protected bool Dragged { get; set; }
 	protected bool InComboRadius { get; set; }
     protected bool IgnoreTap { get; set; } // Feature: To bypass tap delay -> smoother swipe
+    protected bool ComboEnabled { get; set; }
 
 
-    public int? FingerId { get; set; }
+    public HashSet<int> FingerIds { get; set; }
 
     protected Vector3 screenPoint;
     protected Vector3 offset;
@@ -35,27 +36,35 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     private ParticleSystem dragParticles;
 	protected ComboSystem comboSystem;
     protected GameObject player;
+    protected ScoreParticleManager scoreParticleManager;
+    protected EntityHelper entityHelper;
 
     protected override void Awake()
     {
         base.Awake();
+
+        FingerIds = new HashSet<int>();
         model = Instantiate(entityModel);
-        amplifiedSpeed = model.speed * 60;
 
         ShowParticles = true;
         Draggable = true;
         IgnoreTap = false;
+        ComboEnabled = true;
     }
 
     protected virtual void Start()
     {
-		comboSystem = GameObject.Find ("ComboSystem").GetComponent<ComboSystem> ();
+		comboSystem = FindObjectOfType<ComboSystem>();
         dragParticles = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
+        scoreParticleManager = FindObjectOfType<ScoreParticleManager>();
+        entityHelper = FindObjectOfType<EntityHelper>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
+
+        amplifiedSpeed = model.speed * 60;
 
         InputManager.Main.Register(this);
     }
@@ -71,11 +80,8 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
 
-        if (comboSystem.IntersectsComboCircle(transform.position))
+        if (comboSystem.IntersectsComboCircle(Camera.main.ScreenToWorldPoint(touch.position)))
             InComboRadius = true;
-        else
-            comboSystem.Decrease();
-
         
         if (ShowParticles)
             dragParticles.Play();
@@ -84,7 +90,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         oldPosition = transform.position;
         futurePosition = transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, -Camera.main.transform.position.z));
 
         lastTouchTime = Time.time;
     }
@@ -97,7 +103,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         if (ShowParticles)
             dragParticles.transform.position = transform.position;
 
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+        Vector3 curScreenPoint = new Vector3(touch.position.x, touch.position.y, -Camera.main.transform.position.z);
         futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
         if (Draggable)
@@ -149,12 +155,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         if (model.health <= 0)
             Die();
 
-        if (Vector2.Distance(oldPosition, player.transform.position) < player.transform.localScale.x + 0.5f)
-        {
-            var uglyCloseCallArray = new string[] { "Good save!", "Close call!", "Ninja!", "Just in time!" }; // PLS FIX
-            comboSystem.ShowEncouragement(uglyCloseCallArray[Mathf.FloorToInt(UnityEngine.Random.value * uglyCloseCallArray.Length)], true);
-            comboSystem.HideEncouragement(2f);
-        }
+        HandleCloseCallText();
 
         Dispatch("swiped", this);
 
@@ -162,24 +163,38 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         HandleCombo();
     }
 
+    protected virtual void HandleCloseCallText()
+    {
+        if (Vector2.Distance(oldPosition, player.transform.position) < player.transform.localScale.x + 0.3f)
+        {
+            entityHelper.ShowCloseCallText();
+        }
+    }
+
     protected virtual void HandleScore()
     {
         if (GameManager.Instance.State == GameState.PLAY)
         {
             int addedScore = comboSystem.AwardPoints(model.awardPoints);
-            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
+            if(addedScore > 0)
+                scoreParticleManager.ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
     protected virtual void HandleScore(int addedScore)
     {
-        if (GameManager.Instance.State == GameState.PLAY)
-            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
+        if (GameManager.Instance.State == GameState.PLAY && addedScore > 0)
+            scoreParticleManager.ShowRewardIndicatorAt(addedScore, transform.position, true);
     }
 
     protected virtual void HandleCombo()
     {
+        if (!ComboEnabled)
+            return;
+
         if (InComboRadius)
             comboSystem.Increase(1);
+        else
+            comboSystem.Decrease();
         InComboRadius = false;
     }
 		

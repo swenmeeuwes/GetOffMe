@@ -118,6 +118,7 @@ MonoBehaviour:
   baseDistortInterval: 0.05
   maxDistortInterval: 0.01
   circleRadius: 5.962786
+  invisibleCircleRadiusOffset: 0.5
   sizeInterpolation:
     serializedVersion: 2
     m_Curve:
@@ -149,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboRadiusIndicator: {fileID: 0}
   orthographicCamera: {fileID: 0}
+  comboStreakTextField: {fileID: 0}
   encouragementTextField: {fileID: 0}
   comboCircle: {fileID: 114292982785589398}
   ComboNeededForNextTier: 5
@@ -160,7 +162,26 @@ MonoBehaviour:
   - Awesome
   - Incredible
   - Spectacular
+  comboScoreRatio:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.9884007
+      value: 1.0814662
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   comboSizeCurveModifier: 1
+  comboLosePoints: 10
   chanceAtDoubleCombo: 0
 --- !u!120 &120096338080273622
 LineRenderer:

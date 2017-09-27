@@ -30,6 +30,18 @@ public class ScoreRewardIndicator : MonoBehaviour
         }
     }
 
+    public int FontSize
+    {
+        get
+        {
+            return textField.fontSize;
+        }
+        set
+        {
+            textField.fontSize = value;
+        }
+    }
+
     private Text textField;
     private Vector3 startPosition;
     private void Awake()
@@ -48,7 +60,6 @@ public class ScoreRewardIndicator : MonoBehaviour
         while (textField.color.a > 0)
         {
             // Position
-            // Make this a const?
             var fromBottomToTopInOneSecond = Camera.main.WorldToScreenPoint(Vector3.zero) * Time.deltaTime;
             fromBottomToTopInOneSecond.x = 0;
             fromBottomToTopInOneSecond.z = 0;
