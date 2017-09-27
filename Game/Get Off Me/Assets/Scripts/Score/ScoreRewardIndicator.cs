@@ -30,6 +30,18 @@ public class ScoreRewardIndicator : MonoBehaviour
         }
     }
 
+    public int FontSize
+    {
+        get
+        {
+            return textField.fontSize;
+        }
+        set
+        {
+            textField.fontSize = value;
+        }
+    }
+
     private Text textField;
     private Vector3 startPosition;
     private void Awake()

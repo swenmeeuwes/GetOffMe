@@ -53,7 +53,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     protected virtual void Start()
     {
-		comboSystem = GameObject.Find ("ComboSystem").GetComponent<ComboSystem> ();
+		comboSystem = FindObjectOfType<ComboSystem>();
         dragParticles = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();

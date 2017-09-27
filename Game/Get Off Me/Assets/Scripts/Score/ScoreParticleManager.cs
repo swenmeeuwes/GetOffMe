@@ -5,6 +5,12 @@ using UnityEngine;
 public class ScoreParticleManager : MonoBehaviour {
     [SerializeField]
     private GameObject rewardIndicatorPrefab;
+    private ComboSystem comboSystem;
+
+    private void Start()
+    {
+        comboSystem = FindObjectOfType<ComboSystem>();
+    }
 
     public void ShowRewardIndicatorAt(int scoreAmount, Vector3 worldPosition, bool clampInsideView = false)
     {
@@ -24,7 +30,8 @@ public class ScoreParticleManager : MonoBehaviour {
 
         var rewardIndicator = rewardIndicatorObject.GetComponent<ScoreRewardIndicator>();
         rewardIndicator.Text = string.Format("+{0}", scoreAmount);
-        rewardIndicator.Color = ComboColorResolver.Resolve(scoreAmount);
+        rewardIndicator.FontSize = (int)Mathf.Lerp((float)comboSystem.Combo / ComboColorResolver.H_VALUE_THRESHOLD, 52, 72);
+        rewardIndicator.Color = ComboColorResolver.Resolve(comboSystem.Combo);
 
         rewardIndicatorObject.transform.SetParent(transform, true);
     }
