@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4627141625537610}
   - component: {fileID: 114637586928055120}
   m_Layer: 0
-  m_Name: EnemyEventSystem
+  m_Name: EnemyHelper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
