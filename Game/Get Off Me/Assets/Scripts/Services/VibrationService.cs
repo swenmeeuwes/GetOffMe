@@ -13,9 +13,11 @@ public static class VibrationService {
     public static AndroidJavaObject vibrator;
 #endif
 
+    public static bool IsEnabled = true;
+
     public static void Vibrate()
     {
-        if (PlatformUtil.IsAndroid())
+        if (PlatformUtil.IsAndroid() && IsEnabled)
             vibrator.Call("vibrate");
         else
             Handheld.Vibrate();
@@ -24,7 +26,7 @@ public static class VibrationService {
 
     public static void Vibrate(long milliseconds)
     {
-        if (PlatformUtil.IsAndroid())
+        if (PlatformUtil.IsAndroid() && IsEnabled)
             vibrator.Call("vibrate", milliseconds);
         else
             Handheld.Vibrate();
@@ -32,7 +34,7 @@ public static class VibrationService {
 
     public static void Vibrate(long[] pattern, int repeat)
     {
-        if (PlatformUtil.IsAndroid())
+        if (PlatformUtil.IsAndroid() && IsEnabled)
             vibrator.Call("vibrate", pattern, repeat);
         else
             Handheld.Vibrate();
