@@ -35,6 +35,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     private ParticleSystem dragParticles;
 	protected ComboSystem comboSystem;
     protected GameObject player;
+    protected ScoreParticleManager scoreParticleManager;
 
     protected override void Awake()
     {
@@ -55,6 +56,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
+        scoreParticleManager = FindObjectOfType<ScoreParticleManager>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
 
@@ -170,13 +172,14 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         if (GameManager.Instance.State == GameState.PLAY)
         {
             int addedScore = comboSystem.AwardPoints(model.awardPoints);
-            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
+            if(addedScore > 0)
+                scoreParticleManager.ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
     protected virtual void HandleScore(int addedScore)
     {
-        if (GameManager.Instance.State == GameState.PLAY)
-            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
+        if (GameManager.Instance.State == GameState.PLAY && addedScore > 0)
+            scoreParticleManager.ShowRewardIndicatorAt(addedScore, transform.position, true);
     }
 
     protected virtual void HandleCombo()
