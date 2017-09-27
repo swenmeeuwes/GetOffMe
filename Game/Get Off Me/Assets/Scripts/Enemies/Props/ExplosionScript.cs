@@ -5,13 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class ExplosionScript : MonoBehaviour {
     private Animator animator;
+    [SerializeField]
+    private int vibrationDuration = 800;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
 
         StartCoroutine(SlowExplodeCoroutine());
-        VibrationService.Vibrate(1600);
+        VibrationService.Vibrate(vibrationDuration);
     }
 
     private void OnCollisionEnter2D(Collision2D coll)

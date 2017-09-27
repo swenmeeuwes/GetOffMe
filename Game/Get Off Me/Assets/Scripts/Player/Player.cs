@@ -7,6 +7,9 @@ public class Player : MonoBehaviour {
     public AnimationCurve sizeInterpolation;
     public float health;
 
+    [SerializeField]
+    public int onHitVibrationDuration = 600;
+
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 	private ComboSystem comboSystem;
@@ -51,7 +54,7 @@ public class Player : MonoBehaviour {
 		comboSystem.Decrease();
         health -= amount;
 
-        VibrationService.Vibrate(800);
+        VibrationService.Vibrate(onHitVibrationDuration);
         animator.SetTrigger("hit");
         UpdateSize();
     }
