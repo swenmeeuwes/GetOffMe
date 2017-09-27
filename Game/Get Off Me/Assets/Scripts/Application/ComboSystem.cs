@@ -32,6 +32,8 @@ public class ComboSystem : MonoBehaviour
     [Tooltip("The amount of combo points the player loses on hit")]
     public int comboLosePoints = 10;
 
+    private SoundManager soundManager;
+
     private int m_Combo;
     public int Combo {
         get
@@ -54,7 +56,8 @@ public class ComboSystem : MonoBehaviour
     }
 
 	void Start () {
-		if (orthographicCamera == null)
+        //soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        if (orthographicCamera == null)
 			orthographicCamera = Camera.main;
 
         encouragementTextField.gameObject.SetActive(false);
@@ -73,7 +76,6 @@ public class ComboSystem : MonoBehaviour
 		if (Random.Range (1.0f, 100.0f) < chanceAtDoubleCombo)
 			Combo += addValue;
 
-        currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
     }
 
     public void Decrease()
@@ -86,7 +88,6 @@ public class ComboSystem : MonoBehaviour
             particles.Emit(60);
         }
         Combo = Mathf.Max(0, Combo - comboLosePoints);
-        currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
     }
 
     public void ShowEncouragement(string text, bool randomizeColor = true)
@@ -146,10 +147,14 @@ public class ComboSystem : MonoBehaviour
         }
         comboCircle.Keyframe = (Combo - residu) * comboSizeCurveModifier;
 
+
         if (Combo > 0)
             ShowComboStreak(Combo);
         else
             HideComboStreak();
+
+        currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
+        //soundManager.HandleComboTier(currentComboTier);
     }
 
     private void ShowComboStreak(int amount)

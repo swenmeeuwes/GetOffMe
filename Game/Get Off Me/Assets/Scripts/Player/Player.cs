@@ -1,14 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour {
     public AnimationCurve sizeInterpolation;
     public float health;
-    public int absorbPercentage;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -33,8 +30,6 @@ public class Player : MonoBehaviour {
     }
 
     public void AbsorbEnemy(float size) {
-        //float damageAmount = size / Mathf.Clamp((100 - absorbPercentage), 1, 100);
-        //Damage(damageAmount);
         Damage(1);
     }
 
@@ -78,7 +73,7 @@ public class Player : MonoBehaviour {
     }
     private IEnumerator AdaptSize()
     {
-        var step = 0.1f;
+        var step = 0.2f;
 
         if (transform.localScale.x < targetSize)
         {
