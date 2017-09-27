@@ -32,6 +32,9 @@ public class ComboSystem : MonoBehaviour
     [Tooltip("The amount of combo points the player loses on hit")]
     public int comboLosePoints = 10;
 
+    private Player player;
+    public int OnFireMinimumTier = 7;
+
     private SoundManager soundManager;
 
     private int m_Combo;
@@ -53,6 +56,7 @@ public class ComboSystem : MonoBehaviour
     void Awake() {
         chanceAtDoubleCombo = 0;
         particles = gameObject.GetComponentInChildren<ParticleSystem>();
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
 	void Start () {
@@ -153,6 +157,8 @@ public class ComboSystem : MonoBehaviour
         else
             HideComboStreak();
 
+        player.Lit = (Combo > OnFireMinimumTier * ComboNeededForNextTier);
+        
         currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
         //soundManager.HandleComboTier(currentComboTier);
     }

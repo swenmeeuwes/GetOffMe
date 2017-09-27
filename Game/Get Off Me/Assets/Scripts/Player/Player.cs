@@ -13,15 +13,29 @@ public class Player : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 	private ComboSystem comboSystem;
+    private GameObject OnFireObject;
 
     private float startScale;
 
     public float maxHealth;
     private float targetSize;
 
+    private bool m_Lit;
+    public bool Lit {
+        get {
+            return m_Lit;
+        }
+        set {
+            m_Lit = value;
+            OnFireObject.SetActive(m_Lit);
+        }
+    }
+
     private void Awake() {
         maxHealth = health;
         comboSystem = GameObject.Find("ComboSystem").GetComponent<ComboSystem>();
+        OnFireObject = GameObject.Find("OnFire");
+        OnFireObject.SetActive(false);
     }
 
     private void Start()
@@ -58,7 +72,7 @@ public class Player : MonoBehaviour {
         animator.SetTrigger("hit");
         UpdateSize();
     }
-
+    
     private void UpdateSize()
     {
         var playerTextureHeight = spriteRenderer.sprite.texture.height;
