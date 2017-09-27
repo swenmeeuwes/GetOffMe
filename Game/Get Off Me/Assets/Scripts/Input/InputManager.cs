@@ -153,7 +153,7 @@ public class InputManager : MonoBehaviour {
             Gizmos.DrawSphere(worldPosition, touch.radius);
 
 #if UNITY_EDITOR
-            UnityEditor.Handles.Label(worldPosition, touch.fingerId.ToString());
+            UnityEditor.Handles.Label(worldPosition + new Vector3(0, -0.3f, 0), touch.fingerId.ToString());
 #endif
         }
     }

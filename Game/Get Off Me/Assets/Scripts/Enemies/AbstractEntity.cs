@@ -22,6 +22,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 	protected bool Dragged { get; set; }
 	protected bool InComboRadius { get; set; }
     protected bool IgnoreTap { get; set; } // Feature: To bypass tap delay -> smoother swipe
+    protected bool ComboEnabled { get; set; }
 
 
     public HashSet<int> FingerIds { get; set; }
@@ -35,6 +36,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     private ParticleSystem dragParticles;
 	protected ComboSystem comboSystem;
     protected GameObject player;
+    protected ScoreParticleManager scoreParticleManager;
 
     protected override void Awake()
     {
@@ -46,15 +48,17 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         ShowParticles = true;
         Draggable = true;
         IgnoreTap = false;
+        ComboEnabled = true;
     }
 
     protected virtual void Start()
     {
-		comboSystem = GameObject.Find ("ComboSystem").GetComponent<ComboSystem> ();
+		comboSystem = FindObjectOfType<ComboSystem>();
         dragParticles = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
+        scoreParticleManager = FindObjectOfType<ScoreParticleManager>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
 
@@ -76,9 +80,6 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
         if (comboSystem.IntersectsComboCircle(Camera.main.ScreenToWorldPoint(touch.position)))
             InComboRadius = true;
-        else
-            comboSystem.Decrease();
-
         
         if (ShowParticles)
             dragParticles.Play();
@@ -170,19 +171,25 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         if (GameManager.Instance.State == GameState.PLAY)
         {
             int addedScore = comboSystem.AwardPoints(model.awardPoints);
-            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
+            if(addedScore > 0)
+                scoreParticleManager.ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
     protected virtual void HandleScore(int addedScore)
     {
-        if (GameManager.Instance.State == GameState.PLAY)
-            FindObjectOfType<ScoreParticleManager>().ShowRewardIndicatorAt(addedScore, transform.position, true);
+        if (GameManager.Instance.State == GameState.PLAY && addedScore > 0)
+            scoreParticleManager.ShowRewardIndicatorAt(addedScore, transform.position, true);
     }
 
     protected virtual void HandleCombo()
     {
+        if (!ComboEnabled)
+            return;
+
         if (InComboRadius)
             comboSystem.Increase(1);
+        else
+            comboSystem.Decrease();
         InComboRadius = false;
     }
 		

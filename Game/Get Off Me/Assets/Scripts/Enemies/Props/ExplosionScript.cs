@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Should this be in the util package?
 [RequireComponent(typeof(Animator))]
 public class ExplosionScript : MonoBehaviour {
     private Animator animator;
+    [SerializeField]
+    private int vibrationDuration = 800;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
 
         StartCoroutine(SlowExplodeCoroutine());
+        VibrationService.Vibrate(vibrationDuration);
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
