@@ -14,6 +14,7 @@ public class BombSlimeEnemy : SeekingEntity {
         base.Awake();
 
         IgnoreTap = true;
+        ComboEnabled = false;
     }
 
     protected override void OnCollisionEnter2D(Collision2D coll)
