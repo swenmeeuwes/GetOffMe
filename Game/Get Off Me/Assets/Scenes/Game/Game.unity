@@ -425,15 +425,15 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 2
       time: -0.32081223
-      value: 0.8
-      inSlope: -0.00090737786
-      outSlope: -0.00090737786
+      value: 0.75
+      inSlope: -0.00066345406
+      outSlope: -0.00066345406
       tangentMode: 0
     - serializedVersion: 2
       time: 500
-      value: 0.4
-      inSlope: -0.0008487029
-      outSlope: -0.0008487029
+      value: 0.39951172
+      inSlope: -0.00069038296
+      outSlope: -0.00069038296
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -462,7 +462,7 @@ MonoBehaviour:
   objectToSpawn: {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b,
     type: 2}
   orthographicCamera: {fileID: 1904601765}
-  spawnDistanceOffset: 2
+  spawnDistanceOffset: 1.8
   amountOfSpawnPoints: 180
   degreeBlacklist:
   - {x: 45, y: 135}
@@ -2333,6 +2333,26 @@ Prefab:
         type: 2}
       propertyPath: comboScoreRatio.m_RotationOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[1].inSlope
+      value: 3.160855
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[1].outSlope
+      value: 3.160855
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[0].inSlope
+      value: 0.041945186
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[0].outSlope
+      value: 0.041945186
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40c205518d3d4d74687c1f853f021dbd, type: 2}
