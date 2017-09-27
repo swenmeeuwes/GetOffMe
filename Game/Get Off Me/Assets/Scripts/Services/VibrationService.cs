@@ -19,7 +19,7 @@ public static class VibrationService {
     {
         if (PlatformUtil.IsAndroid() && IsEnabled)
             vibrator.Call("vibrate");
-        else
+        else if (IsEnabled)
             Handheld.Vibrate();
     }
 
@@ -28,7 +28,7 @@ public static class VibrationService {
     {
         if (PlatformUtil.IsAndroid() && IsEnabled)
             vibrator.Call("vibrate", milliseconds);
-        else
+        else if (IsEnabled)
             Handheld.Vibrate();
     }
 
@@ -36,7 +36,7 @@ public static class VibrationService {
     {
         if (PlatformUtil.IsAndroid() && IsEnabled)
             vibrator.Call("vibrate", pattern, repeat);
-        else
+        else if (IsEnabled)
             Handheld.Vibrate();
     }
 
