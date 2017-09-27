@@ -17,26 +17,35 @@ public static class VibrationService {
 
     public static void Vibrate()
     {
-        if (PlatformUtil.IsAndroid() && IsEnabled)
+        if (!IsEnabled)
+            return;
+
+        if (PlatformUtil.IsAndroid())
             vibrator.Call("vibrate");
-        else if (IsEnabled)
+        else
             Handheld.Vibrate();
     }
 
 
     public static void Vibrate(long milliseconds)
     {
-        if (PlatformUtil.IsAndroid() && IsEnabled)
+        if (!IsEnabled)
+            return;
+
+        if (PlatformUtil.IsAndroid())
             vibrator.Call("vibrate", milliseconds);
-        else if (IsEnabled)
+        else
             Handheld.Vibrate();
     }
 
     public static void Vibrate(long[] pattern, int repeat)
     {
-        if (PlatformUtil.IsAndroid() && IsEnabled)
+        if (!IsEnabled)
+            return;
+
+        if (PlatformUtil.IsAndroid())
             vibrator.Call("vibrate", pattern, repeat);
-        else if (IsEnabled)
+        else
             Handheld.Vibrate();
     }
 
