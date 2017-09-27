@@ -51,6 +51,7 @@ public class Player : MonoBehaviour {
 		comboSystem.Decrease();
         health -= amount;
 
+        VibrationService.Vibrate(800);
         animator.SetTrigger("hit");
         UpdateSize();
     }

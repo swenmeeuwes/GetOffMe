@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Should this be in the util package?
 [RequireComponent(typeof(Animator))]
 public class ExplosionScript : MonoBehaviour {
     private Animator animator;
@@ -12,6 +11,7 @@ public class ExplosionScript : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         StartCoroutine(SlowExplodeCoroutine());
+        VibrationService.Vibrate(1600);
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
