@@ -23,7 +23,7 @@ public class BombSlimeEnemy : SeekingEntity {
         
         AbstractEntity entity = coll.gameObject.GetComponent<AbstractEntity>();
         if (entity) {
-            if (coll.relativeVelocity.magnitude > magnitudeForExplode)
+            if (coll.relativeVelocity.magnitude > magnitudeForExplode && ScreenUtil.WorldPositionIsInView(transform.position))
             {
                 Explode();
             }
