@@ -34,4 +34,9 @@ public class MedicSlimeAlly : SeekingEntity {
     {
         // NO COMBO
     }
+
+    protected override void HandleCloseCallText()
+    {
+        // NO CLOSE CALL TEXT
+    }
 }

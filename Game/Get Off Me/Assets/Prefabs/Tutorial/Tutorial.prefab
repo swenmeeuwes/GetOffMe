@@ -9,31 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1483934021289132}
+  m_RootGameObject: {fileID: 1875381339602996}
   m_IsPrefabParent: 1
---- !u!1 &1483934021289132
+--- !u!1 &1875381339602996
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4874093200696632}
-  - component: {fileID: 114177999878082852}
-  - component: {fileID: 20784680960341600}
+  - component: {fileID: 4723662141726448}
+  - component: {fileID: 114419133611482940}
+  - component: {fileID: 20017753751062778}
   m_Layer: 0
-  m_Name: Tutorial
+  m_Name: Tutorial 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4874093200696632
+--- !u!4 &4723662141726448
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1483934021289132}
+  m_GameObject: {fileID: 1875381339602996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -41,12 +41,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &20784680960341600
+--- !u!20 &20017753751062778
 Camera:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1483934021289132}
+  m_GameObject: {fileID: 1875381339602996}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -77,25 +77,113 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!114 &114177999878082852
+--- !u!114 &114419133611482940
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1483934021289132}
+  m_GameObject: {fileID: 1875381339602996}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed3d9cb3e039aa943a1fc9d524158871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 0}
-  tutorialEncounters:
-  - {fileID: 1215110422154106, guid: 2117f283babe3e14d831d7937e997440, type: 2}
-  - {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b, type: 2}
   instructionCanvasPrefab: {fileID: 1462253990068934, guid: c95a36f7d2216274d8c39110e0c20d19,
     type: 2}
   tutorialCanvas: {fileID: 0}
   tutorialTextField: {fileID: 0}
-  tutorialTextSequence:
-  - Protect yourself
-  - Swipe away the red slimes
+  tutorialSequence:
+  - type: 0
+    delay: 0
+    waitUntilComplete: 1
+    textContent: Protect yourself
+    textDuration: 1.2
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 1
+    textContent: Swipe away the red slimes
+    textDuration: 1.4
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 1
+    textContent: Don't let them hit you or you'll grow
+    textDuration: 1.5
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 0
+    textContent: Here comes one now!
+    textDuration: 1
+    spawnPrefab: {fileID: 0}
+  - type: 1
+    delay: 0
+    waitUntilComplete: 1
+    textContent: 
+    textDuration: 0
+    spawnPrefab: {fileID: 1215110422154106, guid: 2117f283babe3e14d831d7937e997440,
+      type: 2}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 0
+    textContent: Some enemies are different
+    textDuration: 1
+    spawnPrefab: {fileID: 0}
+  - type: 1
+    delay: 0
+    waitUntilComplete: 1
+    textContent: 
+    textDuration: 0
+    spawnPrefab: {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b,
+      type: 2}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 1
+    textContent: Not all slimes are bad
+    textDuration: 0.8
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 1
+    textContent: Blue slimes are allies and will help you
+    textDuration: 1.2
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 1
+    textContent: Don't be afraid
+    textDuration: 0.4
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 0
+    textContent: Let it reach you and you'll be healed
+    textDuration: 0.8
+    spawnPrefab: {fileID: 0}
+  - type: 1
+    delay: 0
+    waitUntilComplete: 1
+    textContent: 
+    textDuration: 0
+    spawnPrefab: {fileID: 1215110422154106, guid: d37eb6f165322b140ab19e08f0ceca73,
+      type: 2}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 1
+    textContent: The bigger you get the harder it gets
+    textDuration: 1
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 1
+    textContent: When you reach the height of the screen you lose
+    textDuration: 2
+    spawnPrefab: {fileID: 0}
+  - type: 0
+    delay: 0
+    waitUntilComplete: 1
+    textContent: Swipe enemies within the circle to gain a combo
+    textDuration: 1
+    spawnPrefab: {fileID: 0}

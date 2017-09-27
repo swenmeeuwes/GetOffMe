@@ -37,6 +37,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 	protected ComboSystem comboSystem;
     protected GameObject player;
     protected ScoreParticleManager scoreParticleManager;
+    protected EntityHelper entityHelper;
 
     protected override void Awake()
     {
@@ -59,6 +60,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         scoreParticleManager = FindObjectOfType<ScoreParticleManager>();
+        entityHelper = FindObjectOfType<EntityHelper>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
 
@@ -153,17 +155,20 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         if (model.health <= 0)
             Die();
 
-        if (Vector2.Distance(oldPosition, player.transform.position) < player.transform.localScale.x + 0.5f)
-        {
-            var uglyCloseCallArray = new string[] { "Good save!", "Close call!", "Ninja!", "Just in time!" }; // PLS FIX
-            comboSystem.ShowEncouragement(uglyCloseCallArray[Mathf.FloorToInt(UnityEngine.Random.value * uglyCloseCallArray.Length)], true);
-            comboSystem.HideEncouragement(2f);
-        }
+        HandleCloseCallText();
 
         Dispatch("swiped", this);
 
         HandleScore();
         HandleCombo();
+    }
+
+    protected virtual void HandleCloseCallText()
+    {
+        if (Vector2.Distance(oldPosition, player.transform.position) < player.transform.localScale.x + 0.3f)
+        {
+            entityHelper.ShowCloseCallText();
+        }
     }
 
     protected virtual void HandleScore()
