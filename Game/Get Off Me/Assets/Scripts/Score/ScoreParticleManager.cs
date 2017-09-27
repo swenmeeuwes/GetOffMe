@@ -30,7 +30,7 @@ public class ScoreParticleManager : MonoBehaviour {
 
         var rewardIndicator = rewardIndicatorObject.GetComponent<ScoreRewardIndicator>();
         rewardIndicator.Text = string.Format("+{0}", scoreAmount);
-        rewardIndicator.FontSize = (int)Mathf.Lerp((float)comboSystem.Combo / ComboColorResolver.H_VALUE_THRESHOLD, 52, 72);
+        rewardIndicator.FontSize = (int)Mathf.Lerp((float)comboSystem.Combo / ComboColorResolver.H_VALUE_THRESHOLD, 52, 128);
         rewardIndicator.Color = ComboColorResolver.Resolve(comboSystem.Combo);
 
         rewardIndicatorObject.transform.SetParent(transform, true);
