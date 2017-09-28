@@ -37,6 +37,9 @@ public class ComboSystem : MonoBehaviour
 
     private SoundManager soundManager;
 
+    public float RequiredTimeUnlockVial = 30;
+    public int MinimumComboTierVial = 5;
+
     private int m_Combo;
     public int Combo {
         get
@@ -52,6 +55,8 @@ public class ComboSystem : MonoBehaviour
 
 	[HideInInspector]
 	public float chanceAtDoubleCombo;
+
+    private bool completingVialRequirement = false;
 
     void Awake() {
         chanceAtDoubleCombo = 0;
@@ -161,8 +166,22 @@ public class ComboSystem : MonoBehaviour
         
         currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
         //soundManager.HandleComboTier(currentComboTier);
+        if (Combo > MinimumComboTierVial*ComboNeededForNextTier)
+        {
+            if (!completingVialRequirement) {
+                Invoke("UnlockComboVial", RequiredTimeUnlockVial);
+            }
+            completingVialRequirement = true;
+        }
+        else
+        {
+            completingVialRequirement = false;
+            CancelInvoke("UnlockComboVial");
+        }
     }
-
+    private void UnlockComboVial() {
+        GameManager.Instance.UnlockVial(VialType.SPAWN_VIAL);
+    }
     private void ShowComboStreak(int amount)
     {
         var randomX = Random.value * 50 - 25;

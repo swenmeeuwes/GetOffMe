@@ -67,6 +67,9 @@ public class GameManager
             //
         }
     }
+    public void UnlockVial(VialType vial) {
+        SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == vial).First().Unlocked = true;
+    }
     private void HandleSaveGame() {
         switch (State) {
             case GameState.GAMEOVER:
@@ -74,19 +77,19 @@ public class GameManager
                 SaveGame.TotalTimeAlive += (Time.time - timeGameStarted);
                 SaveGame.TotalGamesPlayed++;
                 if (SaveGame.TotalGamesPlayed > 3600) {
-                    SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == VialType.SPAWN_VIAL).First().Unlocked = true;
+                    UnlockVial(VialType.SPAWN_VIAL);
                 }
 
                 if (SaveGame.EnemyKillCount[(int)EntityType.SLIME_HELMET] >= 500) {
-                    SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == VialType.HELMET_VIAL).First().Unlocked = true;
+                    UnlockVial(VialType.HELMET_VIAL);
                 }
 
                 if (SaveGame.EnemyKillCount[(int)EntityType.SLIME_ROGUE] >= 400) {
-                    SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == VialType.ROGUE_VIAL).First().Unlocked = true;
+                    UnlockVial(VialType.ROGUE_VIAL);
                 }
 
                 if (SaveGame.EnemyKillCount[(int)EntityType.SLIME_WIZARD] >= 300) {
-                    SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == VialType.WIZARD_VIAL).First().Unlocked = true;
+                    UnlockVial(VialType.WIZARD_VIAL);
                 }
                 Save();
                 break;
