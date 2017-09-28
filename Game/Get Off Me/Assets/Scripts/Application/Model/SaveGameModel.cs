@@ -10,6 +10,5 @@ public class SaveGameModel {
     public int TotalScore { get; set; }
     public int TotalGamesPlayed { get; set; }
 
-    public List<EntityType> EnemyTypes;
     public List<int> EnemyKillCount;
 }

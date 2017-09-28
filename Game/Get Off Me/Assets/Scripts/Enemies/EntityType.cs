@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum EntityType
 {
-    SLIME_NONE,
     SLIME_NORMAL,
     SLIME_HELMET,
     SLIME_ROGUE,
