@@ -14,8 +14,6 @@ public class FastSpawnerVial : IVial {
 	public void Apply(Player player){}
 	public void Apply(ComboSystem comboSystem){}
 	public void Apply(OffScreenSpawner spawner){
-        Debug.Log("spawner");
-
         AnimationCurve newCurve;
         Keyframe[] frames = new Keyframe[spawner.spawnRateCurve.keys.Length];
 

@@ -1,27 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DifficultyModifierMenu : MonoBehaviour {
-    // TEMP
-    [SerializeField]
-    private Sprite[] vialSprites;
-    //
-
     [SerializeField]
     private Text modifierNameTextField;
     [SerializeField]
     private Text statusTextField;
-    [SerializeField]
+    [SerializeField][Tooltip("Should contain 3 containers from left to right")]
     private Image[] imageContainers; // Left, Middle, Right // Sorted!
+    [SerializeField]
+    private VialContext vialContext;
+    [SerializeField]
+    private Text positiveTextField;
+    [SerializeField]
+    private Text negativeTextField;
+    [SerializeField]
+    private Text unlockTextField;
 
     private SaveGameModel saveGameModel;
     private DifficultyModifier selectedModifier;
     private int selectedModifierIndex;
+    private Sprite[] vialSprites;
+
     private void Start()
     {
         saveGameModel = GameManager.Instance.SaveGame;
+
+        vialSprites = new Sprite[vialContext.data.Count];
+        for (int i = 0; i < vialContext.data.Count; i++)
+        {
+            vialSprites[i] = vialContext.data.Where(vial => vial.type == saveGameModel.DifficultyModifiers[i].Type).First().sprite;
+        }
 
         selectedModifierIndex = 0;
         UpdateSelection();
@@ -53,6 +65,13 @@ public class DifficultyModifierMenu : MonoBehaviour {
         selectedModifier = saveGameModel.DifficultyModifiers[selectedModifierIndex];
         modifierNameTextField.text = selectedModifier.Type.ToString();
 
+        var modifierContext = vialContext.data.Where(modifier => modifier.type == selectedModifier.Type).First();
+
+        // Set positive, negative and unlock text
+        positiveTextField.text = modifierContext.positiveEffect;
+        negativeTextField.text = modifierContext.negativeEffect;
+        unlockTextField.text = modifierContext.unlockCondition;
+
         // Set image containers
         imageContainers[0].sprite = vialSprites[PrecedingIndex]; // LEFT
         imageContainers[1].sprite = vialSprites[selectedModifierIndex]; // MIDDLE
@@ -66,12 +85,12 @@ public class DifficultyModifierMenu : MonoBehaviour {
         if (selectedModifier.Enabled)
         {
             modifierNameTextField.color = new Color(0, 1, 0);
-            statusTextField.text = "Disable";
+            //statusTextField.text = "Disable";
         }
         else
         {
             modifierNameTextField.color = new Color(1, 0, 0);
-            statusTextField.text = "Enable";
+            //statusTextField.text = "Enable";
         }
     }
 
