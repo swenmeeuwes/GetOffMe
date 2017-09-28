@@ -9,6 +9,6 @@ public class VialData {
     public string positiveEffect;
     public UnlockConditions unlockConditionType;
     public float unlockConditionValue;
-    [Tooltip("Unlock condition text, use {{VALUE}} to show the required value")]
+    [Tooltip("Unlock condition text, use {{GOAL}} to show the required value and {{CURRENT}} for the highest achieved value")]
     public string unlockCondition;
 }
