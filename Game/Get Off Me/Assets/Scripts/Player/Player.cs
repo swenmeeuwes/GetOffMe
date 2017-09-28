@@ -13,7 +13,8 @@ public class Player : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 	private ComboSystem comboSystem;
-    private GameObject OnFireObject;
+    private GameObject onFireObject;
+    private ParticleSystem healParticles;
 
     private float startScale;
 
@@ -27,15 +28,17 @@ public class Player : MonoBehaviour {
         }
         set {
             m_Lit = value;
-            OnFireObject.SetActive(m_Lit);
+            onFireObject.SetActive(m_Lit);
         }
     }
 
     private void Awake() {
         maxHealth = health;
         comboSystem = GameObject.Find("ComboSystem").GetComponent<ComboSystem>();
-        OnFireObject = GameObject.Find("OnFire");
-        OnFireObject.SetActive(false);
+        onFireObject = GameObject.Find("OnFire");
+        healParticles = GameObject.Find("HealParticles").GetComponent<ParticleSystem>();
+
+        onFireObject.SetActive(false);
     }
 
     private void Start()
@@ -59,10 +62,26 @@ public class Player : MonoBehaviour {
     }
     public void Heal(float amount)
     {
+        HandleHealParticles();
         health = Mathf.Clamp(health + amount, -1, maxHealth);
         UpdateSize();
     }
-
+    private void HandleHealParticles() {
+        StopCoroutine("EmitHealParticles");
+        healParticles.Stop();
+        StartCoroutine(EmitHealParticles(1.0f));
+    }
+    private IEnumerator EmitHealParticles(float seconds)
+    {
+        float counter = 0;
+        healParticles.Play();
+        while (counter < seconds)
+        {
+            counter += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        healParticles.Stop();
+    }
     public void Damage(float amount)
     {
 		comboSystem.Decrease();
