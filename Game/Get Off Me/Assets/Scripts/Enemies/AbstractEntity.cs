@@ -231,6 +231,7 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         OnEntityDestroy();
     }
     public void Die() {
+        player.GetComponent<Player>().enemiesKilledWithoutGettingHit++;
         TrackDeath();
         Destroy(GetComponent <CircleCollider2D>() );
         StartCoroutine(DieAnimation());

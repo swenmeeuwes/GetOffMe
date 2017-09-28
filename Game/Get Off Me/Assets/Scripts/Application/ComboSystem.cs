@@ -38,7 +38,12 @@ public class ComboSystem : MonoBehaviour
     private SoundManager soundManager;
 
     public float RequiredTimeUnlockVial = 30;
-    public int MinimumComboTierVial = 5;
+    public int MinimumComboForVial = 5;
+
+    [HideInInspector]
+    public float startTimeUnlockVial;
+    [HideInInspector]
+    public bool completingVialRequirement = false;
 
     private int m_Combo;
     public int Combo {
@@ -56,9 +61,9 @@ public class ComboSystem : MonoBehaviour
 	[HideInInspector]
 	public float chanceAtDoubleCombo;
 
-    private bool completingVialRequirement = false;
-
     void Awake() {
+        GameManager.Instance.HookComboSystem(this);
+        startTimeUnlockVial = Time.time;
         chanceAtDoubleCombo = 0;
         particles = gameObject.GetComponentInChildren<ParticleSystem>();
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -166,21 +171,18 @@ public class ComboSystem : MonoBehaviour
         
         currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
         //soundManager.HandleComboTier(currentComboTier);
-        if (Combo > MinimumComboTierVial*ComboNeededForNextTier)
+        if (Combo > MinimumComboForVial)
         {
             if (!completingVialRequirement) {
-                Invoke("UnlockComboVial", RequiredTimeUnlockVial);
+                startTimeUnlockVial = Time.time;
             }
             completingVialRequirement = true;
         }
         else
         {
             completingVialRequirement = false;
-            CancelInvoke("UnlockComboVial");
+            GameManager.Instance.HandleHighestTimeAboveHighCombo(Time.time - startTimeUnlockVial);
         }
-    }
-    private void UnlockComboVial() {
-        GameManager.Instance.UnlockVial(VialType.SPAWN_VIAL);
     }
     private void ShowComboStreak(int amount)
     {

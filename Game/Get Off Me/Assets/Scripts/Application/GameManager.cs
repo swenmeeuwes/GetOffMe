@@ -14,6 +14,8 @@ public class GameManager
 
     private static GameManager _instance;
     private float timeGameStarted;
+    private ComboSystem comboSystem;
+    private VialContext vialContext;
 
     public static GameManager Instance
     {
@@ -35,14 +37,18 @@ public class GameManager
         set
         {
             _state = value;
-            HandleSaveGame();
+            HandleVialsStats();
         }
     }
 
     public SaveGameModel SaveGame { get; set; }
+    public void HookComboSystem(ComboSystem system) {
+        comboSystem = system;
+    }
 
-    public GameManager()
+    private GameManager()
     {
+        vialContext = ResourceLoadService.Instance.Load<VialContext>(ResourceLoadService.VIAL_CONTEXT_PATH);
         _state = GameState.MAINMENU;
 
         if (SceneManager.GetActiveScene().name == "Game")
@@ -68,9 +74,22 @@ public class GameManager
         }
     }
     public void UnlockVial(VialType vial) {
+        Debug.Log("Unlock Vial: " + vial.ToString());
         SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == vial).First().Unlocked = true;
     }
-    private void HandleSaveGame() {
+    public void HandleHighestTimeAboveHighCombo(float time) {
+        SaveGame.HighestTimeWithoutLosingHighCombo = Math.Max(time, SaveGame.HighestTimeWithoutLosingHighCombo);
+        if (SaveGame.HighestTimeWithoutLosingHighCombo > 100.0f) {
+            UnlockVial(VialType.SPAWN_VIAL);
+        }
+    }
+    public void HandleEnemiesKilledWithoutGettingHit(int enemyCount) {
+        SaveGame.HighestEnemyKillCountWithoutGettingHit = Math.Max(enemyCount, SaveGame.HighestEnemyKillCountWithoutGettingHit);
+        if(enemyCount > 5) {
+            UnlockVial(VialType.SPEED_VIAL);
+        }
+    }
+    private void HandleVialsStats() {
         switch (State) {
             case GameState.GAMEOVER:
 
@@ -90,6 +109,9 @@ public class GameManager
 
                 if (SaveGame.EnemyKillCount[(int)EntityType.SLIME_WIZARD] >= 300) {
                     UnlockVial(VialType.WIZARD_VIAL);
+                }
+                if (comboSystem.completingVialRequirement) {
+                    HandleHighestTimeAboveHighCombo(Time.time - comboSystem.startTimeUnlockVial);
                 }
                 Save();
                 break;

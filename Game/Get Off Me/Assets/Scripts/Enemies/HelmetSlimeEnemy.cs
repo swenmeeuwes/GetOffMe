@@ -14,6 +14,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
     protected override void Awake()
     {
         base.Awake();
+        entityType = EntityType.SLIME_HELMET;
 
         if (pointsForHelmetTap <= 0)
             pointsForHelmetTap = 1;

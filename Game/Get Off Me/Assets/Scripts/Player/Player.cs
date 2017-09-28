@@ -21,6 +21,9 @@ public class Player : MonoBehaviour {
     public float maxHealth;
     private float targetSize;
 
+    [HideInInspector]
+    public int enemiesKilledWithoutGettingHit = 0;
+
     private bool m_Lit;
     public bool Lit {
         get {
@@ -84,7 +87,9 @@ public class Player : MonoBehaviour {
     }
     public void Damage(float amount)
     {
-		comboSystem.Decrease();
+        GameManager.Instance.HandleEnemiesKilledWithoutGettingHit(enemiesKilledWithoutGettingHit);
+        enemiesKilledWithoutGettingHit = 0;
+        comboSystem.Decrease();
         health -= amount;
 
         VibrationService.Vibrate(onHitVibrationDuration);
