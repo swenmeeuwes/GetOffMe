@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b91bd365260734eabfed3dc923bc7d, type: 3}
+  m_Name: VialContext
+  m_EditorClassIdentifier: 
+  data:
+  - type: 0
+    sprite: {fileID: 21300000, guid: e4fb207fbd0ff624c9dc302bee0f9c48, type: 3}
+    negativeEffect: NEG SPAWN
+    positiveEffect: POS SPAWN
+    unlockCondition: UNLOCKERINO SPAWNERINO
+  - type: 1
+    sprite: {fileID: 21300000, guid: eef33fac3eb81c34d9bf65a30244eb96, type: 3}
+    negativeEffect: feelsbadman
+    positiveEffect: geeee what a rush!
+    unlockCondition: unlocky never lucky
+  - type: 2
+    sprite: {fileID: 21300000, guid: d146493b053d5274a866f7d27b13f516, type: 3}
+    negativeEffect: 
+    positiveEffect: 
+    unlockCondition: 
+  - type: 3
+    sprite: {fileID: 21300000, guid: beda9a829ed3bbe4c9a15cbc6339eb04, type: 3}
+    negativeEffect: 
+    positiveEffect: 
+    unlockCondition: 
+  - type: 4
+    sprite: {fileID: 21300000, guid: a0f5a4a10d5c41d49a1ce2cec9e5327c, type: 3}
+    negativeEffect: 
+    positiveEffect: 
+    unlockCondition: 
+  - type: 5
+    sprite: {fileID: 21300000, guid: 56faba4b3474632439e18f1b3093375d, type: 3}
+    negativeEffect: 
+    positiveEffect: 
+    unlockCondition: 

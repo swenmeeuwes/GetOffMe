@@ -15,7 +15,7 @@ public class VialManager {
 	}
 	public Dictionary<VialType, IVial> vials;
 	private VialManager(){
-		vials = new Dictionary<VialType, IVial> ();
+		vials = new Dictionary<VialType, IVial> (); // Shouldn't these vials be pulled out of the vial asset database?
 		vials.Add (VialType.SPEED_VIAL, new SpeedVial ());
 		vials.Add (VialType.SPAWN_VIAL, new FastSpawnerVial ());
 		vials.Add (VialType.HELMET_VIAL, new HelmetVial ());
