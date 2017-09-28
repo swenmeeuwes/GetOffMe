@@ -70,7 +70,7 @@ public class ComboSystem : MonoBehaviour
     }
 
 	void Start () {
-        //soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         if (orthographicCamera == null)
 			orthographicCamera = Camera.main;
 
@@ -170,7 +170,7 @@ public class ComboSystem : MonoBehaviour
         player.Lit = (Combo > OnFireMinimumTier * ComboNeededForNextTier);
         
         currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
-        //soundManager.HandleComboTier(currentComboTier);
+        soundManager.HandleComboTier(currentComboTier);
         if (Combo > MinimumComboForVial)
         {
             if (!completingVialRequirement) {
