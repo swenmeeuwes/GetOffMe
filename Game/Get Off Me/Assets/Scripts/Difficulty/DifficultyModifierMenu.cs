@@ -63,15 +63,17 @@ public class DifficultyModifierMenu : MonoBehaviour {
     private void UpdateSelection()
     {
         selectedModifier = saveGameModel.DifficultyModifiers[selectedModifierIndex];
-        modifierNameTextField.text = selectedModifier.Type.ToString();
 
         var modifierContext = vialContext.data.Where(modifier => modifier.type == selectedModifier.Type).First();
-        var unlocked = UnlockConditionResolver.ConditionsAreMet(modifierContext);
+        var unlocked = selectedModifier.Unlocked; // UnlockConditionResolver.ConditionsAreMet(modifierContext);
+
+        // Set name
+        modifierNameTextField.text = unlocked ? selectedModifier.Type.ToString() : "???";
 
         // Set positive, negative and unlock text
-        positiveTextField.text = modifierContext.positiveEffect;
-        negativeTextField.text = modifierContext.negativeEffect;
-        unlockTextField.text = modifierContext.unlockCondition;
+        positiveTextField.text = unlocked ? modifierContext.positiveEffect : "???";
+        negativeTextField.text = unlocked ? modifierContext.negativeEffect : "???";
+        unlockTextField.text = modifierContext.unlockCondition.Replace("{{VALUE}}", modifierContext.unlockConditionValue.ToString());
 
         // Set image containers
         imageContainers[0].sprite = vialSprites[PrecedingIndex]; // LEFT
@@ -101,15 +103,11 @@ public class DifficultyModifierMenu : MonoBehaviour {
 
     private Color ResolveContainerColor(DifficultyModifier difficultyModifier)
     {
-        var vialData = vialContext.data.Where(vial => difficultyModifier.Type == vial.type).First();
-        if (!UnlockConditionResolver.ConditionsAreMet(vialData))
-        {
+        if (difficultyModifier.Unlocked)
             return Color.black;
-        }
-        else if (!difficultyModifier.Enabled)
-        {
+
+        if (!difficultyModifier.Enabled)
             return Color.gray;
-        }
 
         return Color.white;
     }
