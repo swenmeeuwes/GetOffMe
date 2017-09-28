@@ -11,4 +11,8 @@ public class SaveGameModel {
     public int TotalGamesPlayed { get; set; }
 
     public List<int> EnemyKillCount;
+
+    public int HighestEnemyKillCountWithoutGettingHit;
+
+    public int HighestTimeWithoutLosingHighCombo;
 }
