@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 212910014906869816}
   - component: {fileID: 50592408568447226}
   - component: {fileID: 95964893113064748}
-  - component: {fileID: 58775880089310352}
   - component: {fileID: 198339619877014186}
   - component: {fileID: 199508150593940786}
   - component: {fileID: 114275007451508820}
+  - component: {fileID: 61074137748061382}
   m_Layer: 8
   m_Name: BombEnemy
   m_TagString: Enemy
@@ -66,8 +66,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58775880089310352
-CircleCollider2D:
+--- !u!61 &61074137748061382
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -78,9 +78,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0}
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.96}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 0.64, y: 0.96}
+  m_EdgeRadius: 0
 --- !u!95 &95964893113064748
 Animator:
   serializedVersion: 3
@@ -173,7 +183,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 36109760
+  randomSeed: -130183135
   InitialModule:
     serializedVersion: 3
     enabled: 1
