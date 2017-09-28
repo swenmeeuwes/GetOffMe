@@ -66,6 +66,7 @@ public class DifficultyModifierMenu : MonoBehaviour {
         modifierNameTextField.text = selectedModifier.Type.ToString();
 
         var modifierContext = vialContext.data.Where(modifier => modifier.type == selectedModifier.Type).First();
+        var unlocked = UnlockConditionResolver.ConditionsAreMet(modifierContext);
 
         // Set positive, negative and unlock text
         positiveTextField.text = modifierContext.positiveEffect;
@@ -78,9 +79,13 @@ public class DifficultyModifierMenu : MonoBehaviour {
         imageContainers[2].sprite = vialSprites[SucceedingIndex]; // RIGHT
 
         // Visualize modifier state in vail
-        imageContainers[0].color = saveGameModel.DifficultyModifiers[PrecedingIndex].Enabled ? Color.white : Color.gray;
-        imageContainers[1].color = selectedModifier.Enabled ? Color.white : Color.gray;
-        imageContainers[2].color = saveGameModel.DifficultyModifiers[SucceedingIndex].Enabled ? Color.white : Color.gray;
+        //imageContainers[0].color = saveGameModel.DifficultyModifiers[PrecedingIndex].Enabled ? Color.white : Color.gray;
+        //imageContainers[1].color = selectedModifier.Enabled ? Color.white : Color.gray;
+        //imageContainers[2].color = saveGameModel.DifficultyModifiers[SucceedingIndex].Enabled ? Color.white : Color.gray;
+
+        imageContainers[0].color = ResolveContainerColor(saveGameModel.DifficultyModifiers[PrecedingIndex]);
+        imageContainers[1].color = ResolveContainerColor(selectedModifier);
+        imageContainers[2].color = ResolveContainerColor(saveGameModel.DifficultyModifiers[SucceedingIndex]);
 
         if (selectedModifier.Enabled)
         {
@@ -92,6 +97,21 @@ public class DifficultyModifierMenu : MonoBehaviour {
             modifierNameTextField.color = new Color(1, 0, 0);
             //statusTextField.text = "Enable";
         }
+    }
+
+    private Color ResolveContainerColor(DifficultyModifier difficultyModifier)
+    {
+        var vialData = vialContext.data.Where(vial => difficultyModifier.Type == vial.type).First();
+        if (!UnlockConditionResolver.ConditionsAreMet(vialData))
+        {
+            return Color.black;
+        }
+        else if (!difficultyModifier.Enabled)
+        {
+            return Color.gray;
+        }
+
+        return Color.white;
     }
 
     private int PrecedingIndex
