@@ -14,5 +14,5 @@ public class SaveGameModel {
 
     public int HighestEnemyKillCountWithoutGettingHit;
 
-    public int HighestTimeWithoutLosingHighCombo;
+    public float HighestTimeWithoutLosingHighCombo;
 }
