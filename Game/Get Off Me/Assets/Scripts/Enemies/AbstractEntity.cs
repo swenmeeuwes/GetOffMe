@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class AbstractEntity : EventDispatcher, ITouchable
 {
+    protected EntityType entityType = EntityType.SLIME_NONE;
+
+
     [SerializeField]
     private EntityModel entityModel;
 
@@ -228,8 +231,22 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         OnEntityDestroy();
     }
     public void Die() {
+        TrackDeath();
         Destroy(GetComponent <CircleCollider2D>() );
         StartCoroutine(DieAnimation());
+    }
+    protected virtual void TrackDeath() {
+        if (GameManager.Instance.SaveGame.EnemyTypes.Contains(entityType))
+        {
+            GameManager.Instance.SaveGame.EnemyKillCount[GameManager.Instance.SaveGame.EnemyTypes.IndexOf(entityType)]++;
+        }
+        else
+        {
+            GameManager.Instance.SaveGame.EnemyTypes.Add(entityType);
+            GameManager.Instance.SaveGame.EnemyKillCount.Add(1);
+        }
+        Debug.Log(entityType + GameManager.Instance.SaveGame.EnemyKillCount[GameManager.Instance.SaveGame.EnemyTypes.IndexOf(entityType)]);
+        GameManager.Instance.Save();
     }
     private IEnumerator DieAnimation()
     {

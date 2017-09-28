@@ -9,4 +9,7 @@ public class SaveGameModel {
     public float TotalTimeAlive { get; set; }
     public int TotalScore { get; set; }
     public int TotalGamesPlayed { get; set; }
+
+    public List<EntityType> EnemyTypes;
+    public List<int> EnemyKillCount;
 }

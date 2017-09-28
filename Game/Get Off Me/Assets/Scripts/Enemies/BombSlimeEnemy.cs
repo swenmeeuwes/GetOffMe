@@ -12,7 +12,7 @@ public class BombSlimeEnemy : SeekingEntity {
     protected override void Awake()
     {
         base.Awake();
-
+        entityType = EntityType.SLIME_BOMB;
         IgnoreTap = true;
         ComboEnabled = false;
     }
@@ -46,6 +46,10 @@ public class BombSlimeEnemy : SeekingEntity {
     {
         player.AbsorbEnemy(model.health);
         base.OnPlayerHit(player);
+    }
+    protected override void TrackDeath()
+    {
+        
     }
     public override void Accept(IVial vial)
     {

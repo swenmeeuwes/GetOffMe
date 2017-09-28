@@ -34,7 +34,7 @@ public class GameManager
         set
         {
             _state = value;
-            HandleGameSave();
+            HandleSaveGame();
         }
     }
 
@@ -56,19 +56,44 @@ public class GameManager
             var difficultyModifierDatabase = Resources.Load<DifficultyModifierDatabase>("Config/DifficultyModifierDatabase");
             SaveGame = new SaveGameModel()
             {
-                DifficultyModifiers = difficultyModifierDatabase.difficultyModifiers
+                DifficultyModifiers = difficultyModifierDatabase.difficultyModifiers,
+                EnemyTypes = new List<EntityType>(),
+                EnemyKillCount = new List<int>()
             };
+            SaveGame.EnemyTypes.Add(EntityType.SLIME_NORMAL);
+            SaveGame.EnemyTypes.Add(EntityType.SLIME_HELMET);
+            SaveGame.EnemyTypes.Add(EntityType.SLIME_ROGUE);
+            SaveGame.EnemyTypes.Add(EntityType.SLIME_WIZARD);
+            SaveGame.EnemyTypes.Add(EntityType.SLIME_BOMB);
+            SaveGame.EnemyTypes.Add(EntityType.SLIME_MEDIC);
+
+            for (int i = 0; i < SaveGame.EnemyTypes.Count; i++) {
+                SaveGame.EnemyKillCount.Add(0);
+            }
             Save();
             //
         }
     }
-    private void HandleGameSave() {
+    private void HandleSaveGame() {
         switch (State) {
             case GameState.GAMEOVER:
+
                 SaveGame.TotalTimeAlive += (Time.time - timeGameStarted);
                 SaveGame.TotalGamesPlayed++;
                 if (SaveGame.TotalGamesPlayed > 3600) {
                     SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == VialType.SPAWN_VIAL).First().Unlocked = true;
+                }
+
+                if (SaveGame.EnemyKillCount[SaveGame.EnemyTypes.IndexOf(EntityType.SLIME_HELMET)] >= 500) {
+                    SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == VialType.HELMET_VIAL).First().Unlocked = true;
+                }
+
+                if (SaveGame.EnemyKillCount[SaveGame.EnemyTypes.IndexOf(EntityType.SLIME_ROGUE)] >= 400) {
+                    SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == VialType.ROGUE_VIAL).First().Unlocked = true;
+                }
+
+                if (SaveGame.EnemyKillCount[SaveGame.EnemyTypes.IndexOf(EntityType.SLIME_WIZARD)] >= 300) {
+                    SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == VialType.WIZARD_VIAL).First().Unlocked = true;
                 }
                 Save();
                 break;

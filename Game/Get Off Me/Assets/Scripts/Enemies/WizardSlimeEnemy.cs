@@ -16,7 +16,7 @@ public class WizardSlimeEnemy : SeekingEntity {
     protected override void Awake()
     {
         base.Awake();
-
+        entityType = EntityType.SLIME_WIZARD;
         IgnoreTap = true;
     }
     
