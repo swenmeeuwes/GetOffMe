@@ -14,31 +14,43 @@ MonoBehaviour:
   data:
   - type: 0
     sprite: {fileID: 21300000, guid: e4fb207fbd0ff624c9dc302bee0f9c48, type: 3}
-    negativeEffect: NEG SPAWN
-    positiveEffect: POS SPAWN
+    negativeEffect: '- Spawn Interval'
+    positiveEffect: 
+    unlockConditionType: 0
+    unlockConditionValue: 0
     unlockCondition: UNLOCKERINO SPAWNERINO
   - type: 1
     sprite: {fileID: 21300000, guid: eef33fac3eb81c34d9bf65a30244eb96, type: 3}
-    negativeEffect: feelsbadman
-    positiveEffect: geeee what a rush!
-    unlockCondition: unlocky never lucky
+    negativeEffect: '- Lower Health'
+    positiveEffect: + Medic Spawn Rate       + Circle Size
+    unlockConditionType: 0
+    unlockConditionValue: 1
+    unlockCondition: Survive for {{VALUE}} hour
   - type: 2
     sprite: {fileID: 21300000, guid: d146493b053d5274a866f7d27b13f516, type: 3}
     negativeEffect: 
     positiveEffect: 
+    unlockConditionType: 0
+    unlockConditionValue: 0
     unlockCondition: 
   - type: 3
     sprite: {fileID: 21300000, guid: beda9a829ed3bbe4c9a15cbc6339eb04, type: 3}
     negativeEffect: 
     positiveEffect: 
+    unlockConditionType: 0
+    unlockConditionValue: 0
     unlockCondition: 
   - type: 4
     sprite: {fileID: 21300000, guid: a0f5a4a10d5c41d49a1ce2cec9e5327c, type: 3}
     negativeEffect: 
     positiveEffect: 
+    unlockConditionType: 0
+    unlockConditionValue: 0
     unlockCondition: 
   - type: 5
     sprite: {fileID: 21300000, guid: 56faba4b3474632439e18f1b3093375d, type: 3}
     negativeEffect: 
     positiveEffect: 
+    unlockConditionType: 0
+    unlockConditionValue: 0
     unlockCondition: 
