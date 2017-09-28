@@ -57,11 +57,11 @@ public static class UnlockConditionResolver {
                 var wizardSlimeKills = saveGame.EnemyKillCount[(int)EntityType.SLIME_WIZARD];
                 return Mathf.Clamp01(wizardSlimeKills / vialData.unlockConditionValue);
             case UnlockConditions.MAINTAIN_HIGH_COMBO_FOR_X_SECONDS:
-                return Mathf.Clamp01(vialData.unlockConditionValue / saveGame.HighestTimeWithoutLosingHighCombo);
+                return Mathf.Clamp01(saveGame.HighestTimeWithoutLosingHighCombo / vialData.unlockConditionValue);
             case UnlockConditions.KILL_WITHOUT_GETTING_HIT:
-                return Mathf.Clamp01(vialData.unlockConditionValue / saveGame.HighestEnemyKillCountWithoutGettingHit);
+                return Mathf.Clamp01(saveGame.HighestEnemyKillCountWithoutGettingHit / vialData.unlockConditionValue);
             case UnlockConditions.SURVIVE_OVER_MULTIPLE_GAMES:
-                return Mathf.Clamp01(vialData.unlockConditionValue / saveGame.TotalTimeAlive);
+                return Mathf.Clamp01(saveGame.TotalTimeAlive / vialData.unlockConditionValue);
         }
 
         throw new NotImplementedException(string.Format("Unlock condition {0} is not yet implemented", vialData.unlockConditionType.ToString()));
