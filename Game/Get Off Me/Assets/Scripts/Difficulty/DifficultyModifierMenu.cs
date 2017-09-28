@@ -55,6 +55,9 @@ public class DifficultyModifierMenu : MonoBehaviour {
     
     public void ToggleSelected()
     {
+        if (!selectedModifier.Unlocked)
+            return;
+
         selectedModifier.Enabled = !selectedModifier.Enabled;
         UpdateSelection();
         GameManager.Instance.Save();
@@ -68,12 +71,17 @@ public class DifficultyModifierMenu : MonoBehaviour {
         var unlocked = selectedModifier.Unlocked; // UnlockConditionResolver.ConditionsAreMet(modifierContext);
 
         // Set name
-        modifierNameTextField.text = unlocked ? selectedModifier.Type.ToString() : "???";
+        modifierNameTextField.text = unlocked ? modifierContext.name : "???";
 
         // Set positive, negative and unlock text
         positiveTextField.text = unlocked ? modifierContext.positiveEffect : "???";
         negativeTextField.text = unlocked ? modifierContext.negativeEffect : "???";
-        unlockTextField.text = modifierContext.unlockCondition.Replace("{{VALUE}}", modifierContext.unlockConditionValue.ToString());
+
+        var progression = UnlockConditionResolver.GetProgression(modifierContext);
+        unlockTextField.text = modifierContext.unlockCondition
+            .Replace("{{GOAL}}", modifierContext.unlockConditionValue.ToString())
+            .Replace("{{CURRENT}}", (modifierContext.unlockConditionValue * progression).ToString())
+            .Replace("{{PROGRESSION}}", Mathf.RoundToInt(progression * 100).ToString());
 
         // Set image containers
         imageContainers[0].sprite = vialSprites[PrecedingIndex]; // LEFT
@@ -81,10 +89,6 @@ public class DifficultyModifierMenu : MonoBehaviour {
         imageContainers[2].sprite = vialSprites[SucceedingIndex]; // RIGHT
 
         // Visualize modifier state in vail
-        //imageContainers[0].color = saveGameModel.DifficultyModifiers[PrecedingIndex].Enabled ? Color.white : Color.gray;
-        //imageContainers[1].color = selectedModifier.Enabled ? Color.white : Color.gray;
-        //imageContainers[2].color = saveGameModel.DifficultyModifiers[SucceedingIndex].Enabled ? Color.white : Color.gray;
-
         imageContainers[0].color = ResolveContainerColor(saveGameModel.DifficultyModifiers[PrecedingIndex]);
         imageContainers[1].color = ResolveContainerColor(selectedModifier);
         imageContainers[2].color = ResolveContainerColor(saveGameModel.DifficultyModifiers[SucceedingIndex]);
@@ -103,7 +107,7 @@ public class DifficultyModifierMenu : MonoBehaviour {
 
     private Color ResolveContainerColor(DifficultyModifier difficultyModifier)
     {
-        if (difficultyModifier.Unlocked)
+        if (!difficultyModifier.Unlocked)
             return Color.black;
 
         if (!difficultyModifier.Enabled)

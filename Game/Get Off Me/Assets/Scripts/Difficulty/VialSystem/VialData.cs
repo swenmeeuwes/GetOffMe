@@ -5,6 +5,7 @@ using UnityEngine;
 public class VialData {
     public VialType type;
     public Sprite sprite;
+    public string name;
     public string negativeEffect;
     public string positiveEffect;
     public UnlockConditions unlockConditionType;
