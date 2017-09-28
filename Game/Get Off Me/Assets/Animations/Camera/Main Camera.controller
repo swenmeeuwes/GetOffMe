@@ -49,7 +49,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: CameraShake
-  m_Speed: 2
+  m_Speed: 8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101042219960864264}
