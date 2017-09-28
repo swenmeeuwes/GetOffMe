@@ -63,14 +63,17 @@ public class DifficultyModifierMenu : MonoBehaviour {
     private void UpdateSelection()
     {
         selectedModifier = saveGameModel.DifficultyModifiers[selectedModifierIndex];
-        modifierNameTextField.text = selectedModifier.Type.ToString();
 
         var modifierContext = vialContext.data.Where(modifier => modifier.type == selectedModifier.Type).First();
+        var unlocked = selectedModifier.Unlocked; // UnlockConditionResolver.ConditionsAreMet(modifierContext);
+
+        // Set name
+        modifierNameTextField.text = unlocked ? selectedModifier.Type.ToString() : "???";
 
         // Set positive, negative and unlock text
-        positiveTextField.text = modifierContext.positiveEffect;
-        negativeTextField.text = modifierContext.negativeEffect;
-        unlockTextField.text = modifierContext.unlockCondition;
+        positiveTextField.text = unlocked ? modifierContext.positiveEffect : "???";
+        negativeTextField.text = unlocked ? modifierContext.negativeEffect : "???";
+        unlockTextField.text = modifierContext.unlockCondition.Replace("{{VALUE}}", modifierContext.unlockConditionValue.ToString());
 
         // Set image containers
         imageContainers[0].sprite = vialSprites[PrecedingIndex]; // LEFT
@@ -78,9 +81,13 @@ public class DifficultyModifierMenu : MonoBehaviour {
         imageContainers[2].sprite = vialSprites[SucceedingIndex]; // RIGHT
 
         // Visualize modifier state in vail
-        imageContainers[0].color = saveGameModel.DifficultyModifiers[PrecedingIndex].Enabled ? Color.white : Color.gray;
-        imageContainers[1].color = selectedModifier.Enabled ? Color.white : Color.gray;
-        imageContainers[2].color = saveGameModel.DifficultyModifiers[SucceedingIndex].Enabled ? Color.white : Color.gray;
+        //imageContainers[0].color = saveGameModel.DifficultyModifiers[PrecedingIndex].Enabled ? Color.white : Color.gray;
+        //imageContainers[1].color = selectedModifier.Enabled ? Color.white : Color.gray;
+        //imageContainers[2].color = saveGameModel.DifficultyModifiers[SucceedingIndex].Enabled ? Color.white : Color.gray;
+
+        imageContainers[0].color = ResolveContainerColor(saveGameModel.DifficultyModifiers[PrecedingIndex]);
+        imageContainers[1].color = ResolveContainerColor(selectedModifier);
+        imageContainers[2].color = ResolveContainerColor(saveGameModel.DifficultyModifiers[SucceedingIndex]);
 
         if (selectedModifier.Enabled)
         {
@@ -92,6 +99,17 @@ public class DifficultyModifierMenu : MonoBehaviour {
             modifierNameTextField.color = new Color(1, 0, 0);
             //statusTextField.text = "Enable";
         }
+    }
+
+    private Color ResolveContainerColor(DifficultyModifier difficultyModifier)
+    {
+        if (difficultyModifier.Unlocked)
+            return Color.black;
+
+        if (!difficultyModifier.Enabled)
+            return Color.gray;
+
+        return Color.white;
     }
 
     private int PrecedingIndex
