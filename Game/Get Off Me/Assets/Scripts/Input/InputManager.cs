@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour {
@@ -18,16 +19,6 @@ public class InputManager : MonoBehaviour {
     }
 
     private List<ITouchable> registeredTouchables;
-
-    public void Register(ITouchable touchable)
-    {
-        registeredTouchables.Add(touchable);
-    }
-
-    public void Deregister(ITouchable touchable)
-    {
-        registeredTouchables.Remove(touchable);
-    }
 
     private void Awake()
     {
@@ -112,6 +103,7 @@ public class InputManager : MonoBehaviour {
 
             // Tag the ITouchable with the fingerId so we can call OnTouch and OnTouchEnded on the same object later
             touchable.FingerIds.Add(touch.fingerId);
+            registeredTouchables.Add(touchable);
 
             touchable.OnTouchBegan(touch);
         }
@@ -119,6 +111,7 @@ public class InputManager : MonoBehaviour {
 
     private void HandleTouch(Touch touch)
     {
+        var toBeDeleted = new List<ITouchable>();
         foreach (var touchable in registeredTouchables)
         {
             if (touchable.FingerIds.Count == 0 || !touchable.FingerIds.Contains(touch.fingerId))
@@ -135,9 +128,12 @@ public class InputManager : MonoBehaviour {
 
                     // Remove tag so that the events won't fire anymore
                     touchable.FingerIds.Remove(touch.fingerId);
+                    toBeDeleted.Add(touchable);
                     break;
             }
         }
+
+        toBeDeleted.ForEach(touchable => registeredTouchables.Remove(touchable));
     }
 
     private void OnDrawGizmos()

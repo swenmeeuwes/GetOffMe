@@ -30,7 +30,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
     protected override void Start() {
         base.Start();
     }
-    public override void OnTap() {
+    protected override void OnTap() {
         if (hasHelmet)
         {
 			neededTapsForHelmet--;
