@@ -981,7 +981,7 @@ GameObject:
   - component: {fileID: 831005819}
   - component: {fileID: 831005818}
   m_Layer: 5
-  m_Name: ProgressText
+  m_Name: ProgressionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1785,7 +1785,7 @@ GameObject:
   - component: {fileID: 1411610420}
   - component: {fileID: 1411610419}
   m_Layer: 5
-  m_Name: ProgressText
+  m_Name: ProgressionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1909,12 +1909,12 @@ GameObject:
   - component: {fileID: 1586461669}
   - component: {fileID: 1586461668}
   m_Layer: 5
-  m_Name: ProgressText
+  m_Name: ProgressionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1586461667
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1945,7 +1945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

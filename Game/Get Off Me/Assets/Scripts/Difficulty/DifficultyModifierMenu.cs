@@ -88,10 +88,13 @@ public class DifficultyModifierMenu : MonoBehaviour {
         imageContainers[1].sprite = vialSprites[selectedModifierIndex]; // MIDDLE
         imageContainers[2].sprite = vialSprites[SucceedingIndex]; // RIGHT
 
-        // Visualize modifier state in vail
+        // Visualize modifier state in vial
         imageContainers[0].color = ResolveContainerColor(saveGameModel.DifficultyModifiers[PrecedingIndex]);
         imageContainers[1].color = ResolveContainerColor(selectedModifier);
         imageContainers[2].color = ResolveContainerColor(saveGameModel.DifficultyModifiers[SucceedingIndex]);
+
+        // Visualize progression towards vial if the vial is not unlocked
+        imageContainers[1].transform.Find("ProgressionText").GetComponent<Text>().text = !unlocked ? Mathf.RoundToInt(progression * 100) + "%" : "";
 
         if (selectedModifier.Enabled)
         {
