@@ -17,6 +17,7 @@ public class PreferencesScripts : MonoBehaviour {
     }
 
     public void ToggleTutorial() {
-        PlayerPrefs.SetInt(PlayerPrefsLiterals.DID_TUTORIAL, toggle.isOn ? 0 : 1);
+        if(toggle != null)
+            PlayerPrefs.SetInt(PlayerPrefsLiterals.DID_TUTORIAL, toggle.isOn ? 0 : 1);
     }
 }
