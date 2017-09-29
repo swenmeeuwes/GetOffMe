@@ -8,15 +8,15 @@ public class PreferencesScripts : MonoBehaviour {
     public void Start() {
         toggle = GetComponent<Toggle>();
         
-        toggle.isOn = PlayerPrefs.GetInt("ShowTutorial") == 1;
+        toggle.isOn = PlayerPrefs.GetInt(PlayerPrefsLiterals.DID_TUTORIAL) == 0;
     }
 
     public void EnableTutorial()
     {
-        PlayerPrefs.SetInt("ShowTutorial", 1);
+        PlayerPrefs.SetInt(PlayerPrefsLiterals.DID_TUTORIAL, 0);
     }
 
     public void ToggleTutorial() {
-        PlayerPrefs.SetInt("ShowTutorial", toggle.isOn ? 1 : 0);
+        PlayerPrefs.SetInt(PlayerPrefsLiterals.DID_TUTORIAL, toggle.isOn ? 0 : 1);
     }
 }

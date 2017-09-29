@@ -42,7 +42,8 @@ public class TutorialPlayer : MonoBehaviour {
 
         tutorialTextField.text = "";
 
-        if (PlayerPrefs.GetInt("ShowTutorial", 1) == 1)
+        Debug.Log(PlayerPrefs.GetInt(PlayerPrefsLiterals.DID_TUTORIAL, 0) == 0);
+        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.DID_TUTORIAL, 0) == 0)
         {
             //player.Damage(1);
             Next();

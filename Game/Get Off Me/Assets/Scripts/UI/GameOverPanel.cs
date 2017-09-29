@@ -25,8 +25,8 @@ public class GameOverPanel : MonoBehaviour {
             var isNewPersonalBest = ScoreManager.Instance.Score >= ScoreManager.Instance.Highscore;
             newPersonalBestPanel.SetActive(isNewPersonalBest);
 
-            if (PlayerPrefs.GetInt("ShowTutorial", 1) == 1 && ScoreManager.Instance.Score > 100)
-                PlayerPrefs.SetInt("ShowTutorial", 0);
+            if (PlayerPrefs.GetInt(PlayerPrefsLiterals.DID_TUTORIAL, 0) == 0 && ScoreManager.Instance.Score > 100)
+                PlayerPrefs.SetInt(PlayerPrefsLiterals.DID_TUTORIAL, 1);
 
             ScoreManager.Instance.SubmitHighscore(true);
         }
