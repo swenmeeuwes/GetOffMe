@@ -20,6 +20,16 @@ public class InputManager : MonoBehaviour {
 
     private List<ITouchable> registeredTouchables;
 
+    public void Register(ITouchable touchable)
+    {
+        registeredTouchables.Add(touchable);
+    }
+
+    public void Deregister(ITouchable touchable)
+    {
+        registeredTouchables.Remove(touchable);
+    }
+
     private void Awake()
     {
         registeredTouchables = new List<ITouchable>();

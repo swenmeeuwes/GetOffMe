@@ -192,6 +192,7 @@ public abstract class AbstractEntity : AbstractDraggable
     }
     public void OnEntityDestroy() {
         dragParticles.Stop();
+        InputManager.Main.Deregister(this);
 
         Destroy(gameObject);
     }
