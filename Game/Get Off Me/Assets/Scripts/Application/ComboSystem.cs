@@ -10,6 +10,8 @@ public class ComboSystem : MonoBehaviour
     [SerializeField]
     private Camera orthographicCamera;
     [SerializeField]
+    private Text comboHelpText;
+    [SerializeField]
     private Text comboStreakTextField;
     [SerializeField]
     private Text encouragementTextField;
@@ -150,7 +152,7 @@ public class ComboSystem : MonoBehaviour
         var residu = Combo % ComboNeededForNextTier;
         comboCircle.DistortingScale = 1 / (ComboNeededForNextTier / (float)residu);
 
-
+        comboHelpText.gameObject.SetActive(Combo == 0);
 
         if (Combo > 0 && residu == 0)
         {
