@@ -8,7 +8,7 @@ using UnityEngine;
 /// Spawns GameObject X out of the Main Camera's sight
 /// GameObjects are spawned in a radius around the camera's position
 /// </summary>
-public class OffScreenSpawner : AbstractSpawner
+public class OffScreenSpawner : AbstractEntitySpawner
 {
     // Exposed inspector fields
     [SerializeField]

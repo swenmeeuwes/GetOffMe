@@ -8,33 +8,15 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
     // Exposed inspector fields
     [SerializeField]
     private bool enabledByDefault;
-    //[SerializeField][Tooltip("The time it takes in seconds for the first object to spawn.")]
-    //protected float initialDelay;
-    //[SerializeField][Tooltip("The time in seconds in between spawns.")]
-    //protected float interval;
     [SerializeField]
 	public AnimationCurve spawnRateCurve;
-    [SerializeField]
-    private AnimationCurve speedAdditionCurve;
     // ---
 
-    private readonly string SPAWN_METHOD_NAME = "Spawn";
-    private readonly string SPAWN_LIST_NAME = "spawns";
+    protected readonly string SPAWN_METHOD_NAME = "Spawn";
+    protected readonly string SPAWN_LIST_NAME = "spawns";
 
     protected float counter = 0;
     private bool _enabled;
-
-    enum SpawnState
-    {
-        WAVE,
-        REST
-    }
-
-    public float wavePeriod = 12;
-    public float restPeriod = 5;
-    public float restPeriodAdditionalInterval = 1.0f;
-
-    SpawnState spawnState = SpawnState.WAVE;
 
     public bool Enabled
     {
@@ -46,7 +28,7 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
         {
             var newState = value;
             if (!_enabled && newState)
-                Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter)); //InvokeRepeating(SPAWN_METHOD_NAME, initialDelay, interval);
+                Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter));
             else if (Enabled && !newState)
                 CancelInvoke(SPAWN_METHOD_NAME);
 
@@ -83,7 +65,7 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
     public virtual void Spawn()
     {
         if(Enabled)
-            Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter) + (spawnState == SpawnState.REST? restPeriodAdditionalInterval : 0));
+            Invoke(SPAWN_METHOD_NAME, spawnRateCurve.Evaluate(counter));
     }
 
     /// <summary>
@@ -123,29 +105,11 @@ public abstract class AbstractSpawner : MonoBehaviour, ISpawner
     /// </summary>
     /// <param name="objectToSpawn">The prefab to spawn</param>
     /// <returns>The spawned game object</returns>
-    public GameObject CreateSpawn(GameObject objectToSpawn)
+    public virtual GameObject CreateSpawn(GameObject objectToSpawn)
     {
         var spawned = Instantiate(objectToSpawn);
         spawned.transform.parent = SpawnListTransform;
 
-        // Speed addition
-        var speedAddition = speedAdditionCurve.Evaluate(counter);
-
-        var entity = spawned.GetComponent<AbstractEntity>();
-        entity.model.speed += speedAddition;
-
         return spawned;
-    }
-    public void SetWave()
-    {
-        Debug.Log("Start wave");
-        spawnState = SpawnState.WAVE;
-        Invoke("SetRest", wavePeriod);
-    }
-    public void SetRest()
-    {
-        Debug.Log("Start Rest");
-        spawnState = SpawnState.REST;
-        Invoke("SetWave", restPeriod);
     }
 }
