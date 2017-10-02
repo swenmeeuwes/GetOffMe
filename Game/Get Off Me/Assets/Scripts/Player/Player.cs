@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -10,15 +11,28 @@ public class Player : MonoBehaviour {
     [SerializeField]
     public int onHitVibrationDuration = 600;
 
+    [Header("Shockwave")]
+    [SerializeField]
+    public float minCameraSizeOnShockwave = 4.5f;
+    public float maxCameraSize = 5f;
+    public float shockwaveEffectiveRange = 2f;
+    public float shockwaveForce = 60f;
+    public float cameraRestoreDuration = 1f;
+    public float shockwaveCooldown = 2f;
+
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private GameObject onFireObject;
     private ParticleSystem healParticles;
+    private ParticleSystem shockwaveParticles;
 
     private float startScale;
 
+    [HideInInspector]
     public float maxHealth;
     private float targetSize;
+
+    private float lastShockwaveTime = 0;
 
     [HideInInspector]
     public int enemiesKilledWithoutGettingHit = 0;
@@ -34,10 +48,14 @@ public class Player : MonoBehaviour {
         }
     }
 
+    private Action<object> detectedGestureListener;
+
     private void Awake() {
         maxHealth = health;
+
         onFireObject = GameObject.Find("OnFire");
         healParticles = GameObject.Find("HealParticles").GetComponent<ParticleSystem>();
+        shockwaveParticles = GameObject.Find("ShockwaveParticles").GetComponent<ParticleSystem>();
 
         onFireObject.SetActive(false);
     }
@@ -48,10 +66,62 @@ public class Player : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         startScale = transform.localScale.x; // ASSUMPTION: Player is a square
+
+        detectedGestureListener = eventObject => HandleGestureDetected(eventObject);
+        InputManager.Instance.AddEventListener(InputManager.GESTURE_DETECTED, detectedGestureListener);
+    }
+
+    private void Update()
+    {
+        Camera.main.orthographicSize += ((maxCameraSize - Camera.main.orthographicSize) * Time.deltaTime) / cameraRestoreDuration;
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraSizeOnShockwave, 5f);
+    }
+
+    private void OnDestroy()
+    {
+        InputManager.Instance.RemoveEventListener(InputManager.GESTURE_DETECTED, detectedGestureListener);
     }
 
     public void AbsorbEnemy(float size) {
         Damage(1);
+    }
+
+    private void HandleGestureDetected(object gesture)
+    {
+        if (gesture is PinchGesture)
+        {
+            var pinchGesture = (PinchGesture)gesture;
+
+            if (Camera.main.orthographic)
+            {
+                if (pinchGesture.DeltaMagnitude < 0)
+                    Camera.main.orthographicSize += pinchGesture.DeltaMagnitude * InputManager.PINCH_GESTURE_SPEED_MODIFIER;
+
+                if (Camera.main.orthographicSize <= minCameraSizeOnShockwave + 0.2f && Time.time - lastShockwaveTime > shockwaveCooldown)
+                    ExecuteShockwaveAbility(); // We could make an ability system, but not needed for now
+
+                Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraSizeOnShockwave, maxCameraSize);
+            }
+        }
+
+        // Future gestures here ...
+    }
+
+    private void ExecuteShockwaveAbility()
+    {
+        shockwaveParticles.Emit(60);
+
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var enemy in enemies)
+        {
+            if (Vector2.Distance(enemy.transform.position, transform.position) <= transform.lossyScale.x * (64f / 100f) + shockwaveEffectiveRange)
+            {
+                var entityScript = enemy.GetComponent<AbstractEntity>();
+                entityScript.Die();
+            }
+        }
+
+        lastShockwaveTime = Time.time;
     }
 
     public void PauseButton() {
@@ -136,5 +206,11 @@ public class Player : MonoBehaviour {
 
         if (health <= 0)
             GameOver();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, transform.lossyScale.x * (64f / 100f) + shockwaveEffectiveRange);
     }
 }
