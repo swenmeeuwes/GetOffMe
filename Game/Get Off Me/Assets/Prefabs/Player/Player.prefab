@@ -249,6 +249,9 @@ MonoBehaviour:
   shockwaveForce: 1
   cameraRestoreDuration: 1
   shockwaveCooldown: 1
+  shockwaveChargedNeeded: 100
+  shakeOffset: 0.05
+  shockwaveCharge: 0
   maxHealth: 0
   enemiesKilledWithoutGettingHit: 0
 --- !u!198 &198272559030621436

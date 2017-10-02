@@ -19,6 +19,9 @@ public class Player : MonoBehaviour {
     public float shockwaveForce = 60f;
     public float cameraRestoreDuration = 1f;
     public float shockwaveCooldown = 2f;
+    public int shockwaveChargedNeeded = 100;
+    [Tooltip("How much the player will shake when it's fully charged")]
+    public float shakeOffset = 0.2f;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -29,13 +32,16 @@ public class Player : MonoBehaviour {
     private float startScale;
 
     [HideInInspector]
+    public int shockwaveCharge = 0;
+    [HideInInspector]
     public float maxHealth;
-    private float targetSize;
-
-    private float lastShockwaveTime = 0;
-
     [HideInInspector]
     public int enemiesKilledWithoutGettingHit = 0;
+
+    private float targetSize;
+    private float lastShockwaveTime = 0;
+    private Vector3 anchorPosition;
+    private Vector3 chargePosition;
 
     private bool m_Lit;
     public bool Lit {
@@ -49,6 +55,7 @@ public class Player : MonoBehaviour {
     }
 
     private Action<object> detectedGestureListener;
+    private Action<object> comboChangedListener;
 
     private void Awake() {
         maxHealth = health;
@@ -65,10 +72,18 @@ public class Player : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
+        anchorPosition = transform.position;
         startScale = transform.localScale.x; // ASSUMPTION: Player is a square
 
+        // Listeners
         detectedGestureListener = eventObject => HandleGestureDetected(eventObject);
         InputManager.Instance.AddEventListener(InputManager.GESTURE_DETECTED, detectedGestureListener);
+
+        comboChangedListener = eventObject => HandleComboChanged((ComboChangedEvent)eventObject);
+        ComboSystem.Instance.AddEventListener(ComboSystem.COMBO_CHANGED, comboChangedListener);
+
+        // Play animations
+        StartCoroutine(ShowShockwaveCharge());
     }
 
     private void Update()
@@ -77,9 +92,16 @@ public class Player : MonoBehaviour {
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraSizeOnShockwave, 5f);
     }
 
+    private void LateUpdate()
+    {
+        transform.position = chargePosition;
+        spriteRenderer.color = shockwaveCharge == shockwaveChargedNeeded ? Color.blue : Color.white;
+    }
+
     private void OnDestroy()
     {
         InputManager.Instance.RemoveEventListener(InputManager.GESTURE_DETECTED, detectedGestureListener);
+        ComboSystem.Instance.RemoveEventListener(ComboSystem.COMBO_CHANGED, comboChangedListener);
     }
 
     public void AbsorbEnemy(float size) {
@@ -95,11 +117,12 @@ public class Player : MonoBehaviour {
             if (Camera.main.orthographic)
             {
                 var isOnCooldown = Time.time - lastShockwaveTime < shockwaveCooldown;
+                var isCharged = shockwaveCharge == shockwaveChargedNeeded;
 
                 if (pinchGesture.DeltaMagnitude < 0)
                     Camera.main.orthographicSize += pinchGesture.DeltaMagnitude * InputManager.PINCH_GESTURE_SPEED_MODIFIER;
 
-                if (Camera.main.orthographicSize <= minCameraSizeOnShockwave + 0.2f && !isOnCooldown)
+                if (Camera.main.orthographicSize <= minCameraSizeOnShockwave + 0.2f && !isOnCooldown && isCharged)
                     ExecuteShockwaveAbility(); // We could make an ability system, but not needed for now
 
                 Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraSizeOnShockwave, maxCameraSize);
@@ -109,8 +132,19 @@ public class Player : MonoBehaviour {
         // Future gestures here ...
     }
 
+    private void HandleComboChanged(ComboChangedEvent comboChangedEvent)
+    {
+        if (comboChangedEvent.ComboDelta > 0)
+            shockwaveCharge += comboChangedEvent.NewCombo;
+
+        shockwaveCharge = Mathf.Clamp(shockwaveCharge, 0, shockwaveChargedNeeded);
+    }
+
     private void ExecuteShockwaveAbility()
     {
+        if (shockwaveCharge < shockwaveChargedNeeded)
+            return;
+
         shockwaveParticles.Emit(60);
 
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -133,6 +167,7 @@ public class Player : MonoBehaviour {
             }
         }
 
+        shockwaveCharge = 0;
         lastShockwaveTime = Time.time;
     }
 
@@ -218,6 +253,20 @@ public class Player : MonoBehaviour {
 
         if (health <= 0)
             GameOver();
+    }
+
+    private IEnumerator ShowShockwaveCharge()
+    {
+        var shake = shakeOffset;
+        while (true) //shockwaveCharge > 0
+        {
+            shake = -shake;
+            var shakeStrengh = shockwaveCharge / (float)shockwaveChargedNeeded;
+
+            chargePosition = anchorPosition + new Vector3(shake * shakeStrengh, 0, 0);
+
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 
     private void OnDrawGizmos()
