@@ -1698,7 +1698,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Swipe in circle to combo!
+  m_Text: Destroy enemies within the circle to combo!
 --- !u!222 &1586211185
 CanvasRenderer:
   m_ObjectHideFlags: 0
