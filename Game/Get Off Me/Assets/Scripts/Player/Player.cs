@@ -94,10 +94,12 @@ public class Player : MonoBehaviour {
 
             if (Camera.main.orthographic)
             {
+                var isOnCooldown = Time.time - lastShockwaveTime < shockwaveCooldown;
+
                 if (pinchGesture.DeltaMagnitude < 0)
                     Camera.main.orthographicSize += pinchGesture.DeltaMagnitude * InputManager.PINCH_GESTURE_SPEED_MODIFIER;
 
-                if (Camera.main.orthographicSize <= minCameraSizeOnShockwave + 0.2f && Time.time - lastShockwaveTime > shockwaveCooldown)
+                if (Camera.main.orthographicSize <= minCameraSizeOnShockwave + 0.2f && !isOnCooldown)
                     ExecuteShockwaveAbility(); // We could make an ability system, but not needed for now
 
                 Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraSizeOnShockwave, maxCameraSize);
@@ -114,10 +116,20 @@ public class Player : MonoBehaviour {
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemies)
         {
-            if (Vector2.Distance(enemy.transform.position, transform.position) <= transform.lossyScale.x * (64f / 100f) + shockwaveEffectiveRange)
+            var entityScript = enemy.GetComponent<AbstractEntity>();
+            var distanceToPlayer = Vector2.Distance(enemy.transform.position, transform.position);
+            var playerScale = transform.lossyScale.x * (64f / 100f);
+            if (distanceToPlayer < playerScale + shockwaveEffectiveRange) // Don't change to lesser equal, as this could possibly lead to a divide by 0 exception!
             {
-                var entityScript = enemy.GetComponent<AbstractEntity>();
+                var directionVector = enemy.transform.position - transform.position;
+                entityScript.ApplySwipeVelocity((directionVector.normalized * shockwaveForce) / (distanceToPlayer - playerScale - shockwaveEffectiveRange));
+
                 entityScript.Die();
+            }
+            else
+            {
+                var directionVector = enemy.transform.position - transform.position;
+                entityScript.ApplySwipeVelocity((directionVector.normalized * shockwaveForce) / (distanceToPlayer - playerScale - shockwaveEffectiveRange));
             }
         }
 
