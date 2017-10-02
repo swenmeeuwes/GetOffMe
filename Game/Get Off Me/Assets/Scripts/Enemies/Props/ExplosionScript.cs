@@ -12,8 +12,12 @@ public class ExplosionScript : MonoBehaviour {
     {
         animator = GetComponent<Animator>();
 
-        StartCoroutine(SlowExplodeCoroutine());
         VibrationService.Vibrate(vibrationDuration);
+
+        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.CAMERA_SHAKE.ToString(), 0) == 1)
+            StartCoroutine(SlowExplodeCoroutine());
+        else
+            Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
