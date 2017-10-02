@@ -12,7 +12,6 @@ public class Player : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-	private ComboSystem comboSystem;
     private GameObject onFireObject;
     private ParticleSystem healParticles;
 
@@ -37,7 +36,6 @@ public class Player : MonoBehaviour {
 
     private void Awake() {
         maxHealth = health;
-        comboSystem = GameObject.Find("ComboSystem").GetComponent<ComboSystem>();
         onFireObject = GameObject.Find("OnFire");
         healParticles = GameObject.Find("HealParticles").GetComponent<ParticleSystem>();
 
@@ -89,7 +87,7 @@ public class Player : MonoBehaviour {
     {
         GameManager.Instance.HandleEnemiesKilledWithoutGettingHit(enemiesKilledWithoutGettingHit);
         enemiesKilledWithoutGettingHit = 0;
-        comboSystem.Decrease();
+        ComboSystem.Instance.Decrease();
         health -= amount;
 
         VibrationService.Vibrate(onHitVibrationDuration);

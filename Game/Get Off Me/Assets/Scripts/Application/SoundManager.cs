@@ -46,7 +46,6 @@ public class SoundManager : MonoBehaviour {
         Mute(lead2);
     }
     public void HandleComboTier(int tier) {
-        Debug.Log("Tier: "+tier);
         if (tier == playingComboTier) { return; }
 
         Mute(bass);
@@ -64,7 +63,7 @@ public class SoundManager : MonoBehaviour {
         {
             Play(lead);
         }
-        if (tier >= 6)
+        if (tier >= 5)
         {
             Play(lead2);
         }

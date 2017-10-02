@@ -19,8 +19,13 @@ public class ExplosionScript : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D coll)
     {
         AbstractEntity entity = coll.gameObject.GetComponent<AbstractEntity>();
-        if (entity)
+        if (entity) {
+            int score = ComboSystem.Instance.AwardPoints(entity.model.awardPoints);
+            if (score > 0) {
+                ScoreParticleManager.Instance.ShowRewardIndicatorAt(score, entity.transform.position, true);
+            }
             entity.Die();
+        }
     }
 
     private void OnDestroy()
