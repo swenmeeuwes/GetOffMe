@@ -81,7 +81,7 @@ public class DifficultyModifierMenu : MonoBehaviour {
         unlockTextField.text = modifierContext.unlockCondition
             .Replace("{{GOAL}}", modifierContext.unlockConditionValue.ToString())
             .Replace("{{CURRENT}}", (modifierContext.unlockConditionValue * progression).ToString())
-            .Replace("{{PROGRESSION}}", Mathf.RoundToInt(progression * 100).ToString());
+            .Replace("{{PROGRESSION}}", Mathf.Clamp(Mathf.RoundToInt(progression * 100), 0, 100).ToString());
 
         // Set image containers
         imageContainers[0].sprite = vialSprites[PrecedingIndex]; // LEFT
@@ -94,7 +94,7 @@ public class DifficultyModifierMenu : MonoBehaviour {
         imageContainers[2].color = ResolveContainerColor(saveGameModel.DifficultyModifiers[SucceedingIndex]);
 
         // Visualize progression towards vial if the vial is not unlocked
-        imageContainers[1].transform.Find("ProgressionText").GetComponent<Text>().text = !unlocked ? Mathf.RoundToInt(progression * 100) + "%" : "";
+        imageContainers[1].transform.Find("ProgressionText").GetComponent<Text>().text = !unlocked ? Mathf.Clamp(Mathf.RoundToInt(progression * 100), 0, 100) + "%" : "";
 
         if (selectedModifier.Enabled)
         {

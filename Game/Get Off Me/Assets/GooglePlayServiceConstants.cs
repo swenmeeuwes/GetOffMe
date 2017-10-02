@@ -24,7 +24,9 @@
 
 public static class GooglePlayServiceConstants
 {
-        public const string leaderboard_score = "CgkI6PnLn5IDEAIQBA"; // <GPGSID>
+        public const string leaderboard_score = "CgkI6PnLn5IDEAIQBg"; // <GPGSID>
+        public const string leaderboard_score_legacy = "CgkI6PnLn5IDEAIQBA"; // <GPGSID>
+        public const string achievement_combo_apprentice = "CgkI6PnLn5IDEAIQBQ"; // <GPGSID>
 
 }
 
