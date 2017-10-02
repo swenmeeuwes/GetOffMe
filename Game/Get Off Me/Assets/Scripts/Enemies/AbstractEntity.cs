@@ -204,7 +204,7 @@ public abstract class AbstractEntity : AbstractDraggable
         audioSource.PlayOneShot(deathSound, 1.0f);
         player.GetComponent<Player>().enemiesKilledWithoutGettingHit++;
         TrackDeath();
-        Destroy(GetComponent <CircleCollider2D>() );
+        gameObject.layer = LayerMask.NameToLayer("Graveyard");
         StartCoroutine(DieAnimation());
     }
     protected virtual void TrackDeath() {
