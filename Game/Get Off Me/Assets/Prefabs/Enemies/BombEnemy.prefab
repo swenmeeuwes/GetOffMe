@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 199508150593940786}
   - component: {fileID: 114275007451508820}
   - component: {fileID: 61074137748061382}
+  - component: {fileID: 82014225243581874}
   m_Layer: 8
   m_Name: BombEnemy
   m_TagString: Enemy
@@ -91,6 +92,86 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.96}
   m_EdgeRadius: 0
+--- !u!82 &82014225243581874
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1247453931331628}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95964893113064748
 Animator:
   serializedVersion: 3
@@ -122,6 +203,7 @@ MonoBehaviour:
   entityModel: {fileID: 11400000, guid: 38569a76b9840124ca925b3f51141589, type: 2}
   amplifiedSpeed: 0
   model: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: a094cfba462395e4f875bfd3b70c720e, type: 3}
   magnitudeForExplode: 2
   explodeRadius: 2
 --- !u!198 &198339619877014186

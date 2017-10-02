@@ -8,6 +8,8 @@ public class WizardSlimeEnemy : SeekingEntity {
     public float chanceToTeleport;
     public float intervalCheckIfTeleport;
 	public float channelTime;
+
+    public AudioClip teleportSound;
     
 	protected override void Start () {
         base.Start();
@@ -51,6 +53,7 @@ public class WizardSlimeEnemy : SeekingEntity {
         float distance = Vector3.Distance(target.transform.position, gameObject.transform.position);
         Vector3 tmp = new Vector3(Random.Range(0.0f, 2.0f) - 1, Random.Range(0.0f, 2.0f) - 1, 0).normalized * distance;
 
+        audioSource.PlayOneShot(teleportSound, 1.0f);
         CreatePoofCloudOnMe();
         gameObject.transform.position = tmp;
         CreatePoofCloudOnMe();

@@ -11,6 +11,8 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
     public int pointsForHelmetTap;
 
+    public AudioClip loseHelmetSound;
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,6 +42,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
                 IgnoreTap = true;
 
                 // Create flipped particle
+                audioSource.PlayOneShot(loseHelmetSound, 1.0f);
                 var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");
                 var helmetObject = Instantiate(helmetPrefab);
 
