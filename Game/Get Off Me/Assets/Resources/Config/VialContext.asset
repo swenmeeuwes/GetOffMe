@@ -14,50 +14,56 @@ MonoBehaviour:
   data:
   - type: 0
     sprite: {fileID: 21300000, guid: e4fb207fbd0ff624c9dc302bee0f9c48, type: 3}
-    name: 
+    name: Fast Spawn
     negativeEffect: '- Spawn Interval'
     positiveEffect: + Combo circle size
+    description: 
     unlockConditionType: 5
     unlockConditionValue: 60
     unlockCondition: Play with a combo of 30x for 60 seconds
   - type: 1
     sprite: {fileID: 21300000, guid: eef33fac3eb81c34d9bf65a30244eb96, type: 3}
-    name: 
+    name: 'Hardcore '
     negativeEffect: '- Lower Health'
     positiveEffect: + Medic Spawn Rate       + Circle Size
+    description: 
     unlockConditionType: 6
     unlockConditionValue: 3600
     unlockCondition: Survive for 1 hour
   - type: 2
     sprite: {fileID: 21300000, guid: d146493b053d5274a866f7d27b13f516, type: 3}
-    name: 
+    name: Speedster
     negativeEffect: '- All enemies move faster'
     positiveEffect: + Combos can be doubled
+    description: 
     unlockConditionType: 4
     unlockConditionValue: 75
     unlockCondition: Kill 75 enemies without getting hit
   - type: 3
     sprite: {fileID: 21300000, guid: beda9a829ed3bbe4c9a15cbc6339eb04, type: 3}
-    name: 
+    name: Helmet Destroyer
     negativeEffect: '- Helmets require more taps'
     positiveEffect: + Helmet taps award more points
+    description: 
     unlockConditionType: 1
     unlockConditionValue: 250
     unlockCondition: Kill 250 helmet enemies
   - type: 4
     sprite: {fileID: 21300000, guid: a0f5a4a10d5c41d49a1ce2cec9e5327c, type: 3}
-    name: 
+    name: Rogue Slayer
     negativeEffect: '- Rogues will move faster'
     positiveEffect: + Rogues will award more points
+    description: 
     unlockConditionType: 3
     unlockConditionValue: 200
     unlockCondition: Kill 200 Rogues
   - type: 5
     sprite: {fileID: 21300000, guid: 56faba4b3474632439e18f1b3093375d, type: 3}
-    name: 
+    name: Wizard Killer
     negativeEffect: '- Wizard health is increased                      - Wizards teleport
       faster'
     positiveEffect: + Wizard will award more points
+    description: 
     unlockConditionType: 2
     unlockConditionValue: 150
     unlockCondition: Kill 150 Wizards
