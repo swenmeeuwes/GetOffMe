@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreParticleManager : MonoBehaviour {
+    public static ScoreParticleManager Instance;
+
     [SerializeField]
     private GameObject rewardIndicatorPrefab;
     private ComboSystem comboSystem;
 
+    private void Awake() {
+        if (Instance != null)
+            Debug.LogWarning("Another ScoreParticleManager was already instantiated!");
+
+        Instance = this;
+    }
     private void Start()
     {
         comboSystem = FindObjectOfType<ComboSystem>();

@@ -58,7 +58,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
                 ShowParticles = true;
             }     
 
-            int addedScore = comboSystem.AwardPoints(pointsForHelmetTap);
+            int addedScore = ComboSystem.Instance.AwardPoints(pointsForHelmetTap);
             HandleScore(addedScore);
 
             //HandleCombo(); // Don't count HELMET taps towards combo count

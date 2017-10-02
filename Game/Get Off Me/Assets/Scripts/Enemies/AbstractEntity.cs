@@ -28,10 +28,8 @@ public abstract class AbstractEntity : AbstractDraggable
     protected bool ComboEnabled { get; set; }
 
     private ParticleSystem dragParticles;
-	protected ComboSystem comboSystem;
     protected Rigidbody2D rbody;
     protected GameObject player;
-    protected ScoreParticleManager scoreParticleManager;
     protected EntityHelper entityHelper;
 
     public AudioClip deathSound;
@@ -52,12 +50,10 @@ public abstract class AbstractEntity : AbstractDraggable
     protected virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
-		comboSystem = FindObjectOfType<ComboSystem>();
         rbody = GetComponent<Rigidbody2D>();
         dragParticles = GetComponent<ParticleSystem>();        
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
-        scoreParticleManager = FindObjectOfType<ScoreParticleManager>();
         entityHelper = FindObjectOfType<EntityHelper>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
@@ -76,7 +72,7 @@ public abstract class AbstractEntity : AbstractDraggable
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
 
-        if (comboSystem.IntersectsComboCircle(Camera.main.ScreenToWorldPoint(touch.position)))
+        if (ComboSystem.Instance.IntersectsComboCircle(Camera.main.ScreenToWorldPoint(touch.position)))
             InComboRadius = true;
         
         if (ShowParticles)
@@ -152,15 +148,15 @@ public abstract class AbstractEntity : AbstractDraggable
     {
         if (GameManager.Instance.State == GameState.PLAY)
         {
-            int addedScore = comboSystem.AwardPoints(model.awardPoints);
+            int addedScore = ComboSystem.Instance.AwardPoints(model.awardPoints);
             if(addedScore > 0)
-                scoreParticleManager.ShowRewardIndicatorAt(addedScore, transform.position, true);
+                ScoreParticleManager.Instance.ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
     protected virtual void HandleScore(int addedScore)
     {
         if (GameManager.Instance.State == GameState.PLAY && addedScore > 0)
-            scoreParticleManager.ShowRewardIndicatorAt(addedScore, transform.position, true);
+            ScoreParticleManager.Instance.ShowRewardIndicatorAt(addedScore, transform.position, true);
     }
 
     protected virtual void HandleCombo()
@@ -169,9 +165,9 @@ public abstract class AbstractEntity : AbstractDraggable
             return;
 
         if (InComboRadius)
-            comboSystem.Increase(1);
+            ComboSystem.Instance.Increase(1);
         else
-            comboSystem.Decrease();
+            ComboSystem.Instance.Decrease();
         InComboRadius = false;
     }
 		

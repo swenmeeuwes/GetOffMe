@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ComboSystem : MonoBehaviour
 {
+    public static ComboSystem Instance;
+
     [SerializeField]
     private Image comboRadiusIndicator;
     [SerializeField]
@@ -64,11 +66,15 @@ public class ComboSystem : MonoBehaviour
 	public float chanceAtDoubleCombo;
 
     void Awake() {
-        GameManager.Instance.HookComboSystem(this);
         startTimeUnlockVial = Time.time;
         chanceAtDoubleCombo = 0;
         particles = gameObject.GetComponentInChildren<ParticleSystem>();
         player = GameObject.Find("Player").GetComponent<Player>();
+
+        if (Instance != null)
+            Debug.LogWarning("Another ComboSystem was already instantiated!");
+
+        Instance = this;
     }
 
 	void Start () {

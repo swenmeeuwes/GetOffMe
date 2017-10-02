@@ -14,7 +14,6 @@ public class GameManager
 
     private static GameManager _instance;
     private float timeGameStarted;
-    private ComboSystem comboSystem;
     private VialContext vialContext;
 
     public static GameManager Instance
@@ -42,10 +41,6 @@ public class GameManager
     }
 
     public SaveGameModel SaveGame { get; set; }
-    public void HookComboSystem(ComboSystem system) {
-        comboSystem = system;
-    }
-
     private GameManager()
     {
         vialContext = ResourceLoadService.Instance.Load<VialContext>(ResourceLoadService.VIAL_CONTEXT_PATH);
@@ -110,8 +105,8 @@ public class GameManager
                 if (SaveGame.EnemyKillCount[(int)EntityType.SLIME_WIZARD] >= 300) {
                     UnlockVial(VialType.WIZARD_VIAL);
                 }
-                if (comboSystem.completingVialRequirement) {
-                    HandleHighestTimeAboveHighCombo(Time.time - comboSystem.startTimeUnlockVial);
+                if (ComboSystem.Instance.completingVialRequirement) {
+                    HandleHighestTimeAboveHighCombo(Time.time - ComboSystem.Instance.startTimeUnlockVial);
                 }
                 Save();
                 break;
