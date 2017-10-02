@@ -33,7 +33,8 @@ public class SoundManager : MonoBehaviour {
         lead2.clip = musicChannels[3];
     }
     void Start() {
-        PlayStage();
+        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.MUTE_MUSIC.ToString(), 1) == 0)
+            PlayStage();
     }
     public void PlayStage() {
 

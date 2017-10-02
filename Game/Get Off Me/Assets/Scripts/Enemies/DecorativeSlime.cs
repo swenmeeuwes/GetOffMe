@@ -41,7 +41,7 @@ public class DecorativeSlime : AbstractDraggable
 
     private void DestroySelf()
     {
-        InputManager.Main.Deregister(this);
+        InputManager.Instance.Deregister(this);
         Destroy(gameObject);
     }
 
