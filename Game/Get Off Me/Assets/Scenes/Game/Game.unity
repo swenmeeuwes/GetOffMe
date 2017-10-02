@@ -2194,6 +2194,11 @@ Prefab:
       propertyPath: orthographicCamera
       value: 
       objectReference: {fileID: 1904601765}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: MinimumComboForVial
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40c205518d3d4d74687c1f853f021dbd, type: 2}
   m_IsPrefabParent: 0
