@@ -13,6 +13,7 @@ public class GameOverPanel : MonoBehaviour {
     private void Start()
     {
         gameOverPanel = transform.Find("GameOverPanel").gameObject;
+        gameOverPanel.SetActive(false);
         lastStateEnabled = false;
     }
 
@@ -29,9 +30,12 @@ public class GameOverPanel : MonoBehaviour {
                 PlayerPrefs.SetInt(PlayerPrefsLiterals.SHOW_TUTORIAL.ToString(), 0);
 
             ScoreManager.Instance.SubmitHighscore(true);
+
+            GameManager.Instance.GameOverSequence(gameOverPanel);
         }
 
-        gameOverPanel.SetActive(newState);
+        
+        //gameOverPanel.SetActive(newState);
 
         lastStateEnabled = newState;
     }

@@ -15,6 +15,8 @@ public class GameManager
     private static GameManager _instance;
     private float timeGameStarted;
     private VialContext vialContext;
+    private Queue<VialData> justUnlockedVials;
+    private GameObject gameOverPanel;
 
     public static GameManager Instance
     {
@@ -43,6 +45,7 @@ public class GameManager
     public SaveGameModel SaveGame { get; set; }
     private GameManager()
     {
+        justUnlockedVials = new Queue<VialData>();
         vialContext = ResourceLoadService.Instance.Load<VialContext>(ResourceLoadService.VIAL_CONTEXT_PATH);
         _state = GameState.MAINMENU;
 
@@ -68,9 +71,14 @@ public class GameManager
             //
         }
     }
-    public void UnlockVial(VialType vial) {
-        Debug.Log("Unlock Vial: " + vial.ToString());
-        SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == vial).First().Unlocked = true;
+    public void UnlockVial(VialType vialType) {
+        if (!vialIsUnlocked(vialType)) {
+            justUnlockedVials.Enqueue(vialContext.data.Where((vialData) => vialData.type == vialType).First());
+            SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == vialType).First().Unlocked = true;
+        }  
+    }
+    public bool vialIsUnlocked(VialType vial) {
+        return SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == vial).First().Unlocked;
     }
     public void HandleHighestTimeAboveHighCombo(float time) {
         SaveGame.HighestTimeWithoutLosingHighCombo = Math.Max(time, SaveGame.HighestTimeWithoutLosingHighCombo);
@@ -90,11 +98,11 @@ public class GameManager
 
                 SaveGame.TotalTimeAlive += (Time.time - timeGameStarted);
                 SaveGame.TotalGamesPlayed++;
-                if (SaveGame.TotalGamesPlayed > 3600) {
+                if (SaveGame.TotalTimeAlive > 3600) {
                     UnlockVial(VialType.SPAWN_VIAL);
                 }
 
-                if (SaveGame.EnemyKillCount[(int)EntityType.SLIME_HELMET] >= 500) {
+                if (SaveGame.EnemyKillCount[(int)EntityType.SLIME_HELMET] >= 1) {
                     UnlockVial(VialType.HELMET_VIAL);
                 }
 
@@ -113,6 +121,20 @@ public class GameManager
             case GameState.PLAY:
                 timeGameStarted = Time.time;
                 break;
+        }
+    }
+    public void GameOverSequence(GameObject gameOverPanel) {
+        this.gameOverPanel = gameOverPanel;
+        GameOverNextPanel();
+    }
+    public void GameOverNextPanel() {
+        if (justUnlockedVials.Count <= 0) {
+            UnlockedVialPanel.Instance.gameObject.SetActive(false);
+            gameOverPanel.SetActive(true);
+        }else{
+            if (UnlockedVialPanel.Instance != null) {
+                UnlockedVialPanel.Instance.ShowUnlockedVial(justUnlockedVials.Dequeue());
+            }
         }
     }
     public void Save()

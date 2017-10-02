@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceLoadService {
-    public static readonly string VIAL_CONTEXT_PATH = "Config/VailContext";
+    public static readonly string VIAL_CONTEXT_PATH = "Config/VialContext";
 
     private static ResourceLoadService _instance;
     public static ResourceLoadService Instance {
