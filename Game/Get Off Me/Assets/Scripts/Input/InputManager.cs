@@ -1,10 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour {
+public class InputManager : EventDispatcher {
+    #region EventLiterals
+    public static string GESTURE_DETECTED = "Gesture detected";
+    #endregion
+
     // Inspector variables
+    public static float PINCH_GESTURE_SPEED_MODIFIER = 0.1f;
+
     [SerializeField][Tooltip("The radius of the circle scanned around the touches")]
     private float castSphereRadius = 0.2f;
     // ---
@@ -33,8 +37,10 @@ public class InputManager : MonoBehaviour {
         registeredTouchables.Remove(touchable);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         registeredTouchables = new List<ITouchable>();
 
 #if UNITY_EDITOR
@@ -57,48 +63,8 @@ public class InputManager : MonoBehaviour {
             }
         }
 
-#if UNITY_EDITOR
-        // Mouse simulation - Wish: Make adapters, this is hard because touch and mouse have different interfaces
-        var fakeTouch = new Touch()
-        {
-            fingerId = 99,
-            position = Input.mousePosition,
-            deltaPosition = Input.mousePosition - previousMousePosition,
-            deltaTime = Time.deltaTime
-        };
-
-        var handleMouse = false; // SO UGLY WHYYY
-        if (Input.GetMouseButtonDown(0))
-        {
-            fakeTouch.phase = TouchPhase.Began;
-            handleMouse = true;
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            fakeTouch.phase = TouchPhase.Moved;
-            handleMouse = true;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            fakeTouch.phase = TouchPhase.Ended;
-            handleMouse = true;
-        }
-
-        if (handleMouse)
-        {
-            HandleTouch(fakeTouch);
-
-            var fakeWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var fakeHits = Physics2D.CircleCastAll(fakeWorldPosition, castSphereRadius, Vector3.forward);
-            for (int j = 0; j < fakeHits.Length; j++)
-            {
-                var fakeHit = fakeHits[j];
-                HandleTouchOn(fakeHit.transform, fakeTouch);
-            }
-        }
-
-        previousMousePosition = Input.mousePosition;
-#endif
+        FakeTouches();
+        HandleGestures();
     }
 
     private void HandleTouchOn(Transform transform, Touch touch)
@@ -147,6 +113,77 @@ public class InputManager : MonoBehaviour {
         }
 
         toBeDeleted.ForEach(touchable => registeredTouchables.Remove(touchable));
+    }
+
+    private void FakeTouches()
+    {
+#if UNITY_EDITOR
+        // Mouse simulation - Wish: Make adapters, this is hard because touch and mouse have different interfaces
+        var fakeTouch = new Touch()
+        {
+            fingerId = 99,
+            position = Input.mousePosition,
+            deltaPosition = Input.mousePosition - previousMousePosition,
+            deltaTime = Time.deltaTime
+        };
+
+        var handleMouse = false; // SO UGLY WHYYY
+        if (Input.GetMouseButtonDown(0))
+        {
+            fakeTouch.phase = TouchPhase.Began;
+            handleMouse = true;
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            fakeTouch.phase = TouchPhase.Moved;
+            handleMouse = true;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            fakeTouch.phase = TouchPhase.Ended;
+            handleMouse = true;
+        }
+
+        if (handleMouse)
+        {
+            HandleTouch(fakeTouch);
+
+            var fakeWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var fakeHits = Physics2D.CircleCastAll(fakeWorldPosition, castSphereRadius, Vector3.forward);
+            for (int j = 0; j < fakeHits.Length; j++)
+            {
+                var fakeHit = fakeHits[j];
+                HandleTouchOn(fakeHit.transform, fakeTouch);
+            }
+        }
+
+        previousMousePosition = Input.mousePosition;
+#endif
+    }
+
+    private void HandleGestures()
+    {
+        if (Input.touchCount < 2)
+            return;
+
+        var touchOne = Input.GetTouch(0);
+        var touchTwo = Input.GetTouch(1);
+
+        var previousTouchOnePosition = touchOne.position - touchOne.deltaPosition;
+        var previousTouchTwoPosition = touchTwo.position - touchTwo.deltaPosition;
+
+        var previousTouchDeltaMagnitude = (previousTouchOnePosition - previousTouchTwoPosition).magnitude;
+        var touchDeltaMagnitude = (touchOne.position - touchTwo.position).magnitude;
+
+        var touchDeltaMagnitudeDifference = previousTouchDeltaMagnitude - touchDeltaMagnitude;
+
+        var eventObject = new PinchGesture() {
+            DeltaMagnitude = touchDeltaMagnitudeDifference,
+            TouchOne = touchOne,
+            TouchTwo = touchTwo
+        };
+
+        Dispatch(GESTURE_DETECTED, eventObject);
     }
 
     private void OnDrawGizmos()
