@@ -87,7 +87,7 @@ public abstract class AbstractEntity : AbstractDraggable
         if (GameManager.Instance.State == GameState.PAUSE)
             return;
 
-        if (ShowParticles)
+        if (dragParticles != null && ShowParticles)
             dragParticles.transform.position = transform.position;
 
         if (Draggable)
