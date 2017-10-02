@@ -12,13 +12,16 @@ public class InputManager : MonoBehaviour {
     private Vector3 previousMousePosition;
 #endif
 
-    public static InputManager Main {
-        get {
-            return GameObject.FindGameObjectWithTag("MainTouchManager").GetComponent<InputManager>();
-        }
-    }
+    public static InputManager Instance;
 
     private List<ITouchable> registeredTouchables;
+
+    public void OnEnable()
+    {
+        if (Instance != null)
+            Debug.LogWarning("InputManager is already instantiated!");
+        Instance = this;
+    }
 
     public void Register(ITouchable touchable)
     {
