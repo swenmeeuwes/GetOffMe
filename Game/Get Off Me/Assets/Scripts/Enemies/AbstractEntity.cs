@@ -34,6 +34,9 @@ public abstract class AbstractEntity : AbstractDraggable
     protected ScoreParticleManager scoreParticleManager;
     protected EntityHelper entityHelper;
 
+    public AudioClip deathSound;
+    protected AudioSource audioSource;
+
     protected override void Awake()
     {
         base.Awake();
@@ -48,6 +51,7 @@ public abstract class AbstractEntity : AbstractDraggable
 
     protected virtual void Start()
     {
+        audioSource = GetComponent<AudioSource>();
 		comboSystem = FindObjectOfType<ComboSystem>();
         rbody = GetComponent<Rigidbody2D>();
         dragParticles = GetComponent<ParticleSystem>();        
@@ -201,6 +205,7 @@ public abstract class AbstractEntity : AbstractDraggable
         OnEntityDestroy();
     }
     public void Die() {
+        audioSource.PlayOneShot(deathSound, 1.0f);
         player.GetComponent<Player>().enemiesKilledWithoutGettingHit++;
         TrackDeath();
         Destroy(GetComponent <CircleCollider2D>() );
