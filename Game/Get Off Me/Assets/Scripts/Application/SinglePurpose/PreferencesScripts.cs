@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,16 +9,17 @@ public class PreferencesScripts : MonoBehaviour {
     public void Start() {
         toggle = GetComponent<Toggle>();
         
-        toggle.isOn = PlayerPrefs.GetInt(PlayerPrefsLiterals.DID_TUTORIAL) == 0;
+        toggle.isOn = PlayerPrefs.GetInt(PlayerPrefsLiterals.SHOW_TUTORIAL.ToString()) == 0;
     }
 
     public void EnableTutorial()
     {
-        PlayerPrefs.SetInt(PlayerPrefsLiterals.DID_TUTORIAL, 0);
+        PlayerPrefs.SetInt(PlayerPrefsLiterals.SHOW_TUTORIAL.ToString(), 0);
     }
 
+    [Obsolete]
     public void ToggleTutorial() {
         if(toggle != null)
-            PlayerPrefs.SetInt(PlayerPrefsLiterals.DID_TUTORIAL, toggle.isOn ? 0 : 1);
+            PlayerPrefs.SetInt(PlayerPrefsLiterals.SHOW_TUTORIAL.ToString(), toggle.isOn ? 0 : 1);
     }
 }
