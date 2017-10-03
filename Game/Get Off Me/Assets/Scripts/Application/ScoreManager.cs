@@ -62,7 +62,6 @@ public class ScoreManager
         set
         {
             PlayerPrefs.SetInt(PlayerPrefsLiterals.HIGHSCORE.ToString(), value);
-            PlayerPrefs.Save();
         }
     }
 

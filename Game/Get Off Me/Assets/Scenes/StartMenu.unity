@@ -140,8 +140,8 @@ RectTransform:
   m_Father: {fileID: 1110749669}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.7, y: 0.05}
-  m_AnchorMax: {x: 0.95, y: 0.15}
+  m_AnchorMin: {x: 0.05, y: 0.05}
+  m_AnchorMax: {x: 0.3, y: 0.15}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -725,8 +725,8 @@ RectTransform:
   m_Father: {fileID: 1110749669}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.62, y: 0.05}
-  m_AnchorMax: {x: 0.68, y: 0.15}
+  m_AnchorMin: {x: 0.81, y: 0.05}
+  m_AnchorMax: {x: 0.87, y: 0.15}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -846,8 +846,8 @@ RectTransform:
   m_Father: {fileID: 1110749669}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.46, y: 0.05}
-  m_AnchorMax: {x: 0.52, y: 0.15}
+  m_AnchorMin: {x: 0.89, y: 0.05}
+  m_AnchorMax: {x: 0.95, y: 0.15}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -922,7 +922,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d8ef2db7cf6c7394abc86ecfe1fcecb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c0005ada8f0390428504b4af3d39043, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1596,7 +1596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1600702650
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1788,6 +1788,10 @@ Prefab:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: df6210fa4dda8bb45a5fb2f02a0cc371, type: 2}
+    - target: {fileID: 1898259242962160, guid: 74d700fcf803a794db9a6323f78d61bf, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74d700fcf803a794db9a6323f78d61bf, type: 2}
   m_IsPrefabParent: 0
@@ -1822,8 +1826,8 @@ RectTransform:
   m_Father: {fileID: 1110749669}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.54, y: 0.05}
-  m_AnchorMax: {x: 0.6, y: 0.15}
+  m_AnchorMin: {x: 0.73, y: 0.05}
+  m_AnchorMax: {x: 0.79, y: 0.15}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2443,10 +2447,10 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Rate the game!
+  m_Text: Rate this game!
 --- !u!222 &2062616322
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: StartMenu
-  delay: 0.1
+  delay: 0.01
 --- !u!4 &1814717523
 Transform:
   m_ObjectHideFlags: 0
