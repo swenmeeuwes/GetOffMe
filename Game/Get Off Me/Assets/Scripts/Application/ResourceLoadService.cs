@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ResourceLoadService {
     public static readonly string VIAL_CONTEXT_PATH = "Config/VialContext";
+    public static readonly string DIFFICULTY_MODIFIER_DATABASE = "Config/DifficultyModifierDatabase";
 
     private static ResourceLoadService _instance;
     public static ResourceLoadService Instance {
