@@ -26,6 +26,7 @@ public class DecorativeSlime : AbstractDraggable
         animator.runtimeAnimatorController = possibleAnimators.RandomItem();
 
         IgnoreTap = true;
+        Draggable = true;
     }
 
     private void Update()
