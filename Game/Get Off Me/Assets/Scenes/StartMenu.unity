@@ -523,6 +523,48 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1652755262}
   m_Script: {fileID: 11500000, guid: 236eec0858bedca41ac5c5fe62b05b31, type: 3}
+--- !u!1001 &633467297
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4891085286242498, guid: f43099ae750b6794e832b15a83485a15, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891085286242498, guid: f43099ae750b6794e832b15a83485a15, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891085286242498, guid: f43099ae750b6794e832b15a83485a15, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891085286242498, guid: f43099ae750b6794e832b15a83485a15, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891085286242498, guid: f43099ae750b6794e832b15a83485a15, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891085286242498, guid: f43099ae750b6794e832b15a83485a15, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891085286242498, guid: f43099ae750b6794e832b15a83485a15, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891085286242498, guid: f43099ae750b6794e832b15a83485a15, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f43099ae750b6794e832b15a83485a15, type: 2}
+  m_IsPrefabParent: 0
 --- !u!224 &735545327 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224904998014622278, guid: 249bf26700c173341b8bd3ce7b504c92,
