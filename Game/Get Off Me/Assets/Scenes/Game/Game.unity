@@ -2335,6 +2335,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.size
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 4723662141726448, guid: f7133abdfd8e38e45a4985f6d34e1d40, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2386,6 +2391,394 @@ Prefab:
       propertyPath: tutorialTextField
       value: 
       objectReference: {fileID: 2124341808}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[15].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[15].waitUntilComplete
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[15].shockwaveCharge
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[0].type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[0].textContent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[0].textDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[0].shockwaveCharge
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[1].textContent
+      value: Protect yourself
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[1].textDuration
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[2].textContent
+      value: Swipe away the red slimes
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[2].textDuration
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[3].waitUntilComplete
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[3].textContent
+      value: Don't let them hit you or you'll grow
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[3].textDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[4].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[4].waitUntilComplete
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[4].textContent
+      value: Here comes one now!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[4].textDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[4].spawnPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[5].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[5].waitUntilComplete
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[5].textContent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[5].textDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[5].spawnPrefab
+      value: 
+      objectReference: {fileID: 1215110422154106, guid: 2117f283babe3e14d831d7937e997440,
+        type: 2}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[6].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[6].waitUntilComplete
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[6].textContent
+      value: Some enemies are different
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[6].textDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[6].spawnPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[7].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[7].textContent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[7].textDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[7].spawnPrefab
+      value: 
+      objectReference: {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b,
+        type: 2}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[8].textContent
+      value: Not all slimes are bad
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[8].textDuration
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[9].textContent
+      value: Blue slimes are allies and will help you
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[9].textDuration
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[10].waitUntilComplete
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[10].textContent
+      value: Don't be afraid
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[10].textDuration
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[11].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[11].waitUntilComplete
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[11].textContent
+      value: Let it reach you and you'll be healed
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[11].textDuration
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[11].spawnPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[12].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[12].textContent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[12].textDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[12].spawnPrefab
+      value: 
+      objectReference: {fileID: 1215110422154106, guid: d37eb6f165322b140ab19e08f0ceca73,
+        type: 2}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[13].textContent
+      value: The bigger you get the harder it gets
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[13].textDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[14].textContent
+      value: When you reach the height of the screen you lose
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[14].textDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[15].textContent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[15].textDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[0].comboState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[14].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[14].comboState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[16].waitUntilComplete
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[16].textContent
+      value: If u start to shake
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[16].textDuration
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[17].waitUntilComplete
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[17].textContent
+      value: Swipe with 2 fingers from the inside to the outside!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[17].textDuration
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[17].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[16].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[18].waitUntilComplete
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[18].textContent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[18].textDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[18].type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[19].waitUntilComplete
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[19].textContent
+      value: The circle is a combo circle!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[19].textDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[20].waitUntilComplete
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[20].textContent
+      value: Swipe enemies within the circle to build combo's!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[20].textDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
+        type: 2}
+      propertyPath: tutorialSequence.Array.data[17].delay
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7133abdfd8e38e45a4985f6d34e1d40, type: 2}
   m_IsPrefabParent: 0
