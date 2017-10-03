@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117555386034180}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -772.4779, y: 290.5008, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -119,10 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b549e9efa4f29544b03f25134974d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityModel: {fileID: 0}
+  entityModel: {fileID: 11400000, guid: 3dbba45f1836c114fae8b32f46d714c6, type: 2}
   amplifiedSpeed: 0
   model: {fileID: 0}
-  deathSound: {fileID: 0}
 --- !u!198 &198599275507232352
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -182,7 +181,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 222426945
+  randomSeed: -1385026292
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -1141,7 +1140,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
   UVModule:
-    enabled: 0
+    enabled: 1
     mode: 0
     frameOverTime:
       serializedVersion: 2
