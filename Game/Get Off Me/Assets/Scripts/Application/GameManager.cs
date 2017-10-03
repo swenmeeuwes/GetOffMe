@@ -84,12 +84,12 @@ public class GameManager
         Load();
     }
     public void UnlockVial(VialType vialType) {
-        if (!vialIsUnlocked(vialType)) {
+        if (!VialIsUnlocked(vialType)) {
             justUnlockedVials.Enqueue(vialContext.data.Where((vialData) => vialData.type == vialType).First());
             SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == vialType).First().Unlocked = true;
         }  
     }
-    public bool vialIsUnlocked(VialType vial) {
+    public bool VialIsUnlocked(VialType vial) {
         return SaveGame.DifficultyModifiers.Where((modifier) => modifier.Type == vial).First().Unlocked;
     }
     public void HandleHighestTimeAboveHighCombo(float time) {
