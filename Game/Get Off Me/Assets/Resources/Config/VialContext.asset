@@ -15,7 +15,7 @@ MonoBehaviour:
   - type: 0
     sprite: {fileID: 21300000, guid: e4fb207fbd0ff624c9dc302bee0f9c48, type: 3}
     name: Fast Spawn
-    negativeEffect: '- Spawn Interval'
+    negativeEffect: '- Enemies spawn faster'
     positiveEffect: + Combo circle size
     description: 
     unlockConditionType: 5
