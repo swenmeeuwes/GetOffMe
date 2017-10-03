@@ -183,7 +183,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   comboSizeCurveModifier: 1
   comboLosePoints: 10
-  OnFireMinimumTier: 7
+  OnFireMinimumTier: 9
   MinimumComboForVial: 30
   startTimeUnlockVial: 0
   completingVialRequirement: 0

@@ -2322,6 +2322,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: orthographicCamera
+      value: 
+      objectReference: {fileID: 1904601765}
     - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
         type: 2}
       propertyPath: comboRadiusIndicator
@@ -2347,15 +2352,10 @@ Prefab:
       propertyPath: encouragementTextField
       value: 
       objectReference: {fileID: 2136205733}
-    - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
-        type: 2}
-      propertyPath: orthographicCamera
-      value: 
-      objectReference: {fileID: 1904601765}
     - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
         type: 2}
-      propertyPath: MinimumComboForVial
-      value: 30
+      propertyPath: OnFireMinimumTier
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40c205518d3d4d74687c1f853f021dbd, type: 2}
