@@ -27,6 +27,7 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void Start()
     {
+        GameManager.Instance.State = GameState.TUTORIAL;
         textAnimation = tutorialTextField.GetComponent<Animation>();
         tutorialCamera = GetComponent<Camera>();
 
@@ -70,6 +71,7 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void Finish()
     {
+        GameManager.Instance.State = GameState.PLAY;
         // Reset score + combo
         ScoreManager.Instance.Score = 0;
         ScoreManager.Instance.Highscore = 0;
