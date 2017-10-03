@@ -152,14 +152,18 @@ public class TutorialPlayer : MonoBehaviour {
         instructionCanvas.transform.SetParent(spawned.transform, false);
 
 
-        if (spawnedEntity is HelmetSlimeEnemy)
+        if (!spawnedEntity.IgnoreTap)
         {
             instructionCanvas.GetComponentInChildren<Text>().text = "Tap";
             spawnedEntity.AddEventListener("tapped", (e) => instructionCanvas.GetComponentInChildren<Text>().text = "Swipe", true);
         }
-        else
+        else if (spawnedEntity.Draggable)
         {
             instructionCanvas.GetComponentInChildren<Text>().text = "Swipe";
+        }
+        else
+        {
+            instructionCanvas.GetComponentInChildren<Text>().text = "";
         }
 
         if(spawnedEntity is MedicSlimeAlly)
