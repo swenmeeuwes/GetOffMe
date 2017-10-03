@@ -6,7 +6,15 @@ using UnityEngine;
 public enum TutorialSequenceItemType
 {
     TEXT,
-    SPAWN
+    SPAWN,
+    COMBO_STATE,
+    SHOCKWAVE_CHARGE
+}
+
+public enum BinaryEnabledState
+{
+    ENABLED,
+    DISABLED
 }
 
 [Serializable]
@@ -21,4 +29,10 @@ public struct TutorialSequenceItem {
 
     // SPAWN
     public GameObject spawnPrefab;
+
+    // Combo state
+    public BinaryEnabledState comboState;
+
+    // Shockwave charge
+    public int shockwaveCharge;
 }

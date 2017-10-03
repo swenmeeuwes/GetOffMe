@@ -84,6 +84,12 @@ public class TutorialPlayer : MonoBehaviour {
             case TutorialSequenceItemType.SPAWN:
                 HandleSpawn(sequenceItem.spawnPrefab);
                 break;
+            case TutorialSequenceItemType.COMBO_STATE:
+                HandleComboState(sequenceItem.comboState);
+                break;
+            case TutorialSequenceItemType.SHOCKWAVE_CHARGE:
+                HandleShockwaveCharge(sequenceItem.shockwaveCharge);
+                break;
         }
     }
 
@@ -156,5 +162,17 @@ public class TutorialPlayer : MonoBehaviour {
             spawnedEntity.AddEventListener("dying", (e) => Next(), true);
         else
             Next();
+    }
+
+    private void HandleComboState(BinaryEnabledState newState)
+    {
+        ComboSystem.Instance.ShowComboCircle = newState == BinaryEnabledState.ENABLED ? true : false;
+        Next();
+    }
+
+    private void HandleShockwaveCharge(int newCharge)
+    {
+        player.shockwaveCharge = newCharge;
+        Next();
     }
 }

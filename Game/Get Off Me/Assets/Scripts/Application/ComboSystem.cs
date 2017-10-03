@@ -64,7 +64,15 @@ public class ComboSystem : EventDispatcher
             m_Combo = value;
             HandleComboCountChanged();
         }
-    }    
+    }
+    
+    public bool ShowComboCircle
+    {
+        set
+        {
+            comboCircle.gameObject.SetActive(value);
+        }
+    }
 
 	[HideInInspector]
 	public float chanceAtDoubleCombo;
