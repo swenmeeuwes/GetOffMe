@@ -94,15 +94,9 @@ public class GameManager
     }
     public void HandleHighestTimeAboveHighCombo(float time) {
         SaveGame.HighestTimeWithoutLosingHighCombo = Math.Max(time, SaveGame.HighestTimeWithoutLosingHighCombo);
-        if (SaveGame.HighestTimeWithoutLosingHighCombo > 100.0f) {
-            UnlockVial(VialType.SPAWN_VIAL);
-        }
     }
     public void HandleEnemiesKilledWithoutGettingHit(int enemyCount) {
         SaveGame.HighestEnemyKillCountWithoutGettingHit = Math.Max(enemyCount, SaveGame.HighestEnemyKillCountWithoutGettingHit);
-        if(enemyCount > 5) {
-            UnlockVial(VialType.SPEED_VIAL);
-        }
     }
     private void HandleVialsStats() {
         switch (State) {
@@ -110,23 +104,16 @@ public class GameManager
 
                 SaveGame.TotalTimeAlive += (Time.time - timeGameStarted);
                 SaveGame.TotalGamesPlayed++;
-                if (SaveGame.TotalTimeAlive > 3600) {
-                    UnlockVial(VialType.SPAWN_VIAL);
-                }
-
-                if (SaveGame.EnemyKillCount[(int)EntityType.SLIME_HELMET] >= 1) {
-                    UnlockVial(VialType.HELMET_VIAL);
-                }
-
-                if (SaveGame.EnemyKillCount[(int)EntityType.SLIME_ROGUE] >= 400) {
-                    UnlockVial(VialType.ROGUE_VIAL);
-                }
-
-                if (SaveGame.EnemyKillCount[(int)EntityType.SLIME_WIZARD] >= 300) {
-                    UnlockVial(VialType.WIZARD_VIAL);
-                }
+                
                 if (ComboSystem.Instance.completingVialRequirement) {
                     HandleHighestTimeAboveHighCombo(Time.time - ComboSystem.Instance.startTimeUnlockVial);
+                }
+                foreach (VialData vial in vialContext.data)
+                {
+                    if (UnlockConditionResolver.ConditionsAreMet(vial))
+                    {
+                        UnlockVial(vial.type);
+                    }
                 }
                 Save();
                 break;
