@@ -22,7 +22,6 @@ public abstract class AbstractEntity : AbstractDraggable
     public EntityModel model;
 
     protected bool ShowParticles { get; set; }
-	protected bool Draggable { get; set; }
 	protected bool Dragged { get; set; }
 	protected bool InComboRadius { get; set; }
     protected bool ComboEnabled { get; set; }

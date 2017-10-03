@@ -14,6 +14,7 @@ public abstract class AbstractDraggable : EventDispatcher, ITouchable
     protected float weight;
 
     protected bool IgnoreTap { get; set; } // Feature: To bypass tap delay -> smoother swipe
+    protected bool Draggable { get; set; }
 
     protected override void Awake()
     {
@@ -47,7 +48,7 @@ public abstract class AbstractDraggable : EventDispatcher, ITouchable
         {
             OnTap();
         }
-        else
+        else if (Draggable)
         {
             var swipeDistance = touch.deltaPosition * touch.deltaTime;
             OnSwipe(swipeDistance);
