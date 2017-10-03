@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HardcoreVial : IVial {
-	private int playerHealthModifier = -5;
+	private int playerHealthModifier = -3;
     private float comboSystemRadiusCurveModifier = -0.2f;
-    private float medicWeightModifier = 5;
+    private float medicWeightModifier = 1;
 
 	public void Apply(HelmetSlimeEnemy entity) { }
 	public void Apply(NormalSlimeEnemy entity) { }
