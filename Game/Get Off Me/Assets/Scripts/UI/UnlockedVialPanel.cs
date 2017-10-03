@@ -39,6 +39,14 @@ public class UnlockedVialPanel : MonoBehaviour {
     }
     public void NextPopup() {
         animator.SetTrigger("SlideOut");
+
+        StartCoroutine(NextPanel());
+    }
+
+    private IEnumerator NextPanel()
+    {
+        yield return new WaitForSeconds(1f);
+
         GameManager.Instance.GameOverNextPanel();
     }
 }

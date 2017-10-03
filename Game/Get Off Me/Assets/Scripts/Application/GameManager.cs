@@ -16,7 +16,6 @@ public class GameManager
     private float timeGameStarted;
     private VialContext vialContext;
     private Queue<VialData> justUnlockedVials;
-    private GameObject gameOverPanel;
 
     public static GameManager Instance
     {
@@ -39,6 +38,9 @@ public class GameManager
         {
             _state = value;
             HandleVialsStats();
+
+            if (value == GameState.GAMEOVER)
+                HandleGameOver();
         }
     }
     private SaveGameModel _saveGameModel;
@@ -122,16 +124,14 @@ public class GameManager
                 break;
         }
     }
-    public void GameOverSequence(GameObject gameOverPanel) {
-        this.gameOverPanel = gameOverPanel;
-        GameOverNextPanel();
-    }
     public void GameOverNextPanel() {
         if (justUnlockedVials.Count <= 0) {
             if (UnlockedVialPanel.Instance != null) {
                 UnlockedVialPanel.Instance.gameObject.SetActive(false);
             }
-            gameOverPanel.SetActive(true);
+
+            if (GameOverPanel.Instance != null)
+                GameOverPanel.Instance.Show();
         }else{
             if (UnlockedVialPanel.Instance != null) {
                 UnlockedVialPanel.Instance.ShowUnlockedVial(justUnlockedVials.Dequeue());
@@ -174,6 +174,11 @@ public class GameManager
         }
 
         return false;
+    }
+
+    private void HandleGameOver()
+    {
+        GameOverNextPanel();
     }
 
     public void Play()
