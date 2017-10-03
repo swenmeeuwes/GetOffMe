@@ -70,6 +70,11 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void Finish()
     {
+        // Reset score + combo
+        ScoreManager.Instance.Score = 0;
+        ScoreManager.Instance.Highscore = 0;
+        ComboSystem.Instance.Reset();
+
         spawner.Enabled = true;
         spawner.SetWave();
     }
@@ -166,7 +171,7 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void HandleComboState(BinaryEnabledState newState)
     {
-        ComboSystem.Instance.ShowComboCircle = newState == BinaryEnabledState.ENABLED ? true : false;
+        ComboSystem.Instance.Enabled = newState == BinaryEnabledState.ENABLED ? true : false;
         Next();
     }
 
