@@ -37,11 +37,6 @@ public class ComboCircle : MonoBehaviour {
         Keyframe = 0;
     }
 
-    private void Update()
-    {
-        
-    }
-
     public Color Color
     {
         set

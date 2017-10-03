@@ -73,9 +73,9 @@ public class TutorialPlayer : MonoBehaviour {
     {
         GameManager.Instance.State = GameState.PLAY;
         // Reset score + combo
-        ScoreManager.Instance.Score = 0;
-        ScoreManager.Instance.Highscore = 0;
-        ComboSystem.Instance.Reset();
+        //ScoreManager.Instance.Score = 0;
+        //ScoreManager.Instance.Highscore = 0; // DONT DO THIS!!!!
+        //ComboSystem.Instance.Reset();
 
         spawner.Enabled = true;
         spawner.SetWave();
