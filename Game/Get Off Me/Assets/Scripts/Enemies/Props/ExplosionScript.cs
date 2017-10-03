@@ -15,10 +15,8 @@ public class ExplosionScript : MonoBehaviour {
         VibrationService.Vibrate(vibrationDuration);
         SoundManager.Instance.PlaySound(SFXType.ENEMY_EXPLOSION);
 
-        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.CAMERA_SHAKE.ToString(), 0) == 1)
-            StartCoroutine(SlowExplodeCoroutine());
-        else
-            Destroy(gameObject);
+        StartCoroutine(ExplodeCoroutine());
+        
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
@@ -39,17 +37,18 @@ public class ExplosionScript : MonoBehaviour {
         Time.timeScale = 1;
     }
 
-    private IEnumerator SlowExplodeCoroutine()
+    private IEnumerator ExplodeCoroutine()
     {
         var nextShakeStep = Random.value;
 
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
         {
-            Camera.main.transform.rotation = Quaternion.Euler(0, 0, nextShakeStep);
-            Time.timeScale = Mathf.Abs(nextShakeStep);
+            if (PlayerPrefs.GetInt(PlayerPrefsLiterals.CAMERA_SHAKE.ToString(),1) == 1) {
+                Camera.main.transform.rotation = Quaternion.Euler(0, 0, nextShakeStep);
+                Time.timeScale = Mathf.Abs(nextShakeStep);
 
-            nextShakeStep = -Random.value;
-
+                nextShakeStep = -Random.value;
+            }
             yield return new WaitForEndOfFrame();
         }
 
