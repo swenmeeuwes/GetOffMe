@@ -152,17 +152,16 @@ public class Player : MonoBehaviour {
         {
             var entityScript = enemy.GetComponent<AbstractEntity>();
             var distanceToPlayer = Vector2.Distance(enemy.transform.position, transform.position);
+            var directionVector = enemy.transform.position - transform.position;
             var playerScale = transform.lossyScale.x * (64f / 100f);
             if (distanceToPlayer < playerScale + shockwaveEffectiveRange) // Don't change to lesser equal, as this could possibly lead to a divide by 0 exception!
             {
-                var directionVector = enemy.transform.position - transform.position;
-                entityScript.ApplySwipeVelocity((directionVector.normalized * shockwaveForce) / (distanceToPlayer - playerScale - shockwaveEffectiveRange));
+                entityScript.ApplySwipeVelocity(directionVector.normalized * shockwaveForce);
 
                 entityScript.Die();
             }
             else
             {
-                var directionVector = enemy.transform.position - transform.position;
                 entityScript.ApplySwipeVelocity((directionVector.normalized * shockwaveForce) / (distanceToPlayer - playerScale - shockwaveEffectiveRange));
             }
         }
