@@ -41,8 +41,34 @@ public class GameManager
             HandleVialsStats();
         }
     }
+    private SaveGameModel _saveGameModel;
+    public SaveGameModel SaveGame
+    {
+        get
+        {
+            if (_saveGameModel == null)
+            {
+                // Default save game
+                var difficultyModifierDatabase = ResourceLoadService.Instance.Load<DifficultyModifierDatabase>(ResourceLoadService.DIFFICULTY_MODIFIER_DATABASE);
+                SaveGame = new SaveGameModel()
+                {
+                    DifficultyModifiers = difficultyModifierDatabase.difficultyModifiers,
+                    EnemyKillCount = new List<int>()
+                };
+                for (int i = 0; i < Enum.GetNames(typeof(EntityType)).Length; i++)
+                {
+                    SaveGame.EnemyKillCount.Add(0);
+                }
+                Save();
+            }
 
-    public SaveGameModel SaveGame { get; set; }
+            return _saveGameModel;
+        }
+        set
+        {
+            _saveGameModel = value;
+        }
+    }
     private GameManager()
     {
         justUnlockedVials = new Queue<VialData>();
@@ -54,22 +80,8 @@ public class GameManager
 
         Debug.Log("Application persistent data path: " + Application.persistentDataPath);
 
-        if (!Load())
-        {
-            // No save game exists, create a new one!
-            // TEMP
-            var difficultyModifierDatabase = Resources.Load<DifficultyModifierDatabase>("Config/DifficultyModifierDatabase");
-            SaveGame = new SaveGameModel()
-            {
-                DifficultyModifiers = difficultyModifierDatabase.difficultyModifiers,
-                EnemyKillCount = new List<int>()
-            };
-            for (int i = 0; i < Enum.GetNames(typeof(EntityType)).Length; i++) {
-                SaveGame.EnemyKillCount.Add(0);
-            }
-            Save();
-            //
-        }
+        // Attempt to load save game
+        Load();
     }
     public void UnlockVial(VialType vialType) {
         if (!vialIsUnlocked(vialType)) {
@@ -151,12 +163,20 @@ public class GameManager
     {
         if (File.Exists(Application.persistentDataPath + "/" + SAVEGAME_FILE_NAME))
         {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + SAVEGAME_FILE_NAME, FileMode.Open);
-            SaveGame = (SaveGameModel)binaryFormatter.Deserialize(file);
-            file.Close();
+            try
+            {
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + "/" + SAVEGAME_FILE_NAME, FileMode.Open);
+                SaveGame = (SaveGameModel)binaryFormatter.Deserialize(file);
+                file.Close();
 
-            return true;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError(exception);
+                return false;
+            }
         }
 
         return false;
