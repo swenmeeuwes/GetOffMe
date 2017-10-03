@@ -36,7 +36,7 @@ public class BombSlimeEnemy : SeekingEntity {
 
         var parent = new GameObject();
         parent.transform.position = transform.position;
-        parent.name = "Explosion container";
+        parent.name = "Explosion_container";
 
         explosionObject.transform.SetParent(parent.transform);
         explosionObject.transform.localPosition = new Vector3(0.0f, -0.14f, 0.0f);
