@@ -1,13 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 0a72d818e66363a4db246d8c07786da4
-timeCreated: 1507025050
-licenseType: Free
-TextureImporter:
-  fileIDToRecycleName: {}
-=======
-guid: 47654b2a6daa327488d5c0299a40fb29
-timeCreated: 1507024648
+timeCreated: 1507028030
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -19,7 +12,6 @@ TextureImporter:
     21300010: main_mad_animation_5
     21300012: main_mad_animation_6
     21300014: main_mad_animation_7
->>>>>>> d7a003b79161541f0a93b5d183d93a8ee8643e20
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -46,11 +38,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-<<<<<<< HEAD
-    filterMode: -1
-=======
     filterMode: 0
->>>>>>> d7a003b79161541f0a93b5d183d93a8ee8643e20
     aniso: -1
     mipBias: -1
     wrapU: 1
@@ -59,11 +47,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-<<<<<<< HEAD
-  spriteMode: 1
-=======
   spriteMode: 2
->>>>>>> d7a003b79161541f0a93b5d183d93a8ee8643e20
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -87,11 +71,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-<<<<<<< HEAD
-  spriteSheet:
-    serializedVersion: 2
-    sprites: []
-=======
   - buildTarget: Standalone
     maxTextureSize: 2048
     textureFormat: -1
@@ -231,7 +210,6 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
->>>>>>> d7a003b79161541f0a93b5d183d93a8ee8643e20
     outline: []
     physicsShape: []
   spritePackingTag: 
