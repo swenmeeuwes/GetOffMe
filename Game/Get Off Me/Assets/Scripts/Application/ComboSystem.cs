@@ -65,12 +65,18 @@ public class ComboSystem : EventDispatcher
             HandleComboCountChanged();
         }
     }
-    
-    public bool ShowComboCircle
+
+    private bool _enabled;
+    public bool Enabled
     {
+        get
+        {
+            return _enabled;
+        }
         set
         {
             comboCircle.gameObject.SetActive(value);
+            _enabled = value;
         }
     }
 
@@ -80,15 +86,17 @@ public class ComboSystem : EventDispatcher
     protected override void Awake() {
         base.Awake();
 
-        startTimeUnlockVial = Time.time;
-        chanceAtDoubleCombo = 0;
-        particles = gameObject.GetComponentInChildren<ParticleSystem>();
-        player = GameObject.Find("Player").GetComponent<Player>();
-
         if (Instance != null)
             Debug.LogWarning("Another ComboSystem was already instantiated!");
 
         Instance = this;
+
+        Enabled = true;
+
+        startTimeUnlockVial = Time.time;
+        chanceAtDoubleCombo = 0;
+        particles = gameObject.GetComponentInChildren<ParticleSystem>();
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
 	void Start () {
@@ -100,6 +108,9 @@ public class ComboSystem : EventDispatcher
     }
 
 	public void Increase(int addValue){
+        if (!Enabled)
+            return;
+
         if (Mathf.FloorToInt((Combo + addValue) / ComboNeededForNextTier) != currentComboTier) {
             ParticleSystem.ShapeModule shapeModule = particles.shape;
             shapeModule.radius = comboCircle.Radius;
@@ -114,6 +125,9 @@ public class ComboSystem : EventDispatcher
 
     public void Decrease()
     {
+        if (!Enabled)
+            return;
+
         if (Mathf.FloorToInt(Mathf.Max(0, Combo - comboLosePoints) / ComboNeededForNextTier) != currentComboTier)
         {
             ParticleSystem.ShapeModule shapeModule = particles.shape;
@@ -151,6 +165,9 @@ public class ComboSystem : EventDispatcher
     }
     public int AwardPoints(int score)
     {
+        if (!Enabled)
+            return 0;
+
         var comboAddition = Mathf.FloorToInt(Combo * comboScoreRatio.Evaluate(Combo));
         int addScore = (score + comboAddition);
         ScoreManager.Instance.Score += addScore;
@@ -206,6 +223,9 @@ public class ComboSystem : EventDispatcher
     }
     private void ShowComboStreak(int amount)
     {
+        if (!Enabled)
+            return;
+
         var randomX = Random.value * 50 - 25;
         var randomY = Random.value * 80 - 40;
         var randomZ = Random.value * 70 - 35;
