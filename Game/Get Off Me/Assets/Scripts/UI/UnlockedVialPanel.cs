@@ -30,8 +30,8 @@ public class UnlockedVialPanel : MonoBehaviour {
     public void ShowUnlockedVial(VialData vial) {
         title.text = vial.name;
         image.sprite = vial.sprite;
-        positiveText.text = vial.positiveEffect;
-        negativeText.text = vial.negativeEffect;
+        positiveText.text = vial.positiveEffect.Replace("\\n", "\n");
+        negativeText.text = vial.negativeEffect.Replace("\\n", "\n");
         description.text = vial.description;
         gameObject.SetActive(true);
 
