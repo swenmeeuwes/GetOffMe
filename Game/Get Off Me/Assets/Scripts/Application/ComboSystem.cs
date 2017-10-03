@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ComboSystem : MonoBehaviour
+// Move to 'Combo' folder
+public class ComboSystem : EventDispatcher
 {
+    public const string COMBO_CHANGED = "ComboSystem.COMBO_CHANGED";
+
     public static ComboSystem Instance;
 
     [SerializeField]
@@ -57,6 +58,12 @@ public class ComboSystem : MonoBehaviour
         }
         private set
         {
+            Dispatch(COMBO_CHANGED, new ComboChangedEvent()
+            {
+                OldCombo = Combo,
+                NewCombo = value
+            });
+
             m_Combo = value;
             HandleComboCountChanged();
         }
@@ -65,7 +72,9 @@ public class ComboSystem : MonoBehaviour
 	[HideInInspector]
 	public float chanceAtDoubleCombo;
 
-    void Awake() {
+    protected override void Awake() {
+        base.Awake();
+
         startTimeUnlockVial = Time.time;
         chanceAtDoubleCombo = 0;
         particles = gameObject.GetComponentInChildren<ParticleSystem>();
@@ -97,7 +106,6 @@ public class ComboSystem : MonoBehaviour
 		Combo += addValue;
 		if (Random.Range (1.0f, 100.0f) < chanceAtDoubleCombo)
 			Combo += addValue;
-
     }
 
     public void Decrease()

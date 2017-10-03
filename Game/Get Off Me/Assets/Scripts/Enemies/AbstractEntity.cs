@@ -111,6 +111,12 @@ public abstract class AbstractEntity : AbstractDraggable
         base.OnTouchEnded(touch);
     }
 
+    public void ApplySwipeVelocity(Vector3 swipeVector)
+    {
+        var newVelocity = swipeVector * (100 - model.weight);
+        rbody.velocity = newVelocity;
+    }
+
     protected override void OnTap()
     {
         Dispatch("tapped", this);
@@ -118,8 +124,7 @@ public abstract class AbstractEntity : AbstractDraggable
 
     protected override void OnSwipe(Vector3 swipeVector)
     {
-        var newVelocity = swipeVector * (100 - model.weight);
-        rbody.velocity = newVelocity;
+        ApplySwipeVelocity(swipeVector);
 
         if (swipeVector.magnitude < 0.25f)
             return;
