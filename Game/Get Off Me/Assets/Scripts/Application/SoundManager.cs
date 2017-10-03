@@ -23,7 +23,9 @@ public class SoundManager : MonoBehaviour {
 		
 	}
     public void PlaySound(SFXType type) {
-        //TODO !muted ->
+        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.MUTE_SFX.ToString(), 0) == 1)
+            return;
+
         var clip = SFX.Where((sfx) => sfx.type == type).First().clip;
         if (clip){
             audioSource.PlayOneShot(clip);

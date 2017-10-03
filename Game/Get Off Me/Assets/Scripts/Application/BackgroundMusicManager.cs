@@ -40,7 +40,7 @@ public class BackgroundMusicManager : MonoBehaviour {
         lead2.clip = musicChannels[3];
     }
     void Start() {
-        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.MUTE_MUSIC.ToString(), 1) == 0)
+        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.MUTE_MUSIC.ToString(), 0) == 0)
             PlayStage();
     }
     public void PlayStage() {
