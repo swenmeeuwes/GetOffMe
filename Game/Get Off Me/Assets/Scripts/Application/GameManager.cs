@@ -50,14 +50,14 @@ public class GameManager
             {
                 // Default save game
                 var difficultyModifierDatabase = ResourceLoadService.Instance.Load<DifficultyModifierDatabase>(ResourceLoadService.DIFFICULTY_MODIFIER_DATABASE);
-                SaveGame = new SaveGameModel()
+                _saveGameModel = new SaveGameModel()
                 {
                     DifficultyModifiers = difficultyModifierDatabase.difficultyModifiers,
                     EnemyKillCount = new List<int>()
                 };
                 for (int i = 0; i < Enum.GetNames(typeof(EntityType)).Length; i++)
                 {
-                    SaveGame.EnemyKillCount.Add(0);
+                    _saveGameModel.EnemyKillCount.Add(0);
                 }
                 Save();
             }
@@ -153,10 +153,17 @@ public class GameManager
     }
     public void Save()
     {
-        BinaryFormatter binaryFormatter = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/" + SAVEGAME_FILE_NAME);
-        binaryFormatter.Serialize(file, SaveGame);
-        file.Close();
+        try
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream file = File.Create(Application.persistentDataPath + "/" + SAVEGAME_FILE_NAME);
+            binaryFormatter.Serialize(file, SaveGame);
+            file.Close();
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError(exception);
+        }
     }
 
     public bool Load()
