@@ -42,6 +42,7 @@ public class Player : MonoBehaviour {
     private float lastShockwaveTime = 0;
     private Vector3 anchorPosition;
     private Vector3 chargePosition;
+    private bool shockwaveCharged = false;
 
     private bool m_Lit;
     public bool Lit {
@@ -90,12 +91,14 @@ public class Player : MonoBehaviour {
     {
         Camera.main.orthographicSize += ((maxCameraSize - Camera.main.orthographicSize) * Time.deltaTime) / cameraRestoreDuration;
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraSizeOnShockwave, 5f);
+
+        shockwaveCharged = shockwaveCharge == shockwaveChargedNeeded;
+        animator.SetBool("shockwaveCharged", shockwaveCharged);
     }
 
     private void LateUpdate()
     {
         transform.position = chargePosition;
-        spriteRenderer.color = shockwaveCharge == shockwaveChargedNeeded ? Color.blue : Color.white;
     }
 
     private void OnDestroy()
@@ -117,12 +120,11 @@ public class Player : MonoBehaviour {
             if (Camera.main.orthographic)
             {
                 var isOnCooldown = Time.time - lastShockwaveTime < shockwaveCooldown;
-                var isCharged = shockwaveCharge == shockwaveChargedNeeded;
 
                 if (pinchGesture.DeltaMagnitude > 0)
                     Camera.main.orthographicSize -= pinchGesture.DeltaMagnitude * InputManager.PINCH_GESTURE_SPEED_MODIFIER;
 
-                if (Camera.main.orthographicSize <= minCameraSizeOnShockwave + 0.2f && !isOnCooldown && isCharged)
+                if (Camera.main.orthographicSize <= minCameraSizeOnShockwave + 0.2f && !isOnCooldown && shockwaveCharged)
                     ExecuteShockwaveAbility(); // We could make an ability system, but not needed for now
 
                 Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraSizeOnShockwave, maxCameraSize);
@@ -142,7 +144,7 @@ public class Player : MonoBehaviour {
 
     private void ExecuteShockwaveAbility()
     {
-        if (shockwaveCharge < shockwaveChargedNeeded)
+        if (!shockwaveCharged)
             return;
 
         shockwaveParticles.Emit(60);

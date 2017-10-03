@@ -196,8 +196,6 @@ public abstract class AbstractEntity : AbstractDraggable
     }
     public void OnEntityDestroy() {
         dragParticles.Stop();
-        InputManager.Instance.Deregister(this);
-
         Destroy(gameObject);
     }
     public virtual void OnPlayerHit(Player player) {
@@ -205,6 +203,7 @@ public abstract class AbstractEntity : AbstractDraggable
         OnEntityDestroy();
     }
     public void Die() {
+        InputManager.Instance.Deregister(this);
         SoundManager.Instance.PlaySound(SFXType.ENEMY_DEATH);
         player.GetComponent<Player>().enemiesKilledWithoutGettingHit++;
         TrackDeath();
