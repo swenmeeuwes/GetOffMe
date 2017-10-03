@@ -42,7 +42,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
                 IgnoreTap = true;
 
                 // Create flipped particle
-                audioSource.PlayOneShot(loseHelmetSound, 1.0f);
+                SoundManager.Instance.PlaySound(SFXType.ENEMY_LOSE_HELMET);
                 var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");
                 var helmetObject = Instantiate(helmetPrefab);
 

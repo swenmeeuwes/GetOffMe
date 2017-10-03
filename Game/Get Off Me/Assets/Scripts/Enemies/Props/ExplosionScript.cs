@@ -13,6 +13,7 @@ public class ExplosionScript : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         VibrationService.Vibrate(vibrationDuration);
+        SoundManager.Instance.PlaySound(SFXType.ENEMY_EXPLOSION);
 
         if (PlayerPrefs.GetInt(PlayerPrefsLiterals.CAMERA_SHAKE.ToString(), 0) == 1)
             StartCoroutine(SlowExplodeCoroutine());

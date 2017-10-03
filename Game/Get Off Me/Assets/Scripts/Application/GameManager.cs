@@ -58,7 +58,7 @@ public class GameManager
         {
             // No save game exists, create a new one!
             // TEMP
-            var difficultyModifierDatabase = Resources.Load<DifficultyModifierDatabase>("Config/DifficultyModifierDatabase");
+            var difficultyModifierDatabase = ResourceLoadService.Instance.Load<DifficultyModifierDatabase>(ResourceLoadService.VIAL_CONTEXT_PATH);
             SaveGame = new SaveGameModel()
             {
                 DifficultyModifiers = difficultyModifierDatabase.difficultyModifiers,

@@ -33,7 +33,6 @@ public abstract class AbstractEntity : AbstractDraggable
     protected EntityHelper entityHelper;
 
     public AudioClip deathSound;
-    protected AudioSource audioSource;
 
     protected override void Awake()
     {
@@ -49,7 +48,6 @@ public abstract class AbstractEntity : AbstractDraggable
 
     protected virtual void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         rbody = GetComponent<Rigidbody2D>();
         dragParticles = GetComponent<ParticleSystem>();        
         animator = GetComponent<Animator>();
@@ -206,7 +204,7 @@ public abstract class AbstractEntity : AbstractDraggable
         OnEntityDestroy();
     }
     public void Die() {
-        audioSource.PlayOneShot(deathSound, 1.0f);
+        SoundManager.Instance.PlaySound(SFXType.ENEMY_DEATH);
         player.GetComponent<Player>().enemiesKilledWithoutGettingHit++;
         TrackDeath();
         gameObject.layer = LayerMask.NameToLayer("Graveyard");

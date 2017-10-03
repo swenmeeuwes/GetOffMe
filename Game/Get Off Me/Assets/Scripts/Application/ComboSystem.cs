@@ -40,8 +40,6 @@ public class ComboSystem : EventDispatcher
     private Player player;
     public int OnFireMinimumTier = 7;
 
-    private SoundManager soundManager;
-
     public float RequiredTimeUnlockVial = 30;
     public int MinimumComboForVial = 5;
 
@@ -87,7 +85,6 @@ public class ComboSystem : EventDispatcher
     }
 
 	void Start () {
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         if (orthographicCamera == null)
 			orthographicCamera = Camera.main;
 
@@ -186,7 +183,7 @@ public class ComboSystem : EventDispatcher
         player.Lit = (Combo > OnFireMinimumTier * ComboNeededForNextTier);
         
         currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
-        soundManager.HandleComboTier(currentComboTier);
+        BackgroundMusicManager.Instance.HandleComboTier(currentComboTier);
         if (Combo > MinimumComboForVial)
         {
             if (!completingVialRequirement) {
