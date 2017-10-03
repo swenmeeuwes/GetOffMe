@@ -106,7 +106,8 @@ public abstract class AbstractEntity : AbstractDraggable
 
         Dragged = false;
 
-        dragParticles.Stop();
+        if(dragParticles != null)
+            dragParticles.Stop();
 
         base.OnTouchEnded(touch);
     }
