@@ -119,8 +119,8 @@ public class Player : MonoBehaviour {
                 var isOnCooldown = Time.time - lastShockwaveTime < shockwaveCooldown;
                 var isCharged = shockwaveCharge == shockwaveChargedNeeded;
 
-                if (pinchGesture.DeltaMagnitude < 0)
-                    Camera.main.orthographicSize += pinchGesture.DeltaMagnitude * InputManager.PINCH_GESTURE_SPEED_MODIFIER;
+                if (pinchGesture.DeltaMagnitude > 0)
+                    Camera.main.orthographicSize -= pinchGesture.DeltaMagnitude * InputManager.PINCH_GESTURE_SPEED_MODIFIER;
 
                 if (Camera.main.orthographicSize <= minCameraSizeOnShockwave + 0.2f && !isOnCooldown && isCharged)
                     ExecuteShockwaveAbility(); // We could make an ability system, but not needed for now
