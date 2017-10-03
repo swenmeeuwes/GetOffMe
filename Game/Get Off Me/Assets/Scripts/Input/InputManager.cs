@@ -103,7 +103,8 @@ public class InputManager : EventDispatcher {
                     touchable.OnTouch(touch);
                     break;
                 case TouchPhase.Ended:
-                    touchable.OnTouchEnded(touch);
+                    if (touchable is MonoBehaviour && ((MonoBehaviour)touchable).gameObject != null)
+                        touchable.OnTouchEnded(touch);
 
                     // Remove tag so that the events won't fire anymore
                     touchable.FingerIds.Remove(touch.fingerId);
