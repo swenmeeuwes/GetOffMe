@@ -13,8 +13,8 @@ public abstract class AbstractDraggable : EventDispatcher, ITouchable
     
     protected float weight;
 
-    protected bool IgnoreTap { get; set; } // Feature: To bypass tap delay -> smoother swipe
-    protected bool Draggable { get; set; }
+    public bool IgnoreTap { get; protected set; } // Feature: To bypass tap delay -> smoother swipe
+    public bool Draggable { get; protected set; }
 
     protected override void Awake()
     {

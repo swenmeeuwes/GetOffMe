@@ -157,7 +157,7 @@ public class TutorialPlayer : MonoBehaviour {
             instructionCanvas.GetComponentInChildren<Text>().text = "Tap";
             spawnedEntity.AddEventListener("tapped", (e) => instructionCanvas.GetComponentInChildren<Text>().text = "Swipe", true);
         }
-        else
+        else if (!(spawnedEntity is NormalSlimeUndestructable))
         {
             instructionCanvas.GetComponentInChildren<Text>().text = "Swipe";
         }
