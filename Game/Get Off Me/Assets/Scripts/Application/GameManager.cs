@@ -129,7 +129,9 @@ public class GameManager
     }
     public void GameOverNextPanel() {
         if (justUnlockedVials.Count <= 0) {
-            UnlockedVialPanel.Instance.gameObject.SetActive(false);
+            if (UnlockedVialPanel.Instance != null) {
+                UnlockedVialPanel.Instance.gameObject.SetActive(false);
+            }
             gameOverPanel.SetActive(true);
         }else{
             if (UnlockedVialPanel.Instance != null) {
