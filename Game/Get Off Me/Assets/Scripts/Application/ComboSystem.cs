@@ -40,8 +40,7 @@ public class ComboSystem : EventDispatcher
     private Player player;
     public int OnFireMinimumTier = 7;
 
-    public float RequiredTimeUnlockVial = 30;
-    public int MinimumComboForVial = 5;
+    public int MinimumComboForVial;
 
     [HideInInspector]
     public float startTimeUnlockVial;
