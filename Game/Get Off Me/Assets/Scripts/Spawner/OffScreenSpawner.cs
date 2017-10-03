@@ -90,11 +90,12 @@ public class OffScreenSpawner : AbstractEntitySpawner
         randomEntity.transform.position = randomSpawnPosition;
         var entity = randomEntity.GetComponent<AbstractEntity>();
 
-        for (int i = 0; i < activeVials.Count; i++) {
-            //AbstractEntity entity = randomEntity.GetComponent (typeof(AbstractEntity));
-			entity.Accept (activeVials [i]);
-		}
-
+        if (GameManager.Instance.State == GameState.PLAY) {
+            for (int i = 0; i < activeVials.Count; i++) {
+			    entity.Accept (activeVials [i]);
+		    }
+        }
+        
         base.Spawn();
     }
 

@@ -32,8 +32,6 @@ public abstract class AbstractEntity : AbstractDraggable
     protected GameObject player;
     protected EntityHelper entityHelper;
 
-    public AudioClip deathSound;
-
     protected override void Awake()
     {
         base.Awake();

@@ -27,6 +27,7 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void Start()
     {
+        GameManager.Instance.State = GameState.TUTORIAL;
         textAnimation = tutorialTextField.GetComponent<Animation>();
         tutorialCamera = GetComponent<Camera>();
 
@@ -70,6 +71,7 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void Finish()
     {
+        GameManager.Instance.State = GameState.PLAY;
         spawner.Enabled = true;
         spawner.SetWave();
     }

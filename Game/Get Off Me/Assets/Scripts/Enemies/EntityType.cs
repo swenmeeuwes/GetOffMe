@@ -9,6 +9,7 @@ public enum EntityType
     SLIME_ROGUE,
     SLIME_WIZARD,
     SLIME_BOMB,
-    SLIME_MEDIC
+    SLIME_MEDIC,
+    SLIME_NORMAL_TUTORIAL
 }
 
