@@ -65,7 +65,7 @@ public class Player : MonoBehaviour {
         healParticles = GameObject.Find("HealParticles").GetComponent<ParticleSystem>();
         shockwaveParticles = GameObject.Find("ShockwaveParticles").GetComponent<ParticleSystem>();
 
-        onFireObject.SetActive(false);
+        Lit = false;
     }
 
     private void Start()
@@ -92,7 +92,7 @@ public class Player : MonoBehaviour {
         Camera.main.orthographicSize += ((maxCameraSize - Camera.main.orthographicSize) * Time.deltaTime) / cameraRestoreDuration;
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraSizeOnShockwave, 5f);
 
-        shockwaveCharged = shockwaveCharge == shockwaveChargedNeeded;
+        shockwaveCharged = shockwaveCharge >= shockwaveChargedNeeded;
         animator.SetBool("shockwaveCharged", shockwaveCharged);
     }
 
@@ -262,7 +262,7 @@ public class Player : MonoBehaviour {
         while (true) //shockwaveCharge > 0
         {
             shake = -shake;
-            var shakeStrengh = shockwaveCharge / (float)shockwaveChargedNeeded;
+            var shakeStrengh = Mathf.Clamp01(shockwaveCharge / (float)shockwaveChargedNeeded);
 
             chargePosition = anchorPosition + new Vector3(shake * shakeStrengh, 0, 0);
 
