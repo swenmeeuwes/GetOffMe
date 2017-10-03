@@ -25,7 +25,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: eef33fac3eb81c34d9bf65a30244eb96, type: 3}
     name: 'Hardcore '
     negativeEffect: '- Lower Health'
-    positiveEffect: + Medic Spawn Rate       + Circle Size
+    positiveEffect: + Medic Spawn Rate\n+ Circle Size
     description: 
     unlockConditionType: 6
     unlockConditionValue: 3600
