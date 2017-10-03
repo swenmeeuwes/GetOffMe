@@ -57,11 +57,11 @@ public class ScoreManager
     public int Highscore {
         get
         {
-            return PlayerPrefs.GetInt(PlayerPreferenceConstants.Highscore);
+            return PlayerPrefs.GetInt(PlayerPrefsLiterals.HIGHSCORE.ToString(), 0);
         }
         set
         {
-            PlayerPrefs.SetInt(PlayerPreferenceConstants.Highscore, value);
+            PlayerPrefs.SetInt(PlayerPrefsLiterals.HIGHSCORE.ToString(), value);
             PlayerPrefs.Save();
         }
     }
