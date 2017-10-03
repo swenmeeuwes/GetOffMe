@@ -23,11 +23,11 @@ public static class UnlockConditionResolver {
                 var wizardSlimeKills = saveGame.EnemyKillCount[(int)EntityType.SLIME_WIZARD];
                 return wizardSlimeKills >= vialData.unlockConditionValue;
             case UnlockConditions.MAINTAIN_HIGH_COMBO_FOR_X_SECONDS:
-                return vialData.unlockConditionValue >= saveGame.HighestTimeWithoutLosingHighCombo;
+                return saveGame.HighestTimeWithoutLosingHighCombo >= vialData.unlockConditionValue;
             case UnlockConditions.KILL_WITHOUT_GETTING_HIT:
-                return vialData.unlockConditionValue >= saveGame.HighestEnemyKillCountWithoutGettingHit;
+                return saveGame.HighestEnemyKillCountWithoutGettingHit >= vialData.unlockConditionValue;
             case UnlockConditions.SURVIVE_OVER_MULTIPLE_GAMES:
-                return vialData.unlockConditionValue >= saveGame.TotalTimeAlive;
+                return saveGame.TotalTimeAlive >= vialData.unlockConditionValue;
         }
 
         throw new NotImplementedException(string.Format("Unlock condition {0} is not yet implemented", vialData.unlockConditionType.ToString()));
