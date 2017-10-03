@@ -74,8 +74,8 @@ public class DifficultyModifierMenu : MonoBehaviour {
         modifierNameTextField.text = unlocked ? modifierContext.name : "???";
 
         // Set positive, negative and unlock text
-        positiveTextField.text = unlocked ? modifierContext.positiveEffect : "???";
-        negativeTextField.text = unlocked ? modifierContext.negativeEffect : "???";
+        positiveTextField.text = unlocked ? modifierContext.positiveEffect.Replace("\\n", "\n") : "???";
+        negativeTextField.text = unlocked ? modifierContext.negativeEffect.Replace("\\n", "\n") : "???";
 
         var progression = UnlockConditionResolver.GetProgression(modifierContext);
         unlockTextField.text = modifierContext.unlockCondition
