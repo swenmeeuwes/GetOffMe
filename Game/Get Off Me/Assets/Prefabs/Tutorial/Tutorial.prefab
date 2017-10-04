@@ -277,7 +277,7 @@ MonoBehaviour:
   - type: 0
     delay: 0
     waitUntilComplete: 1
-    textContent: Swipe enemies within the circle to build combo's!
+    textContent: Swipe enemies within the circle to build combos!
     textDuration: 1.3
     spawnPrefab: {fileID: 0}
     comboState: 0
