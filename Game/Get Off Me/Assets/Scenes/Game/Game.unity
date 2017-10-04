@@ -2420,11 +2420,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
-        type: 2}
-      propertyPath: tutorialSequence.Array.size
-      value: 26
-      objectReference: {fileID: 0}
     - target: {fileID: 4723662141726448, guid: f7133abdfd8e38e45a4985f6d34e1d40, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2472,47 +2467,6 @@ Prefab:
       propertyPath: tutorialTextField
       value: 
       objectReference: {fileID: 2124341808}
-    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
-        type: 2}
-      propertyPath: tutorialSequence.Array.data[25].type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
-        type: 2}
-      propertyPath: tutorialSequence.Array.data[25].waitUntilComplete
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
-        type: 2}
-      propertyPath: tutorialSequence.Array.data[26].type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
-        type: 2}
-      propertyPath: tutorialSequence.Array.data[26].waitUntilComplete
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
-        type: 2}
-      propertyPath: tutorialSequence.Array.data[26].spawnPrefab
-      value: 
-      objectReference: {fileID: 1215110422154106, guid: 2117f283babe3e14d831d7937e997440,
-        type: 2}
-    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
-        type: 2}
-      propertyPath: tutorialSequence.Array.data[19].textContent
-      value: Swipe with 2 fingers from the outside to the inside to use the ability
-      objectReference: {fileID: 0}
-    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
-        type: 2}
-      propertyPath: tutorialSequence.Array.data[19].textDuration
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114419133611482940, guid: f7133abdfd8e38e45a4985f6d34e1d40,
-        type: 2}
-      propertyPath: tutorialSequence.Array.data[19].delay
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7133abdfd8e38e45a4985f6d34e1d40, type: 2}
   m_IsPrefabParent: 0
