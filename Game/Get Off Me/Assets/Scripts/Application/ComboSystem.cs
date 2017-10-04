@@ -76,6 +76,7 @@ public class ComboSystem : EventDispatcher
         set
         {
             comboCircle.gameObject.SetActive(value);
+            comboHelpText.gameObject.SetActive(value);
             _enabled = value;
         }
     }
