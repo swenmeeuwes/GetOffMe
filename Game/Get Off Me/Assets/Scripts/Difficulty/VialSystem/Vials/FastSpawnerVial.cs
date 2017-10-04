@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FastSpawnerVial : IVial {
-	private const float spawnerCurveModifier = -0.3f;
+	private const float spawnerCurveModifier = -0.15f;
 	public void Apply(HelmetSlimeEnemy entity) { }
 	public void Apply(NormalSlimeEnemy entity) { }
 	public void Apply(RogueSlimeEnemy entity) { }
