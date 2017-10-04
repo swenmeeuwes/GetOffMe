@@ -2258,6 +2258,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4260000305553744, guid: 40c205518d3d4d74687c1f853f021dbd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2354,6 +2359,56 @@ Prefab:
         type: 2}
       propertyPath: sizeInterpolation.m_Curve.Array.data[0].outSlope
       value: -1.1029195
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[1].value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[1].time
+      value: 147.69168
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[0].inSlope
+      value: 0.029816324
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[0].outSlope
+      value: 0.029816324
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[1].inSlope
+      value: 0.008466917
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[1].outSlope
+      value: 0.008466917
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[2].time
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[2].value
+      value: 5.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[2].inSlope
+      value: 0.0030831783
+      objectReference: {fileID: 0}
+    - target: {fileID: 114677564053532302, guid: 40c205518d3d4d74687c1f853f021dbd,
+        type: 2}
+      propertyPath: comboScoreRatio.m_Curve.Array.data[2].outSlope
+      value: 0.0030831783
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40c205518d3d4d74687c1f853f021dbd, type: 2}
