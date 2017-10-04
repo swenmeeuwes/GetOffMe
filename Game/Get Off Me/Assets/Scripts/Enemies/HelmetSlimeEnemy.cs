@@ -37,31 +37,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
         {
 			neededTapsForHelmet--;
             if (neededTapsForHelmet <= 0)
-            {
-                hasHelmet = false;
-                IgnoreTap = true;
-
-                // Create flipped particle
-                SoundManager.Instance.PlaySound(SFXType.ENEMY_LOSE_HELMET);
-                var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");
-                var helmetObject = Instantiate(helmetPrefab);
-
-                var parent = new GameObject();
-                parent.AddComponent<DeleteObjectDelayed>();
-                parent.transform.position = transform.position;
-
-                helmetObject.transform.position = Vector3.zero;
-                helmetObject.transform.SetParent(parent.transform);
-
-                animator.SetTrigger("loseHelmet");
-                Draggable = true;
-                ShowParticles = true;
-            }     
-
-            int addedScore = ComboSystem.Instance.AwardPoints(pointsForHelmetTap);
-            HandleScore(addedScore);
-
-            //HandleCombo(); // Don't count HELMET taps towards combo count
+                LoseHelmet();
         }
         base.OnTap();
     }
@@ -81,4 +57,31 @@ public class HelmetSlimeEnemy : SeekingEntity {
 	{
 		vial.Apply (this);
 	}
+
+    public void LoseHelmet()
+    {
+        hasHelmet = false;
+        IgnoreTap = true;
+
+        // Create flipped particle
+        SoundManager.Instance.PlaySound(SFXType.ENEMY_LOSE_HELMET);
+        var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");
+        var helmetObject = Instantiate(helmetPrefab);
+
+        var parent = new GameObject();
+        parent.AddComponent<DeleteObjectDelayed>();
+        parent.transform.position = transform.position;
+
+        helmetObject.transform.position = Vector3.zero;
+        helmetObject.transform.SetParent(parent.transform);
+
+        animator.SetTrigger("loseHelmet");
+        Draggable = true;
+        ShowParticles = true;
+
+        int addedScore = ComboSystem.Instance.AwardPoints(pointsForHelmetTap);
+        HandleScore(addedScore);
+
+        //HandleCombo(); // Don't count HELMET taps towards combo count
+    }
 }

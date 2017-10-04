@@ -153,6 +153,9 @@ public class Player : MonoBehaviour {
         foreach (var enemy in enemies)
         {
             var entityScript = enemy.GetComponent<AbstractEntity>();
+            if (entityScript is HelmetSlimeEnemy)
+                ((HelmetSlimeEnemy)entityScript).LoseHelmet();
+            
             var distanceToPlayer = Vector2.Distance(enemy.transform.position, transform.position);
             var directionVector = enemy.transform.position - transform.position;
             var playerScale = transform.lossyScale.x * (64f / 100f);
