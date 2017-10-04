@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b549e9efa4f29544b03f25134974d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityModel: {fileID: 11400000, guid: 3dbba45f1836c114fae8b32f46d714c6, type: 2}
+  entityModel: {fileID: 11400000, guid: 680521a14c6749a4b9e227886739bac2, type: 2}
   amplifiedSpeed: 0
   model: {fileID: 0}
 --- !u!198 &198599275507232352
