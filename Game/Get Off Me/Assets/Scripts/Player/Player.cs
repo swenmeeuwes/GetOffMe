@@ -136,8 +136,11 @@ public class Player : MonoBehaviour {
 
     private void HandleComboChanged(ComboChangedEvent comboChangedEvent)
     {
+        // 50 COMBO -> 25 CHARGE
         if (comboChangedEvent.ComboDelta > 0)
-            shockwaveCharge += comboChangedEvent.NewCombo;
+        {
+            shockwaveCharge += Mathf.FloorToInt(Mathf.Clamp01(comboChangedEvent.NewCombo / 50f) * 25f);
+        }
 
         shockwaveCharge = Mathf.Clamp(shockwaveCharge, 0, shockwaveChargedNeeded);
     }
