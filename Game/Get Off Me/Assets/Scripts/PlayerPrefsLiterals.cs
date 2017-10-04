@@ -7,8 +7,8 @@ public enum PlayerPrefsLiterals {
     SHOW_TUTORIAL,
     CAMERA_SHAKE,
     DEVICE_VIBRATION,
-    MUTE_MUSIC,
-    MUTE_SFX,
+    MUSIC,
+    SFX,
 
     // Scores
     HIGHSCORE

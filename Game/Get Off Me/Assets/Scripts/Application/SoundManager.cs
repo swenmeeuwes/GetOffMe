@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour {
 		
 	}
     public void PlaySound(SFXType type) {
-        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.MUTE_SFX.ToString(), 0) == 1)
+        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.SFX.ToString(), 1) == 0)
             return;
 
         var clip = SFX.Where((sfx) => sfx.type == type).First().clip;
