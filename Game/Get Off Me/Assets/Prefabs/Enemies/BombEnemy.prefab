@@ -122,8 +122,7 @@ MonoBehaviour:
   entityModel: {fileID: 11400000, guid: 38569a76b9840124ca925b3f51141589, type: 2}
   amplifiedSpeed: 0
   model: {fileID: 0}
-  deathSound: {fileID: 8300000, guid: a094cfba462395e4f875bfd3b70c720e, type: 3}
-  magnitudeForExplode: 2
+  magnitudeForExplode: 3
   explodeRadius: 2
 --- !u!198 &198339619877014186
 ParticleSystem:
