@@ -50,17 +50,7 @@ public class GameManager
         {
             if (_saveGameModel == null)
             {
-                // Default save game
-                var difficultyModifierDatabase = ResourceLoadService.Instance.Load<DifficultyModifierDatabase>(ResourceLoadService.DIFFICULTY_MODIFIER_DATABASE);
-                _saveGameModel = new SaveGameModel()
-                {
-                    DifficultyModifiers = difficultyModifierDatabase.difficultyModifiers,
-                    EnemyKillCount = new List<int>()
-                };
-                for (int i = 0; i < Enum.GetNames(typeof(EntityType)).Length; i++)
-                {
-                    _saveGameModel.EnemyKillCount.Add(0);
-                }
+                ConstructDefaultSaveGame();
                 Save();
             }
 
@@ -83,7 +73,12 @@ public class GameManager
         Debug.Log("Application persistent data path: " + Application.persistentDataPath);
 
         // Attempt to load save game
-        Load();
+        if(!Load())
+        {
+            // If not existing or corrupted -> make new
+            ConstructDefaultSaveGame();
+            Save();
+        }
     }
     public void UnlockVial(VialType vialType) {
         if (!VialIsUnlocked(vialType)) {
@@ -174,6 +169,23 @@ public class GameManager
         }
 
         return false;
+    }
+
+    
+    // Fixes old save games
+    private void ConstructDefaultSaveGame()
+    {
+        // Default save game
+        var difficultyModifierDatabase = ResourceLoadService.Instance.Load<DifficultyModifierDatabase>(ResourceLoadService.DIFFICULTY_MODIFIER_DATABASE);
+        _saveGameModel = new SaveGameModel()
+        {
+            DifficultyModifiers = difficultyModifierDatabase.difficultyModifiers,
+            EnemyKillCount = new List<int>()
+        };
+        for (int i = 0; i < Enum.GetNames(typeof(EntityType)).Length; i++)
+        {
+            _saveGameModel.EnemyKillCount.Add(0);
+        }
     }
 
     private void HandleGameOver()
