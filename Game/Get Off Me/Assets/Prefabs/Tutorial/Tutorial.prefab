@@ -188,7 +188,7 @@ MonoBehaviour:
   - type: 0
     delay: 0
     waitUntilComplete: 0
-    textContent: Let it reach you and you will return to normal
+    textContent: Let it reach you and it will make you smaller
     textDuration: 1.8
     spawnPrefab: {fileID: 0}
     comboState: 0
@@ -303,6 +303,14 @@ MonoBehaviour:
     waitUntilComplete: 1
     textContent: 
     textDuration: 0
+    spawnPrefab: {fileID: 0}
+    comboState: 0
+    shockwaveCharge: 0
+  - type: 0
+    delay: 0
+    waitUntilComplete: 1
+    textContent: Good luck!
+    textDuration: 0.7
     spawnPrefab: {fileID: 0}
     comboState: 0
     shockwaveCharge: 0
