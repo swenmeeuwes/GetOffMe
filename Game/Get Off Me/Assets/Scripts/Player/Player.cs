@@ -163,7 +163,7 @@ public class Player : MonoBehaviour {
             {
                 entityScript.ApplySwipeVelocity(directionVector.normalized * shockwaveForce);
 
-                entityScript.Die();
+                entityScript.Die(true, false);
             }
             else
             {
