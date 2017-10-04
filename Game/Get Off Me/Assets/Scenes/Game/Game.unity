@@ -2328,7 +2328,7 @@ Prefab:
     - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
         type: 2}
       propertyPath: sizeInterpolation.m_Curve.Array.data[1].value
-      value: 35
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 114292982785589398, guid: 40c205518d3d4d74687c1f853f021dbd,
         type: 2}
