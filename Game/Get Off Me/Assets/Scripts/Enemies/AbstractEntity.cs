@@ -132,9 +132,6 @@ public abstract class AbstractEntity : AbstractDraggable
         HandleCloseCallText();
 
         Dispatch("swiped", this);
-
-        HandleScore();
-        HandleCombo();
     }
 
     protected virtual void HandleCloseCallText()
@@ -200,7 +197,13 @@ public abstract class AbstractEntity : AbstractDraggable
         Dispatch("dying", this);
         OnEntityDestroy();
     }
-    public void Die() {
+    public void Die(bool handleScore = true, bool handleCombo = true) {
+        if (handleScore)
+            HandleScore();
+
+        if (handleCombo)
+            HandleCombo();
+
         SoundManager.Instance.PlaySound(SFXType.ENEMY_DEATH);
         player.GetComponent<Player>().enemiesKilledWithoutGettingHit++;
         TrackDeath();
