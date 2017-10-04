@@ -47,6 +47,7 @@ public class ComboSystem : EventDispatcher
     [HideInInspector]
     public bool completingVialRequirement = false;
 
+    private int highestCombo = 0;
     private int m_Combo;
     public int Combo {
         get
@@ -63,6 +64,8 @@ public class ComboSystem : EventDispatcher
 
             m_Combo = value;
             HandleComboCountChanged();
+
+            highestCombo = Mathf.Max(value, highestCombo);
         }
     }
 
@@ -209,14 +212,14 @@ public class ComboSystem : EventDispatcher
         
         currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
         BackgroundMusicManager.Instance.HandleComboTier(currentComboTier);
-        if (Combo > MinimumComboForVial)
+        if (Combo >= MinimumComboForVial)
         {
             if (!completingVialRequirement) {
                 startTimeUnlockVial = Time.time;
             }
             completingVialRequirement = true;
         }
-        else
+        else if (highestCombo >= MinimumComboForVial)
         {
             completingVialRequirement = false;
             GameManager.Instance.HandleHighestTimeAboveHighCombo(Time.time - startTimeUnlockVial);
