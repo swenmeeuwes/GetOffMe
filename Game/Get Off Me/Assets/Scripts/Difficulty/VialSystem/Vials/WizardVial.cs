@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WizardVial : IVial {
-	private const int pointModifier = 1;
+	private const int pointModifier = 2;
 	private const int healthModifier = 2;
-	private const float channelTimeModifier = -0.5f;
+	private const float channelTimeModifier = -0.8f;
 	public void Apply(HelmetSlimeEnemy entity) { }
 	public void Apply(NormalSlimeEnemy entity) { }
 	public void Apply(RogueSlimeEnemy entity) { }
