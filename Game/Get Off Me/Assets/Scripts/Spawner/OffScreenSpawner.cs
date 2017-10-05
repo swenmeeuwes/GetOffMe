@@ -12,8 +12,6 @@ public class OffScreenSpawner : AbstractEntitySpawner
 {
     // Exposed inspector fields
     [SerializeField]
-    private GameObject objectToSpawn; // Obsolete
-    [SerializeField]
     private Camera orthographicCamera;
     [SerializeField]
     private float spawnDistanceOffset = 0.0f;
