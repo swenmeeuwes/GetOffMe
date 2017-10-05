@@ -21,7 +21,6 @@ public class TutorialPlayer : MonoBehaviour {
     private Player player;
 
     private int tutorialSequenceIndex;
-    private int encounterIndex;
 
     private TutorialSequenceItem currentSequenceItem;
 
@@ -37,7 +36,6 @@ public class TutorialPlayer : MonoBehaviour {
         tutorialCamera.enabled = false;
 
         tutorialSequenceIndex = 0;
-        encounterIndex = 0;
 
         spawner.Enabled = false; // Halt spawning
 
