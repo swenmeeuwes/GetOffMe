@@ -29,7 +29,6 @@ public class ComboSystem : EventDispatcher
 
     private int currentComboTier = 0;
 
-    private float radius;
     private ParticleSystem particles;
 
     [HideInInspector]
@@ -243,14 +242,5 @@ public class ComboSystem : EventDispatcher
     private void HideComboStreak()
     {
         comboStreakTextField.gameObject.SetActive(false);
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (orthographicCamera != null)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(transform.position, radius);
-        }
     }
 }

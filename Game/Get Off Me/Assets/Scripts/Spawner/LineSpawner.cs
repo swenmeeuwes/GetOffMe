@@ -20,9 +20,6 @@ public class LineSpawner : AbstractSpawner {
 
     private void OnDrawGizmos()
     {
-        if (p1 == null || p2 == null)
-            return;
-
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(p1, p2);
     }
