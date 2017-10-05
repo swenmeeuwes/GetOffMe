@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Timers;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ScoreManager
 {
@@ -15,15 +11,8 @@ public class ScoreManager
         }
     }
 
-    //private Timer timer;
-
     private ScoreManager() {
         Score = 0;
-
-        //timer = new Timer();
-        //timer.Interval = 5000;
-        //timer.Elapsed += new ElapsedEventHandler(OnTimerElapsed);
-        //timer.Start();
     }
 
     private int _score;
@@ -73,9 +62,4 @@ public class ScoreManager
         if (reportToGooglePlay)
             GooglePlayServicesManager.Instance.ReportScoreToLeaderboard(GooglePlayServiceConstants.leaderboard_score, Highscore);
     }
-
-    //private void OnTimerElapsed(object sender, ElapsedEventArgs e)
-    //{
-    //    Score++;
-    //}
 }

@@ -10,8 +10,6 @@ public class GameOverPanel : MonoBehaviour {
     private GameObject gameOverPanel;
     private Animator animator;
 
-    //private bool lastStateEnabled;
-
     private void Awake()
     {
         if (Instance != null)
@@ -23,7 +21,6 @@ public class GameOverPanel : MonoBehaviour {
     private void Start()
     {
         animator = GetComponent<Animator>();
-        //lastStateEnabled = false;
 
         gameObject.SetActive(false);        
     }
@@ -32,7 +29,7 @@ public class GameOverPanel : MonoBehaviour {
     {
         gameObject.SetActive(true);
 
-        var isNewPersonalBest = ScoreManager.Instance.Score >= ScoreManager.Instance.Highscore;
+        var isNewPersonalBest = ScoreManager.Instance.Score >= ScoreManager.Instance.Highscore + 1;
         newPersonalBestPanel.SetActive(isNewPersonalBest);
 
         if (PlayerPrefs.GetInt(PlayerPrefsLiterals.SHOW_TUTORIAL.ToString(), 1) == 1 && ScoreManager.Instance.Score > 100)
@@ -42,28 +39,4 @@ public class GameOverPanel : MonoBehaviour {
 
         animator.SetTrigger("SlideIn");
     }
-
-    // To-do: Re-do, hook on state change
-    //private void Update()
-    //{
-    //    var newState = GameManager.Instance.State == GameState.GAMEOVER;
-
-    //    if (!lastStateEnabled && newState)
-    //    {
-    //        animator.SetTrigger("SlideIn");
-
-    //        var isNewPersonalBest = ScoreManager.Instance.Score >= ScoreManager.Instance.Highscore;
-    //        newPersonalBestPanel.SetActive(isNewPersonalBest);
-
-    //        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.SHOW_TUTORIAL.ToString(), 1) == 1 && ScoreManager.Instance.Score > 100)
-    //            PlayerPrefs.SetInt(PlayerPrefsLiterals.SHOW_TUTORIAL.ToString(), 0);
-
-    //        ScoreManager.Instance.SubmitHighscore(true);
-    //    }
-
-        
-    //    //gameOverPanel.SetActive(newState);
-
-    //    lastStateEnabled = newState;
-    //}
 }
