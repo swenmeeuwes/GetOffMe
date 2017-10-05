@@ -73,7 +73,15 @@ public class GameManager
         Debug.Log("Application persistent data path: " + Application.persistentDataPath);
 
         // Attempt to load save game
-        if(!Load())
+        if (!Load())
+        {
+            // If not existing or corrupted -> make new
+            ConstructDefaultSaveGame();
+            Save();
+        }
+
+        // Temp migration fix
+        if (SaveGame.EnemyKillCount == null)
         {
             // If not existing or corrupted -> make new
             ConstructDefaultSaveGame();
