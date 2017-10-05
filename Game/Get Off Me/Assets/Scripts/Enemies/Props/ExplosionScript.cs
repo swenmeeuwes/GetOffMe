@@ -12,15 +12,18 @@ public class ExplosionScript : MonoBehaviour {
     {
         animator = GetComponent<Animator>();
 
-        StartCoroutine(SlowExplodeCoroutine());
         VibrationService.Vibrate(vibrationDuration);
+        SoundManager.Instance.PlaySound(SFXType.ENEMY_EXPLOSION);
+
+        StartCoroutine(ExplodeCoroutine());
+        
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
         AbstractEntity entity = coll.gameObject.GetComponent<AbstractEntity>();
         if (entity)
-            entity.Die();
+            entity.Die(true, false);
     }
 
     private void OnDestroy()
@@ -29,17 +32,18 @@ public class ExplosionScript : MonoBehaviour {
         Time.timeScale = 1;
     }
 
-    private IEnumerator SlowExplodeCoroutine()
+    private IEnumerator ExplodeCoroutine()
     {
         var nextShakeStep = Random.value;
 
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
         {
-            Camera.main.transform.rotation = Quaternion.Euler(0, 0, nextShakeStep);
-            Time.timeScale = Mathf.Abs(nextShakeStep);
+            if (PlayerPrefs.GetInt(PlayerPrefsLiterals.CAMERA_SHAKE.ToString(),1) == 1) {
+                Camera.main.transform.rotation = Quaternion.Euler(0, 0, nextShakeStep);
+                Time.timeScale = Mathf.Abs(nextShakeStep);
 
-            nextShakeStep = -Random.value;
-
+                nextShakeStep = -Random.value;
+            }
             yield return new WaitForEndOfFrame();
         }
 

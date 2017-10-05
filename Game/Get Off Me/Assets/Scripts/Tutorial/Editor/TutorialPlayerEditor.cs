@@ -27,6 +27,12 @@ public class TutorialPlayerEditor : Editor {
             menu.AddItem(new GUIContent("Spawn"), false, () => {
                 tutorialPlayer.tutorialSequence.Add(new TutorialSequenceItem() { type = TutorialSequenceItemType.SPAWN, waitUntilComplete = true });
             });
+            menu.AddItem(new GUIContent("Combo Circle State"), false, () => {
+                tutorialPlayer.tutorialSequence.Add(new TutorialSequenceItem() { type = TutorialSequenceItemType.COMBO_STATE, waitUntilComplete = true });
+            });
+            menu.AddItem(new GUIContent("Shockwave Charge"), false, () => {
+                tutorialPlayer.tutorialSequence.Add(new TutorialSequenceItem() { type = TutorialSequenceItemType.SHOCKWAVE_CHARGE, waitUntilComplete = true });
+            });
 
             menu.ShowAsContext();
         };
@@ -44,6 +50,12 @@ public class TutorialPlayerEditor : Editor {
                     break;
                 case TutorialSequenceItemType.SPAWN:
                     rows = 2;
+                    break;
+                case TutorialSequenceItemType.COMBO_STATE:
+                    rows = 1;
+                    break;
+                case TutorialSequenceItemType.SHOCKWAVE_CHARGE:
+                    rows = 1;
                     break;
             }
 
@@ -83,6 +95,7 @@ public class TutorialPlayerEditor : Editor {
                         new GUIContent("Wait until complete"));
 
                     break;
+
                 case TutorialSequenceItemType.SPAWN:
                     EditorGUI.PropertyField(
                         new Rect(rect.x + 64, rect.y, rect.width - 64, EditorGUIUtility.singleLineHeight),
@@ -92,6 +105,20 @@ public class TutorialPlayerEditor : Editor {
                         new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight + 4, rect.width, EditorGUIUtility.singleLineHeight),
                         element.FindPropertyRelative("waitUntilComplete"),
                         new GUIContent("Wait until complete"));
+
+                    break;
+
+                case TutorialSequenceItemType.COMBO_STATE:
+                    EditorGUI.PropertyField(
+                        new Rect(rect.x + 64, rect.y, rect.width - 64, EditorGUIUtility.singleLineHeight),
+                        element.FindPropertyRelative("comboState"), GUIContent.none);
+
+                    break;
+
+                case TutorialSequenceItemType.SHOCKWAVE_CHARGE:
+                    EditorGUI.PropertyField(
+                        new Rect(rect.x + 64, rect.y, rect.width - 64, EditorGUIUtility.singleLineHeight),
+                        element.FindPropertyRelative("shockwaveCharge"), GUIContent.none);
 
                     break;
             }

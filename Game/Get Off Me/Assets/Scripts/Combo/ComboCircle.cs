@@ -37,15 +37,13 @@ public class ComboCircle : MonoBehaviour {
         Keyframe = 0;
     }
 
-    private void Update()
-    {
-        
-    }
-
     public Color Color
     {
         set
         {
+            if (lineRenderer == null)
+                return;
+
             lineRenderer.startColor = value;
             lineRenderer.endColor = value;
         }
@@ -91,6 +89,9 @@ public class ComboCircle : MonoBehaviour {
 
     public void GenerateCircle()
     {
+        if (lineRenderer == null)
+            return;
+
         var vertices = ComputeVertices();
         lineRenderer.positionCount = vertices.Length;
         lineRenderer.SetPositions(vertices);

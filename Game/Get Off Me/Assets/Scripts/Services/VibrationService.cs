@@ -13,7 +13,11 @@ public static class VibrationService {
     public static AndroidJavaObject vibrator;
 #endif
 
-    public static bool IsEnabled = false;
+    public static bool IsEnabled {
+        get {
+            return PlayerPrefs.GetInt(PlayerPrefsLiterals.DEVICE_VIBRATION.ToString(), 1) == 1;
+        }
+    }
 
     public static void Vibrate()
     {

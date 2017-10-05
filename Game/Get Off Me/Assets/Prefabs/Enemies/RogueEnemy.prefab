@@ -122,6 +122,7 @@ MonoBehaviour:
   entityModel: {fileID: 11400000, guid: 8382c3bfeabd64e4cb52990440a64c2d, type: 2}
   amplifiedSpeed: 0
   model: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: a094cfba462395e4f875bfd3b70c720e, type: 3}
 --- !u!198 &198696543751748984
 ParticleSystem:
   m_ObjectHideFlags: 1

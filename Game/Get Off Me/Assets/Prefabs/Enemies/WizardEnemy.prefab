@@ -122,9 +122,11 @@ MonoBehaviour:
   entityModel: {fileID: 11400000, guid: b41d44f7f217a534086f602eb760b0d5, type: 2}
   amplifiedSpeed: 0
   model: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: a094cfba462395e4f875bfd3b70c720e, type: 3}
   chanceToTeleport: 100
   intervalCheckIfTeleport: 3
   channelTime: 1.4
+  teleportSound: {fileID: 8300000, guid: 0a9bff271a9a7e04a8741a079bfa00bb, type: 3}
 --- !u!198 &198084374549276060
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpeedVial : IVial {
-	private const float speedModifier = 1.0f;
+	private const float speedModifier = 0.7f;
 	private const float doubleComboChanceModifier = 30;
 
 	public void Apply(HelmetSlimeEnemy entity){

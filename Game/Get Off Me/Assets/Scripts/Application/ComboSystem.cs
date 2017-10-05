@@ -1,14 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ComboSystem : MonoBehaviour
+// Move to 'Combo' folder
+public class ComboSystem : EventDispatcher
 {
+    public const string COMBO_CHANGED = "ComboSystem.COMBO_CHANGED";
+
+    public static ComboSystem Instance;
+
     [SerializeField]
     private Image comboRadiusIndicator;
     [SerializeField]
     private Camera orthographicCamera;
+    [SerializeField]
+    private Text comboHelpText;
     [SerializeField]
     private Text comboStreakTextField;
     [SerializeField]
@@ -24,7 +29,6 @@ public class ComboSystem : MonoBehaviour
 
     private int currentComboTier = 0;
 
-    private float radius;
     private ParticleSystem particles;
 
     [HideInInspector]
@@ -32,8 +36,17 @@ public class ComboSystem : MonoBehaviour
     [Tooltip("The amount of combo points the player loses on hit")]
     public int comboLosePoints = 10;
 
-    private SoundManager soundManager;
+    private Player player;
+    public int OnFireMinimumTier = 7;
 
+    public int MinimumComboForVial;
+
+    [HideInInspector]
+    public float startTimeUnlockVial;
+    [HideInInspector]
+    public bool completingVialRequirement = false;
+
+    private int highestCombo = 0;
     private int m_Combo;
     public int Combo {
         get
@@ -42,21 +55,54 @@ public class ComboSystem : MonoBehaviour
         }
         private set
         {
+            Dispatch(COMBO_CHANGED, new ComboChangedEvent()
+            {
+                OldCombo = Combo,
+                NewCombo = value
+            });
+
             m_Combo = value;
             HandleComboCountChanged();
+
+            highestCombo = Mathf.Max(value, highestCombo);
         }
-    }    
+    }
+
+    private bool _enabled;
+    public bool Enabled
+    {
+        get
+        {
+            return _enabled;
+        }
+        set
+        {
+            comboCircle.gameObject.SetActive(value);
+            comboHelpText.gameObject.SetActive(value);
+            _enabled = value;
+        }
+    }
 
 	[HideInInspector]
 	public float chanceAtDoubleCombo;
 
-    void Awake() {
+    protected override void Awake() {
+        base.Awake();
+
+        if (Instance != null)
+            Debug.LogWarning("Another ComboSystem was already instantiated!");
+
+        Instance = this;
+
+        Enabled = true;
+
+        startTimeUnlockVial = Time.time;
         chanceAtDoubleCombo = 0;
         particles = gameObject.GetComponentInChildren<ParticleSystem>();
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
 	void Start () {
-        //soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         if (orthographicCamera == null)
 			orthographicCamera = Camera.main;
 
@@ -65,6 +111,9 @@ public class ComboSystem : MonoBehaviour
     }
 
 	public void Increase(int addValue){
+        if (!Enabled)
+            return;
+
         if (Mathf.FloorToInt((Combo + addValue) / ComboNeededForNextTier) != currentComboTier) {
             ParticleSystem.ShapeModule shapeModule = particles.shape;
             shapeModule.radius = comboCircle.Radius;
@@ -75,11 +124,13 @@ public class ComboSystem : MonoBehaviour
 		Combo += addValue;
 		if (Random.Range (1.0f, 100.0f) < chanceAtDoubleCombo)
 			Combo += addValue;
-
     }
 
     public void Decrease()
     {
+        if (!Enabled)
+            return;
+
         if (Mathf.FloorToInt(Mathf.Max(0, Combo - comboLosePoints) / ComboNeededForNextTier) != currentComboTier)
         {
             ParticleSystem.ShapeModule shapeModule = particles.shape;
@@ -117,6 +168,9 @@ public class ComboSystem : MonoBehaviour
     }
     public int AwardPoints(int score)
     {
+        if (!Enabled)
+            return 0;
+
         var comboAddition = Mathf.FloorToInt(Combo * comboScoreRatio.Evaluate(Combo));
         int addScore = (score + comboAddition);
         ScoreManager.Instance.Score += addScore;
@@ -136,7 +190,7 @@ public class ComboSystem : MonoBehaviour
         var residu = Combo % ComboNeededForNextTier;
         comboCircle.DistortingScale = 1 / (ComboNeededForNextTier / (float)residu);
 
-
+        comboHelpText.gameObject.SetActive(Combo == 0);
 
         if (Combo > 0 && residu == 0)
         {
@@ -153,12 +207,28 @@ public class ComboSystem : MonoBehaviour
         else
             HideComboStreak();
 
+        player.Lit = (Combo > OnFireMinimumTier * ComboNeededForNextTier);
+        
         currentComboTier = Mathf.FloorToInt(Combo / ComboNeededForNextTier);
-        //soundManager.HandleComboTier(currentComboTier);
+        BackgroundMusicManager.Instance.HandleComboTier(currentComboTier);
+        if (Combo >= MinimumComboForVial)
+        {
+            if (!completingVialRequirement) {
+                startTimeUnlockVial = Time.time;
+            }
+            completingVialRequirement = true;
+        }
+        else if (highestCombo >= MinimumComboForVial)
+        {
+            completingVialRequirement = false;
+            GameManager.Instance.HandleHighestTimeAboveHighCombo(Time.time - startTimeUnlockVial);
+        }
     }
-
     private void ShowComboStreak(int amount)
     {
+        if (!Enabled)
+            return;
+
         var randomX = Random.value * 50 - 25;
         var randomY = Random.value * 80 - 40;
         var randomZ = Random.value * 70 - 35;
@@ -172,14 +242,5 @@ public class ComboSystem : MonoBehaviour
     private void HideComboStreak()
     {
         comboStreakTextField.gameObject.SetActive(false);
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (orthographicCamera != null)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(transform.position, radius);
-        }
     }
 }

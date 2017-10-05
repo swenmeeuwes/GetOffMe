@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RogueVial : IVial {
-	private const float speedIncrease = 1.0f;
-    private const int pointModifier = 1;
+	private const float speedIncrease = 1.5f;
+    private const int pointModifier = 2;
 
 	public void Apply(HelmetSlimeEnemy entity) { }
 	public void Apply(NormalSlimeEnemy entity) { }

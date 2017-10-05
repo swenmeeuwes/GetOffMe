@@ -8,11 +8,9 @@ using UnityEngine;
 /// Spawns GameObject X out of the Main Camera's sight
 /// GameObjects are spawned in a radius around the camera's position
 /// </summary>
-public class OffScreenSpawner : AbstractSpawner
+public class OffScreenSpawner : AbstractEntitySpawner
 {
     // Exposed inspector fields
-    [SerializeField]
-    private GameObject objectToSpawn; // Obsolete
     [SerializeField]
     private Camera orthographicCamera;
     [SerializeField]
@@ -90,11 +88,12 @@ public class OffScreenSpawner : AbstractSpawner
         randomEntity.transform.position = randomSpawnPosition;
         var entity = randomEntity.GetComponent<AbstractEntity>();
 
-        for (int i = 0; i < activeVials.Count; i++) {
-            //AbstractEntity entity = randomEntity.GetComponent (typeof(AbstractEntity));
-			entity.Accept (activeVials [i]);
-		}
-
+        if (GameManager.Instance.State == GameState.PLAY) {
+            for (int i = 0; i < activeVials.Count; i++) {
+			    entity.Accept (activeVials [i]);
+		    }
+        }
+        
         base.Spawn();
     }
 

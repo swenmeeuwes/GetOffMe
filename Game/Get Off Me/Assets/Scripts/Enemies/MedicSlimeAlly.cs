@@ -9,7 +9,7 @@ public class MedicSlimeAlly : SeekingEntity {
     {
         base.Awake();
         healAmount = 1;
-
+        entityType = EntityType.SLIME_MEDIC;
         IgnoreTap = true;
     }
     protected override void Start(){

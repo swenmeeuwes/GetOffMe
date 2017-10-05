@@ -5,7 +5,7 @@ using UnityEngine;
 public class PausePanelController : MonoBehaviour {
 
     private GameObject panel;
-    // Update is called once per frame
+    
     void Start() {
         panel = transform.Find("PausePanel").gameObject;
     }

@@ -3,70 +3,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractEntity : EventDispatcher, ITouchable
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(ParticleSystem))]
+public abstract class AbstractEntity : AbstractDraggable
 {
+    protected EntityType? entityType = null;
+
+
     [SerializeField]
     private EntityModel entityModel;
 
     [HideInInspector]
     public float amplifiedSpeed;
-
-    protected Rigidbody2D rb;
+    
     protected Animator animator;
 
     [HideInInspector]
     public EntityModel model;
 
     protected bool ShowParticles { get; set; }
-	protected bool Draggable { get; set; }
 	protected bool Dragged { get; set; }
 	protected bool InComboRadius { get; set; }
-    protected bool IgnoreTap { get; set; } // Feature: To bypass tap delay -> smoother swipe
     protected bool ComboEnabled { get; set; }
 
-
-    public HashSet<int> FingerIds { get; set; }
-
-    protected Vector3 screenPoint;
-    protected Vector3 offset;
-    protected Vector3 oldPosition = Vector3.zero; // Refactor to began touch position?
-    protected Vector3 futurePosition; // still needed?
-    protected float lastTouchTime;
-
     private ParticleSystem dragParticles;
-	protected ComboSystem comboSystem;
+    protected Rigidbody2D rbody;
     protected GameObject player;
-    protected ScoreParticleManager scoreParticleManager;
     protected EntityHelper entityHelper;
 
     protected override void Awake()
     {
         base.Awake();
 
-        FingerIds = new HashSet<int>();
         model = Instantiate(entityModel);
 
         ShowParticles = true;
         Draggable = true;
-        IgnoreTap = false;
         ComboEnabled = true;
+        weight = model.weight;
     }
 
     protected virtual void Start()
     {
-		comboSystem = FindObjectOfType<ComboSystem>();
-        dragParticles = GetComponent<ParticleSystem>();
-        rb = GetComponent<Rigidbody2D>();
+        rbody = GetComponent<Rigidbody2D>();
+        dragParticles = GetComponent<ParticleSystem>();        
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
-        scoreParticleManager = FindObjectOfType<ScoreParticleManager>();
         entityHelper = FindObjectOfType<EntityHelper>();
 
         model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
 
         amplifiedSpeed = model.speed * 60;
-
-        InputManager.Main.Register(this);
     }
 
     protected virtual void Update() {
@@ -76,77 +63,64 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
 
     protected abstract void UpdateEntity();
 
-    public void OnTouchBegan(Touch touch)
+    public override void OnTouchBegan(Touch touch)
     {
         if (GameManager.Instance.State == GameState.PAUSE) return;
 
-        if (comboSystem.IntersectsComboCircle(Camera.main.ScreenToWorldPoint(touch.position)))
+        if (ComboSystem.Instance.IntersectsComboCircle(Camera.main.ScreenToWorldPoint(touch.position)))
             InComboRadius = true;
         
         if (ShowParticles)
             dragParticles.Play();
 
         Dragged = true;
-        oldPosition = transform.position;
-        futurePosition = transform.position;
-        screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, -Camera.main.transform.position.z));
-
-        lastTouchTime = Time.time;
+        base.OnTouchBegan(touch);
     }
 
-    public void OnTouch(Touch touch)
+    public override void OnTouch(Touch touch)
     {
         if (GameManager.Instance.State == GameState.PAUSE)
             return;
 
-        if (ShowParticles)
+        if (dragParticles != null && ShowParticles)
             dragParticles.transform.position = transform.position;
-
-        Vector3 curScreenPoint = new Vector3(touch.position.x, touch.position.y, -Camera.main.transform.position.z);
-        futurePosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
         if (Draggable)
         {
-            transform.position = futurePosition;
+            base.OnTouch(touch);
 
-            var newVelocity = (touch.deltaPosition * touch.deltaTime) * (100 - model.weight);
-            rb.velocity = newVelocity;
+            var newVelocity = (touch.deltaPosition * touch.deltaTime) * (100 - weight);
+            rbody.velocity = newVelocity;
         }
     }
 
-    public void OnTouchEnded(Touch touch)
+    public override void OnTouchEnded(Touch touch)
     {
         if (model.health <= 0)
             return;
 
         Dragged = false;
 
-        dragParticles.Stop();
+        if(dragParticles != null)
+            dragParticles.Stop();
 
-        var secondsSinceTouch = Time.time - lastTouchTime;
-
-        // If seconds since last touch is lower than X, see it as a tap
-        if (!IgnoreTap && secondsSinceTouch < 0.3f)
-        {
-            OnTap();
-        }
-        else
-        {
-            var swipeDistance = touch.deltaPosition * touch.deltaTime;
-            OnSwipe(swipeDistance);
-        }
+        base.OnTouchEnded(touch);
     }
 
-    public virtual void OnTap()
+    public void ApplySwipeVelocity(Vector3 swipeVector)
+    {
+        var newVelocity = swipeVector * (100 - model.weight);
+        rbody.velocity = newVelocity;
+    }
+
+    protected override void OnTap()
     {
         Dispatch("tapped", this);
     }
 
-    protected virtual void OnSwipe(Vector3 swipeVector)
+    protected override void OnSwipe(Vector3 swipeVector)
     {
-        var newVelocity = swipeVector * (100 - model.weight);
-        rb.velocity = newVelocity;
+        ApplySwipeVelocity(swipeVector);
 
         if (swipeVector.magnitude < 0.25f)
             return;
@@ -158,14 +132,11 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
         HandleCloseCallText();
 
         Dispatch("swiped", this);
-
-        HandleScore();
-        HandleCombo();
     }
 
     protected virtual void HandleCloseCallText()
     {
-        if (Vector2.Distance(oldPosition, player.transform.position) < player.transform.localScale.x + 0.3f)
+        if (Vector2.Distance(beganTouchPosition, player.transform.position) < player.transform.localScale.x + 0.3f)
         {
             entityHelper.ShowCloseCallText();
         }
@@ -175,15 +146,15 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     {
         if (GameManager.Instance.State == GameState.PLAY)
         {
-            int addedScore = comboSystem.AwardPoints(model.awardPoints);
+            int addedScore = ComboSystem.Instance.AwardPoints(model.awardPoints);
             if(addedScore > 0)
-                scoreParticleManager.ShowRewardIndicatorAt(addedScore, transform.position, true);
+                ScoreParticleManager.Instance.ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
     }
     protected virtual void HandleScore(int addedScore)
     {
         if (GameManager.Instance.State == GameState.PLAY && addedScore > 0)
-            scoreParticleManager.ShowRewardIndicatorAt(addedScore, transform.position, true);
+            ScoreParticleManager.Instance.ShowRewardIndicatorAt(addedScore, transform.position, true);
     }
 
     protected virtual void HandleCombo()
@@ -192,9 +163,9 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
             return;
 
         if (InComboRadius)
-            comboSystem.Increase(1);
+            ComboSystem.Instance.Increase(1);
         else
-            comboSystem.Decrease();
+            ComboSystem.Instance.Decrease();
         InComboRadius = false;
     }
 		
@@ -219,17 +190,29 @@ public abstract class AbstractEntity : EventDispatcher, ITouchable
     }
     public void OnEntityDestroy() {
         dragParticles.Stop();
-        InputManager.Main.Deregister(this);
-
+        InputManager.Instance.Deregister(this);
         Destroy(gameObject);
     }
     public virtual void OnPlayerHit(Player player) {
         Dispatch("dying", this);
         OnEntityDestroy();
     }
-    public void Die() {
-        Destroy(GetComponent <CircleCollider2D>() );
+    public void Die(bool handleScore = true, bool handleCombo = true) {
+        if (handleScore)
+            HandleScore();
+
+        if (handleCombo)
+            HandleCombo();
+
+        SoundManager.Instance.PlaySound(SFXType.ENEMY_DEATH);
+        player.GetComponent<Player>().enemiesKilledWithoutGettingHit++;
+        TrackDeath();
+        gameObject.layer = LayerMask.NameToLayer("Graveyard");
         StartCoroutine(DieAnimation());
+    }
+    protected virtual void TrackDeath() {
+        GameManager.Instance.SaveGame.EnemyKillCount[(int)entityType]++;
+        GameManager.Instance.Save();
     }
     private IEnumerator DieAnimation()
     {

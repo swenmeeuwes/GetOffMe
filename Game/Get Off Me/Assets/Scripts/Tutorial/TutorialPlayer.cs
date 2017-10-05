@@ -27,6 +27,7 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void Start()
     {
+        GameManager.Instance.State = GameState.TUTORIAL;
         textAnimation = tutorialTextField.GetComponent<Animation>();
         tutorialCamera = GetComponent<Camera>();
 
@@ -42,7 +43,7 @@ public class TutorialPlayer : MonoBehaviour {
 
         tutorialTextField.text = "";
 
-        if (PlayerPrefs.GetInt("ShowTutorial", 1) == 1)
+        if (PlayerPrefs.GetInt(PlayerPrefsLiterals.SHOW_TUTORIAL.ToString(), 1) == 1)
         {
             //player.Damage(1);
             Next();
@@ -70,6 +71,12 @@ public class TutorialPlayer : MonoBehaviour {
 
     private void Finish()
     {
+        GameManager.Instance.State = GameState.PLAY;
+        // Reset score + combo
+        //ScoreManager.Instance.Score = 0;
+        //ScoreManager.Instance.Highscore = 0; // DONT DO THIS!!!!
+        //ComboSystem.Instance.Reset();
+
         spawner.Enabled = true;
         spawner.SetWave();
     }
@@ -83,6 +90,12 @@ public class TutorialPlayer : MonoBehaviour {
                 break;
             case TutorialSequenceItemType.SPAWN:
                 HandleSpawn(sequenceItem.spawnPrefab);
+                break;
+            case TutorialSequenceItemType.COMBO_STATE:
+                HandleComboState(sequenceItem.comboState);
+                break;
+            case TutorialSequenceItemType.SHOCKWAVE_CHARGE:
+                HandleShockwaveCharge(sequenceItem.shockwaveCharge);
                 break;
         }
     }
@@ -139,14 +152,18 @@ public class TutorialPlayer : MonoBehaviour {
         instructionCanvas.transform.SetParent(spawned.transform, false);
 
 
-        if (spawnedEntity is HelmetSlimeEnemy)
+        if (!spawnedEntity.IgnoreTap)
         {
             instructionCanvas.GetComponentInChildren<Text>().text = "Tap";
             spawnedEntity.AddEventListener("tapped", (e) => instructionCanvas.GetComponentInChildren<Text>().text = "Swipe", true);
         }
-        else
+        else if (spawnedEntity.Draggable)
         {
             instructionCanvas.GetComponentInChildren<Text>().text = "Swipe";
+        }
+        else
+        {
+            instructionCanvas.GetComponentInChildren<Text>().text = "";
         }
 
         if(spawnedEntity is MedicSlimeAlly)
@@ -156,5 +173,17 @@ public class TutorialPlayer : MonoBehaviour {
             spawnedEntity.AddEventListener("dying", (e) => Next(), true);
         else
             Next();
+    }
+
+    private void HandleComboState(BinaryEnabledState newState)
+    {
+        ComboSystem.Instance.Enabled = newState == BinaryEnabledState.ENABLED ? true : false;
+        Next();
+    }
+
+    private void HandleShockwaveCharge(int newCharge)
+    {
+        player.shockwaveCharge = newCharge;
+        Next();
     }
 }

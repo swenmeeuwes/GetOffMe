@@ -1,9 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour {
+public class InputManager : EventDispatcher {
+    #region EventLiterals
+    public static string GESTURE_DETECTED = "Gesture detected";
+    #endregion
+
     // Inspector variables
+    public static float PINCH_GESTURE_SPEED_MODIFIER = 0.1f;
+
     [SerializeField][Tooltip("The radius of the circle scanned around the touches")]
     private float castSphereRadius = 0.2f;
     // ---
@@ -11,13 +16,16 @@ public class InputManager : MonoBehaviour {
     private Vector3 previousMousePosition;
 #endif
 
-    public static InputManager Main {
-        get {
-            return GameObject.FindGameObjectWithTag("MainTouchManager").GetComponent<InputManager>();
-        }
-    }
+    public static InputManager Instance;
 
     private List<ITouchable> registeredTouchables;
+
+    public void OnEnable()
+    {
+        if (Instance != null)
+            Debug.LogWarning("InputManager is already instantiated!");
+        Instance = this;
+    }
 
     public void Register(ITouchable touchable)
     {
@@ -29,8 +37,10 @@ public class InputManager : MonoBehaviour {
         registeredTouchables.Remove(touchable);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         registeredTouchables = new List<ITouchable>();
 
 #if UNITY_EDITOR
@@ -53,6 +63,61 @@ public class InputManager : MonoBehaviour {
             }
         }
 
+        FakeTouches();
+        HandleGestures();
+    }
+
+    private void HandleTouchOn(Transform transform, Touch touch)
+    {
+        if (transform == null)
+            return;
+
+        var touched = transform.gameObject;
+
+        if (touch.phase == TouchPhase.Began)
+        {
+            var touchable = touched.GetComponent<ITouchable>();
+            if (touchable == null)
+                return;
+
+            // Tag the ITouchable with the fingerId so we can call OnTouch and OnTouchEnded on the same object later
+            touchable.FingerIds.Add(touch.fingerId);
+            registeredTouchables.Add(touchable);
+
+            touchable.OnTouchBegan(touch);
+        }
+    }
+
+    private void HandleTouch(Touch touch)
+    {
+        var toBeDeleted = new List<ITouchable>();
+        foreach (var touchable in registeredTouchables)
+        {
+            if (touchable.FingerIds.Count == 0 || !touchable.FingerIds.Contains(touch.fingerId))
+                continue;
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Moved:
+                case TouchPhase.Stationary:
+                    touchable.OnTouch(touch);
+                    break;
+                case TouchPhase.Ended:
+                    if (touchable is MonoBehaviour && ((MonoBehaviour)touchable).gameObject != null)
+                        touchable.OnTouchEnded(touch);
+
+                    // Remove tag so that the events won't fire anymore
+                    touchable.FingerIds.Remove(touch.fingerId);
+                    toBeDeleted.Add(touchable);
+                    break;
+            }
+        }
+
+        toBeDeleted.ForEach(touchable => registeredTouchables.Remove(touchable));
+    }
+
+    private void FakeTouches()
+    {
 #if UNITY_EDITOR
         // Mouse simulation - Wish: Make adapters, this is hard because touch and mouse have different interfaces
         var fakeTouch = new Touch()
@@ -97,47 +162,29 @@ public class InputManager : MonoBehaviour {
 #endif
     }
 
-    private void HandleTouchOn(Transform transform, Touch touch)
+    private void HandleGestures()
     {
-        if (transform == null)
+        if (Input.touchCount < 2)
             return;
 
-        var touched = transform.gameObject;
+        var touchOne = Input.GetTouch(0);
+        var touchTwo = Input.GetTouch(1);
 
-        if (touch.phase == TouchPhase.Began)
-        {
-            var touchable = touched.GetComponent<ITouchable>();
-            if (touchable == null)
-                return;
+        var previousTouchOnePosition = touchOne.position - touchOne.deltaPosition;
+        var previousTouchTwoPosition = touchTwo.position - touchTwo.deltaPosition;
 
-            // Tag the ITouchable with the fingerId so we can call OnTouch and OnTouchEnded on the same object later
-            touchable.FingerIds.Add(touch.fingerId);
+        var previousTouchDeltaMagnitude = (previousTouchOnePosition - previousTouchTwoPosition).magnitude;
+        var touchDeltaMagnitude = (touchOne.position - touchTwo.position).magnitude;
 
-            touchable.OnTouchBegan(touch);
-        }
-    }
+        var touchDeltaMagnitudeDifference = previousTouchDeltaMagnitude - touchDeltaMagnitude;
 
-    private void HandleTouch(Touch touch)
-    {
-        foreach (var touchable in registeredTouchables)
-        {
-            if (touchable.FingerIds.Count == 0 || !touchable.FingerIds.Contains(touch.fingerId))
-                continue;
+        var eventObject = new PinchGesture() {
+            DeltaMagnitude = touchDeltaMagnitudeDifference,
+            TouchOne = touchOne,
+            TouchTwo = touchTwo
+        };
 
-            switch (touch.phase)
-            {
-                case TouchPhase.Moved:
-                case TouchPhase.Stationary:
-                    touchable.OnTouch(touch);
-                    break;
-                case TouchPhase.Ended:
-                    touchable.OnTouchEnded(touch);
-
-                    // Remove tag so that the events won't fire anymore
-                    touchable.FingerIds.Remove(touch.fingerId);
-                    break;
-            }
-        }
+        Dispatch(GESTURE_DETECTED, eventObject);
     }
 
     private void OnDrawGizmos()

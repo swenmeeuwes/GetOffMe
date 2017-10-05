@@ -11,9 +11,12 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
     public int pointsForHelmetTap;
 
+    public AudioClip loseHelmetSound;
+
     protected override void Awake()
     {
         base.Awake();
+        entityType = EntityType.SLIME_HELMET;
 
         if (pointsForHelmetTap <= 0)
             pointsForHelmetTap = 1;
@@ -29,35 +32,12 @@ public class HelmetSlimeEnemy : SeekingEntity {
     protected override void Start() {
         base.Start();
     }
-    public override void OnTap() {
+    protected override void OnTap() {
         if (hasHelmet)
         {
 			neededTapsForHelmet--;
             if (neededTapsForHelmet <= 0)
-            {
-                hasHelmet = false;
-                IgnoreTap = true;
-
-                // Create flipped particle
-                var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");
-                var helmetObject = Instantiate(helmetPrefab);
-
-                var parent = new GameObject();
-                parent.AddComponent<DeleteObjectDelayed>();
-                parent.transform.position = transform.position;
-
-                helmetObject.transform.position = Vector3.zero;
-                helmetObject.transform.SetParent(parent.transform);
-
-                animator.SetTrigger("loseHelmet");
-                Draggable = true;
-                ShowParticles = true;
-            }     
-
-            int addedScore = comboSystem.AwardPoints(pointsForHelmetTap);
-            HandleScore(addedScore);
-
-            //HandleCombo(); // Don't count HELMET taps towards combo count
+                LoseHelmet();
         }
         base.OnTap();
     }
@@ -77,4 +57,31 @@ public class HelmetSlimeEnemy : SeekingEntity {
 	{
 		vial.Apply (this);
 	}
+
+    public void LoseHelmet()
+    {
+        hasHelmet = false;
+        IgnoreTap = true;
+
+        // Create flipped particle
+        SoundManager.Instance.PlaySound(SFXType.ENEMY_LOSE_HELMET);
+        var helmetPrefab = Resources.Load<GameObject>("Enemy/Props/Helmet");
+        var helmetObject = Instantiate(helmetPrefab);
+
+        var parent = new GameObject();
+        parent.AddComponent<DeleteObjectDelayed>();
+        parent.transform.position = transform.position;
+
+        helmetObject.transform.position = Vector3.zero;
+        helmetObject.transform.SetParent(parent.transform);
+
+        animator.SetTrigger("loseHelmet");
+        Draggable = true;
+        ShowParticles = true;
+
+        int addedScore = ComboSystem.Instance.AwardPoints(pointsForHelmetTap);
+        HandleScore(addedScore);
+
+        //HandleCombo(); // Don't count HELMET taps towards combo count
+    }
 }

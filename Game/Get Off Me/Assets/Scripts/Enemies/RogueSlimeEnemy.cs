@@ -12,7 +12,7 @@ public class RogueSlimeEnemy : SeekingEntity {
     protected override void Awake()
     {
         base.Awake();
-
+        entityType = EntityType.SLIME_ROGUE;
         IgnoreTap = true;
     }
 
