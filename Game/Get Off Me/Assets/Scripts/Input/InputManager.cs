@@ -164,6 +164,11 @@ public class InputManager : EventDispatcher {
 
     private void HandleGestures()
     {
+        HandleZoomGesture();
+    }
+
+    private void HandleZoomGesture()
+    {
         if (Input.touchCount < 2)
             return;
 
@@ -173,13 +178,13 @@ public class InputManager : EventDispatcher {
         var previousTouchOnePosition = touchOne.position - touchOne.deltaPosition;
         var previousTouchTwoPosition = touchTwo.position - touchTwo.deltaPosition;
 
-        var previousTouchDeltaMagnitude = (previousTouchOnePosition - previousTouchTwoPosition).magnitude;
-        var touchDeltaMagnitude = (touchOne.position - touchTwo.position).magnitude;
+        var previousTouchDelta = (previousTouchOnePosition - previousTouchTwoPosition).magnitude;
+        var touchDelta = (touchOne.position - touchTwo.position).magnitude;
 
-        var touchDeltaMagnitudeDifference = previousTouchDeltaMagnitude - touchDeltaMagnitude;
+        var touchDeltaDifference = previousTouchDelta - touchDelta;
 
         var eventObject = new PinchGesture() {
-            DeltaMagnitude = touchDeltaMagnitudeDifference,
+            DeltaDifference = touchDeltaDifference,
             TouchOne = touchOne,
             TouchTwo = touchTwo
         };
