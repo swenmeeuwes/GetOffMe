@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 
 // Move to 'Combo' folder
-public class ComboSystem : EventDispatcher
+public class ComboSystem : MonoEventDispatcher
 {
     public const string COMBO_CHANGED = "ComboSystem.COMBO_CHANGED";
 

@@ -21,7 +21,6 @@ public class TutorialPlayer : MonoBehaviour {
     private Player player;
 
     private int tutorialSequenceIndex;
-    private int encounterIndex;
 
     private TutorialSequenceItem currentSequenceItem;
 
@@ -37,7 +36,6 @@ public class TutorialPlayer : MonoBehaviour {
         tutorialCamera.enabled = false;
 
         tutorialSequenceIndex = 0;
-        encounterIndex = 0;
 
         spawner.Enabled = false; // Halt spawning
 
@@ -146,8 +144,8 @@ public class TutorialPlayer : MonoBehaviour {
         var spawnedEntity = spawned.GetComponent<AbstractEntity>();
         spawned.transform.position = randomPosition;
 
-        spawnedEntity.model.health = 1;
-        spawnedEntity.model.varianceInSpeed = 0f;
+        spawnedEntity.Model.health = 1;
+        spawnedEntity.Model.varianceInSpeed = 0f;
 
         instructionCanvas.transform.SetParent(spawned.transform, false);
 

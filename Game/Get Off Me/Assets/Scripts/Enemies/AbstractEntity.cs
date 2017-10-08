@@ -19,7 +19,7 @@ public abstract class AbstractEntity : AbstractDraggable
     protected Animator animator;
 
     [HideInInspector]
-    public EntityModel model;
+    public EntityModel Model { get; set; }
 
     protected bool ShowParticles { get; set; }
 	protected bool Dragged { get; set; }
@@ -31,16 +31,18 @@ public abstract class AbstractEntity : AbstractDraggable
     protected GameObject player;
     protected EntityHelper entityHelper;
 
+    protected float weight;
+
     protected override void Awake()
     {
         base.Awake();
 
-        model = Instantiate(entityModel);
+        Model = Instantiate(entityModel);
 
         ShowParticles = true;
         Draggable = true;
         ComboEnabled = true;
-        weight = model.weight;
+        weight = Model.weight;
     }
 
     protected virtual void Start()
@@ -51,9 +53,9 @@ public abstract class AbstractEntity : AbstractDraggable
         player = GameObject.FindGameObjectWithTag("Player");
         entityHelper = FindObjectOfType<EntityHelper>();
 
-        model.speed += UnityEngine.Random.Range(-model.varianceInSpeed, model.varianceInSpeed);
+        Model.speed += UnityEngine.Random.Range(-Model.varianceInSpeed, Model.varianceInSpeed);
 
-        amplifiedSpeed = model.speed * 60;
+        amplifiedSpeed = Model.speed * 60;
     }
 
     protected virtual void Update() {
@@ -96,7 +98,7 @@ public abstract class AbstractEntity : AbstractDraggable
 
     public override void OnTouchEnded(Touch touch)
     {
-        if (model.health <= 0)
+        if (Model.health <= 0)
             return;
 
         Dragged = false;
@@ -109,7 +111,7 @@ public abstract class AbstractEntity : AbstractDraggable
 
     public void ApplySwipeVelocity(Vector3 swipeVector)
     {
-        var newVelocity = swipeVector * (100 - model.weight);
+        var newVelocity = swipeVector * (100 - Model.weight);
         rbody.velocity = newVelocity;
     }
 
@@ -125,8 +127,8 @@ public abstract class AbstractEntity : AbstractDraggable
         if (swipeVector.magnitude < 0.25f)
             return;
 
-        model.health -= 1;
-        if (model.health <= 0)
+        Model.health -= 1;
+        if (Model.health <= 0)
             Die();
 
         HandleCloseCallText();
@@ -146,7 +148,7 @@ public abstract class AbstractEntity : AbstractDraggable
     {
         if (GameManager.Instance.State == GameState.PLAY)
         {
-            int addedScore = ComboSystem.Instance.AwardPoints(model.awardPoints);
+            int addedScore = ComboSystem.Instance.AwardPoints(Model.awardPoints);
             if(addedScore > 0)
                 ScoreParticleManager.Instance.ShowRewardIndicatorAt(addedScore, transform.position, true);
         }
@@ -172,15 +174,15 @@ public abstract class AbstractEntity : AbstractDraggable
 	public virtual void Accept(IVial vial) { }
 
 	public virtual void Configure(int pointModifier){
-		model.awardPoints += pointModifier;
+		Model.awardPoints += pointModifier;
 	}
 	public virtual void Configure(int pointModifier, int healthModifier){
 		Configure (pointModifier);
-		model.health += healthModifier;
+		Model.health += healthModifier;
 	}
 	public virtual void Configure(int pointModifier, int healthModifier, float speedModifier){
 		Configure (pointModifier, healthModifier);
-		model.speed += speedModifier;
+		Model.speed += speedModifier;
 	}
     protected virtual void OnCollisionEnter2D(Collision2D coll)
     {
