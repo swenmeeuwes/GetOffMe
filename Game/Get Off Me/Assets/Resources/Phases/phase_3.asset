@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe84c1f35f9dccc4db64333351a4ecb8, type: 3}
+  m_Name: phase_3
+  m_EditorClassIdentifier: 
+  time: 45
+  objectKeys:
+  - {fileID: 1215110422154106, guid: 2117f283babe3e14d831d7937e997440, type: 2}
+  - {fileID: 1215110422154106, guid: ba810dc43d943df4786382e36cfbb59b, type: 2}
+  - {fileID: 1741743097136120, guid: 9436e0ada318d4046a30799001e4b5cb, type: 2}
+  - {fileID: 1215110422154106, guid: d37eb6f165322b140ab19e08f0ceca73, type: 2}
+  - {fileID: 1900798280667138, guid: ef732f5afda7ff74890be4ef03bc0dce, type: 2}
+  - {fileID: 1247453931331628, guid: 3d66339c2d1340b43aaa51fe02261c34, type: 2}
+  weights:
+  - 8
+  - 6
+  - 5
+  - 1
+  - 3
+  - 2
