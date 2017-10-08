@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventDispatcher : MonoBehaviour, IDispatcher
+public class MonoEventDispatcher : MonoBehaviour, IDispatcher
 {
     private Dictionary<string, List<Tuple<Action<object>, bool>>> listeners;
 

@@ -144,8 +144,8 @@ public class TutorialPlayer : MonoBehaviour {
         var spawnedEntity = spawned.GetComponent<AbstractEntity>();
         spawned.transform.position = randomPosition;
 
-        spawnedEntity.model.health = 1;
-        spawnedEntity.model.varianceInSpeed = 0f;
+        spawnedEntity.Model.health = 1;
+        spawnedEntity.Model.varianceInSpeed = 0f;
 
         instructionCanvas.transform.SetParent(spawned.transform, false);
 

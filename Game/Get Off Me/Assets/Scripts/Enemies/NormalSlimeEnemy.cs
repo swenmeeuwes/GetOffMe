@@ -18,7 +18,7 @@ public class NormalSlimeEnemy : SeekingEntity
 
     public override void OnPlayerHit(Player player)
     {
-        player.AbsorbEnemy(model.health);
+        player.AbsorbEnemy(Model.health);
         base.OnPlayerHit(player);
     }
 

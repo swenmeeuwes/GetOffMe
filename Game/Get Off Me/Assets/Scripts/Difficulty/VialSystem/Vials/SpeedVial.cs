@@ -7,19 +7,19 @@ public class SpeedVial : IVial {
 	private const float doubleComboChanceModifier = 30;
 
 	public void Apply(HelmetSlimeEnemy entity){
-		entity.model.speed += speedModifier;
+		entity.Model.speed += speedModifier;
 	}
 	public void Apply(NormalSlimeEnemy entity){
-		entity.model.speed += speedModifier;
+		entity.Model.speed += speedModifier;
 	}
 	public void Apply(RogueSlimeEnemy entity){
-		entity.model.speed += speedModifier;
+		entity.Model.speed += speedModifier;
 	}
 	public void Apply(WizardSlimeEnemy entity){
-		entity.model.speed += speedModifier;
+		entity.Model.speed += speedModifier;
 	}
 	public void Apply(MedicSlimeAlly entity){
-		entity.model.speed += speedModifier;
+		entity.Model.speed += speedModifier;
 	}
     public void Apply(BombSlimeEnemy entity) { }
 

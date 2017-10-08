@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : EventDispatcher {
+public class InputManager : MonoEventDispatcher {
     #region EventLiterals
     public static string GESTURE_DETECTED = "Gesture detected";
     #endregion
