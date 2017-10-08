@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class NormalSlimeEnemy : SeekingEntity
 {
-    protected override void Start()
-    {
-        base.Start();
-    }
-
     protected override void Awake()
     {
         base.Awake();
@@ -24,7 +19,7 @@ public class NormalSlimeEnemy : SeekingEntity
 
 	public override void Accept (IVial vial)
 	{
-		vial.Apply (this);
+		vial.Apply(this);
 	}
 }
 
