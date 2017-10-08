@@ -35,7 +35,7 @@ public class AbstractEntitySpawner : AbstractSpawner {
         var speedAddition = speedAdditionCurve.Evaluate(counter);
 
         var entity = spawned.GetComponent<AbstractEntity>();
-        entity.model.speed += speedAddition;
+        entity.Model.speed += speedAddition;
 
         return spawned;
     }

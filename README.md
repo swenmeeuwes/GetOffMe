@@ -1,5 +1,7 @@
 # GetOffMe
-Mobile game project for the "CMIGDD021P" minor at the Hogeshool of Rotterdam 
+Mobile game project 'Get Off Me' for the "CMIGDD021P" minor at the Hogeshool of Rotterdam.
+Get Off Me is a defensive game where enemies have to be swiped out of the map in order to survive!
+
 
 # Git issues board
 https://waffle.io/swenmeeuwes/GetOffMe

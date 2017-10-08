@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<game>
+	<title>Get Off Me</title>
+	<release-date>07/09/2017</release-date>
+	<website></website>
+	<press-can-request-copy>TRUE</press-can-request-copy>
+
+	<platforms>
+		<platform>
+			<name>Android</name>
+			<link>https://play.google.com/store/apps/details?id=com.pixelpotato.getoffme</link>
+		</platform>
+	</platforms>
+	
+	<description>
+		Get Off Me is een defensieve game waarbij vijanden uit het spel moeten worden geveegd om te overleven.
+	</description>
+
+	<features>
+		<feature></feature>
+	</features>
+	
+	<trailers>
+		<trailer>
+			<name>Trailer</name>
+			<youtube>iaIlfsr-9vs</youtube>
+		</trailer>
+	</trailers>
+
+	<quotes>
+		<quote>
+			<description>Very addictive game, perfect for train trips :)</description>
+			<name>Jesse van Breda</name>
+			<website>Play Store</website>
+			<link>https://play.google.com/store/apps/details?id=com.pixelpotato.getoffme</link>
+		</quote>
+	</quotes>
+	
+	<credits>
+		<credit>
+			<person>Swen Meeuwes</person>
+			<role>Developer</role>
+		</credit>
+		<credit>
+			<person>Niek Oosterbaan</person>
+			<role>Developer</role>
+		</credit>
+		<credit>
+			<person>Kevin Te Hennepe</person>
+			<role>Game Designer</role>
+		</credit>
+		<credit>
+			<person>Lars van Hilten</person>
+			<role>Artist</role>
+		</credit>
+	</credits>
+</game>

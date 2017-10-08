@@ -11,8 +11,6 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
     public int pointsForHelmetTap;
 
-    public AudioClip loseHelmetSound;
-
     protected override void Awake()
     {
         base.Awake();
@@ -50,7 +48,7 @@ public class HelmetSlimeEnemy : SeekingEntity {
 
     public override void OnPlayerHit(Player player)
     {
-        player.AbsorbEnemy(model.health + (hasHelmet ? 1: 0)); // TODO Temporary extra health for helmet
+        player.AbsorbEnemy(Model.health + (hasHelmet ? 1: 0)); // TODO Temporary extra health for helmet
         base.OnPlayerHit(player);
     }
 	public override void Accept (IVial vial)

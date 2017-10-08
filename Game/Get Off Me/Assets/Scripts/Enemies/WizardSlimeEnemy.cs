@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WizardSlimeEnemy : SeekingEntity {
+    public float ChannelTime { get; set; }
 
     private bool teleporting = false;
-    public float chanceToTeleport;
-    public float intervalCheckIfTeleport;
-	public float channelTime;
+    [SerializeField]
+    private float chanceToTeleport;
+    [SerializeField]
+    private float teleportInterval;    
 
-    public AudioClip teleportSound;
-    
 	protected override void Start () {
         base.Start();
-		InvokeRepeating("TeleportCheck", intervalCheckIfTeleport, intervalCheckIfTeleport);
+		InvokeRepeating("TeleportCheck", teleportInterval, teleportInterval);
     }
     protected override void Awake()
     {
@@ -34,7 +32,7 @@ public class WizardSlimeEnemy : SeekingEntity {
     public void ChannelTeleport() {
         teleporting = true;
         animator.SetBool("isChanneling", teleporting);
-		Invoke("Teleport", channelTime);
+		Invoke("Teleport", ChannelTime);
     }
     public void TeleportCheck() {
         var random = Random.Range(1, 100);
@@ -76,7 +74,7 @@ public class WizardSlimeEnemy : SeekingEntity {
     }
     public override void OnPlayerHit(Player player)
     {
-        player.AbsorbEnemy(model.health);
+        player.AbsorbEnemy(Model.health);
         base.OnPlayerHit(player);
     }
 	public override void Accept (IVial vial)

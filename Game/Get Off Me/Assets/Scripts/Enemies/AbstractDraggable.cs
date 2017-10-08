@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractDraggable : EventDispatcher, ITouchable
+public abstract class AbstractDraggable : MonoEventDispatcher, ITouchable
 {
     public HashSet<int> FingerIds { get; set; }
 
@@ -10,8 +10,6 @@ public abstract class AbstractDraggable : EventDispatcher, ITouchable
     protected Vector3 offset;
     protected Vector3 beganTouchPosition = Vector3.zero; // Refactor to began touch position?
     protected float lastTouchTime;
-    
-    protected float weight;
 
     public bool IgnoreTap { get; protected set; } // Feature: To bypass tap delay -> smoother swipe
     public bool Draggable { get; protected set; }

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BombSlimeEnemy : SeekingEntity {
-
-    public float magnitudeForExplode = 1.0f;
-    public float explodeRadius = 3.0f;
+    [SerializeField]
+    private float minimalExplodeImpact = 1.0f;
+    [SerializeField]
+    private float explodeRadius = 3.0f;
 
     private GameObject explosionObject;
 
@@ -24,7 +25,7 @@ public class BombSlimeEnemy : SeekingEntity {
         
         AbstractEntity entity = coll.gameObject.GetComponent<AbstractEntity>();
         if (entity) {
-            if (coll.relativeVelocity.magnitude > magnitudeForExplode && ScreenUtil.WorldPositionIsInView(transform.position))
+            if (coll.relativeVelocity.magnitude > minimalExplodeImpact && ScreenUtil.WorldPositionIsInView(transform.position))
             {
                 Explode();
             }
@@ -44,7 +45,7 @@ public class BombSlimeEnemy : SeekingEntity {
     }
     public override void OnPlayerHit(Player player)
     {
-        player.AbsorbEnemy(model.health);
+        player.AbsorbEnemy(Model.health);
         base.OnPlayerHit(player);
     }
     protected override void TrackDeath()

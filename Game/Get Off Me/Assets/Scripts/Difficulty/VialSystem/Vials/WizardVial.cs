@@ -10,9 +10,9 @@ public class WizardVial : IVial {
 	public void Apply(NormalSlimeEnemy entity) { }
 	public void Apply(RogueSlimeEnemy entity) { }
 	public void Apply(WizardSlimeEnemy entity){
-		entity.model.awardPoints += pointModifier;
-		entity.model.health += healthModifier;
-		entity.channelTime += channelTimeModifier;
+		entity.Model.awardPoints += pointModifier;
+		entity.Model.health += healthModifier;
+		entity.ChannelTime += channelTimeModifier;
 	}
 	public void Apply(MedicSlimeAlly entity) { }
     public void Apply(BombSlimeEnemy entity) { }
